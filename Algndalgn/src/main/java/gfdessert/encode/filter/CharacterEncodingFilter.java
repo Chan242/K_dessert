@@ -1,4 +1,4 @@
-package filter;
+package gfdessert.encode.filter;
 
 import java.io.IOException;
 

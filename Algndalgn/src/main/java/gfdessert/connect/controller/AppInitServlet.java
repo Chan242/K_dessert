@@ -1,4 +1,4 @@
-package sevlet;
+package gfdessert.connect.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
