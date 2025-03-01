@@ -1,0 +1,22 @@
+0.이클립스 설치(최신버전)
+
+1.워크스페이스 위치
+C:\workSpaceSemiPj
+
+2.tern 프로젝트 설치
+https://xianeml.tistory.com/67
+
+2-1 오라클 설치(미설치시)
+
+3.톰캣 설치
+https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.31/bin/apache-tomcat-10.1.31-windows-x86.zip
+를 워크스페이스에 압축 해제
+3-1 포트번호 9080설정
+톰캣 설치 이후 servers>Tomcat v10.1 Server at localhost-config>server.xml에서 8080으로 검색 후 수정
+
+4.깃연동
+https://github.com/Chan242/K_dessert.git
+리포지터리
+C:\semiPj
+
+5.working tree에서 웹프로젝트만 import

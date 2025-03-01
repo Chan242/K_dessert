@@ -1,0 +1,9 @@
+
+1.어드민 계정으로 접속
+
+2. 아래 구문 입력 -유저 생성
+CREATE USER ADMIN IDENTIFIED BY 1111 account unlock
+default tablespace users
+
+3. admin 계정 권한 부여
+grant DBA TO ADMIN;
