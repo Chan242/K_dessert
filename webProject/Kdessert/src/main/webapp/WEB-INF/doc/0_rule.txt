@@ -1,3 +1,7 @@
 1.파일 명명-카멜스타일(ex:camelStyle)
 2.복수형 없음
 3.오라클 설치는 기본 경로. 수정하지 말 것.
+4.공통적으로 사용되는 변수명 규칙
+-1.request, response 대신  req, res
+-2.db 컬럼명을 변수화할 때는 카멜스타일화 + 타입(Str/Int/List 등등) ex: M_INDEX -> mIndexInt
+
