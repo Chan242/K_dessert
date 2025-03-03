@@ -1,20 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
-	<c:forEach var="productDto" items="${productList}">
-	
-		${productDto.getpNameStr()}<br>
-		나오냐?<br>
-	
-	</c:forEach>
 
+
+	<div style="border: 1px solid black;">
+		<button style="float: left;">신규등록</button>
+	
+		<form action="" method="get" style="float:right;">
+			<input type="text" name="" placeholder="검색어 입력창" value="">
+			<button>
+				검색
+			</button>
+		</form>
+		
+		
+		<hr style="clear: both;">
+	
+		<table>
+			<tr>
+				<td>상품번호</td>
+				<td>상품명</td>
+				<td>상품가격</td>
+				<td>재고</td>
+				<td>공개여부</td>
+				<td>삭제</td>
+			
+			</tr>
+			<c:forEach var="productDto" items="${productList}">
+			<tr>
+				<td>${productDto.getpIndexInt()}</td>
+				<td>${productDto.getpNameStr()}</td>
+				<td>${productDto.getpPriceInt()}</td>
+				<td>${productDto.getpStockInt()}</td>
+				<td>
+					<c:choose>
+						<c:when test="${productDto.getpOpenInt() == 0}">공개</c:when>
+						<c:when test="${productDto.getpOpenInt() == 1}">비공개</c:when>
+						<c:otherwise>에러: ${productDto.getpOpenInt()}</c:otherwise>
+					</c:choose>
+				</td>
+				<td><button>삭제</button></td>
+			</tr>
+			</c:forEach>
+		
+		
+		</table>
+	</div>
 
 
 </body>
