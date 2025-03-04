@@ -47,7 +47,7 @@
 			<c:forEach var="productDto" items="${productList}">
 			<tr>
 				<td>${productDto.getpIndexInt()}</td>
-				<td>${productDto.getpNameStr()}</td>
+				<td><a href="./update?no=${productDto.getpIndexInt()}">${productDto.getpNameStr()}</a></td>
 				<td>${productDto.getpPriceInt()}</td>
 				<td>${productDto.getpStockInt()}</td>
 				<td>
@@ -57,7 +57,7 @@
 						<c:otherwise>에러: ${productDto.getpOpenInt()}</c:otherwise>
 					</c:choose>
 				</td>
-				<td><button>삭제</button></td>
+				<td><button onclick="location.href='./delete?no=${productDto.getpIndexInt()}'">삭제</button></td>
 			</tr>
 			</c:forEach>
 		
