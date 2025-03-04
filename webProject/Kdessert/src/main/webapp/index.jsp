@@ -10,6 +10,7 @@
 
 	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
+	<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
 	hello everyone
 	
 	

@@ -26,6 +26,6 @@
 <div id="mrgButton">
  	<a href="./TestMgr.jsp">
  		<span>관리자 페이지로<br>이동하기</span>
- 		<img src="../imges/mrgPBtn.png">
+ 		<img src="http://localhost:9080/Kdessert/page/admin/imges/mrgPBtn.png">
  	</a>
 </div>
