@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product Add View place</title>
+</head>
+<body>
+
+
+
+	<div>
+		<form action=""method="post">
+			<input type="text" size="50" name="pName" placeholder="상품명"><br>
+			<input type="text" size="50" name="pPrice" placeholder="상품가격"><br>
+			<textarea name="productInfo" name="pIntro" rows="4" cols="52" placeholder="상품설명"></textarea><br>
+			<input type="text" size="50" name="pStock" placeholder="재고"><br>
+			<input type="radio" name="pOpen" value="공개" checked="checked">공개
+			<input type="radio" name="pOpen" value="비공개">비공개<br>			
+			<input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
+			#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br>
+			<input type="text" size="50" placeholder="#태그"><br><!-- 추후구현 -->
+			추후 구현 예정(현재 받는 곳이 없음)
+			<input type="submit" value="입력">
+			<input type="reset" value="비우기"> <br>
+		</form>
+		
+		<button onclick="history.back()">뒤로가기</button>
+			
+				
+	</div>
+
+
+</body>
+</html>

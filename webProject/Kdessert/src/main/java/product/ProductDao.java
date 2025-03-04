@@ -3,6 +3,7 @@ package product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class ProductDao {
 	}
 	
 	public List<ProductDto> selectList() throws Exception{
+
 		PreparedStatement  pstmt = null;
 		ResultSet rs = null;
 		
@@ -52,7 +54,7 @@ public class ProductDao {
 				ProductDto productDto = new ProductDto(pIndexInt, pNameStr, pPriceInt, pStockInt, pOpenInt);
 				
 				productList.add(productDto);
-				
+			
 				
 				
 			}
@@ -83,5 +85,34 @@ public class ProductDao {
 		}return productList;
 		
 	}
+	
+	
+	public int addProduct() {
+		int result = 0;
+		PreparedStatement  pstmt = null;
+		
+
+		
+		try {
+			String sql = "";
+			
+			sql += "INSERT INTO PRODUCT";
+			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN)";
+			sql += " VALUES(P_INDEX_SEQ.NEXTVAL,?,?,?,?,?)";
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}
+	
+	
 
 }

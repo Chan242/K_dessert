@@ -6,12 +6,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<style type="text/css">
+		#container{
+
+		margin: auto;
+		width: 1200px;
+		height: 1200px;
+		background-color: lightgray;
+		
+	}
+	</style>
 </head>
 <body>
 
 
-	<div style="border: 1px solid black;">
-		<button style="float: left;">신규등록</button>
+
+	<div id="container">
+		<button style="float: left;" onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
 	
 		<form action="" method="get" style="float:right;">
 			<input type="text" name="" placeholder="검색어 입력창" value="">
@@ -54,6 +65,6 @@
 		</table>
 	</div>
 
-
+	
 </body>
 </html>

@@ -15,13 +15,13 @@ import java.util.ArrayList;
  * Servlet implementation class ProductController
  */
 @WebServlet("/admin/product/list")
-public class ProductController extends HttpServlet {
+public class ProductListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductController() {
+    public ProductListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,9 +48,9 @@ public class ProductController extends HttpServlet {
 			
 			req.setAttribute("productList", productList);
 			
-			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/product/productListView.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/product/ProductListView.jsp");
 			
-			rd.include(req, res);
+			rd.forward(req, res);
 			
 			
 		} catch (Exception e) {
