@@ -12,6 +12,7 @@
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
 	<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
 	hello everyone
+	<jsp:include page="./page/member/commPage/Mem_Footer.jsp"/>
 	
 	
 </body>
