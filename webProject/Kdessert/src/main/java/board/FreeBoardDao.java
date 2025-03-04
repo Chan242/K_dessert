@@ -21,10 +21,10 @@ private Connection connection;
 	}
 	
 	//게시판 정보 조회-메인 화면에 보여질 리스트
-	public List<FreeBoardDto> boardList() throws Exception {
+	public List<FreeBoardDto> freeBoardList() throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<FreeBoardDto> boardList = new ArrayList<FreeBoardDto>();
+		ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
 
 		String sql = "";
 
@@ -44,8 +44,6 @@ private Connection connection;
 			int brdNoticeInt = 0;
 			String brdIdStr = "";
 			String brdSubjectStr = "";
-			String brdTextStr = "";
-			String brdImageStr = "";
 			Date brdCreDate = null;
 
 			
@@ -55,13 +53,12 @@ private Connection connection;
 				brdNoticeInt = rs.getInt("F_NOTICE");
 				brdIdStr = rs.getString("M_ID");
 				brdSubjectStr = rs.getString("F_SUBJECT");
-				brdTextStr = rs.getString("");
 				brdCreDate = rs.getDate("CREATE_DATE");
 
-				FreeBoardDto boardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr
+				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr
 						, brdCreDate, brdViewInt, brdNoticeInt);
 
-				boardList.add(boardDto);
+				freeBoardList.add(freeBoardDto);
 			}
 
 		} catch (Exception e) {
@@ -87,61 +84,9 @@ private Connection connection;
 				e.printStackTrace();
 			}
 		} // finally end
-		return boardList;
+		return freeBoardList;
 	}
 	
 
-	//게시판 상세 정보 보이기
-	public FreeBoardDto boardDetail(int no) throws Exception {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		FreeBoardDto boardDto = new FreeBoardDto();
-		String sql = "";
-
-		sql = "SELECT ?, FREE_BOARD_TITLE, FREE_BOARD_CONTENT, "
-				+ "CREATE_DATE, MEMBER_NO, UPDATE_DATE "
-				+ "FROM FREE_BOARD";
-
-		pstmt = connection.prepareStatement(sql);
-
-		try {
-
-			pstmt.setInt(1, no);
-			rs = pstmt.executeQuery();
-
-			String title = "";
-			String content = "";
-			Date creDate = null;
-
-
-			if (rs.next()) {
-				title = rs.getString("FREE_BOARD_TITLE");
-				content = rs.getString("FREE_BOARD_CONTENT");
-				creDate = rs.getDate("CREATE_DATE");
-
-				boardDto.setNo(no);
-				boardDto.setTitle(title);
-				boardDto.setContent(content);
-				boardDto.setCreatedDate(creDate);
-			} else {
-				throw new Exception("해당 게시물은 존재하지 않습니다.");
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (SQLException e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		} // finally 종료
-		return boardDto;
-	}
+	
 }

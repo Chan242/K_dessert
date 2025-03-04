@@ -96,10 +96,16 @@
 				<span class="writer">조회수</span>
 				</span>
 			</h4>
-			<%for(int i=0; i<6; i++) {%>
-				<jsp:include page="./BoardLine.jsp"/>
-		
-			<%} %>
+	<c:if test="${not empty boardList}"> <!--  보드 리스트가 비어있지 않다면(null이 아니라면) -->
+	    <c:forEach var="board" items="${boardList}">
+	    	<jsp:include page="./BoardLine.jsp"/>
+	    </c:forEach>
+	</c:if>
+	<%-- 	
+		<%for(int i=0; i<6; i++) {%>
+		<jsp:include page="./BoardOneLine.jsp"/>
+
+	<%} %> --%>
 		</div>
 		
 		<jsp:include page="../commPage/Mem_Footer.jsp"/>

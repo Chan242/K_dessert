@@ -60,7 +60,7 @@
 				<a href="행사링크"><span>행사</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a href="게시판링크"><span>고객 게시판</span></a>
+				<a href="./FreeBoardList"><span>고객 게시판</span></a>
 			</li>
 		</ul>
 	</div>

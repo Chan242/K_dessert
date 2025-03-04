@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<meta charset="UTF-8" http-equiv='Refresh' content='5; url=/AwsMiniWebBasic/member/list'>
+<meta charset="UTF-8" http-equiv='Refresh' content='5; url=/Kdessert/'>
 
 <title>시스템 오류</title>
 

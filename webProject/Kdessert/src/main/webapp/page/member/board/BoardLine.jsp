@@ -23,9 +23,9 @@
 	<a>
 		<span style="margin-left:40px;">타이틀</span>
 		<span style="margin-right:40px;">
-			<span class="writer">작성자</span>
-			<span class="writer">작성일</span>
-			<span class="writer">조회수</span>
+			<span class="writer">${board.brdSubjectStr}</span>
+			<span class="writer">${board.brdCreDate}</span>
+			<span class="writer">${board.brdViewInt}</span>
 		</span>
 	</a>
 
