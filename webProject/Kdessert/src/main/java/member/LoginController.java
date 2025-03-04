@@ -19,7 +19,7 @@ public class LoginController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 		throws ServletException, IOException {
 	
-		RequestDispatcher rd = req.getRequestDispatcher("./loginForm.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("./LoginForm.jsp");
 		rd.forward(req, res);
 
 	}
@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet{
 			
 			// 회원이 없다면 로그인 실패 페이지로 이동
 			if(memberDto == null){
-				RequestDispatcher rd = req.getRequestDispatcher("./loginFail.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("./LoginFail.jsp");
 	
 				rd.forward(req, res);
 				return;
@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet{
 			HttpSession session = req.getSession();
 			session.setAttribute("member", memberDto);
 	
-			res.sendRedirect("../tempMain.jsp"); 
+			res.sendRedirect("../index.jsp"); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();

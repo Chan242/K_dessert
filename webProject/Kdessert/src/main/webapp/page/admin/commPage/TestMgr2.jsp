@@ -30,7 +30,7 @@
 <body>
 
 
-    <jsp:include page="./Header.jsp"/>
+    <jsp:include page="./adm_Header.jsp"/>
     <div id="content-wrapper">
         <jsp:include page="./Category_Mgr.jsp"/>
         <div id="container">

@@ -18,7 +18,7 @@ public class SignUpController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		RequestDispatcher rd = req.getRequestDispatcher("./signUpForm.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("./SignUpForm.jsp");
 		rd.forward(req, res);
 	
 	}
@@ -71,20 +71,20 @@ public class SignUpController extends HttpServlet{
 			if(result == 0) {
 				System.out.println("회원가입 실패");
 				
-				RequestDispatcher rd = req.getRequestDispatcher("./signUpFail.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("./SignUpFail.jsp");
 				
 				rd.forward(req, res);
 				return;
 			}
 			
 			//성공페이지로 이동
-			res.sendRedirect("./signUpSuccess.jsp");
+			res.sendRedirect("./SignUpSuccess.jsp");
 			
 		} catch (Exception e) {
 
 			e.printStackTrace();
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("../error.jsp");
 			dispatcher.forward(req, res);
 		}
 	
