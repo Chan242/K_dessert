@@ -43,7 +43,7 @@ public class MemberDao {
 				
 				//확인된 회원의 이름
 				name = rs.getString("M_NAME");
-				memberDto.setmNameStr(name);
+				memberDto.setMemNameStr(name);
 				
 				// 회원 정보 조회 확인됨
 				return memberDto;
@@ -103,14 +103,14 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 
 			//회원가입에서 입력된 정보
-			id = memberDto.getmIdStr();
-			pwd = memberDto.getmPasswordStr();
-			name = memberDto.getmNameStr();
-			tel = memberDto.getmTelStr();
-			email = memberDto.getmEmailStr();
-			address = memberDto.getmAddressStr();
-			addressSec = memberDto.getmAddressSecStr();
-			birth = memberDto.getmBirthDate();
+			id = memberDto.getMemIdStr();
+			pwd = memberDto.getMemPasswordStr();
+			name = memberDto.getMemNameStr();
+			tel = memberDto.getMemTelStr();
+			email = memberDto.getMemEmailStr();
+			address = memberDto.getMemAddressStr();
+			addressSec = memberDto.getMemAddressSecStr();
+			birth = memberDto.getMemBirthDate();
 			
 			//를 ?에 집어넣음
 			int colIndex = 1;
@@ -140,6 +140,67 @@ public class MemberDao {
 		} // finally 종료
 		
 		return result;
+	}
+	
+	public MemberDto findId(String name, String email) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String id = "";
+		
+		String sql = "";
+		sql += "SELECT M_ID";
+		sql += " FROM MEMBER";
+		sql += " WHERE M_NAME = ? AND M_EMAIL = ?";
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			int colIndex = 1;
+			pstmt.setString(colIndex++, name);
+			pstmt.setString(colIndex, email);
+
+			rs = pstmt.executeQuery();
+			
+			MemberDto memberDto = new MemberDto();
+			
+			if (rs.next()) {
+				
+				//확인된 회원의 아이디
+				id = rs.getString("M_ID");
+				memberDto.setMemIdStr(id);
+				
+				// 회원 정보 조회 확인됨
+				return memberDto;
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+
+		return null;
+		
 	}
 		
 		

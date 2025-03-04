@@ -7,6 +7,9 @@
 <title>회원가입 실패</title>
 </head>
 <body>
+
+	<jsp:include page="./Auth_Header.jsp"/>
+	
 	<h1>회원가입 실패</h1>
 
 </body>

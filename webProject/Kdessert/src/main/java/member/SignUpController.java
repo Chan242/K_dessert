@@ -47,14 +47,14 @@ public class SignUpController extends HttpServlet{
 			//입력받은 정보를 회원객체에 저장
 			MemberDto memberDto = new MemberDto();
 			
-			memberDto.setmNameStr(name);
-			memberDto.setmIdStr(id);
-			memberDto.setmPasswordStr(password);
-			memberDto.setmEmailStr(email);
-			memberDto.setmBirthDate(birth);
-			memberDto.setmTelStr(tel);
-			memberDto.setmAddressStr(address);
-			memberDto.setmAddressSecStr(addressSec);
+			memberDto.setMemNameStr(name);
+			memberDto.setMemIdStr(id);
+			memberDto.setMemPasswordStr(password);
+			memberDto.setMemEmailStr(email);
+			memberDto.setMemBirthDate(birth);
+			memberDto.setMemTelStr(tel);
+			memberDto.setMemAddressStr(address);
+			memberDto.setMemAddressSecStr(addressSec);
 			
 			//DB 연결
 			ServletContext sc = this.getServletContext();

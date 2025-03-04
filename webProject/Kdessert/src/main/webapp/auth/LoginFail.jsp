@@ -7,6 +7,9 @@
 <title>로그인 실패</title>
 </head>
 <body>
+
+	<jsp:include page="./Auth_Header.jsp"/>
+	
 	<h1>로그인 실패</h1>
 	<p>입력한 정보를 다시 확인해주세요</p>
 	
