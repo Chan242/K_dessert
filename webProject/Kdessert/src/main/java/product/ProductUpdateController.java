@@ -33,11 +33,11 @@ public class ProductUpdateController extends HttpServlet {
 		Connection conn = null;
 		RequestDispatcher rd = null;
 
-		String mNo = "";
+		String proIndex = "";
 		
 		try {
-			mNo = req.getParameter("no");
-			int no = Integer.parseInt(mNo);
+			proIndex = req.getParameter("no");
+			int no = Integer.parseInt(proIndex);
 
 			ServletContext sc = this.getServletContext();
 
@@ -53,7 +53,7 @@ public class ProductUpdateController extends HttpServlet {
 			}
 			
 			req.setAttribute("productDto", productDto);
-			rd = req.getRequestDispatcher(".//page/admin/product/ProductUpdateForm.jsp");
+			rd = req.getRequestDispatcher("../../page/admin/product/ProductUpdateForm.jsp");
 			rd.forward(req, res);
 			
 		} catch (Exception e) {
@@ -69,9 +69,65 @@ public class ProductUpdateController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		ProductDto productDto = null;
+		
+		Connection conn = null;
+		
+		try {
+			
+			int proIndexInt = Integer.parseInt(req.getParameter("proIndex"));
+			String proNameStr = req.getParameter("proName");
+			int proPriceInt = Integer.parseInt(req.getParameter("proPrice"));
+			int proStockInt = Integer.parseInt(req.getParameter("proStock"));
+			int proOpenInt = Integer.parseInt(req.getParameter("proOpen"));
+			String proIntroStr = req.getParameter("proIntro");
+			
+
+			
+			productDto = new ProductDto();
+			
+			productDto.setproIndexInt(proIndexInt);
+			productDto.setproNameStr(proNameStr);
+			productDto.setproPriceInt(proPriceInt);
+			productDto.setproStockInt(proStockInt);
+			productDto.setproOpenInt(proOpenInt);
+			productDto.setproIntroStr(proIntroStr);
+
+			
+			ServletContext sc = this.getServletContext();
+
+			conn = (Connection) sc.getAttribute("conn");
+
+			ProductDao productDao = new ProductDao();
+			productDao.setConnection(conn);
+			
+			int result = productDao.productUpdate(productDto);
+
+			if(result == 0){
+				System.out.println("회원 정보 조회가 실패하였습니다.");
+			}
+			
+			res.sendRedirect("./list");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			req.setAttribute("error", e);
+			RequestDispatcher rd = req.getRequestDispatcher("/Error.jsp");
+			rd.forward(req, res);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

@@ -53,26 +53,29 @@ public class ProductAddController extends HttpServlet {
 		Connection conn = null;
 		// 데이터베이스 연결 객체 선언 (아직 초기화되지 않음)
 
-		String pNameStr = req.getParameter("pName");
-		// 요청으로부터 "pName" 파라미터 값을 가져와서 문자열로 저장
+		String proNameStr = req.getParameter("proName");
+		// 요청으로부터 "proName" 파라미터 값을 가져와서 문자열로 저장
 
-		int pPriceInt = Integer.parseInt(req.getParameter("pPrice"));
-		// 요청으로부터 "pPrice" 파라미터 값을 가져와서 정수로 변환하여 저장
+		int proPriceInt = Integer.parseInt(req.getParameter("proPrice"));
+		// 요청으로부터 "proPrice" 파라미터 값을 가져와서 정수로 변환하여 저장
 
-		int pStockInt = Integer.parseInt(req.getParameter("pStock"));
-		// 요청으로부터 "pStock" 파라미터 값을 가져와서 정수로 변환하여 저장
+		int proStockInt = Integer.parseInt(req.getParameter("proStock"));
+		// 요청으로부터 "proStock" 파라미터 값을 가져와서 정수로 변환하여 저장
 				
 
-		int pOpenInt = (req.getParameter("pOpen").equals("공개")) ? 0 : 1;
-		// 요청으로부터 "pOpen" 파라미터 값을 가져와서 "공개"이면 0, 그렇지 않으면 1로 설정
+		int proOpenInt = Integer.parseInt(req.getParameter("proOpen"));
+		
+		String proIntroStr = req.getParameter("proIntro");
+
 
 		ProductDto productDto = new ProductDto();
 
-		productDto.setpNameStr(pNameStr);
-		productDto.setpPriceInt(pPriceInt);
-		productDto.setpStockInt(pStockInt);
-		productDto.setpOpenInt(pOpenInt);
-		productDto.setpIntroStr(pNameStr);
+		productDto.setproNameStr(proNameStr);
+		productDto.setproPriceInt(proPriceInt);
+		productDto.setproStockInt(proStockInt);
+		productDto.setproOpenInt(proOpenInt);
+		
+		productDto.setproIntroStr(proIntroStr);
 
 		try {
 			ServletContext sc = this.getServletContext();

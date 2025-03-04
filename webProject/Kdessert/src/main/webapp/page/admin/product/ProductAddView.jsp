@@ -12,12 +12,12 @@
 
 	<div>
 		<form action=""method="post">
-			<input type="text" size="50" name="pName" placeholder="상품명" required><br>
-			<input type="text" size="50" name="pPrice" placeholder="상품가격" required><br>
-			<textarea name="productInfo" name="pIntro" rows="4" cols="52" placeholder="상품설명" required></textarea><br>
-			<input type="text" size="50" name="pStock" placeholder="재고" required><br>
-			<input type="radio" name="pOpen" value="공개" checked="checked">공개
-			<input type="radio" name="pOpen" value="비공개">비공개<br>			
+			<input type="text" size="50" name="proName" placeholder="상품명" required><br>
+			<input type="text" size="50" name="proPrice" placeholder="상품가격" required><br>
+			<textarea name="productInfo" name="proIntro" rows="4" cols="52" placeholder="상품설명" required></textarea><br>
+			<input type="text" size="50" name="proStock" placeholder="재고" required><br>
+			<input type="radio" name="proOpen" value="0" checked="checked">공개
+			<input type="radio" name="proOpen" value="1">비공개<br>			
 			<input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
 			#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br>
 			<input type="text" size="50" placeholder="#태그"><br><!-- 추후구현 -->

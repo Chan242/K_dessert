@@ -2,88 +2,88 @@ package product;
 
 public class ProductDto {
 	
-	private int pIndexInt;
-	private String pNameStr;
-	private int pPriceInt;
-	private int pStockInt;
-	private String pIntroStr;
-	private int pOpenInt;
-	private String pImageStr;
+	private int proIndexInt;
+	private String proNameStr;
+	private int proPriceInt;
+	private int proStockInt;
+	private String proIntroStr;
+	private int proOpenInt;
+	private String proImageStr;
 	
 	public ProductDto() {
 		super();
 	}
 	
-	public ProductDto(int pIndexInt, String pNameStr, int pPriceInt, int pStockInt, int pOpenInt) {
+	public ProductDto(int proIndexInt, String proNameStr, int proPriceInt, int proStockInt, int proOpenInt) {
 		super();
-		this.pIndexInt = pIndexInt;
-		this.pNameStr = pNameStr;
-		this.pPriceInt = pPriceInt;
-		this.pStockInt = pStockInt;
-		this.pOpenInt = pOpenInt;
+		this.proIndexInt = proIndexInt;
+		this.proNameStr = proNameStr;
+		this.proPriceInt = proPriceInt;
+		this.proStockInt = proStockInt;
+		this.proOpenInt = proOpenInt;
 	}
 
-	public int getpIndexInt() {
-		return pIndexInt;
+	public int getproIndexInt() {
+		return proIndexInt;
 	}
 
-	public void setpIndexInt(int pIndexInt) {
-		this.pIndexInt = pIndexInt;
+	public void setproIndexInt(int proIndexInt) {
+		this.proIndexInt = proIndexInt;
 	}
 
-	public String getpNameStr() {
-		return pNameStr;
+	public String getproNameStr() {
+		return proNameStr;
 	}
 
-	public void setpNameStr(String pNameStr) {
-		this.pNameStr = pNameStr;
+	public void setproNameStr(String proNameStr) {
+		this.proNameStr = proNameStr;
 	}
 
-	public int getpPriceInt() {
-		return pPriceInt;
+	public int getproPriceInt() {
+		return proPriceInt;
 	}
 
-	public void setpPriceInt(int pPriceInt) {
-		this.pPriceInt = pPriceInt;
+	public void setproPriceInt(int proPriceInt) {
+		this.proPriceInt = proPriceInt;
 	}
 
-	public int getpStockInt() {
-		return pStockInt;
+	public int getproStockInt() {
+		return proStockInt;
 	}
 
-	public void setpStockInt(int pStockInt) {
-		this.pStockInt = pStockInt;
+	public void setproStockInt(int proStockInt) {
+		this.proStockInt = proStockInt;
 	}
 
-	public String getpIntroStr() {
-		return pIntroStr;
+	public String getproIntroStr() {
+		return proIntroStr;
 	}
 
-	public void setpIntroStr(String pIntroStr) {
-		this.pIntroStr = pIntroStr;
+	public void setproIntroStr(String proIntroStr) {
+		this.proIntroStr = proIntroStr;
 	}
 
-	public int getpOpenInt() {
-		return pOpenInt;
+	public int getproOpenInt() {
+		return proOpenInt;
 	}
 
-	public void setpOpenInt(int pOpenInt) {
-		this.pOpenInt = pOpenInt;
+	public void setproOpenInt(int proOpenInt) {
+		this.proOpenInt = proOpenInt;
 	}
 
-	public String getpImageStr() {
-		return pImageStr;
+	public String getproImageStr() {
+		return proImageStr;
 	}
 
-	public void setpImageStr(String pImageStr) {
-		this.pImageStr = pImageStr;
+	public void setproImageStr(String proImageStr) {
+		this.proImageStr = proImageStr;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductDto [pIndexInt=" + pIndexInt + ", pNameStr=" + pNameStr + ", pPriceInt=" + pPriceInt
-				+ ", pStockInt=" + pStockInt + ", pIntroStr=" + pIntroStr + ", pOpenInt=" + pOpenInt + ", pImageStr="
-				+ pImageStr + "]";
+		return "ProductDto [proIndexInt=" + proIndexInt + ", proNameStr=" + proNameStr + ", proPriceInt=" + proPriceInt
+				+ ", proStockInt=" + proStockInt + ", proIntroStr=" + proIntroStr + ", proOpenInt=" + proOpenInt + ", proImageStr="
+				+ proImageStr + "]";
 	}
 	
 	

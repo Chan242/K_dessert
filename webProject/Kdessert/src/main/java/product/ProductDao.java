@@ -36,20 +36,20 @@ public class ProductDao {
 
 			System.out.println(rs.isClosed());
 
-			int pIndexInt = 0;
-			String pNameStr = "";
-			int pStockInt = 0;
-			int pPriceInt = 0;
-			int pOpenInt = 0;
+			int proIndexInt = 0;
+			String proNameStr = "";
+			int proStockInt = 0;
+			int proPriceInt = 0;
+			int proOpenInt = 0;
 
 			while (rs.next()) {
-				pIndexInt = rs.getInt("P_INDEX");
-				pNameStr = rs.getString("P_NAME");
-				pPriceInt = rs.getInt("P_PRICE");
-				pStockInt = rs.getInt("P_STOCK");
-				pOpenInt = rs.getInt("P_OPEN");
+				proIndexInt = rs.getInt("P_INDEX");
+				proNameStr = rs.getString("P_NAME");
+				proPriceInt = rs.getInt("P_PRICE");
+				proStockInt = rs.getInt("P_STOCK");
+				proOpenInt = rs.getInt("P_OPEN");
 
-				ProductDto productDto = new ProductDto(pIndexInt, pNameStr, pPriceInt, pStockInt, pOpenInt);
+				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt);
 
 				productList.add(productDto);
 
@@ -86,11 +86,11 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			String pNameStr = productDto.getpNameStr();
-			int pPriceInt = productDto.getpPriceInt();
-			int pStockInt = productDto.getpStockInt();
-			int pOpenInt = productDto.getpOpenInt();
-			String pIntroStr = productDto.getpIntroStr();
+			String proNameStr = productDto.getproNameStr();
+			int proPriceInt = productDto.getproPriceInt();
+			int proStockInt = productDto.getproStockInt();
+			int proOpenInt = productDto.getproOpenInt();
+			String proIntroStr = productDto.getproIntroStr();
 
 			String sql = "";
 
@@ -100,11 +100,11 @@ public class ProductDao {
 
 			pstmt = connection.prepareStatement(sql);
 
-			pstmt.setString(1, pNameStr);
-			pstmt.setInt(2, pPriceInt);
-			pstmt.setString(3, pIntroStr);
-			pstmt.setInt(4, pStockInt);
-			pstmt.setInt(5, pOpenInt);
+			pstmt.setString(1, proNameStr);
+			pstmt.setInt(2, proPriceInt);
+			pstmt.setString(3, proIntroStr);
+			pstmt.setInt(4, proStockInt);
+			pstmt.setInt(5, proOpenInt);
 
 			result = pstmt.executeUpdate();
 
@@ -164,8 +164,120 @@ public class ProductDao {
 	public ProductDto selectOne(int no) {
 		// TODO Auto-generated method stub
 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ProductDto productDto = new ProductDto();
+
+		String sql = "";
+
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN,P_INTRO";
+		sql += " FROM PRODUCT";
+		sql += " WHERE P_INDEX = ?";
+
+		try {
+
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+
+			System.out.println(rs.isClosed());
+
+			int proIndexInt = 0;
+			String proNameStr = "";
+			int proStockInt = 0;
+			int proPriceInt = 0;
+			int proOpenInt = 0;
+			String proIntroStr = "";
+
+			if (rs.next()) {
+				proIndexInt = rs.getInt("P_INDEX");
+				proNameStr = rs.getString("P_NAME");
+				proPriceInt = rs.getInt("P_PRICE");
+				proStockInt = rs.getInt("P_STOCK");
+				proOpenInt = rs.getInt("P_OPEN");
+				proIntroStr =rs.getString("P_INTRO");
+
+				productDto.setproIndexInt(proIndexInt);
+				productDto.setproNameStr(proNameStr);
+				productDto.setproPriceInt(proPriceInt);
+				productDto.setproStockInt(proStockInt);
+				productDto.setproOpenInt(proOpenInt);
+				productDto.setproIntroStr(proIntroStr);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+
 		
-		return null;
+		return productDto;
+	}
+
+	public int productUpdate(ProductDto productDto) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+		
+		sql = "UPDATE PRODUCT";
+		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?";
+		sql += " WHERE P_INDEX = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, productDto.getproNameStr());
+			pstmt.setInt(2, productDto.getproPriceInt());
+			pstmt.setInt(3, productDto.getproStockInt());
+			pstmt.setInt(4, productDto.getproOpenInt());
+			pstmt.setString(5, productDto.getproIntroStr());
+			pstmt.setInt(6, productDto.getproIndexInt());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		
+
+		
+		
+		return result;
 	}
 
 }

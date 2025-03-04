@@ -41,23 +41,25 @@
 				<td>상품가격</td>
 				<td>재고</td>
 				<td>공개여부</td>
+				<td>수정</td>
 				<td>삭제</td>
 			
 			</tr>
 			<c:forEach var="productDto" items="${productList}">
 			<tr>
-				<td>${productDto.getpIndexInt()}</td>
-				<td><a href="./update?no=${productDto.getpIndexInt()}">${productDto.getpNameStr()}</a></td>
-				<td>${productDto.getpPriceInt()}</td>
-				<td>${productDto.getpStockInt()}</td>
+				<td>${productDto.getproIndexInt()}</td>
+				<td>${productDto.getproNameStr()}</td>
+				<td>${productDto.getproPriceInt()}</td>
+				<td>${productDto.getproStockInt()}</td>
 				<td>
 					<c:choose>
-						<c:when test="${productDto.getpOpenInt() == 0}">공개</c:when>
-						<c:when test="${productDto.getpOpenInt() == 1}">비공개</c:when>
-						<c:otherwise>에러: ${productDto.getpOpenInt()}</c:otherwise>
+						<c:when test="${productDto.getproOpenInt() == 0}">공개</c:when>
+						<c:when test="${productDto.getproOpenInt() == 1}">비공개</c:when>
+						<c:otherwise>에러: ${productDto.getproOpenInt()}</c:otherwise>
 					</c:choose>
 				</td>
-				<td><button onclick="location.href='./delete?no=${productDto.getpIndexInt()}'">삭제</button></td>
+				<td><a href="./update?no=${productDto.getproIndexInt()}">수정</a></td>
+				<td><a href="./delete?no=${productDto.getproIndexInt()}">삭제</a></td>
 			</tr>
 			</c:forEach>
 		
