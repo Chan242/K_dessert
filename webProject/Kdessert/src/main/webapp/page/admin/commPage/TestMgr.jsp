@@ -35,7 +35,7 @@
 </head>
 <body>
 
-	<jsp:include page="./adm_Header.jsp"/>
+	<jsp:include page="./Adm_Header.jsp"/>
 	 <div class="clearfix">
 	 	<div id="category-container">
 			<jsp:include page="./Category_Mgr.jsp"/>

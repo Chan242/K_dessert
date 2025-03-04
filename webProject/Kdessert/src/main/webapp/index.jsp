@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-hello everyone
+
+	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
+	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
+	hello everyone
+	
+	
 </body>
 </html>

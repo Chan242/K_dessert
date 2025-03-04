@@ -9,6 +9,6 @@
 <body>
 	<h1>회원가입 완료</h1>
 
-	<a href="../index.jsp">메인화면으로</a>
+	<a href="./login">로그인 페이지로 바로가기</a>
 </body>
 </html>

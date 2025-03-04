@@ -28,14 +28,13 @@
 
 <body>
 
-	<jsp:include page="./adm_Header.jsp"/>
-	<jsp:include page="./Category_Main.jsp"/>
+	<jsp:include page="./Adm_Header.jsp"/>
 
 	
 	<div id="container"></div>
 
 	<jsp:include page="./Move_MrgPage.jsp"/>
-	<jsp:include page="./adm_Footer.jsp"/>
+	<jsp:include page="./Adm_Footer.jsp"/>
 	
 
 </body>
