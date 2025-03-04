@@ -16,6 +16,17 @@ public class FreeBoardDto {
 	public FreeBoardDto() {
 		super();
 	}
+	
+	public FreeBoardDto(int brdIndexInt, String brdIdStr, String brdSubjectStr
+			, Date brdCreDate, int brdViewInt, int brdNoticeInt) {
+		super();
+		this.brdIndexInt = brdIndexInt;
+		this.brdIdStr = brdIdStr;
+		this.brdSubjectStr = brdSubjectStr;
+		this.brdCreDate = brdCreDate;
+		this.brdViewInt = brdViewInt;
+		this.brdNoticeInt = brdNoticeInt;
+	}
 
 	public FreeBoardDto(int brdIndexInt, String brdIdStr, String brdSubjectStr, String brdTextStr
 			, String brdImageStr, Date brdCreDate, int brdViewInt, int brdNoticeInt) {

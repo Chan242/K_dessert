@@ -58,8 +58,8 @@ private Connection connection;
 				brdTextStr = rs.getString("");
 				brdCreDate = rs.getDate("CREATE_DATE");
 
-				FreeBoardDto boardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr, brdTextStr
-						, brdImageStr, brdCreDate, brdViewInt, brdNoticeInt);
+				FreeBoardDto boardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr
+						, brdCreDate, brdViewInt, brdNoticeInt);
 
 				boardList.add(boardDto);
 			}
