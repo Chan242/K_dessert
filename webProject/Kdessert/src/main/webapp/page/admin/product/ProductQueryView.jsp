@@ -19,13 +19,13 @@
 </head>
 <body>
 
-
+검색결과
 
 	<div id="container">
 		<button style="float: left;" onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
 	
 		<form action="query" method="get" style="float:right;">
-			<input type="search" name="search" placeholder="검색어 입력창" value="">
+			<input type="search" name="search" placeholder="검색어 입력창">
 			<input type="submit" value="검색">
 		</form>
 		

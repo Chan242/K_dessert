@@ -14,7 +14,7 @@
 		<form action=""method="post">
 			<input type="text" size="50" name="proName" placeholder="상품명" required><br>
 			<input type="text" size="50" name="proPrice" placeholder="상품가격" required><br>
-			<textarea name="productInfo" name="proIntro" rows="4" cols="52" placeholder="상품설명" required></textarea><br>
+			<textarea name="proIntro" rows="4" cols="52" placeholder="상품설명" required></textarea><br>
 			<input type="text" size="50" name="proStock" placeholder="재고" required><br>
 			<input type="radio" name="proOpen" value="0" checked="checked">공개
 			<input type="radio" name="proOpen" value="1">비공개<br>			
