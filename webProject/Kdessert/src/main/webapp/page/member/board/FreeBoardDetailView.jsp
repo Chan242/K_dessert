@@ -11,7 +11,7 @@
 <style type="text/css">
 
 	#boardWrap {
-		width: 1100px;
+		width: 1000px;
 		min-height: 800px;
 		margin: auto;
 		margin-top: 20px;
@@ -75,19 +75,19 @@
 
 <div id="boardWrap">
 	<div id="title">
-		<h1>제목 ${board.brdSubjectStr}</h1>
+		<h1>제목 ${FreeBoardDto.getBrdSubjectStr}</h1>
 		<div id="head">
-			<span class="writer">작성자: 홍길동</span> <!-- 작성자 텍스트 -->
+			<span class="writer">작성자: ${FreeBoardDto.getBrdSubjectStr}</span> <!-- 작성자 텍스트 -->
 			
 			<div class="date-view">
-				<span>작성일: 2025-03-05</span> <!-- 작성일 텍스트 -->
-				<span>조회수: 123</span> <!-- 조회수 텍스트 -->
+				<span>작성일: ${FreeBoardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
+				<span>조회수: ${FreeBoardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
 			</div>
 		</div>
 	</div>
 	
 	<div id="context">
-		<p>여기 내용이 들어갑니다.</p> <!-- 내용 텍스트 -->
+		<p>${FreeBoardDto.setBrdTextStr }</p> <!-- 내용 텍스트 -->
 	</div>
 </div>
 
