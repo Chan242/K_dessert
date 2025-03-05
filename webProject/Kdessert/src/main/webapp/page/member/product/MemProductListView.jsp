@@ -13,6 +13,24 @@
 	}
 
 </style>
+
+<script type="text/javascript">
+
+window.onload = function() {
+    var inputElement = document.getElementById("numberInput");
+    var maxValue = parseInt(inputElement.max);
+
+    inputElement.addEventListener("input", function() {
+        var value = parseInt(this.value);
+        if (value > maxValue) {
+            this.value = maxValue;
+        }
+    });
+};
+
+
+</script>
+
 </head>
 <body>
 
@@ -37,7 +55,10 @@
 					<td><a href="./select?no=${userProductDto.getproIndexInt()}">${userProductDto.getproNameStr()}</a></td>
 					<td>${userProductDto.getproPriceInt()}</td>
 					<td>${userProductDto.getproStockInt()}</td>
-					<td>수량/담기 버튼이 들어갈 공간</td>
+					<td><form action="">
+				<input type="number" id="numberInput" value="" min="1" max=" ${userProductDto.getproStockInt()}">
+				<input type="submit" value="담기">
+			</form></td>
 
 				</tr>
 			</c:forEach>

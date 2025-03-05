@@ -15,6 +15,12 @@
 	
 
 </style>
+
+<script type="text/javascript">
+
+
+</script>
+
 </head>
 <body>
 
@@ -28,13 +34,13 @@
 		<div style="width: 300px; height: 300px; border: 1px solid black; float: left; margin: auto; text-align: center;">
 			이미지 자리
 		</div>
-		<div style="width: 200px; height: 100px; border: 1px solid black; float: left; margin-left: 100px; text-align: left;">
+		<div style="width: 200px; height: 200px; border: 1px solid black; float: left; margin-left: 100px; text-align: left;">
 			가격: ${userProductDto.getproPriceInt()}<br>
 			재고: ${userProductDto.getproStockInt()}<br>
-			가격: ${userProductDto.getproPriceInt()}<br>
-			<input type="number" value="" min="1" max=" ${userProductDto.getproStockInt()}">
-			
-			
+			<form action="">
+				<input type="number" id="numberInput" value="" min="1" max=" ${userProductDto.getproStockInt()}">
+				<input type="submit" value="담기">
+			</form>
 		</div>
 				<table style="margin: auto;">
 				<tr>
