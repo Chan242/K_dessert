@@ -10,15 +10,22 @@
 <style type="text/css">
 	#content-wrapper {
 	    display: flex; /* 가로 정렬을 위한 flexbox */
-	    top: 100px;
+	    top: 20px;
 	}
 	#container{
 		float: inherit;
 		right: 100px;
 		margin: auto;
+		margin-top: 100px;
 		width: 500px;
 		height: 500px;
 		background-color: lightgray;
+		
+	}
+	input{
+	position: absolute;
+
+	 bottom: 40px;
 		
 	}
 
@@ -35,6 +42,7 @@
         <jsp:include page="./Category_Mgr.jsp"/>
         <div id="container">
             할로
+        <input type="button" value="어쩌고">
         </div>
     </div>
 

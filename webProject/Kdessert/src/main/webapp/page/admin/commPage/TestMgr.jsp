@@ -16,6 +16,7 @@
 	#container{
 		float: inherit;
 		right: 100px;
+		top: 100px;
 		margin: auto;
 		width: 500px;
 		height: 500px;

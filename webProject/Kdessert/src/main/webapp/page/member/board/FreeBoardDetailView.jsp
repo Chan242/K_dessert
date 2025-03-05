@@ -1,0 +1,96 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>InsertTitle</title>
+
+<style type="text/css">
+
+	#boardWrap {
+		width: 1100px;
+		min-height: 800px;
+		margin: auto;
+		margin-top: 20px;
+
+	}
+
+	/* 제목 스타일 */
+	#title {
+		border-bottom: 2px solid black;
+		padding: 20px;
+	}
+	
+	
+	#context {
+		margin: 20px;
+	}
+	
+	/* 상단 헤더 */
+	#head {
+		display: flex;
+		align-items: center; /* 수직 가운데 정렬 */
+		
+		font-size: 14px; /* 폰트 크기 조정 */
+		color: #555; /* 색상 */
+	}
+
+	/* 작성자 왼쪽 정렬 */
+	.writer {
+		flex: 1;
+		font-weight: bold;
+	}
+
+	/* 작성일, 조회수 오른쪽 정렬 */
+	.date-view {
+		display: flex;
+		gap: 15px; /* 간격 */
+		justify-content: flex-end;
+	}
+
+	/* 작성일, 조회수 항목 스타일 */
+	.date-view span {
+		font-size: 14px;
+		color: #888;
+	}
+
+	/* 콘텐츠 영역 스타일 */
+	#context {
+		font-size: 16px;
+		line-height: 1.5;
+		margin-bottom: 70px;
+		border-bottom: 1px solid gray;
+	}
+
+</style>
+
+</head>
+
+<body>
+<jsp:include page="../commPage/Mem_Header.jsp"/>
+<jsp:include page="../commPage/Category_Main.jsp"/>
+
+<div id="boardWrap">
+	<div id="title">
+		<h1>제목 ${board.brdSubjectStr}</h1>
+		<div id="head">
+			<span class="writer">작성자: 홍길동</span> <!-- 작성자 텍스트 -->
+			
+			<div class="date-view">
+				<span>작성일: 2025-03-05</span> <!-- 작성일 텍스트 -->
+				<span>조회수: 123</span> <!-- 조회수 텍스트 -->
+			</div>
+		</div>
+	</div>
+	
+	<div id="context">
+		<p>여기 내용이 들어갑니다.</p> <!-- 내용 텍스트 -->
+	</div>
+</div>
+
+<jsp:include page="../commPage/Mem_Footer.jsp"/>
+</body>
+</html>

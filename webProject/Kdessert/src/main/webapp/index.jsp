@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<style type="text/css">
+#container{
+	/* 푸터 맨 하단으로 고정할 수 있게 추가 */
+	min-height: 800px; /* 최소높이 지정 */
+
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -11,9 +19,12 @@
 	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
 	<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
-	hello everyone
+	<div id="container">
+		hello everyone
+	
+	</div>
 	<jsp:include page="./page/member/commPage/Mem_Footer.jsp"/>
 	
-	
+
 </body>
 </html>

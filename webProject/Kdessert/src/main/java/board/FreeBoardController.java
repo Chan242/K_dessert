@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 
 
-@WebServlet("/FreeBoard")
+@WebServlet("/board/freeboard")
 public class FreeBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

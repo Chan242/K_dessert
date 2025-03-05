@@ -29,7 +29,7 @@ private Connection connection;
 		String sql = "";
 
 		sql = "SELECT F_index, M_ID, F_SUBJECT, F_TEXT, "
-				+ "F_IMAGE, F_VIEW, CREATE_DATE, F_NOTICE "
+				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
 				+ "FROM FREE_BOARD "
 				+ "ORDER BY F_index ASC";
 
@@ -53,7 +53,7 @@ private Connection connection;
 				brdNoticeInt = rs.getInt("F_NOTICE");
 				brdIdStr = rs.getString("M_ID");
 				brdSubjectStr = rs.getString("F_SUBJECT");
-				brdCreDate = rs.getDate("CREATE_DATE");
+				brdCreDate = rs.getDate("F_CRE_DATE");
 
 				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr
 						, brdCreDate, brdViewInt, brdNoticeInt);
@@ -87,6 +87,68 @@ private Connection connection;
 		return freeBoardList;
 	}
 	
+	//게시판 상세 내용 보이기
+	public FreeBoardDto freeBoardDetail(int no) 
+			throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		FreeBoardDto freeboardDto = new FreeBoardDto();
+		String sql = "";
+
+		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT,"
+				+ " F_IMAGE, M_ID, F_VIEW, F_NOTICE,"
+				+ " F_CRE_DATE"
+				+ " FROM FREE_BOARD;";
+
+		pstmt = connection.prepareStatement(sql);
+
+		try {
+
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+
+			String brdSubjectStr = "";//제목
+			String brdTextStr = "";//내용
+			String brdIdStr = "";//작성자
+			Date brdCreDate = null;//작성일
+			int brdViewInt = 0;// 조회수
+
+
+			if (rs.next()) {
+				brdSubjectStr = rs.getString("F_SUBJECT");
+				brdTextStr = rs.getString("F_TEXT");
+				brdIdStr = rs.getString("M_ID");
+				brdCreDate = rs.getDate("CREATE_DATE");
+				brdViewInt = rs.getInt("F_VIEW");
+
+				freeboardDto.setBrdSubjectStr(brdSubjectStr);
+				freeboardDto.setBrdTextStr(brdTextStr);
+				freeboardDto.setBrdIdStr(brdIdStr);
+				freeboardDto.setBrdCreDate(brdCreDate);
+				freeboardDto.setBrdViewInt(brdViewInt);
+
+			} else {
+				throw new Exception("해당 게시물은 존재하지 않습니다.");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally 종료
+		
+		return freeboardDto;
+	}
 
 	
 }
