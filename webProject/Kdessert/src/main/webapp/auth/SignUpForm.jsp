@@ -57,7 +57,8 @@
     }
     
     .btn_style{
-		width: 200px;    
+		width: 200px;
+		
     }
     
     #btn_cancle {

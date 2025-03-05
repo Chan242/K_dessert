@@ -11,8 +11,25 @@
 <style type="text/css">
 
 	table, tr, th, td {
-		border: 1px solid #BEBEBE;
+		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
+		text-align: center;
+	}
+	
+	table {
+		border-top: 2px solid black;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+	
+	a {
+		color: black;
 	}
 
 </style>
@@ -23,6 +40,10 @@
 
 	<h2>회원관리</h2>
 	
+	
+	<input type="text">
+	<input type="submit" value="검색">
+		
 	<table>
 		<thead>
 			<tr>
@@ -35,12 +56,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach>
+			<c:forEach var="member" items="${memberList}">
 				<tr>
-					<td></td>
+					<td>${member.memIndexInt}</td>
+					<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
+					<td>${member.memIdStr}</td>
+					<td>${member.memEmailStr}</td>
+					<td>${member.memBirthDate}</td>
+					<td>${member.memSignTimeDate}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		
 		
 	
 	</table>

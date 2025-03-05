@@ -40,6 +40,16 @@ public class MemberDto {
 		this.memNoteStr = memNoteStr;
 	}
 
+	public MemberDto(int memIndexInt, String memNameStr, String memIdStr, 
+			String memEmailStr,Date memBirthDate, Date memSignTimeDate) {
+			super();
+			this.memIndexInt = memIndexInt;
+			this.memNameStr = memNameStr;
+			this.memIdStr = memIdStr;
+			this.memEmailStr = memEmailStr;
+			this.memBirthDate = memBirthDate;
+			this.memSignTimeDate = memSignTimeDate;
+		}
 	
 	
 	@Override

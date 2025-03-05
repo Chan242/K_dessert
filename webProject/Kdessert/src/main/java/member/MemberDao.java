@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDao {
 
@@ -142,6 +144,8 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	//id 찾기
 	public MemberDto findId(String name, String email) {
 		
 		PreparedStatement pstmt = null;
@@ -203,5 +207,201 @@ public class MemberDao {
 		
 	}
 		
+	// 전체 회원 조회	
+	public List<MemberDto> selectList() {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
+		ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
+		
+		String sql = "";
+		
+		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
+		sql += " FROM MEMBER";
+		sql += " ORDER BY M_INDEX ASC";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			int index = 0;
+			String name = "";
+			String id = "";
+			String email = "";
+			Date birth = null;
+			Date signTime = null;
+			
+			while (rs.next()) {
+				index = rs.getInt("M_INDEX");
+				name = rs.getString("M_NAME");
+				id = rs.getString("M_ID");
+				email = rs.getString("M_EMAIL");
+				birth = rs.getDate("M_BIRTH");
+				signTime = rs.getDate("M_SIGN_TIME");
+				
+				MemberDto memberDto = new MemberDto(index, name, id, email, birth, signTime);
+				
+				memberList.add(memberDto);
+						
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		
+		return memberList;
+		
+	}
+	
+	// 단일 회원 조회
+	public MemberDto memberSelectOne(int no) {
+		
+		MemberDto memberDto = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "";
+
+		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_TEL, ";
+		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_POINT, M_NOTE";
+		sql += " FROM MEMBER";
+		sql += " WHERE M_INDEX =?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+
+			int index = 0;
+			String name = "";
+			String id = "";
+			String email = "";
+			Date birth = null;
+			String tel = "";
+			String address = "";
+			String addressSec ="";
+			Date signTime = null;
+			int point = 0;
+			String note = "";
+
+			if (rs.next()) {
+				index = rs.getInt("M_INDEX");
+				name = rs.getString("M_NAME");
+				id = rs.getString("M_ID");
+				email = rs.getString("M_EMAIL");
+				birth = rs.getDate("M_BIRTH");
+				tel = rs.getString("M_TEL");
+				address = rs.getString("M_ADDRESS");
+				addressSec = rs.getString("M_ADDRESS_SEC");
+				signTime = rs.getDate("M_SIGN_TIME");
+				point = rs.getInt("M_POINT");
+				note = rs.getString("M_NOTE");
+
+				memberDto = new MemberDto();
+
+				memberDto.setMemIndexInt(index);
+				memberDto.setMemNameStr(name);
+				memberDto.setMemIdStr(id);
+				memberDto.setMemEmailStr(email);
+				memberDto.setMemBirthDate(birth);
+				memberDto.setMemTelStr(tel);
+				memberDto.setMemAddressStr(address);
+				memberDto.setMemAddressSecStr(addressSec);
+				memberDto.setMemSignTimeDate(signTime);
+				memberDto.setMemPointInt(point);
+				memberDto.setMemNoteStr(note);
+				
+			} else {
+				throw new Exception("해당 번호의 회원을 찾을 수 없습니다.");
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+		return memberDto;
+	}
+	
+	public int memberUpdate(MemberDto memberDto) throws SQLException {
+		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+		sql = "UPDATE MEMBER";
+		sql += " SET M_NOTE=?";
+		sql += " WHERE M_INDEX =?";
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, memberDto.getMemNoteStr());
+			pstmt.setInt(2, memberDto.getMemIndexInt());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+		return result;
+	}
+	
 }
