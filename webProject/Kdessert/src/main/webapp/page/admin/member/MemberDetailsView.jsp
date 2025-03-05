@@ -47,70 +47,117 @@
     	background-color: #64473E;
     	color: white;
     }
+    
+    #div_sidebar {
+    	float: left;
+    }
+    
+    #div_form {
+    	magin-top: 50px;
+    	margin-left: 50px;
+    	width: 1300px;
+    	float: left;
+    
+    }
+    
+    #div_buttons {
+    	margin: auto;
+    	width: 620px;
+    }
+    #table_form {
+    	margin: auto;
+    	width: 800px;
+    }
 
 </style>
+
+
 
 </head>
 
 <body>
-
-	<table>
-		<tr>
-			<th scope="row">회원번호</th>
-			<td>${memberDto.memIndexInt}</td>
-		</tr>
-		<tr>
-			<th scope="row">이름</th>
-			<td>${memberDto.memNameStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">아이디</th>
-			<td>${memberDto.memIdStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">이메일</th>
-			<td>${memberDto.memEmailStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">생년월일</th>
-			<td>${memberDto.memBirthDate}</td>
-		</tr>
-		<tr>
-			<th scope="row">전화번호</th>
-			<td>${memberDto.memTelStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">기본주소</th>
-			<td>${memberDto.memAddressStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">상세주소</th>
-			<td>${memberDto.memAddressSecStr}</td>
-		</tr>
-		<tr>
-			<th scope="row">가입일</th>
-			<td>${memberDto.memSignTimeDate}</td>
-		</tr>
-		<tr>
-			<th scope="row">포인트</th>
-			<td>${memberDto.memPointInt}</td>
-		</tr>
-		<tr>
-			<th scope="row">비고</th>
-			<td>${memberDto.memNoteStr}</td>
-		</tr>
-	</table>
 	
-	<div id="div_buttons">
-		<input id="btn_goIndex" class="btn_style" type="button" value="목록으로" onclick="history.go(-1)">
-		<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${memberDto.memIndexInt}'">
-		<input id="btn_memDelete" class="btn_style" type="button" value="강제탈퇴" onclick="location.href='./'">
+		<jsp:include page="../commPage/Adm_Header.jsp"/>
+	
+	<div id="wrap">
+		<div id="div_sidebar">
+			<jsp:include page="../commPage/Category_Mgr.jsp"/>
+		</div>
+		<div id="div_form">
+			<h2 style="margin: 40px;">해당 카테고리 명</h2>
+			<form action="./delete" id="deleteForm" method="get">
+				<table id="table_form">
+					<tr>
+						<th scope="row">회원번호</th>
+						<td><input type="hidden" name="no" value="${memberDto.memIndexInt}">${memberDto.memIndexInt}</td>
+					</tr>
+					<tr>
+						<th scope="row">이름</th>
+						<td>${memberDto.memNameStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">아이디</th>
+						<td>${memberDto.memIdStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">이메일</th>
+						<td>${memberDto.memEmailStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">생년월일</th>
+						<td>${memberDto.memBirthDate}</td>
+					</tr>
+					<tr>
+						<th scope="row">전화번호</th>
+						<td>${memberDto.memTelStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">기본주소</th>
+						<td>${memberDto.memAddressStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">상세주소</th>
+						<td>${memberDto.memAddressSecStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">가입일</th>
+						<td>${memberDto.memSignTimeDate}</td>
+					</tr>
+					<tr>
+						<th scope="row">포인트</th>
+						<td>${memberDto.memPointInt}</td>
+					</tr>
+					<tr>
+						<th scope="row">비고</th>
+						<td>${memberDto.memNoteStr}</td>
+					</tr>
+				</table>
+				
+				<div id="div_buttons">
+					<input id="btn_goIndex" class="btn_style" type="button" value="목록으로" onclick="history.go(-1)">
+					<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${memberDto.memIndexInt}'">
+					<input id="btn_memDelete" class="btn_style" type="button" value="강제탈퇴" onclick="deleteMember()">
+				</div>
+				
+			</form>
+		</div>
 	</div>
+	
 
 </body>
 
 <script type="text/javascript">
-	
+
+	function deleteMember() {
+		var confirmStr = "주의\n탈퇴는 돌이킬 수 없습니다.\n정말로 실행하겠습니까?"
+		if(confirm(confirmStr) == true){
+			var form = document.getElementById("deleteForm");
+			form.submit();
+		}else{
+			return false;
+		}
+	}
+
 </script>
 
 </html>

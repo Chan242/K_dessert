@@ -31,6 +31,26 @@
 	a {
 		color: black;
 	}
+	
+	#div_category{
+		float: left
+	}
+	
+	#div_content{
+		width: 1300px;
+		margin-left: 50px; 
+		float: left;
+	}
+
+	#div_search{
+ 		width: 250px;
+		margin: auto;
+	}
+
+	#table_info{
+		margin: auto;
+		width: 1200px;
+	}
 
 </style>
 
@@ -38,39 +58,51 @@
 
 <body>
 
-	<h2>회원관리</h2>
+	<jsp:include page="../commPage/Adm_Header.jsp"/>
 	
-	
-	<input type="text">
-	<input type="submit" value="검색">
+	<div>
+		<div id="div_category">
+			<jsp:include page="../commPage/Category_Mgr.jsp"/>
+		</div>
 		
-	<table>
-		<thead>
-			<tr>
-				<th scope="col">회원번호</th>
-				<th scope="col">이름</th>
-				<th scope="col">아이디</th>
-				<th scope="col">이메일</th>
-				<th scope="col">생년월일</th>
-				<th scope="col">가입일자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="member" items="${memberList}">
-				<tr>
-					<td>${member.memIndexInt}</td>
-					<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
-					<td>${member.memIdStr}</td>
-					<td>${member.memEmailStr}</td>
-					<td>${member.memBirthDate}</td>
-					<td>${member.memSignTimeDate}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+		<div id="div_content">
+			<h2 style="margin: 40px;">회원관리</h2>
+			
+			<div id="div_search">
+				<input type="text">
+				<input type="submit" value="검색">
+			</div>
 		
+			<table id="table_info">
+				<thead>
+					<tr>
+						<th scope="col">회원번호</th>
+						<th scope="col">이름</th>
+						<th scope="col">아이디</th>
+						<th scope="col">이메일</th>
+						<th scope="col">생년월일</th>
+						<th scope="col">가입일자</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="member" items="${memberList}">
+						<tr>
+							<td>${member.memIndexInt}</td>
+							<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
+							<td>${member.memIdStr}</td>
+							<td>${member.memEmailStr}</td>
+							<td>${member.memBirthDate}</td>
+							<td>${member.memSignTimeDate}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				
+				
+			
+			</table>
 		
-	
-	</table>
+		</div>	
+	</div>
 	
 
 </body>

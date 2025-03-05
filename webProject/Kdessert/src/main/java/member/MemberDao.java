@@ -404,4 +404,43 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int memberDelete(int no) throws SQLException {
+		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+		
+		sql += "DELETE FROM MEMBER";
+		sql += " WHERE M_INDEX = ?";
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		} finally {
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+
+		return result;
+	}
+	
 }

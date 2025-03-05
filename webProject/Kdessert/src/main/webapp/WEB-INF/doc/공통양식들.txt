@@ -56,3 +56,44 @@ background-color 와 color 를 수정하며 사용하면 됩니다 (ex: backgrou
     
     
 -------------------------------------------------------
+
+관리자 페이지 레이아웃 맞추기
+
+0. 헤더와 사이드바를 인클루드한다
+
+<jsp:include page="../commPage/Adm_Header.jsp"/>
+<jsp:include page="../commPage/Category_Mgr.jsp"/>
+
+1. 사이드바, 내용부분을 각각 div로 감싼 뒤, 두 div를 다시 div로 감싼다(wrap)
+
+(예시)
+
+	헤더
+	<div>
+		<div id="사이드바div">
+			사이드바
+		</div>
+		<div id="내용div">
+			내용
+		</div>
+	</div>
+
+2. 사이드바div를 css에서 float: left;
+
+3. 내용div를 css에서 width: 1300px; margin-left: 50px; float: left;
+
+4. 내용div 내부 제일 위에 카테고리명 삽입: <h2 style="margin: 40px;">해당 카테고리 명</h2>
+
+(예시)
+
+	(생략)
+	<div id="내용div">
+		<h2 style="margin: 40px;">해당 카테고리 명</h2>
+		내용
+	</div>
+
+5. 내용div 안에 있는 요소들의 width 조절해서 margin: auto; (혹은 임의로 조정)
+	+추가의견: 메인 테이블은 width 1200px 정도가 적당한듯 합니다
+
+-------------------------------------------------------
+

@@ -57,6 +57,7 @@ public class MemberUpdateController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		MemberDto memberDto = null;
 		
 		Connection conn = null;
@@ -83,7 +84,7 @@ public class MemberUpdateController extends HttpServlet{
 				System.out.println("회원 정보 수정에 실패하였습니다.");
 			}
 			
-			res.sendRedirect("./details");
+			res.sendRedirect("./list");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
