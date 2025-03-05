@@ -1,0 +1,128 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+
+<style type="text/css">
+
+	#container {
+		width: 1200px;
+		margin: auto;
+	}
+	
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: left;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+	
+	#div_btn {
+		width: 410px;
+		margin: auto;
+		margin-top: 50px;
+	}
+	
+	#div_btn input {
+		width: 200px;
+		padding: 10px;
+
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+
+		background-color: white;
+		color: #7B7B7B;
+		font-size: 16px;	
+	}
+	
+	#div_category {
+		float: left;
+	}
+	#div_content {
+		width: 950px;
+		float: right;
+	}
+	#table_form {
+		width: 600px;
+		height: 500px;
+		margin: auto;
+		margin-top: 50px;
+	}
+	
+	#table_form th {
+		width: 120px;
+	}
+
+</style>
+
+</head>
+
+<body>
+
+
+	<jsp:include page="../commPage/Mem_Header.jsp"/>
+	<jsp:include page="../commPage/Category_Main.jsp"/>
+	
+	<div id="container">
+		<div id="div_category">
+			<jsp:include page="../commPage/Category_Mypage.jsp"/>
+		</div>
+		<div id="div_content">
+			<table id="table_form">
+				<tr>
+					<th scope="row">이름</th>
+					<td>${memberDto.memNameStr}</td>
+				</tr>
+				<tr>
+					<th scope="row">아이디</th>
+					<td>${memberDto.memIdStr}</td>
+				</tr>
+				<tr>
+					<th scope="row">이메일</th>
+					<td>${memberDto.memEmailStr}</td>
+				</tr>
+				<tr>
+					<th scope="row">생년월일</th>
+					<td>${memberDto.memBirthDate}</td>
+				</tr>
+<!-- 				<tr> -->
+<!-- 					<th scope="row">주소</th> -->
+<!-- 					<td> -->
+<%-- 						${memberDto.memAddressStr} --%>
+<!-- 						<br> -->
+<%-- 						${memberDto.memAddressStrSec} --%>
+<!-- 					</td> -->
+<!-- 				</tr> 이거 왜 안됨-->
+			</table>
+			<div id="div_btn">
+				<input type="button" value="수정하기">		
+				<input type="button" value="탈퇴하기" style="background-color: #64473E;color: white;">		
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+<script type="text/javascript">
+
+</script>
+
+</html>

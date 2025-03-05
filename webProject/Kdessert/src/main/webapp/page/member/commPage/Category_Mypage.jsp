@@ -4,27 +4,38 @@
 
 <style type="text/css">
 
-	.side_Menues {
-		list-style: none;
-		
-		font-size: 27px;
+	#header {
+		border-bottom: solid 1px #E1E1E1; /* 헤더 경계선 */
 	}
 	
-	#side_MenuBar ul{
-		width: 320px; 
-		height: 1300px;
-		
+	
+	#side_MenuBar {
+	
+		width: 250px; 
+		height: 800px;
 
 		margin: 0px;
 		padding-top: 55px;
 
-		background-color: #64473E;
-	
+		background-color: #EF9157;
+	}
+
+	#side_MenuBar ul{
+		padding: 0;
+		padding-left: 45px;
 	}
 	
-	.side_Menues a{
+	.side_Menues {
+		list-style: none;
+		font-size: 24px;
+	}
+	
+	.side_Menues a, h1{
+
+/* 	    width: 120px; */
+	    height: 80px;
+
 		display: flex;  /* flex 정렬 */
-	    gap: 65px;
 	    flex: 1;
 	    
 	    text-decoration: none;  /* a태그 밑줄 제거 */
@@ -32,50 +43,37 @@
 	    
 		justify-content : flex-start;/* 글자 가로 왼쪽 정렬 */
 		align-items : center;/* 글자 세로 중앙정렬 */
-	    
-	    padding-left: 80px; /* 왼쪽 여백 추가 */
-	    
-	    width: 230px;
-	    height: 90px;
-	    
-	    margin: 0px;
-	    
-	    font-weight: bold;/* 폰트 두께 */
-	    
-	}
-	
-	.side_Menues span{
-
-	}
-	
-	#header {
-		border-bottom: solid 1px #E1E1E1; /* 헤더 경계선 */
+		
 		
 	}
+	
+	h1 {
+		font-size: 32px;
+		margin: 0;
+		justify-content : center;/* 글자 가로 가운데 정렬 */
+	}
+
+	
+	
 
 
 </style>
 
 
 <div id="side_MenuBar">
+		<h1>마이페이지</h1>
 	<ul>
 		<li class='side_Menues'>
-			<a href="주문_관리_링크"><span>주문 관리</span></a>
+			<a href="">개인정보</a>
 		</li>
 		<li class='side_Menues'>
-			<a href="회원_관리_링크"><span>회원 관리</span></a>
+			<a href=""><span>주문정보</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="제품_관리_링크"><span>제품 관리</span></a>
+			<a href=""><span>장바구니</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="다과_관리_링크"><span>다과 관리</span></a>
-		</li>
-		<li class='side_Menues'>
-			<a href="행사_관리_링크"><span>행사 관리</span></a>
-		</li>
-		<li class='side_Menues'>
-			<a href="통계_관리_링크"><span>통계</span></a>
+			<a href=""><span>마이포인트</span></a>
 		</li>
 	</ul>
 </div>

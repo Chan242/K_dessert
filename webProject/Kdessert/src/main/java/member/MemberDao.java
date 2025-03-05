@@ -24,11 +24,12 @@ public class MemberDao {
 		ResultSet rs = null;
 
 		String sql = "";
-		sql += "SELECT M_NAME";
+		sql += "SELECT M_NAME, M_INDEX";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_ID = ? AND M_PASSWORD = ?";
 
 		String name = "";
+		int index = 0;
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -43,9 +44,12 @@ public class MemberDao {
 			
 			if (rs.next()) {
 				
-				//확인된 회원의 이름
+				//확인된 회원의 이름과 번호
 				name = rs.getString("M_NAME");
 				memberDto.setMemNameStr(name);
+				
+				index = rs.getInt("M_INDEX");
+				memberDto.setMemIndexInt(index);
 				
 				// 회원 정보 조회 확인됨
 				return memberDto;

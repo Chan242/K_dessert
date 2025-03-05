@@ -43,7 +43,7 @@
 	
 		<div id="find_id" class="find_div">
 			<p>아이디 찾기</p>
-			<form action="./findId" method="get">
+			<form action="./findid" method="get">
 				<div class="form_div">
 					<input type="text" name="name" placeholder="이름 입력">
 					<input type="email" name="email" placeholder="이메일 입력">
@@ -54,7 +54,7 @@
 		
 		<div id="find_pwd" class="find_div">
 			<p>비밀번호 찾기</p>
-			<form action="/findPwd" method="get">
+			<form action="/findpwd" method="get">
 				<div class="form_div">
 					<input type="email" name="email" placeholder="이메일 입력">
 				</div>

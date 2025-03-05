@@ -29,7 +29,7 @@
 	
 	.btn_style {
 
-		width: 200px;
+		width: 150px;
 		padding: 10px;
 
 		border: 1px solid #ccc;
@@ -62,11 +62,16 @@
     
     #div_buttons {
     	margin: auto;
-    	width: 620px;
+    	margin-top: 50px;
+    	width: 462px;
     }
     #table_form {
     	margin: auto;
-    	width: 800px;
+    	width: 500px;
+    }
+    
+    #table_form th{
+    	width: 100px;
     }
 
 </style>
@@ -84,7 +89,8 @@
 			<jsp:include page="../commPage/Category_Mgr.jsp"/>
 		</div>
 		<div id="div_form">
-			<h2 style="margin: 40px;">해당 카테고리 명</h2>
+			<h2 style="margin: 40px;">회원상세</h2>
+			
 			<form action="./delete" id="deleteForm" method="get">
 				<table id="table_form">
 					<tr>
@@ -111,14 +117,15 @@
 						<th scope="row">전화번호</th>
 						<td>${memberDto.memTelStr}</td>
 					</tr>
-					<tr>
-						<th scope="row">기본주소</th>
-						<td>${memberDto.memAddressStr}</td>
-					</tr>
-					<tr>
-						<th scope="row">상세주소</th>
-						<td>${memberDto.memAddressSecStr}</td>
-					</tr>
+					<th scope="row">
+						주소
+					</th>
+					<td>
+						<input  type="text" name="address" placeholder="기본주소">
+						<br>
+						<br>
+						<input  type="text" name="addressSec" placeholder="상세주소">
+					</td>
 					<tr>
 						<th scope="row">가입일</th>
 						<td>${memberDto.memSignTimeDate}</td>

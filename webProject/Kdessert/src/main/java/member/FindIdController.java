@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet ("/auth/findId")
+@WebServlet ("/auth/findid")
 public class FindIdController extends HttpServlet{
 
 	@Override
