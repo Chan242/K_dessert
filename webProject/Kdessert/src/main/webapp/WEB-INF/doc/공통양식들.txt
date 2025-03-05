@@ -1,0 +1,58 @@
+
+
+-------------------------------------------------------
+
+[컬러코드]
+
+메인 컬러 (진한갈색) #64473E
+
+
+
+------------------------ 표 양식 1 ------------------------
+
+텍스트 정렬 적당히 수정하며 사용하면 될듯합니다.
+
+
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: left;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+
+-------------------------------------------------------
+
+
+------------------------ 버튼 1 ------------------------ 
+background-color 와 color 를 수정하며 사용하면 됩니다 (ex: background-color: #64473E; color: white; )
+
+
+	.btn_style {
+
+		width: 200px;
+		padding: 10px;
+
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+
+		background-color: white;
+		color: #7B7B7B;
+		font-size: 16px;
+		
+    }
+    
+    
+-------------------------------------------------------
