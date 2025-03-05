@@ -32,7 +32,7 @@
 <div id="header">
 
 	<span id="logo">
-		<a href="./index.jsp"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
+		<a href="http://localhost:9080/Kdessert/"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
 	</span>
 	
 	

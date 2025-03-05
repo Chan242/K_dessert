@@ -34,9 +34,9 @@
 	
 		<table>
 			<tr>
-				<td>상품번호</td>
-				<td>상품명</td>
-				<td>상품가격</td>
+				<td>제품번호</td>
+				<td>제품명</td>
+				<td>제품가격</td>
 				<td>재고</td>
 				<td>공개여부</td>
 				<td>수정</td>
