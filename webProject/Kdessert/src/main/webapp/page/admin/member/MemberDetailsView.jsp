@@ -117,15 +117,14 @@
 						<th scope="row">전화번호</th>
 						<td>${memberDto.memTelStr}</td>
 					</tr>
-					<th scope="row">
-						주소
-					</th>
-					<td>
-						<input  type="text" name="address" placeholder="기본주소">
-						<br>
-						<br>
-						<input  type="text" name="addressSec" placeholder="상세주소">
-					</td>
+					<tr>
+						<th scope="row">주소</th>
+						<td>
+							${memberDto.memAddressStr}
+							<br>
+							${memberDto.memAddressSecStr}
+						</td>
+					</tr>
 					<tr>
 						<th scope="row">가입일</th>
 						<td>${memberDto.memSignTimeDate}</td>

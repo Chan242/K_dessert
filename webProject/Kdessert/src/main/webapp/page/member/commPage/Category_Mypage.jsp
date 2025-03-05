@@ -4,10 +4,6 @@
 
 <style type="text/css">
 
-	#header {
-		border-bottom: solid 1px #E1E1E1; /* 헤더 경계선 */
-	}
-	
 	
 	#side_MenuBar {
 	

@@ -102,14 +102,14 @@
 					<th scope="row">생년월일</th>
 					<td>${memberDto.memBirthDate}</td>
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<th scope="row">주소</th> -->
-<!-- 					<td> -->
-<%-- 						${memberDto.memAddressStr} --%>
-<!-- 						<br> -->
-<%-- 						${memberDto.memAddressStrSec} --%>
-<!-- 					</td> -->
-<!-- 				</tr> 이거 왜 안됨-->
+				<tr>
+					<th scope="row">주소</th>
+					<td>
+						${memberDto.memAddressStr}
+						<br>
+						${memberDto.memAddressSecStr}
+					</td>
+				</tr>
 			</table>
 			<div id="div_btn">
 				<input type="button" value="수정하기">		

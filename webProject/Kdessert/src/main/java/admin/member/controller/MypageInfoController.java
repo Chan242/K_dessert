@@ -33,6 +33,8 @@ public class MypageInfoController extends HttpServlet{
 			memberDtoSelect = (MemberDto) session.getAttribute("member");
 			index = memberDtoSelect.getMemIndexInt();
 			
+			System.out.println("index: " + index);
+			
 			//DB연결
 			ServletContext sc = this.getServletContext();
 			conn = (Connection)sc.getAttribute("conn");
@@ -43,6 +45,9 @@ public class MypageInfoController extends HttpServlet{
 			//새 dto 객체에 dao로 받아온 dto 담기
 			MemberDto memberDto = new MemberDto();
 			memberDto = memberDao.memberSelectOne(index);
+			
+			System.out.println(memberDto.getMemNameStr());
+			System.out.println(memberDto.getMemAddressStr());
 			
 			req.setAttribute("memberDto", memberDto);
 			
