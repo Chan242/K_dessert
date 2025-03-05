@@ -59,7 +59,8 @@ public class FreeBoardDetailController extends HttpServlet {
 			req.setAttribute("boardDto", boardDto);
 			
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("./Board.jsp");
+			RequestDispatcher dispatcher = 
+					req.getRequestDispatcher("../page/member/board/FreeBoardDetailView.jsp");
 			dispatcher.forward(req, res);
 
 		}catch (Exception e) {

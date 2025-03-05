@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Servlet implementation class FreeBoard
  */
-@WebServlet("/board/freeboardlist")
+@WebServlet("/board")
 public class FreeBoardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

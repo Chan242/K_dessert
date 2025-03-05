@@ -116,7 +116,7 @@
 		<c:forEach var="board" items="${boardList}">
 
 			<div id="boardLine">
-				<a href="./freeboarddetail?brdindexint=${FreeBoardDto.getBrdIndexInt()}"> 
+				<a href="./board/freeboarddetail?brdindexint=${board.brdIndexInt}"> 
 					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
 					<span style="margin-right: 40px;"> 
 						<span class="writer">${board.brdIdStr}</span>

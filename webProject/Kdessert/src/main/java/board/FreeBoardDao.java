@@ -88,7 +88,7 @@ private Connection connection;
 	}
 	
 	//게시판 상세 내용 보이기
-	public FreeBoardDto freeBoardDetail(int no) 
+	public FreeBoardDto freeBoardDetail(int brdindexint) 
 			throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -99,13 +99,14 @@ private Connection connection;
 		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT,"
 				+ " F_IMAGE, M_ID, F_VIEW, F_NOTICE,"
 				+ " F_CRE_DATE"
-				+ " FROM FREE_BOARD;";
+				+ " FROM FREE_BOARD"
+				+ " WHERE F_INDEX=?";
 
 		pstmt = connection.prepareStatement(sql);
 
 		try {
 
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, brdindexint);
 			rs = pstmt.executeQuery();
 
 			String brdSubjectStr = "";//제목
@@ -119,7 +120,7 @@ private Connection connection;
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdTextStr = rs.getString("F_TEXT");
 				brdIdStr = rs.getString("M_ID");
-				brdCreDate = rs.getDate("CREATE_DATE");
+				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 
 				freeboardDto.setBrdSubjectStr(brdSubjectStr);
