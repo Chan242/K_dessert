@@ -68,26 +68,28 @@
 </style>
 
 </head>
-
+<jsp:useBean id="boardDto"
+	scope="session"
+	class="board.FreeBoardDto"/>
 <body>
 <jsp:include page="../commPage/Mem_Header.jsp"/>
 <jsp:include page="../commPage/Category_Main.jsp"/>
 
 <div id="boardWrap">
 	<div id="title">
-		<h1>제목 ${FreeBoardDto.getBrdSubjectStr}</h1>
+		<h1>제목 ${boardDto.getBrdSubjectStr()}</h1>
 		<div id="head">
-			<span class="writer">작성자: ${FreeBoardDto.getBrdSubjectStr}</span> <!-- 작성자 텍스트 -->
+			<span class="writer">작성자: ${boardDto.getBrdSubjectStr()}</span> <!-- 작성자 텍스트 -->
 			
 			<div class="date-view">
-				<span>작성일: ${FreeBoardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
-				<span>조회수: ${FreeBoardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
+				<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
+				<span>조회수: ${boardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
 			</div>
 		</div>
 	</div>
 	
 	<div id="context">
-		<p>${FreeBoardDto.setBrdTextStr }</p> <!-- 내용 텍스트 -->
+		<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
 	</div>
 </div>
 
