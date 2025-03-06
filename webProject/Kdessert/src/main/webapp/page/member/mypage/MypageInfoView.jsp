@@ -63,7 +63,6 @@
 		width: 600px;
 		height: 500px;
 		margin: auto;
-		margin-top: 50px;
 	}
 	
 	#table_form th {
@@ -85,6 +84,7 @@
 			<jsp:include page="../commPage/Category_Mypage.jsp"/>
 		</div>
 		<div id="div_content">
+			<h2 style="text-align:center; margin-top: 40px; margin-bottom: 40px; ">개인정보</h2>
 			<table id="table_form">
 				<tr>
 					<th scope="row">이름</th>
@@ -103,6 +103,10 @@
 					<td>${memberDto.memBirthDate}</td>
 				</tr>
 				<tr>
+					<th scope="row">전화번호</th>
+					<td>${memberDto.memTelStr}</td>
+				</tr>
+				<tr>
 					<th scope="row">주소</th>
 					<td>
 						${memberDto.memAddressStr}
@@ -112,8 +116,8 @@
 				</tr>
 			</table>
 			<div id="div_btn">
-				<input type="button" value="수정하기">		
-				<input type="button" value="탈퇴하기" style="background-color: #64473E;color: white;">		
+				<input type="button" value="수정하기" onclick="location.href='./info/update?no=${memberDto.memIndexInt}'">	
+				<input type="button" value="탈퇴하기" style="background-color: #64473E;color: white;" onclick="deleteMember()">
 			</div>
 		</div>
 	</div>
@@ -122,7 +126,20 @@
 </body>
 
 <script type="text/javascript">
+	function deleteMember() {
 
+		var confirmStr = "주의\n탈퇴는 돌이킬 수 없습니다.\n정말로 실행하겠습니까?"
+				
+		// JSP에서 전달된 memberDto 객체에서 no 값을 추출 (EL 표현식 사용)
+        var memberIndex = "${memberDto.memIndexInt}";
+
+		if(confirm(confirmStr) == true){
+			// 'no' 값을 URL에 추가하여 삭제 요청을 보냄
+            window.location.href = "./info/delete?no=" + memberIndex;
+		}else{
+			return false;
+		}
+	}
 </script>
 
 </html>

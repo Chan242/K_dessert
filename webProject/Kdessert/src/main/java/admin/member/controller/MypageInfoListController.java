@@ -15,9 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet ("/page/member/mypage")
+@WebServlet ("/page/member/mypage/info")
 
-public class MypageInfoController extends HttpServlet{
+public class MypageInfoListController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -33,8 +33,6 @@ public class MypageInfoController extends HttpServlet{
 			memberDtoSelect = (MemberDto) session.getAttribute("member");
 			index = memberDtoSelect.getMemIndexInt();
 			
-			System.out.println("index: " + index);
-			
 			//DB연결
 			ServletContext sc = this.getServletContext();
 			conn = (Connection)sc.getAttribute("conn");
@@ -46,12 +44,9 @@ public class MypageInfoController extends HttpServlet{
 			MemberDto memberDto = new MemberDto();
 			memberDto = memberDao.memberSelectOne(index);
 			
-			System.out.println(memberDto.getMemNameStr());
-			System.out.println(memberDto.getMemAddressStr());
-			
 			req.setAttribute("memberDto", memberDto);
 			
-			RequestDispatcher dispatcher = req.getRequestDispatcher("./mypage/MypageInfoView.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("./MypageInfoView.jsp");
 			
 			dispatcher.include(req, res);
 			

@@ -22,7 +22,7 @@ public class LogoutController extends HttpServlet{
 		
 		session.invalidate();
 		
-		res.sendRedirect("../index.jsp");
+		res.sendRedirect("/Kdessert");
 		
 	}
 	

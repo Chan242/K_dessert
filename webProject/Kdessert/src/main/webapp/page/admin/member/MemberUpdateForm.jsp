@@ -9,6 +9,10 @@
 
 <style type="text/css">
 
+	#container, #header {
+		width:1750px;
+	}
+
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
@@ -76,7 +80,7 @@
 
 	<jsp:include page="../commPage/Adm_Header.jsp"/>
 	
-	<div>
+	<div id="container">
 		
 		<div id="div_category">
 			<jsp:include page="../commPage/Category_Mgr.jsp"/>
@@ -129,7 +133,7 @@
 					<tr>
 						<th scope="row">비고</th>
 						<td>
-							<textarea rows="4" cols="28" placeholder="" name="note">${memberDto.memNoteStr}</textarea>
+							<textarea rows="5" cols="40" placeholder="" name="note" style="resize: none;">${memberDto.memNoteStr}</textarea>
 						</td>
 					</tr>
 				</table>

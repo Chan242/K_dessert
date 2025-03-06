@@ -34,7 +34,7 @@
 
 	<div id="header_wrap">
 		<div id="logo_image">
-			<a href="../index.jsp"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
+			<a href="/Kdessert"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
 		</div>
 	</div>
 

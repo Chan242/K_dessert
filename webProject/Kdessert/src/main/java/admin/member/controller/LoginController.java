@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet{
 			HttpSession session = req.getSession();
 			session.setAttribute("member", memberDto);
 	
-			res.sendRedirect("../index.jsp"); 
+			res.sendRedirect("/Kdessert"); 
 			
 		} catch (Exception e) {
 			e.printStackTrace();

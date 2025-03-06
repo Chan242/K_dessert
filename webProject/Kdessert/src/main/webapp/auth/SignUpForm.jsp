@@ -155,7 +155,6 @@
 					<td>
 						<input  type="text" name="address" placeholder="기본주소">
 						<br>
-						<br>
 						<input  type="text" name="addressSec" placeholder="상세주소">
 					</td>
 				</tr>

@@ -148,7 +148,6 @@ public class MemberDao {
 		return result;
 	}
 	
-	
 	//id 찾기
 	public MemberDto findId(String name, String email) {
 		
@@ -370,6 +369,7 @@ public class MemberDao {
 		return memberDto;
 	}
 	
+	// 회원 정보 수정 /관리자용
 	public int memberUpdate(MemberDto memberDto) throws SQLException {
 		
 		int result = 0;
@@ -408,6 +408,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 회원 삭제
 	public int memberDelete(int no) throws SQLException {
 		
 		int result = 0;
@@ -446,5 +447,48 @@ public class MemberDao {
 
 		return result;
 	}
+	
+	// 회원 정보 수정 /회원용
+		public int memberInfoUpdate(MemberDto memberDto) throws SQLException {
+			
+			int result = 0;
+
+			PreparedStatement pstmt = null;
+
+			String sql = "";
+			sql = "UPDATE MEMBER";
+			sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?";
+			sql += " WHERE M_INDEX =?";
+			
+			try {
+				
+				pstmt = connection.prepareStatement(sql);
+
+				pstmt.setString(1, memberDto.getMemPasswordStr());
+				pstmt.setString(2, memberDto.getMemEmailStr());
+				pstmt.setString(3, memberDto.getMemTelStr());
+				pstmt.setString(4, memberDto.getMemAddressStr());
+				pstmt.setString(5, memberDto.getMemAddressSecStr());
+				pstmt.setInt(6, memberDto.getMemIndexInt());
+
+				result = pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} // finally 종료
+			return result;
+		}
 	
 }
