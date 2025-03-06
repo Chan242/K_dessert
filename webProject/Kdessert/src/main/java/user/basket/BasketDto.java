@@ -1,10 +1,14 @@
-package user.basket;
+	package user.basket;
 
 public class BasketDto {
 	
 	int memIndexInt = 0;
 	int proIndexInt = 0;
-	int basStockNum = 0;
+	int basStockInt = 0;
+	int proPriceInt = 0;
+	String proNameStr = "";
+//	String proImgStr = "";
+	
 	public int getMemIndexInt() {
 		return memIndexInt;
 	}
@@ -17,22 +21,34 @@ public class BasketDto {
 	public void setProIndexInt(int proIndexInt) {
 		this.proIndexInt = proIndexInt;
 	}
-	public int getBasStockNum() {
-		return basStockNum;
+	public int getBasStockInt() {
+		return basStockInt;
 	}
-	public void setBasStockNum(int basStockNum) {
-		this.basStockNum = basStockNum;
+	public void setBasStockInt(int basStockInt) {
+		this.basStockInt = basStockInt;
 	}
 	
+	public int getProPriceInt() {
+		return proPriceInt;
+	}
+	public void setProPriceInt(int proPriceInt) {
+		this.proPriceInt = proPriceInt;
+	}
+	public String getProNameStr() {
+		return proNameStr;
+	}
+	public void setProNameStr(String proNameStr) {
+		this.proNameStr = proNameStr;
+	}
 	public BasketDto() {
 		super();
 	}
 	
-	public BasketDto(int memIndexInt, int proIndexInt, int basStockNum) {
+	public BasketDto(int memIndexInt, int proIndexInt, int basStockInt) {
 		super();
 		this.memIndexInt = memIndexInt;
 		this.proIndexInt = proIndexInt;
-		this.basStockNum = basStockNum;
+		this.basStockInt = basStockInt;
 	}
 
 	

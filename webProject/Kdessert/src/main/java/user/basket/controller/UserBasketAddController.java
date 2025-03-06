@@ -72,8 +72,8 @@ public class UserBasketAddController extends HttpServlet {
 			int proIndexNum = Integer.parseInt(req.getParameter("proIndex"));
 			basketDto.setProIndexInt(proIndexNum);
 
-			int basStockNum = Integer.parseInt(req.getParameter("basStock"));
-			basketDto.setBasStockNum(basStockNum);
+			int basStockInt = Integer.parseInt(req.getParameter("basStock"));
+			basketDto.setBasStockInt(basStockInt);
 
 			ServletContext sc = this.getServletContext();
 			conn = (Connection) sc.getAttribute("conn");
@@ -87,13 +87,13 @@ public class UserBasketAddController extends HttpServlet {
 
 			for (int i = 0; i < basketList.size(); i++) {
 				if (basketList.get(i).getProIndexInt() == basketDto.getProIndexInt()) {
-					basketDto.setBasStockNum(basketList.get(i).getBasStockNum() + basketDto.getBasStockNum());
+					basketDto.setBasStockInt(basketList.get(i).getBasStockInt() + basketDto.getBasStockInt());
 					productIsExist = true;
 					break;
 				}
 
 			}
-			if (basketDto.getBasStockNum() > Integer.parseInt(req.getParameter("maxStock"))) {
+			if (basketDto.getBasStockInt() > Integer.parseInt(req.getParameter("maxStock"))) {
 				res.setContentType("text/html;charset=UTF-8");
 //				res.getWriter().println("장바구니에 있는 재고가 주문할 수 있는 양을 넘어섰습니다.");
 				PrintWriter out = res.getWriter();

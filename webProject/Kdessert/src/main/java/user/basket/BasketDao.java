@@ -24,8 +24,9 @@ public class BasketDao {
 
 			String sql = "";
 
-			sql += "SELECT M_INDEX, P_INDEX, B_STOCK";
-			sql += " FROM BASKET";
+			sql += "SELECT M_INDEX,B.P_INDEX,P.P_NAME,P.P_PRICE,B.B_STOCK";
+			sql += " FROM BASKET B INNER JOIN PRODUCT P";
+			sql += " ON B.P_INDEX = P.P_INDEX";
 			sql += " WHERE M_INDEX = ?";
 
 			pstmt = connection.prepareStatement(sql);
@@ -37,14 +38,24 @@ public class BasketDao {
 			int proIndexInt = 0;
 			int memIndexInt = 0;
 			int basStockInt = 0;
+			String proNameStr = "";
+			int proPriceInt = 0;
 
 			while (rs.next()) {
 
 				proIndexInt = rs.getInt("P_INDEX");
 				memIndexInt = rs.getInt("M_INDEX");
 				basStockInt = rs.getInt("B_STOCK");
+				proNameStr = rs.getString("P_NAME");
+				proPriceInt = rs.getInt("P_PRICE");
 
-				BasketDto basketDto = new BasketDto(memIndexInt, proIndexInt, basStockInt);
+				BasketDto basketDto = new BasketDto();
+
+				basketDto.setProIndexInt(proIndexInt);
+				basketDto.setMemIndexInt(memIndexInt);
+				basketDto.setBasStockInt(basStockInt);
+				basketDto.setProNameStr(proNameStr);
+				basketDto.setProPriceInt(proPriceInt);
 
 				basketList.add(basketDto);
 
@@ -82,7 +93,7 @@ public class BasketDao {
 		try {
 			int memIndexInt = basketdto.getMemIndexInt();
 			int proIndexInt = basketdto.getProIndexInt();
-			int basStockInt = basketdto.getBasStockNum();
+			int basStockInt = basketdto.getBasStockInt();
 
 //			
 
@@ -117,6 +128,7 @@ public class BasketDao {
 		return result;
 
 	}
+
 	public int updateProduct(BasketDto basketdto) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -124,7 +136,7 @@ public class BasketDao {
 		try {
 			int memIndexInt = basketdto.getMemIndexInt();
 			int proIndexInt = basketdto.getProIndexInt();
-			int basStockInt = basketdto.getBasStockNum();
+			int basStockInt = basketdto.getBasStockInt();
 
 //			
 
@@ -138,7 +150,6 @@ public class BasketDao {
 			pstmt.setInt(1, basStockInt);
 			pstmt.setInt(2, memIndexInt);
 			pstmt.setInt(3, proIndexInt);
-			
 
 			result = pstmt.executeUpdate();
 
