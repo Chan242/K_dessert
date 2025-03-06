@@ -28,6 +28,12 @@
 		color: #7B7B7B;
 		font-size: 16px;
 	}	
+	
+	#container {
+		text-align: center;
+		margin-top: 100px;
+	}
+	
 
 </style>
 
@@ -39,10 +45,10 @@
 	
 		<jsp:include page="./Auth_Header.jsp"/>
 		
-		<h1>가입이 완료되었습니다</h1>
-	
-		<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
-	
+		<div id="container">
+			<h1>가입이 완료되었습니다</h1>
+			<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
+		</div>
 	</div>
 	
 </body>

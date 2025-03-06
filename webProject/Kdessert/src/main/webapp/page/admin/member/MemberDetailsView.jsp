@@ -61,7 +61,6 @@
     	margin-left: 50px;
     	width: 1300px;
     	float: left;
-    
     }
     
     #div_buttons {
@@ -90,7 +89,7 @@
 		
 		<jsp:include page="../commPage/Adm_Header.jsp"/>
 		
-		<div id="wrap">
+		<div id="container">
 			<div id="div_sidebar">
 				<jsp:include page="../commPage/Category_Mgr.jsp"/>
 			</div>

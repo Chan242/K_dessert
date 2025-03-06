@@ -88,8 +88,8 @@
 				<p>아이디 찾기</p>
 				<form action="./findid" method="get">
 					<div class="div_input_class">
-						<input class="input_style" type="text" name="name" placeholder="이름 입력">
-						<input class="input_style" type="email" name="email" placeholder="이메일 입력">
+						<input class="input_style" type="text" name="name" placeholder="이름">
+						<input class="input_style" type="email" name="email" placeholder="이메일">
 					</div>					
 					<input class="btn_style" type="submit" value="아이디 찾기"> 
 				</form>
@@ -99,7 +99,7 @@
 				<p>비밀번호 찾기</p>
 				<form action="/findpwd" method="get">
 					<div class="div_input_class">
-						<input class="input_style" type="email" name="email" placeholder="이메일 입력">
+						<input class="input_style" type="email" name="email" placeholder="이메일">
 					</div>
 					<input class="btn_style" type="button" onclick="location.href='./TempPasswordInfo.jsp'" value="임시비밀번호 발송">
 				</form>

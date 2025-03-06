@@ -53,6 +53,7 @@
 		background-color: white;
 		color: #7B7B7B;
 		font-size: 16px;	
+		cursor: pointer;
 	}
 	
 	#div_category {
