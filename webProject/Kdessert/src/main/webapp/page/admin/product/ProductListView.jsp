@@ -54,17 +54,17 @@
 				</tr>
 				<c:forEach var="productDto" items="${productList}">
 					<tr>
-						<td>${productDto.getproIndexInt()}</td>
-						<td><a href="./select?no=${productDto.getproIndexInt()}">${productDto.getproNameStr()}</a></td>
-						<td>${productDto.getproPriceInt()}</td>
-						<td>${productDto.getproStockInt()}</td>
+						<td>${productDto.getProIndexInt()}</td>
+						<td><a href="./select?no=${productDto.getProIndexInt()}">${productDto.getProNameStr()}</a></td>
+						<td>${productDto.getProPriceInt()}</td>
+						<td>${productDto.getProStockInt()}</td>
 						<td><c:choose>
-								<c:when test="${productDto.getproOpenInt() == 0}">공개</c:when>
-								<c:when test="${productDto.getproOpenInt() == 1}">비공개</c:when>
-								<c:otherwise>에러: ${productDto.getproOpenInt()}</c:otherwise>
+								<c:when test="${productDto.getProOpenInt() == 0}">공개</c:when>
+								<c:when test="${productDto.getProOpenInt() == 1}">비공개</c:when>
+								<c:otherwise>에러: ${productDto.getProOpenInt()}</c:otherwise>
 							</c:choose></td>
-						<td><a href="./update?no=${productDto.getproIndexInt()}">수정</a></td>
-						<td><a href="./delete?no=${productDto.getproIndexInt()}">삭제</a></td>
+						<td><a href="./update?no=${productDto.getProIndexInt()}">수정</a></td>
+						<td><a href="./delete?no=${productDto.getProIndexInt()}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</table>

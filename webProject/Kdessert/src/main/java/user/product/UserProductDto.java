@@ -23,52 +23,52 @@ public class UserProductDto {
 		this.proStockInt = proStockInt;
 	}
 
-	public int getproIndexInt() {
+	public int getProIndexInt() {
 		return proIndexInt;
 	}
 
-	public void setproIndexInt(int proIndexInt) {
+	public void setProIndexInt(int proIndexInt) {
 		this.proIndexInt = proIndexInt;
 	}
 
-	public String getproNameStr() {
+	public String getProNameStr() {
 		return proNameStr;
 	}
 
-	public void setproNameStr(String proNameStr) {
+	public void setProNameStr(String proNameStr) {
 		this.proNameStr = proNameStr;
 	}
 
-	public int getproPriceInt() {
+	public int getProPriceInt() {
 		return proPriceInt;
 	}
 
-	public void setproPriceInt(int proPriceInt) {
+	public void setProPriceInt(int proPriceInt) {
 		this.proPriceInt = proPriceInt;
 	}
 
-	public int getproStockInt() {
+	public int getProStockInt() {
 		return proStockInt;
 	}
 
-	public void setproStockInt(int proStockInt) {
+	public void setProStockInt(int proStockInt) {
 		this.proStockInt = proStockInt;
 	}
 
-	public String getproIntroStr() {
+	public String getProIntroStr() {
 		return proIntroStr;
 	}
 
-	public void setproIntroStr(String proIntroStr) {
+	public void setProIntroStr(String proIntroStr) {
 		this.proIntroStr = proIntroStr;
 	}
 
 
-	public String getproImageStr() {
+	public String getProImageStr() {
 		return proImageStr;
 	}
 
-	public void setproImageStr(String proImageStr) {
+	public void setProImageStr(String proImageStr) {
 		this.proImageStr = proImageStr;
 	}
 

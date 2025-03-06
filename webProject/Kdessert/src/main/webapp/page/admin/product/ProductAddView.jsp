@@ -16,11 +16,11 @@
 
 	<div>
 		<form action=""method="post">
-			<input type="text" size="50" name="proName" placeholder="제품명" required><br>
-			<input type="text" size="50" name="proPrice" placeholder="제품가격" required><br>
-			<textarea name="proIntro" rows="4" cols="52" placeholder="제품설명" required></textarea><br>
-			<input type="text" size="50" name="proStock" placeholder="재고" required><br>
-			<input type="radio" name="proOpen" value="0" checked="checked">공개
+			제품명<input type="text" size="50" name="proName" placeholder="제품명" required><br>
+			제품가격<input type="number" size="50" name="proPrice" placeholder="제품가격" required><br>
+			제품설명<textarea name="proIntro" rows="4" cols="52" placeholder="제품설명" required></textarea><br>
+			재고<input type="number" size="50" name="proStock" placeholder="재고" required><br>
+			공개여부<input type="radio" name="proOpen" value="0" checked="checked">공개
 			<input type="radio" name="proOpen" value="1">비공개<br>			
 			<input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
 			#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br>

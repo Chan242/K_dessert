@@ -93,12 +93,12 @@ public class ProductUpdateController extends HttpServlet {
 			
 			productDto = new ProductDto();
 			
-			productDto.setproIndexInt(proIndexInt);
-			productDto.setproNameStr(proNameStr);
-			productDto.setproPriceInt(proPriceInt);
-			productDto.setproStockInt(proStockInt);
-			productDto.setproOpenInt(proOpenInt);
-			productDto.setproIntroStr(proIntroStr);
+			productDto.setProIndexInt(proIndexInt);
+			productDto.setProNameStr(proNameStr);
+			productDto.setProPriceInt(proPriceInt);
+			productDto.setProStockInt(proStockInt);
+			productDto.setProOpenInt(proOpenInt);
+			productDto.setProIntroStr(proIntroStr);
 
 			
 			ServletContext sc = this.getServletContext();

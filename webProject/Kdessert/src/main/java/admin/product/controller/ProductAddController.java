@@ -74,12 +74,12 @@ public class ProductAddController extends HttpServlet {
 
 		ProductDto productDto = new ProductDto();
 
-		productDto.setproNameStr(proNameStr);
-		productDto.setproPriceInt(proPriceInt);
-		productDto.setproStockInt(proStockInt);
-		productDto.setproOpenInt(proOpenInt);
+		productDto.setProNameStr(proNameStr);
+		productDto.setProPriceInt(proPriceInt);
+		productDto.setProStockInt(proStockInt);
+		productDto.setProOpenInt(proOpenInt);
 		
-		productDto.setproIntroStr(proIntroStr);
+		productDto.setProIntroStr(proIntroStr);
 
 		try {
 			ServletContext sc = this.getServletContext();

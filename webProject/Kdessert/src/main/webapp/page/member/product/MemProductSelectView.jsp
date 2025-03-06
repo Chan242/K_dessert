@@ -16,7 +16,23 @@
 
 </style>
 
+
+
 <script type="text/javascript">
+
+window.onload = function() {
+    var inputElement = document.getElementById("numberInput");
+    var maxValue = parseInt(inputElement.max);
+
+    inputElement.addEventListener("input", function() {
+        var value = parseInt(this.value);
+        if (value > maxValue) {
+            this.value = maxValue;
+        }
+    });
+};
+
+
 
 
 </script>
@@ -29,23 +45,25 @@
 	
 	<div id="container">
 	
-		<h1 style="text-align: center;">${userProductDto.getproNameStr()}</h1>
+		<h1 style="text-align: center;">${userProductDto.getProNameStr()}</h1>
 	
 		<div style="width: 300px; height: 300px; border: 1px solid black; float: left; margin: auto; text-align: center;">
 			이미지 자리
 		</div>
 		<div style="width: 200px; height: 200px; border: 1px solid black; float: left; margin-left: 100px; text-align: left;">
-			가격: ${userProductDto.getproPriceInt()}<br>
-			재고: ${userProductDto.getproStockInt()}<br>
-			<form action="">
-				<input type="number" id="numberInput" value="" min="1" max=" ${userProductDto.getproStockInt()}">
+			가격: ${userProductDto.getProPriceInt()}<br>
+			재고: ${userProductDto.getProStockInt()}<br>
+			<form action="/Kdessert/basket" method="post">
+				<input type="number" id="basStock" name="basStock" value="1" min="1" max=" ${userProductDto.getProStockInt()}">
+				<input type="hidden" id="proIndex" name="proIndex" value="${userProductDto.getProIndexInt()}">
+				<input type="hidden" id="maxStock" name="maxStock" value="${userProductDto.getProIndexInt()}">
 				<input type="submit" value="담기">
 			</form>
 		</div>
 				<table style="margin: auto;">
 				<tr>
 					<td>소개</td>
-					<td>${userProductDto.getproIntroStr()}</td>
+					<td style="width: 30">${userProductDto.getProIntroStr()}</td>
 				</tr>
 				
 			</table>

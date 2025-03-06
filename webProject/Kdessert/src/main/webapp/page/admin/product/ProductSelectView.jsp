@@ -57,37 +57,37 @@
 		<table style="margin: auto;">
 			<tr>
 				<td>인덱스</td>
-				<td>${productDto.getproIndexInt()}</td>
+				<td>${productDto.getProIndexInt()}</td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td>${productDto.getproNameStr()}</td>
+				<td>${productDto.getProNameStr()}</td>
 			</tr>
 			<tr>
 				<td>제품가격</td>
-				<td>${productDto.getproPriceInt()}</td>
+				<td>${productDto.getProPriceInt()}</td>
 			</tr>
 			<tr>
 				<td>재고</td>
-				<td>${productDto.getproStockInt()}</td>
+				<td>${productDto.getProStockInt()}</td>
 			</tr>
 			<tr>
 				<td>공개여부</td>
 				<td>
 					<c:choose>
-						<c:when test="${productDto.getproOpenInt() eq 0}">공개</c:when>	
-						<c:when test="${productDto.getproOpenInt() eq 1}">비공개</c:when>
+						<c:when test="${productDto.getProOpenInt() eq 0}">공개</c:when>	
+						<c:when test="${productDto.getProOpenInt() eq 1}">비공개</c:when>
 						<c:otherwise> 에러	 </c:otherwise>		
 					</c:choose>
 				</td>
 			</tr>
 			<tr>
 				<td>소개</td>
-				<td>${productDto.getproIntroStr()}</td>
+				<td>${productDto.getProIntroStr()}</td>
 			</tr>
 			
 		</table>
-		<button class="btn_style" onclick="location.href='./update?no=${productDto.getproIndexInt()}'">수정하기</button>
+		<button class="btn_style" onclick="location.href='./update?no=${productDto.getProIndexInt()}'">수정하기</button>
 		<button class="btn_style" onclick="history.back()">돌아가기</button>
 		
 		

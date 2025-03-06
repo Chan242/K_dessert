@@ -117,11 +117,11 @@ public class UserProductDao {
 				proStockInt = rs.getInt("P_STOCK");
 				proIntroStr =rs.getString("P_INTRO");
 
-				userProductDto.setproIndexInt(proIndexInt);
-				userProductDto.setproNameStr(proNameStr);
-				userProductDto.setproPriceInt(proPriceInt);
-				userProductDto.setproStockInt(proStockInt);
-				userProductDto.setproIntroStr(proIntroStr);
+				userProductDto.setProIndexInt(proIndexInt);
+				userProductDto.setProNameStr(proNameStr);
+				userProductDto.setProPriceInt(proPriceInt);
+				userProductDto.setProStockInt(proStockInt);
+				userProductDto.setProIntroStr(proIntroStr);
 			}
 
 		} catch (Exception e) {

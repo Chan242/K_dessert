@@ -86,11 +86,11 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			String proNameStr = productDto.getproNameStr();
-			int proPriceInt = productDto.getproPriceInt();
-			int proStockInt = productDto.getproStockInt();
-			int proOpenInt = productDto.getproOpenInt();
-			String proIntroStr = productDto.getproIntroStr();
+			String proNameStr = productDto.getProNameStr();
+			int proPriceInt = productDto.getProPriceInt();
+			int proStockInt = productDto.getProStockInt();
+			int proOpenInt = productDto.getProOpenInt();
+			String proIntroStr = productDto.getProIntroStr();
 
 			String sql = "";
 
@@ -117,14 +117,16 @@ public class ProductDao {
 				if (pstmt != null) {
 					pstmt.close();
 				}
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 
 		}
 
 		return result;
 	}
+
 	public int productDelete(int no) throws SQLException {
 		int result = 0;
 
@@ -163,7 +165,7 @@ public class ProductDao {
 
 	public ProductDto selectOne(int no) {
 		// TODO Auto-generated method stub
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -178,7 +180,7 @@ public class ProductDao {
 		try {
 
 			pstmt = connection.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, no);
 
 			rs = pstmt.executeQuery();
@@ -198,14 +200,14 @@ public class ProductDao {
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
-				proIntroStr =rs.getString("P_INTRO");
+				proIntroStr = rs.getString("P_INTRO");
 
-				productDto.setproIndexInt(proIndexInt);
-				productDto.setproNameStr(proNameStr);
-				productDto.setproPriceInt(proPriceInt);
-				productDto.setproStockInt(proStockInt);
-				productDto.setproOpenInt(proOpenInt);
-				productDto.setproIntroStr(proIntroStr);
+				productDto.setProIndexInt(proIndexInt);
+				productDto.setProNameStr(proNameStr);
+				productDto.setProPriceInt(proPriceInt);
+				productDto.setProStockInt(proStockInt);
+				productDto.setProOpenInt(proOpenInt);
+				productDto.setProIntroStr(proIntroStr);
 			}
 
 		} catch (Exception e) {
@@ -231,7 +233,6 @@ public class ProductDao {
 			}
 		}
 
-		
 		return productDto;
 	}
 
@@ -241,27 +242,27 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 
 		String sql = "";
-		
+
 		sql = "UPDATE PRODUCT";
 		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?";
 		sql += " WHERE P_INDEX = ?";
-		
+
 		try {
 			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setString(1, productDto.getproNameStr());
-			pstmt.setInt(2, productDto.getproPriceInt());
-			pstmt.setInt(3, productDto.getproStockInt());
-			pstmt.setInt(4, productDto.getproOpenInt());
-			pstmt.setString(5, productDto.getproIntroStr());
-			pstmt.setInt(6, productDto.getproIndexInt());
-			
+
+			pstmt.setString(1, productDto.getProNameStr());
+			pstmt.setInt(2, productDto.getProPriceInt());
+			pstmt.setInt(3, productDto.getProStockInt());
+			pstmt.setInt(4, productDto.getProOpenInt());
+			pstmt.setString(5, productDto.getProIntroStr());
+			pstmt.setInt(6, productDto.getProIndexInt());
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				if (pstmt != null) {
 					pstmt.close();
@@ -273,10 +274,6 @@ public class ProductDao {
 
 		}
 
-		
-
-		
-		
 		return result;
 	}
 
