@@ -8,7 +8,10 @@
 <title>마이페이지</title>
 
 <style type="text/css">
-
+	
+	#wrap {
+		width:1920px;
+	}
 	#container {
 		width: 1200px;
 		margin: auto;
@@ -85,7 +88,7 @@
 
 <body>
 
-
+<div id="wrap">
 	<jsp:include page="../commPage/Mem_Header.jsp"/>
 	<jsp:include page="../commPage/Category_Main.jsp"/>
 	
@@ -174,7 +177,7 @@
 		</form>
 		</div>
 	</div>
-
+</div>
 
 </body>
 

@@ -24,12 +24,17 @@ public class MemberDao {
 		ResultSet rs = null;
 
 		String sql = "";
-		sql += "SELECT M_NAME, M_INDEX";
+		sql += "SELECT M_NAME, M_INDEX, M_ID, M_EMAIL, M_ADDRESS, M_ADDRESS_SEC, M_BIRTH, M_POINT";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_ID = ? AND M_PASSWORD = ?";
 
 		String name = "";
+		String email = "";
+		String address = "";
+		String addressSec = "";
+		Date birth = null;
 		int index = 0;
+		int point = 0;
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -44,12 +49,30 @@ public class MemberDao {
 			
 			if (rs.next()) {
 				
-				//확인된 회원의 이름과 번호
+				//확인된 회원의 정보들
 				name = rs.getString("M_NAME");
 				memberDto.setMemNameStr(name);
 				
 				index = rs.getInt("M_INDEX");
 				memberDto.setMemIndexInt(index);
+				
+				name = rs.getString("M_ID");
+				memberDto.setMemIdStr(id);
+				
+				name = rs.getString("M_EMAIL");
+				memberDto.setMemEmailStr(email);
+				
+				name = rs.getString("M_ADDRESS");
+				memberDto.setMemAddressStr(addressSec);
+				
+				name = rs.getString("M_ADDRESS_SEC");
+				memberDto.setMemAddressSecStr(addressSec);
+				
+				name = rs.getString("M_BIRTH");
+				memberDto.setMemBirthDate(birth);
+				
+				name = rs.getString("M_POINT");
+				memberDto.setMemPointInt(point);
 				
 				// 회원 정보 조회 확인됨
 				return memberDto;

@@ -4,15 +4,46 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>회원가입 완료</title>
+
+<style type="text/css">
+
+	#wrap {
+		width:1920px;
+	}
+	
+	.btn_style {
+		cursor: pointer;
+		
+		width: 300px;
+		padding: 10px;
+
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+
+		background-color: white;
+		color: #7B7B7B;
+		font-size: 16px;
+	}	
+
+</style>
+
 </head>
+
 <body>
 
-	<jsp:include page="./Auth_Header.jsp"/>
+	<div id="wrap">
 	
-	<h1>회원가입 완료</h1>
-
-	<a href="./login">로그인 페이지로 바로가기</a>
+		<jsp:include page="./Auth_Header.jsp"/>
+		
+		<h1>가입이 완료되었습니다</h1>
+	
+		<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
+	
+	</div>
 	
 </body>
 </html>

@@ -10,6 +10,10 @@
 
 <style type="text/css">
 
+	#wrap {
+		width:1920px;
+	}
+
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
@@ -58,52 +62,51 @@
 
 <body>
 
-	<jsp:include page="../commPage/Adm_Header.jsp"/>
-	
-	<div>
-		<div id="div_category">
-			<jsp:include page="../commPage/Category_Mgr.jsp"/>
-		</div>
+	<div id="wrap">
+		<jsp:include page="../commPage/Adm_Header.jsp"/>
 		
-		<div id="div_content">
-			<h2 style="margin: 40px;">회원관리</h2>
-			
-			<div id="div_search">
-				<input type="text">
-				<input type="submit" value="검색">
+		<div>
+			<div id="div_category">
+				<jsp:include page="../commPage/Category_Mgr.jsp"/>
 			</div>
-		
-			<table id="table_info">
-				<thead>
-					<tr>
-						<th scope="col">회원번호</th>
-						<th scope="col">이름</th>
-						<th scope="col">아이디</th>
-						<th scope="col">이메일</th>
-						<th scope="col">생년월일</th>
-						<th scope="col">가입일자</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="member" items="${memberList}">
-						<tr>
-							<td>${member.memIndexInt}</td>
-							<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
-							<td>${member.memIdStr}</td>
-							<td>${member.memEmailStr}</td>
-							<td>${member.memBirthDate}</td>
-							<td>${member.memSignTimeDate}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				
-				
 			
-			</table>
-		
-		</div>	
-	</div>
-	
+			<div id="div_content">
+				<h2 style="margin: 40px;">회원관리</h2>
+				
+				<div id="div_search">
+					<input type="text">
+					<input type="submit" value="검색">
+				</div>
+			
+				<table id="table_info">
+					<thead>
+						<tr>
+							<th scope="col">회원번호</th>
+							<th scope="col">이름</th>
+							<th scope="col">아이디</th>
+							<th scope="col">이메일</th>
+							<th scope="col">생년월일</th>
+							<th scope="col">가입일자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="member" items="${memberList}">
+							<tr>
+								<td>${member.memIndexInt}</td>
+								<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
+								<td>${member.memIdStr}</td>
+								<td>${member.memEmailStr}</td>
+								<td>${member.memBirthDate}</td>
+								<td>${member.memSignTimeDate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+					
+				</table>
+			
+			</div>	
+		</div>
+	</div>	
 
 </body>
 

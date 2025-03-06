@@ -9,6 +9,10 @@
 
 <style type="text/css">
 
+	#wrap {
+		width:1920px;
+	}
+
 	#container {
 		width: 1200px;
 		margin: auto;
@@ -75,53 +79,53 @@
 
 <body>
 
-
-	<jsp:include page="../commPage/Mem_Header.jsp"/>
-	<jsp:include page="../commPage/Category_Main.jsp"/>
-	
-	<div id="container">
-		<div id="div_category">
-			<jsp:include page="../commPage/Category_Mypage.jsp"/>
-		</div>
-		<div id="div_content">
-			<h2 style="text-align:center; margin-top: 40px; margin-bottom: 40px; ">개인정보</h2>
-			<table id="table_form">
-				<tr>
-					<th scope="row">이름</th>
-					<td>${memberDto.memNameStr}</td>
-				</tr>
-				<tr>
-					<th scope="row">아이디</th>
-					<td>${memberDto.memIdStr}</td>
-				</tr>
-				<tr>
-					<th scope="row">이메일</th>
-					<td>${memberDto.memEmailStr}</td>
-				</tr>
-				<tr>
-					<th scope="row">생년월일</th>
-					<td>${memberDto.memBirthDate}</td>
-				</tr>
-				<tr>
-					<th scope="row">전화번호</th>
-					<td>${memberDto.memTelStr}</td>
-				</tr>
-				<tr>
-					<th scope="row">주소</th>
-					<td>
-						${memberDto.memAddressStr}
-						<br>
-						${memberDto.memAddressSecStr}
-					</td>
-				</tr>
-			</table>
-			<div id="div_btn">
-				<input type="button" value="수정하기" onclick="location.href='./info/update?no=${memberDto.memIndexInt}'">	
-				<input type="button" value="탈퇴하기" style="background-color: #64473E;color: white;" onclick="deleteMember()">
+	<div id="wrap">
+		<jsp:include page="../commPage/Mem_Header.jsp"/>
+		<jsp:include page="../commPage/Category_Main.jsp"/>
+		
+		<div id="container">
+			<div id="div_category">
+				<jsp:include page="../commPage/Category_Mypage.jsp"/>
+			</div>
+			<div id="div_content">
+				<h2 style="text-align:center; margin-top: 40px; margin-bottom: 40px; ">개인정보</h2>
+				<table id="table_form">
+					<tr>
+						<th scope="row">이름</th>
+						<td>${memberDto.memNameStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">아이디</th>
+						<td>${memberDto.memIdStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">이메일</th>
+						<td>${memberDto.memEmailStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">생년월일</th>
+						<td>${memberDto.memBirthDate}</td>
+					</tr>
+					<tr>
+						<th scope="row">전화번호</th>
+						<td>${memberDto.memTelStr}</td>
+					</tr>
+					<tr>
+						<th scope="row">주소</th>
+						<td>
+							${memberDto.memAddressStr}
+							<br>
+							${memberDto.memAddressSecStr}
+						</td>
+					</tr>
+				</table>
+				<div id="div_btn">
+					<input type="button" value="수정하기" onclick="location.href='./info/update?no=${memberDto.memIndexInt}'">	
+					<input type="button" value="탈퇴하기" style="background-color: #64473E;color: white;" onclick="deleteMember()">
+				</div>
 			</div>
 		</div>
 	</div>
-
 
 </body>
 

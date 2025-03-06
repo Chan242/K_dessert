@@ -1,6 +1,7 @@
 package admin.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 
 import admin.member.MemberDao;
@@ -46,11 +47,12 @@ public class LoginController extends HttpServlet{
 			
 			MemberDto memberDto = memberDao.memberExist(id, pwd);
 			
-			// 회원이 없다면 로그인 실패 페이지로 이동
+			// 회원이 없다면 로그인 실패 알림창
 			if(memberDto == null){
-				RequestDispatcher rd = req.getRequestDispatcher("./LoginFail.jsp");
-	
-				rd.forward(req, res);
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter writer = res.getWriter();
+				writer.println("<script> alert('로그인에 실패했습니다. 입력한 정보를 다시 확인바랍니다.'); location.href='" + "./login" + "'; </script>"); 
+				writer.close();
 				return;
 			}
 			

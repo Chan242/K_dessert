@@ -8,6 +8,10 @@
 
 <style type="text/css">
 
+	#wrap {
+		width:1920px;
+	}
+
 	body {
 		margin: 0px;
 	}
@@ -58,7 +62,7 @@
     
     .btn_style{
 		width: 200px;
-		
+		cursor: pointer;
     }
     
     #btn_cancle {
@@ -71,16 +75,14 @@
     	color: white;
     }
     
-    #btn_signUp:hover {
-    	background-color: black;
-    }
-    
 
 
 </style>
 
 </head>
 <body>
+
+<div id="wrap">
 
 	<jsp:include page="./Auth_Header.jsp"/>
 
@@ -171,6 +173,9 @@
 	</div>
 	
 	<jsp:include page="../page/member/commPage/Mem_Footer.jsp"/>
+
+</div>
+
 
 </body>
 </html>

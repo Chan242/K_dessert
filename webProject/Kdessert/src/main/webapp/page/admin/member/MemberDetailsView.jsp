@@ -9,6 +9,10 @@
 
 <style type="text/css">
 	
+	#wrap {
+		width:1920px;
+	}	
+	
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
@@ -82,73 +86,76 @@
 
 <body>
 	
+	<div id="wrap">	
+		
 		<jsp:include page="../commPage/Adm_Header.jsp"/>
+		
+		<div id="wrap">
+			<div id="div_sidebar">
+				<jsp:include page="../commPage/Category_Mgr.jsp"/>
+			</div>
+			<div id="div_form">
+				<h2 style="margin: 40px;">회원상세</h2>
+				
+				<form action="./delete" id="deleteForm" method="get">
+					<table id="table_form">
+						<tr>
+							<th scope="row">회원번호</th>
+							<td><input type="hidden" name="no" value="${memberDto.memIndexInt}">${memberDto.memIndexInt}</td>
+						</tr>
+						<tr>
+							<th scope="row">이름</th>
+							<td>${memberDto.memNameStr}</td>
+						</tr>
+						<tr>
+							<th scope="row">아이디</th>
+							<td>${memberDto.memIdStr}</td>
+						</tr>
+						<tr>
+							<th scope="row">이메일</th>
+							<td>${memberDto.memEmailStr}</td>
+						</tr>
+						<tr>
+							<th scope="row">생년월일</th>
+							<td>${memberDto.memBirthDate}</td>
+						</tr>
+						<tr>
+							<th scope="row">전화번호</th>
+							<td>${memberDto.memTelStr}</td>
+						</tr>
+						<tr>
+							<th scope="row">주소</th>
+							<td>
+								${memberDto.memAddressStr}
+								<br>
+								${memberDto.memAddressSecStr}
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">가입일</th>
+							<td>${memberDto.memSignTimeDate}</td>
+						</tr>
+						<tr>
+							<th scope="row">포인트</th>
+							<td>${memberDto.memPointInt}</td>
+						</tr>
+						<tr>
+							<th scope="row">비고</th>
+							<td>${memberDto.memNoteStr}</td>
+						</tr>
+					</table>
+					
+					<div id="div_buttons">
+						<input id="btn_goIndex" class="btn_style" type="button" value="목록으로" onclick="history.go(-1)">
+						<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${memberDto.memIndexInt}'">
+						<input id="btn_memDelete" class="btn_style" type="button" value="강제탈퇴" onclick="deleteMember()">
+					</div>
+					
+				</form>
+			</div>
+		</div>
 	
-	<div id="wrap">
-		<div id="div_sidebar">
-			<jsp:include page="../commPage/Category_Mgr.jsp"/>
-		</div>
-		<div id="div_form">
-			<h2 style="margin: 40px;">회원상세</h2>
-			
-			<form action="./delete" id="deleteForm" method="get">
-				<table id="table_form">
-					<tr>
-						<th scope="row">회원번호</th>
-						<td><input type="hidden" name="no" value="${memberDto.memIndexInt}">${memberDto.memIndexInt}</td>
-					</tr>
-					<tr>
-						<th scope="row">이름</th>
-						<td>${memberDto.memNameStr}</td>
-					</tr>
-					<tr>
-						<th scope="row">아이디</th>
-						<td>${memberDto.memIdStr}</td>
-					</tr>
-					<tr>
-						<th scope="row">이메일</th>
-						<td>${memberDto.memEmailStr}</td>
-					</tr>
-					<tr>
-						<th scope="row">생년월일</th>
-						<td>${memberDto.memBirthDate}</td>
-					</tr>
-					<tr>
-						<th scope="row">전화번호</th>
-						<td>${memberDto.memTelStr}</td>
-					</tr>
-					<tr>
-						<th scope="row">주소</th>
-						<td>
-							${memberDto.memAddressStr}
-							<br>
-							${memberDto.memAddressSecStr}
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">가입일</th>
-						<td>${memberDto.memSignTimeDate}</td>
-					</tr>
-					<tr>
-						<th scope="row">포인트</th>
-						<td>${memberDto.memPointInt}</td>
-					</tr>
-					<tr>
-						<th scope="row">비고</th>
-						<td>${memberDto.memNoteStr}</td>
-					</tr>
-				</table>
-				
-				<div id="div_buttons">
-					<input id="btn_goIndex" class="btn_style" type="button" value="목록으로" onclick="history.go(-1)">
-					<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${memberDto.memIndexInt}'">
-					<input id="btn_memDelete" class="btn_style" type="button" value="강제탈퇴" onclick="deleteMember()">
-				</div>
-				
-			</form>
-		</div>
 	</div>
-	
 
 </body>
 
