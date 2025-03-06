@@ -1,5 +1,6 @@
 package board;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 
 import java.sql.Date;
@@ -14,10 +15,10 @@ import board.FreeBoardDto;
 
 /*게시판정보 전부 삽입*/
 public class FreeBoardDao {
-private Connection connection;
+	private Connection connection;
 	
-	public void setConnection(Connection connection) {
-		this.connection = connection;
+	public void setConnection(Connection conn) {
+		this.connection = conn;
 	}
 	
 	//게시판 정보 조회-메인 화면에 보여질 리스트
@@ -149,6 +150,50 @@ private Connection connection;
 		} // finally 종료
 		
 		return freeboardDto;
+	}
+	
+	public void freeBoardNew(FreeBoardDto freeBoardDto) 
+			throws Exception {
+		
+		PreparedStatement pstmt = null;
+		// SQL 객체준비
+		try {
+			
+			String brdIdStr = freeBoardDto.getBrdIdStr();
+			String brdSubjectStr = freeBoardDto.getBrdSubjectStr();
+			String brdTextStr = freeBoardDto.getBrdTextStr();
+//			String brdImageStr = freeBoardDto.getBrdImageStr();
+			
+			String sql=" ";
+			
+			sql = "INSERT INTO FREE_BOARD"
+					+ " (F_INDEX, M_ID, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
+					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 3, 0)";
+			
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, brdIdStr);
+			pstmt.setString(2, brdSubjectStr);
+			pstmt.setString(3, brdTextStr);
+//			pstmt.setString(4, brdImageStr);
+
+			pstmt.executeUpdate();
+
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+		} // finally 종료
 	}
 
 	
