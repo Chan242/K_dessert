@@ -97,19 +97,20 @@
 
 	<div id="listBox">
 		<div id="topInter">
-			<input class="boardListbtn" type="button" value="글쓰기">
+			<input class="boardListbtn" type="button" value="글쓰기" 
+					 onclick="location.href='/Kdessert/board/write'">
 			<div id="boardSearch">
-				<input id="writeSearchBox" type="text" placeholder="검색창"> 
-				<input class="boardListbtn" type="button" value="검색">
+				<form action="/Kdessert/board">
+					<input id="writeSearchBox" type="text" placeholder="검색창">
+					 <input class="boardListbtn" type="submit" value="검색">
+				</form>
 			</div>
 		</div>
-		
+
 		<h4>
-			<span style="margin-left: 200px;">타이틀</span> 
-			<span style="margin-right: 40px"> 
-				<span class="writeType">작성자</span> 
-				<span class="writeType">작성일</span> 
-				<span class="writeType">조회수</span>
+			<span style="margin-left: 200px;">타이틀</span> <span
+				style="margin-right: 40px"> <span class="writeType">작성자</span>
+				<span class="writeType">작성일</span> <span class="writeType">조회수</span>
 			</span>
 		</h4>
 
@@ -117,13 +118,12 @@
 		<c:forEach var="board" items="${boardList}">
 
 			<div id="boardLine">
-				<a href="./board/freeboarddetail?brdindexint=${board.brdIndexInt}"> 
+				<a href="./board/freeboarddetail?brdindexint=${board.brdIndexInt}">
 					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-					<span style="margin-right: 40px;"> 
-						<span class="writer">${board.brdIdStr}</span>
-						<span class="writer">${board.brdCreDate}</span> 
-						<span class="writer">${board.brdViewInt}</span>
-					</span>
+					<span style="margin-right: 40px;"> <span class="writer">${board.brdIdStr}</span>
+						<span class="writer">${board.brdCreDate}</span> <span
+						class="writer">${board.brdViewInt}</span>
+				</span>
 				</a>
 
 			</div>

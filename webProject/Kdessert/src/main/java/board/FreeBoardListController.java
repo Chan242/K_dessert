@@ -41,7 +41,7 @@ public class FreeBoardListController extends HttpServlet {
 			ServletContext sc = this.getServletContext();
 			
 			conn = (Connection)sc.getAttribute("conn");
-
+			
 			FreeBoardDao boardDao = new FreeBoardDao();
 			//주입
 			boardDao.setConnection(conn);
