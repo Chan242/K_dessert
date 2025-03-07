@@ -10,7 +10,6 @@
 	margin: auto;
 	width: 1200px;
 	height: 1200px;
-	background-color: lightgray;
 }
 	
 
@@ -46,17 +45,17 @@ window.onload = function() {
 	<div id="container">
 	
 		<h1 style="text-align: center;">${userProductDto.getProNameStr()}</h1>
-	
+		<hr>
 		<div style="width: 300px; height: 300px; border: 1px solid black; float: left; margin: auto; text-align: center;">
 			이미지 자리
 		</div>
-		<div style="width: 200px; height: 200px; border: 1px solid black; float: left; margin-left: 100px; text-align: left;">
+		<div style="width: 200px; height: 200px; float: left; margin-left: 100px; text-align: left; padding-left: 30px;">
 			가격: ${userProductDto.getProPriceInt()}<br>
 			재고: ${userProductDto.getProStockInt()}<br>
 			<form action="/Kdessert/basket" method="post">
-				<input type="number" id="basStock" name="basStock" value="1" min="1" max=" ${userProductDto.getProStockInt()}">
+				<input type="number" id="basStock" name="basStock" value="1" min="1" max="${userProductDto.getProStockInt()}">
 				<input type="hidden" id="proIndex" name="proIndex" value="${userProductDto.getProIndexInt()}">
-				<input type="hidden" id="maxStock" name="maxStock" value="${userProductDto.getProIndexInt()}">
+				<input type="hidden" id="maxStock" name="maxStock" value="${userProductDto.getProStockInt()}">
 				<input type="submit" value="담기">
 			</form>
 		</div>
@@ -67,6 +66,7 @@ window.onload = function() {
 				</tr>
 				
 			</table>
+			<div style="clear: both;"></div>
 	</div>
 
 </body>

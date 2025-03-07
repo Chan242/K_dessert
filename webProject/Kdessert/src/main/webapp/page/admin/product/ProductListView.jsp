@@ -11,13 +11,42 @@
 	margin: auto;
 	width: 1200px;
 	height: 1200px;
-	background-color: lightgray;
+
 }
 
-#topBar{
-	margin: auto;
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+		margin: auto;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: left;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+	
+	a {
+    text-decoration: none; /* 밑줄 해제 */
+    color: inherit;        /* 텍스트 색상 상속 */
+    cursor: pointer;       /* 클릭 커서 유지 */
 }
+	
 </style>
+
+<script type="text/javascript">
+	window.onload = function () {
+		cfmDelFnc()
+	}
+
+</script>
 </head>
 <body>
 
@@ -27,21 +56,20 @@
 		<jsp:include page="../commPage/Category_Mgr.jsp"></jsp:include>
 	</div>
 	<div id="container">
-		<div id="topBar">
-		
-			<button style="float: left; margin: auto;"
-				onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
-
-			<form action="query" method="get" style="float: right;">
-				<input type="search" name="search" placeholder="검색어 입력창" value="">
-				<input type="submit" value="검색">
-			</form>
-		
-		<br><!-- 칸을 구분하기 위해서 어거지로 박았음. 쓰기 싫음. flex같은 것으로 수정하고 싶음. -->
-		</div>
-	
 		<div>
 			<table>
+				<tr>
+					<td><button style="float: left; margin: auto;"
+				onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
+					</td>
+					<td>
+						<form action="query" method="get" style="float: right;">
+							<input type="search" name="search" placeholder="검색어 입력창" value="">
+							<input type="submit" value="검색">
+						</form>
+					</td>
+				</tr>
+							
 				<tr>
 					<td>제품번호</td>
 					<td>제품명</td>
@@ -64,7 +92,7 @@
 								<c:otherwise>에러: ${productDto.getProOpenInt()}</c:otherwise>
 							</c:choose></td>
 						<td><a href="./update?no=${productDto.getProIndexInt()}">수정</a></td>
-						<td><a href="./delete?no=${productDto.getProIndexInt()}">삭제</a></td>
+						<td><a href="./delete?no=${productDto.getProIndexInt()}" onclick="return cfmDelFnc();">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</table>

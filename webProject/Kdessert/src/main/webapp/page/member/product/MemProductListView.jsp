@@ -10,17 +10,14 @@
 <style type="text/css">
 table {
 	margin: auto;
-}
-
-td{
 	border: 1px solid black;
 }
+
 
 #container {
 	margin: auto;
 	padding: 50px;
 	width: 1200px;
-	background-color: lightgray;
 }
 
 

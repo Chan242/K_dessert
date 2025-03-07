@@ -1,0 +1,130 @@
+package user.basket.controller;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import user.basket.BasketDao;
+import user.basket.BasketDto;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+
+import admin.member.MemberDto;
+import admin.product.ProductDao;
+import admin.product.ProductDto;
+
+/**
+ * Servlet implementation class UserBasketUpdateController
+ */
+@WebServlet("/page/member/mypage/basket/update")
+public class UserBasketUpdateController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserBasketUpdateController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		int result = 0;
+		Connection conn = null;
+
+		try {
+			HttpSession session = req.getSession();
+			MemberDto memberDto = new MemberDto();
+
+			memberDto = (MemberDto) session.getAttribute("member");
+
+			int memIndexInt = memberDto.getMemIndexInt();
+			int no = Integer.parseInt(req.getParameter("no"));
+			int basStockInt = Integer.parseInt(req.getParameter("basStock"));
+
+			BasketDto basketDto = new BasketDto();
+			basketDto.setMemIndexInt(memIndexInt);
+			basketDto.setProIndexInt(no);
+			basketDto.setBasStockInt(basStockInt);
+
+			ServletContext sc = this.getServletContext();
+			conn = (Connection) sc.getAttribute("conn");
+
+			ProductDao productDao = new ProductDao();
+			
+			productDao.setConnection(conn);
+
+			ProductDto productDto = productDao.selectOne(no);
+
+			if (productDto.getProStockInt() < basketDto.getBasStockInt()) {
+				res.setContentType("text/html;charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				out.println("<script>");
+				out.println("alert('장바구니에 있는 재고가 주문할 수 있는 양을 넘어섰습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+				return;
+			}
+			
+			BasketDao basketDao = new BasketDao();
+			
+			basketDao.setConnection(conn);
+			
+			result = basketDao.updateProduct(basketDto);
+			if(result == 1) {
+		        res.setContentType("text/html;charset=UTF-8");
+		        PrintWriter out = res.getWriter();
+		        out.println("<script>");
+		        out.println("alert('장바구니의 제품 수량이 변경되었습니다.');");
+		        out.println("window.location.href = document.referrer;");
+		        out.println("</script>");
+			}else if(result == 0){
+		        res.setContentType("text/html;charset=UTF-8");
+		        PrintWriter out = res.getWriter();
+		        out.println("<script>");
+		        out.println("alert('제품이 없습니다');");
+		        out.println("window.location.href = document.referrer;");
+		        out.println("</script>");
+			}else {
+		        res.setContentType("text/html;charset=UTF-8");
+		        PrintWriter out = res.getWriter();
+		        out.println("<script>");
+		        out.println("alert('오류가 발생했습니다.');");
+		        out.println("window.location.href = document.referrer;");
+		        out.println("</script>");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+			RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
+
+			rd.forward(req, res);
+		}
+
+	}
+
+}

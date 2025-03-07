@@ -24,10 +24,12 @@ public class BasketDao {
 
 			String sql = "";
 
-			sql += "SELECT M_INDEX,B.P_INDEX,P.P_NAME,P.P_PRICE,B.B_STOCK";
+			sql += "SELECT B.M_INDEX,B.P_INDEX,P.P_NAME,P.P_PRICE,B.B_STOCK, B.B_CRE_DATE";
 			sql += " FROM BASKET B INNER JOIN PRODUCT P";
 			sql += " ON B.P_INDEX = P.P_INDEX";
 			sql += " WHERE M_INDEX = ?";
+			sql += " ORDER BY B.B_CRE_DATE DESC";
+			
 
 			pstmt = connection.prepareStatement(sql);
 
@@ -170,6 +172,93 @@ public class BasketDao {
 
 		return result;
 
+	}
+
+	public int clearBasket(int memIndexInt) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			String sql = "";
+			
+			sql += "DELETE FROM BASKET";
+			sql += " WHERE M_INDEX = ?";
+			
+			pstmt = connection.prepareStatement(sql);
+
+			
+			pstmt.setInt(1, memIndexInt);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int deleteBasketItem(BasketDto basketDto) {
+		// TODO Auto-generated method stub
+				int result = 0;
+				
+				int memIndexInt = basketDto.getMemIndexInt();
+				int proIndexInt = basketDto.getProIndexInt();
+				
+				PreparedStatement pstmt = null;
+				
+				try {
+					
+					String sql = "";
+					
+					sql += "DELETE FROM BASKET";
+					sql += " WHERE M_INDEX = ? AND P_INDEX = ?";
+					
+					pstmt = connection.prepareStatement(sql);
+
+					
+					pstmt.setInt(1, memIndexInt);
+					pstmt.setInt(2, proIndexInt);
+
+					result = pstmt.executeUpdate();
+					
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				} finally {
+
+					try {
+						if (pstmt != null) {
+							pstmt.close();
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+
+				}
+				
+				
+				
+				
+				return result;
 	}
 
 }
