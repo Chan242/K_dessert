@@ -75,7 +75,7 @@
 </head>
 <jsp:useBean id="boardDto"
 	scope="session"
-	class="board.FreeBoardDto"/>
+	class="user.board.main.FreeBoardDto"/>
 <body>
 <div id="wrap">
 	<jsp:include page="../commPage/Mem_Header.jsp"/>

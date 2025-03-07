@@ -1,4 +1,4 @@
-package board;
+package user.board.main;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import board.FreeBoardDto;
+import user.board.main.FreeBoardDto;
 
 
 /*게시판정보 전부 삽입*/
@@ -29,7 +29,7 @@ public class FreeBoardDao {
 
 		String sql = "";
 
-		sql = "SELECT F_index, M_ID, F_SUBJECT, F_TEXT, "
+		sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
 				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
 				+ "FROM FREE_BOARD "
 				+ "ORDER BY F_index ASC";
@@ -52,7 +52,7 @@ public class FreeBoardDao {
 				brdIndexInt = rs.getInt("F_index");
 				brdViewInt = rs.getInt("F_VIEW");
 				brdNoticeInt = rs.getInt("F_NOTICE");
-				brdIdStr = rs.getString("M_ID");
+				brdIdStr = rs.getString("M_INDEX");
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 
@@ -98,7 +98,7 @@ public class FreeBoardDao {
 		String sql = "";
 
 		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT,"
-				+ " F_IMAGE, M_ID, F_VIEW, F_NOTICE,"
+				+ " F_IMAGE, M_INDEX, F_VIEW, F_NOTICE,"
 				+ " F_CRE_DATE"
 				+ " FROM FREE_BOARD"
 				+ " WHERE F_INDEX=?"
@@ -121,7 +121,7 @@ public class FreeBoardDao {
 			if (rs.next()) {
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdTextStr = rs.getString("F_TEXT");
-				brdIdStr = rs.getString("M_ID");
+				brdIdStr = rs.getString("M_INDEX");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 
@@ -168,7 +168,7 @@ public class FreeBoardDao {
 			String sql=" ";
 			
 			sql = "INSERT INTO FREE_BOARD"
-					+ " (F_INDEX, M_ID, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
+					+ " (F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
 					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 3, 0)";
 			
 			pstmt = connection.prepareStatement(sql);

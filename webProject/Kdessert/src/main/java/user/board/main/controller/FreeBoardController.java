@@ -1,4 +1,4 @@
-package board;
+package user.board.main.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

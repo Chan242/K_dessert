@@ -70,7 +70,7 @@
 </head>
 <jsp:useBean id="boardDto"
 	scope="session"
-	class="board.FreeBoardDto"/>
+	class="user.board.main.FreeBoardDto"/>
 <body>
 <jsp:include page="../commPage/Mem_Header.jsp"/>
 <jsp:include page="../commPage/Category_Main.jsp"/>
@@ -87,10 +87,15 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="context">
-		<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
-	</div>
+		<div id="context">
+			<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
+			<form action='./update' method='post'>
+				<a href="" class='btn'>수정</a>
+				<a class='btn'>삭제</a>
+			</form>
+		</div>
+
+
 	
 	<jsp:include page="./ReplyView.jsp"/>
 </div>

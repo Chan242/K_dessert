@@ -52,7 +52,7 @@
 	</div>
 	
 	<!-- 댓글 작성부분 -->
-	<form action="./write" method="post">
+	<form action="./freeboarddetail?brdindexint=$" method="post">
 		<textarea id= 'replyText' name="brdTextStr"></textarea>
 		<input type="submit" value="등록">
 	</form>
