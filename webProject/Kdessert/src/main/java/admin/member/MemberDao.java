@@ -170,9 +170,110 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	//email 중복 확인
+	public boolean memberEmailCheck(String email) throws Exception {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		sql += "SELECT M_EMAIL";
+		sql += " FROM MEMBER";
+		sql += " WHERE M_EMAIL = ?";
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+
+			rs = pstmt.executeQuery();
+			
+			//이메일 존재함
+			if (rs.next()) {
+				return true;
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+
+		return false;
+		
+	}
+	
+	//id 중복 확인
+	public boolean memberIdCheck(String id) throws Exception {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		sql += "SELECT M_ID";
+		sql += " FROM MEMBER";
+		sql += " WHERE M_ID = ?";
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+
+			rs = pstmt.executeQuery();
+			
+			//아이디 존재함
+			if (rs.next()) {
+				return true;
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+
+		return false;
+	}
 	
 	//id 찾기
-	public MemberDto findId(String name, String email) {
+ 	public MemberDto findId(String name, String email) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -431,32 +532,36 @@ public class MemberDao {
 		return result;
 	}
 	
-	// 회원 삭제
-	public int memberDelete(int no) throws SQLException {
+	// 회원 정보 수정 /회원용
+	public int memberInfoUpdate(MemberDto memberDto) throws SQLException {
 		
 		int result = 0;
 
 		PreparedStatement pstmt = null;
 
 		String sql = "";
+		sql = "UPDATE MEMBER";
+		sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?";
+		sql += " WHERE M_INDEX =?";
 		
-		sql += "DELETE FROM MEMBER";
-		sql += " WHERE M_INDEX = ?";
-
 		try {
 			
 			pstmt = connection.prepareStatement(sql);
-			
-			pstmt.setInt(1, no);
+
+			pstmt.setString(1, memberDto.getMemPasswordStr());
+			pstmt.setString(2, memberDto.getMemEmailStr());
+			pstmt.setString(3, memberDto.getMemTelStr());
+			pstmt.setString(4, memberDto.getMemAddressStr());
+			pstmt.setString(5, memberDto.getMemAddressSecStr());
+			pstmt.setInt(6, memberDto.getMemIndexInt());
 
 			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw e;
+			
 		} finally {
-
 			try {
 				if (pstmt != null) {
 					pstmt.close();
@@ -467,40 +572,35 @@ public class MemberDao {
 			}
 
 		} // finally 종료
-
 		return result;
 	}
-	
-	// 회원 정보 수정 /회원용
-		public int memberInfoUpdate(MemberDto memberDto) throws SQLException {
+		
+	// 회원 삭제
+		public int memberDelete(int no) throws SQLException {
 			
 			int result = 0;
 
 			PreparedStatement pstmt = null;
 
 			String sql = "";
-			sql = "UPDATE MEMBER";
-			sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?";
-			sql += " WHERE M_INDEX =?";
 			
+			sql += "DELETE FROM MEMBER";
+			sql += " WHERE M_INDEX = ?";
+
 			try {
 				
 				pstmt = connection.prepareStatement(sql);
-
-				pstmt.setString(1, memberDto.getMemPasswordStr());
-				pstmt.setString(2, memberDto.getMemEmailStr());
-				pstmt.setString(3, memberDto.getMemTelStr());
-				pstmt.setString(4, memberDto.getMemAddressStr());
-				pstmt.setString(5, memberDto.getMemAddressSecStr());
-				pstmt.setInt(6, memberDto.getMemIndexInt());
+				
+				pstmt.setInt(1, no);
 
 				result = pstmt.executeUpdate();
-				
-			} catch (Exception e) {
+
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+				throw e;
 			} finally {
+
 				try {
 					if (pstmt != null) {
 						pstmt.close();
@@ -511,7 +611,9 @@ public class MemberDao {
 				}
 
 			} // finally 종료
+
 			return result;
 		}
+		
 	
 }
