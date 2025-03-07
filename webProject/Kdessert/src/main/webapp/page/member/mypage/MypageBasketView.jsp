@@ -139,7 +139,8 @@ input {
 				</td>
 			</tr>
 			<tr>
-				<td colspan="5" style="text-align: right;"><a href="./basket/clear" id="clearBasket">장바구니 비우기</a></td>
+				<td><a href="./order" id="order">주문하기</a></td>
+				<td colspan="3" style="text-align: right;"><a href="./basket/clear" id="clearBasket">장바구니 비우기</a></td>
 			</tr>
 		</table>
 		<div style="margin: auto; clear: both;">

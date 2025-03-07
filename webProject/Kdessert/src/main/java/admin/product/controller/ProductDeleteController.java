@@ -1,5 +1,6 @@
 package admin.product.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -58,6 +59,10 @@ public class ProductDeleteController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception;
 			e.printStackTrace();
+
+			RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
+
+			rd.forward(req, res);
 		}
 	}
 

@@ -57,6 +57,8 @@ public class UserProductListController extends HttpServlet {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+			res.sendRedirect("./error.jsp");
 		}
 	}
 

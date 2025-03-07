@@ -59,6 +59,12 @@ public class ProductListController extends HttpServlet {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			
+			e.printStackTrace();
+
+			RequestDispatcher rd = req.getRequestDispatcher("/error.jsp");
+
+			rd.forward(req, res);
 		}
 	}
 

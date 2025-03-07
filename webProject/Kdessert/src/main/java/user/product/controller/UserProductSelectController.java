@@ -61,6 +61,8 @@ public class UserProductSelectController extends HttpServlet {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+			res.sendRedirect("./error.jsp");
 		}
 	}
 
