@@ -79,7 +79,7 @@
 			<a id="select_basket" href=""><span>장바구니</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a id="select_point" href=""><span>마이포인트</span></a>
+			<a id="select_point" href="/Kdessert/page/member/mypage/point"><span>마이포인트</span></a>
 		</li>
 	</ul>
 </div>
