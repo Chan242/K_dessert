@@ -43,6 +43,10 @@
 		text-decoration: none;  /* a태그 밑줄 제거 */
 	    color: black;  /* a태그 텍스트 검은색 */
 	}
+	
+	#top_MenuBar a:hover{
+		border-bottom: 2px solid #64473E;
+	}
 
 
 
@@ -51,16 +55,16 @@
 	<div id="top_MenuBar">
 		<ul>
 			<li class='top_Menues'>
-				<a href="다과링크"><span>다과 소개</span></a>
+				<a id="select_dessert" href="다과링크"><span>다과 소개</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a href="구매링크"><span>구매</span></a>
+				<a id="select_produt" href="/Kdessert/product/list"><span>구매</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a href="행사링크"><span>행사</span></a>
+				<a id="select_event" href="행사링크"><span>행사</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a href="/Kdessert/board"><span>고객 게시판</span></a>
+				<a id="select_board" href="/Kdessert/board"><span>고객 게시판</span></a>
 			</li>
 		</ul>
 	</div>

@@ -74,6 +74,12 @@
 	#table_form th {
 		width: 120px;
 	}
+	
+	#select_profile {
+		background-color: white;
+		color: #64473E;
+		font-weight: bold;
+	}
 
 </style>
 

@@ -33,7 +33,7 @@
 		justify-content : flex-start;/* 글자 가로 왼쪽 정렬 */
 		align-items : center;/* 글자 세로 중앙정렬 */
 	    
-	    padding-left: 80px; /* 왼쪽 여백 추가 */
+	    padding-left: 90px; /* 왼쪽 여백 추가 */
 	    
 	    width: 230px;
 	    height: 90px;
@@ -44,14 +44,20 @@
 	    
 	}
 	
-	.side_Menues span{
-
-	}
-	
 	#header {
 		border-bottom: solid 1px #E1E1E1; /* 헤더 경계선 */
-		
 	}
+
+	ul {
+		padding-left: 0px;
+	}
+	
+	.side_Menues a:hover {
+		background-color: white;
+		color: #64473E
+	}
+	
+
 
 
 </style>
@@ -60,19 +66,19 @@
 <div id="side_MenuBar">
 	<ul>
 		<li class='side_Menues'>
-			<a href="주문_관리_링크"><span>주문 관리</span></a>
+			<a id="select_order" href="주문_관리_링크"><span>주문 관리</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="회원_관리_링크"><span>회원 관리</span></a>
+			<a id="select_member" href="/Kdessert/page/admin/member/list"><span>회원 관리</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="제품_관리_링크"><span>제품 관리</span></a>
+			<a id="select_product" href="제품_관리_링크"><span>제품 관리</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="다과_관리_링크"><span>다과 관리</span></a>
+			<a id="select_dessert" href="다과_관리_링크"><span>다과 관리</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href="행사_관리_링크"><span>행사 관리</span></a>
+			<a id="select_event" href="행사_관리_링크"><span>행사 관리</span></a>
 		</li>
 		<li class='side_Menues'>
 			<a href="통계_관리_링크"><span>통계</span></a>

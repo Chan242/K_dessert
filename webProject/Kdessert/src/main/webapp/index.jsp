@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,11 @@
 
 	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
-	<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
+	
+	<c:if test="${member.memNameStr ne null}">
+		<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
+	</c:if>
+	
 	<div id="container">
 		hello everyone
 	

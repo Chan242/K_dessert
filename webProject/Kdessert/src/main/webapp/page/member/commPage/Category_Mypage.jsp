@@ -18,12 +18,21 @@
 
 	#side_MenuBar ul{
 		padding: 0;
-		padding-left: 45px;
 	}
 	
 	.side_Menues {
 		list-style: none;
 		font-size: 24px;
+	}
+	
+	.side_Menues a {
+		padding-left: 60px;
+	}
+	
+	
+	.side_Menues a:hover {
+		background-color: white;
+		color: #64473E;
 	}
 	
 	.side_Menues a, h1{
@@ -40,7 +49,6 @@
 		justify-content : flex-start;/* 글자 가로 왼쪽 정렬 */
 		align-items : center;/* 글자 세로 중앙정렬 */
 		
-		
 	}
 	
 	h1 {
@@ -48,6 +56,8 @@
 		margin: 0;
 		justify-content : center;/* 글자 가로 가운데 정렬 */
 	}
+	
+
 
 	
 	
@@ -60,16 +70,16 @@
 		<h1>마이페이지</h1>
 	<ul>
 		<li class='side_Menues'>
-			<a href="">개인정보</a>
+			<a id="select_profile" href="/Kdessert/page/member/mypage/info">개인정보</a>
 		</li>
 		<li class='side_Menues'>
-			<a href=""><span>주문정보</span></a>
+			<a id="select_order" href=""><span>주문정보</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href=""><span>장바구니</span></a>
+			<a id="select_basket" href=""><span>장바구니</span></a>
 		</li>
 		<li class='side_Menues'>
-			<a href=""><span>마이포인트</span></a>
+			<a id="select_point" href=""><span>마이포인트</span></a>
 		</li>
 	</ul>
 </div>

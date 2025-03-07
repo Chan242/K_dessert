@@ -28,11 +28,14 @@
 
 <div id="header">
 		<span id="logo">
-			<a href="./TestFile.jsp"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
+			<a href="/Kdessert/page/admin"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
 		</span>
-		<span id="user_page" style="float:right;">
-			<a href="마이페이지 링크">'이름'님 페이지</a>
-			<a href="장바구니 링크">장바구니</a>
-			<a href="로그아웃 링크">로그아웃</a>
+		
+		
+		<span id="user_page" class="login_status" style="float:right;">
+			<a href="/Kdessert/page/member/mypage/info">${member.memNameStr}님</a>
+			<a href="/Kdessert/auth/logout">로그아웃</a>
+			<a href="/Kdessert">나가기</a>
 		</span>
+		
 </div>

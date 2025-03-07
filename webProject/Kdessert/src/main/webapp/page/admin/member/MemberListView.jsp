@@ -55,6 +55,17 @@
 		margin: auto;
 		width: 1200px;
 	}
+	
+	#select_member {
+		background-color: white;
+		color: #64473E
+	}
+	
+	#div_content h2 {
+		 margin: 40px; 
+		 padding-bottom: 20px;
+		 border-bottom: 2px solid black;
+	}
 
 </style>
 
@@ -71,7 +82,7 @@
 			</div>
 			
 			<div id="div_content">
-				<h2 style="margin: 40px;">회원관리</h2>
+				<h2>　회원관리</h2>
 				
 				<div id="div_search">
 					<input type="text">
