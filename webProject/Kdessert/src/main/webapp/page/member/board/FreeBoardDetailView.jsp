@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>고객 게시판| ${boardDto.getBrdSubjectStr()}</title>
 
 <style type="text/css">
 
@@ -77,9 +77,9 @@
 
 <div id="boardWrap">
 	<div id="title">
-		<h1>제목 ${boardDto.getBrdSubjectStr()}</h1>
+		<h1>${boardDto.getBrdSubjectStr()}</h1>
 		<div id="head">
-			<span class="writer">작성자: ${boardDto.getBrdSubjectStr()}</span> <!-- 작성자 텍스트 -->
+			<span class="writer">작성자: ${boardDto.getBrdIdStr()}</span> <!-- 작성자 텍스트 -->
 			
 			<div class="date-view">
 				<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
@@ -91,6 +91,8 @@
 	<div id="context">
 		<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
 	</div>
+	
+	<jsp:include page="./ReplyView.jsp"/>
 </div>
 
 <jsp:include page="../commPage/Mem_Footer.jsp"/>

@@ -20,17 +20,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/board/write")
-public class FreeBoardNew extends HttpServlet {
+public class FreeBoardReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public FreeBoardNew() {
+	public FreeBoardReplyController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		System.out.println("게시판글쓰기 doget");
+		System.out.println("댓글 doget");
+		
+		//세션 객체 가져오기
+		HttpSession session = req.getSession();
+		
 		
 		//페이지 준비
 		RequestDispatcher dispatcher = 
@@ -58,17 +62,19 @@ public class FreeBoardNew extends HttpServlet {
 		System.out.println("글쓰기 작성자 가져옴");
 		
 		
-		String brdIdStr = memberDtoSelect.getMemIdStr();// 유저 아이디-작성자명 조인해서 가져올 재료
+		String memIdStr = memberDtoSelect.getMemIdStr();// 유저 아이디-작성자명 조인해서 가져올 재료
 		String brdSubjectStr = req.getParameter("brdSubjectStr");// 제목
 		String brdTextStr = req.getParameter("brdTextStr");// 텍스트(내용)
-//		String brdImageStr = req.getParameter("brdImageStr");// 이미지(주소)
+		String memNameStr = req.getParameter("memNameStr");// 유저명
 
 		FreeBoardDto boardDto = new FreeBoardDto();
 		
-		boardDto.setBrdSubjectStr(brdSubjectStr);
-		boardDto.setBrdTextStr(brdTextStr);
-//		boardDto.setBrdImageStr(brdImageStr);
-		boardDto.setBrdIdStr(brdIdStr);
+		boardDto.setBrdIdStr(memIdStr);//유저아이디 저장
+		boardDto.setBrdSubjectStr(brdSubjectStr);//제목 저장
+		boardDto.setBrdTextStr(brdTextStr);//내용 저장
+
+		
+		memNameStr = memberDtoSelect.getMemNameStr();// 현재 로그인중인 유저명
 		
 		try {
 			System.out.println("서블릿디비 연결");
@@ -81,6 +87,7 @@ public class FreeBoardNew extends HttpServlet {
 			
 			//Dao의 freeBoardNew 메서드 불러와서 불러온 값을 넣음
 			boardDao.freeBoardNew(boardDto);
+			
 			
 			res.sendRedirect("/Kdessert/board");
 			

@@ -13,7 +13,7 @@
 }
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>알근달근: 한국 전통 과자 전문점</title>
 </head>
 <body>
 

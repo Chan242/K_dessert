@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 목록</title>
+<title>고객 게시판 목록</title>
 
 <script type="text/javascript">
 	

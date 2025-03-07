@@ -101,7 +101,8 @@ public class FreeBoardDao {
 				+ " F_IMAGE, M_ID, F_VIEW, F_NOTICE,"
 				+ " F_CRE_DATE"
 				+ " FROM FREE_BOARD"
-				+ " WHERE F_INDEX=?";
+				+ " WHERE F_INDEX=?"
+				+ " ORDER BY F_INDEX DESC";
 
 		pstmt = connection.prepareStatement(sql);
 
