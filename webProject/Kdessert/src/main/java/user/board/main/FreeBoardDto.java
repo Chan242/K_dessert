@@ -40,6 +40,7 @@ public class FreeBoardDto {
 		this.brdViewInt = brdViewInt;
 		this.brdNoticeInt = brdNoticeInt;
 	}
+	
 
 	public int getBrdIndexInt() {
 		return brdIndexInt;

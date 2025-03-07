@@ -121,8 +121,8 @@
 				<a href="./board/freeboarddetail?brdindexint=${board.brdIndexInt}">
 					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
 					<span style="margin-right: 40px;"> <span class="writer">${board.brdIdStr}</span>
-						<span class="writer">${board.brdCreDate}</span> <span
-						class="writer">${board.brdViewInt}</span>
+						<span class="writer">${board.brdCreDate}</span> 
+						<span class="writer">${board.brdViewInt}</span>
 				</span>
 				</a>
 

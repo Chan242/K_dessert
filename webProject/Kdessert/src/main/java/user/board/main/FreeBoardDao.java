@@ -46,7 +46,7 @@ public class FreeBoardDao {
 			String brdIdStr = "";
 			String brdSubjectStr = "";
 			Date brdCreDate = null;
-
+			
 			
 			while (rs.next()) {
 				brdIndexInt = rs.getInt("F_index");
@@ -110,7 +110,8 @@ public class FreeBoardDao {
 
 			pstmt.setInt(1, brdindexint);
 			rs = pstmt.executeQuery();
-
+			
+			int brdIndexInt = 0;
 			String brdSubjectStr = "";//제목
 			String brdTextStr = "";//내용
 			String brdIdStr = "";//작성자
@@ -119,12 +120,14 @@ public class FreeBoardDao {
 
 
 			if (rs.next()) {
+				brdIndexInt = rs.getInt("F_INDEX");
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdTextStr = rs.getString("F_TEXT");
 				brdIdStr = rs.getString("M_INDEX");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 
+				freeboardDto.setBrdIndexInt(brdindexint);
 				freeboardDto.setBrdSubjectStr(brdSubjectStr);
 				freeboardDto.setBrdTextStr(brdTextStr);
 				freeboardDto.setBrdIdStr(brdIdStr);
@@ -153,6 +156,7 @@ public class FreeBoardDao {
 		return freeboardDto;
 	}
 	
+	//게시물 새로 작성하기
 	public void freeBoardNew(FreeBoardDto freeBoardDto) 
 			throws Exception {
 		
@@ -179,9 +183,12 @@ public class FreeBoardDao {
 //			pstmt.setString(4, brdImageStr);
 
 			pstmt.executeUpdate();
+			
+			connection.commit();
 
 
 		}catch (Exception e) {
+			connection.rollback(); //오류 시 롤백
 			e.printStackTrace();
 		}finally {
 			
@@ -192,9 +199,166 @@ public class FreeBoardDao {
 			} catch (SQLException e) {
 				// TODO: handle exception
 				e.printStackTrace();
+				connection.setAutoCommit(true); // 원래 상태로 되돌림
 			}
 			
 		} // finally 종료
+	}
+	
+	public int deleteBoard(int brdIndexInt) throws SQLException {
+		// TODO Auto-generated method stub
+		int result = 0;
+		// sql 실행을 위한 PreparedStatement 객체를 선언
+		PreparedStatement pstmt = null;
+		
+		System.out.println("brdIndexInt 삭제 Dao에 넘어왂나? "+brdIndexInt);
+		
+		//sql 삭제문 생성
+		String sql = "";
+		
+		sql = "DELETE FROM FREE_BOARD WHERE F_INDEX = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			//첫 번째 ?(placeholder)에 brdIndexInt 값을 바인딩
+			pstmt.setInt(1, brdIndexInt);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result==0) {
+				
+				throw new SQLException("게시글 삭제 실패! 존재하지 않는 게시글일 가능성 있음");
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return result;
+	}
+	
+	
+	//게시물 업데이트(수정)
+	
+	public void freeBoardUpdate(FreeBoardDto boardDto) 
+			throws SQLException {
+		PreparedStatement pstmt = null;
+		
+		String sql = "";
+	
+		sql = "UPDATE FREE_BOARD"
+				+ " SET F_SUBJECT = ?, F_TEXT = ?"
+				+ " WHERE F_INDEX = ?";
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, boardDto.getBrdSubjectStr());
+			pstmt.setString(2, boardDto.getBrdTextStr());
+			pstmt.setInt(3, boardDto.getBrdIndexInt());
+
+	
+			int result = pstmt.executeUpdate();
+			
+			if (result > 0) {
+			    connection.commit(); 
+			} else {
+			    connection.rollback(); 
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} 
+		
+		
+	}
+	
+	// 업데이트 페이지에 정보를 넣을 Dao
+	
+	public FreeBoardDto freeBoardWritedInfo(int brdIndexInt) {
+		// TODO Auto-generated method stub
+		FreeBoardDto boardDto = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "";
+
+		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT"
+				+ " FROM FREE_BOARD"
+				+ " WHERE F_INDEX = ?";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, brdIndexInt);
+
+			rs = pstmt.executeQuery();
+
+			String brdSubjectStr = "";
+			String brdTextStr = "";
+
+
+			if (rs.next()) {
+				brdSubjectStr = rs.getString("F_SUBJECT");
+				brdTextStr = rs.getString("F_TEXT");
+
+				boardDto = new FreeBoardDto();
+
+				boardDto.setBrdIndexInt(brdIndexInt);
+				boardDto.setBrdSubjectStr(brdSubjectStr);
+				boardDto.setBrdTextStr(brdTextStr);
+
+			} else {
+				throw new Exception("해당 게시물을 찾을 수 없습니다.");
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+		return boardDto;
 	}
 
 	

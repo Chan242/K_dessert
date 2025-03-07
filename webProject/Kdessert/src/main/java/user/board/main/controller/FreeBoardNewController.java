@@ -105,7 +105,7 @@ public class FreeBoardNewController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			
 		} finally {
 
 			if (pstmt != null) {

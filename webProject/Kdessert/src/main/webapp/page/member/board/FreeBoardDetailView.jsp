@@ -15,13 +15,21 @@
 		min-height: 800px;
 		margin: auto;
 		margin-top: 20px;
+	
 
+	}
+	
+	#boardWrap a{
+		
+		text-decoration: none;
+		color: #888;
 	}
 
 	/* 제목 스타일 */
 	#title {
-		border-bottom: 2px solid black;
+
 		padding: 20px;
+		padding-bottom: 0px;
 	}
 	
 	
@@ -54,7 +62,7 @@
 	/* 작성일, 조회수 항목 스타일 */
 	.date-view span {
 		font-size: 14px;
-		color: #888;
+		
 	}
 
 	/* 콘텐츠 영역 스타일 */
@@ -63,6 +71,18 @@
 		line-height: 1.5;
 		margin-bottom: 70px;
 		border-bottom: 1px solid gray;
+		border-top: 2px solid black;
+		
+		padding: 20px;
+		padding-top: 5px;
+	}
+	
+	#contentBtn{
+		display: flex;
+		gap: 15px; /* 간격 */
+		justify-content: flex-end;
+		color: #888;
+	
 	}
 
 </style>
@@ -89,14 +109,14 @@
 	</div>
 		<div id="context">
 			<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
-			<form action='./update' method='post'>
-				<a href="" class='btn'>수정</a>
-				<a class='btn'>삭제</a>
-			</form>
+			<div id='contentBtn'>
+				<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
+				<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}">삭제</a>
+			</div>
+
 		</div>
+		
 
-
-	
 	<jsp:include page="./ReplyView.jsp"/>
 </div>
 
