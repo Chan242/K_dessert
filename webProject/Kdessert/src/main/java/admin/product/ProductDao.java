@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductDao {
@@ -24,7 +25,7 @@ public class ProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CHAN_DATE";
 		sql += " FROM PRODUCT";
 		sql += " ORDER BY P_INDEX DESC";
 
@@ -41,6 +42,8 @@ public class ProductDao {
 			int proStockInt = 0;
 			int proPriceInt = 0;
 			int proOpenInt = 0;
+			Date proCreDateDate = null;
+			Date proChanDateDate = null;
 
 			while (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
@@ -48,8 +51,10 @@ public class ProductDao {
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
-
-				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt);
+				proCreDateDate = rs.getDate("P_CRE_DATE");
+				proChanDateDate = rs.getDate("P_CHAN_DATE");
+				
+				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
 
 				productList.add(productDto);
 
@@ -173,9 +178,11 @@ public class ProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN,P_INTRO";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CHAN_DATE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_INDEX = ?";
+		
+
 
 		try {
 
@@ -193,6 +200,8 @@ public class ProductDao {
 			int proPriceInt = 0;
 			int proOpenInt = 0;
 			String proIntroStr = "";
+			Date proCreDateDate = null;
+			Date proChanDateDate = null;
 
 			if (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
@@ -201,6 +210,8 @@ public class ProductDao {
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
 				proIntroStr = rs.getString("P_INTRO");
+				proCreDateDate = rs.getDate("P_CRE_DATE");
+				proChanDateDate = rs.getDate("P_CHAN_DATE");
 
 				productDto.setProIndexInt(proIndexInt);
 				productDto.setProNameStr(proNameStr);
@@ -208,6 +219,9 @@ public class ProductDao {
 				productDto.setProStockInt(proStockInt);
 				productDto.setProOpenInt(proOpenInt);
 				productDto.setProIntroStr(proIntroStr);
+				productDto.setProCreDateDate(proCreDateDate);
+				productDto.setProChanDateDate(proChanDateDate);
+
 			}
 
 		} catch (Exception e) {
@@ -244,7 +258,7 @@ public class ProductDao {
 		String sql = "";
 
 		sql = "UPDATE PRODUCT";
-		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?";
+		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?, P_CHAN_DATE = SYSDATE";
 		sql += " WHERE P_INDEX = ?";
 
 		try {

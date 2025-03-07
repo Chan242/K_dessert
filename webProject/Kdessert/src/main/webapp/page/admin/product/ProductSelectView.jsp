@@ -82,6 +82,14 @@
 				</td>
 			</tr>
 			<tr>
+				<td>생성일</td>
+				<td>${productDto.getProCreDateDate()}</td>
+			</tr>
+			<tr>
+				<td>수정일</td>
+				<td>${productDto.getProChanDateDate()}</td>
+			</tr>				
+			<tr>
 				<td>소개</td>
 				<td>${productDto.getProIntroStr()}</td>
 			</tr>

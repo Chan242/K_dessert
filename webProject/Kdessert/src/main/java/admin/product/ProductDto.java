@@ -1,5 +1,7 @@
 package admin.product;
 
+import java.util.Date;
+
 public class ProductDto {
 	
 	private int proIndexInt;
@@ -9,18 +11,22 @@ public class ProductDto {
 	private String proIntroStr;
 	private int proOpenInt;
 	private String proImageStr;
+	private Date proCreDateDate;
+	private Date proChanDateDate;
 	
 	public ProductDto() {
 		super();
 	}
 	
-	public ProductDto(int proIndexInt, String proNameStr, int proPriceInt, int proStockInt, int proOpenInt) {
+	public ProductDto(int proIndexInt, String proNameStr, int proPriceInt, int proStockInt, int proOpenInt, Date proCreDateDate, Date proChanDateDate) {
 		super();
 		this.proIndexInt = proIndexInt;
 		this.proNameStr = proNameStr;
 		this.proPriceInt = proPriceInt;
 		this.proStockInt = proStockInt;
 		this.proOpenInt = proOpenInt;
+		this.proCreDateDate = proCreDateDate;
+		this.proChanDateDate = proChanDateDate;
 	}
 
 	public int getProIndexInt() {
@@ -78,13 +84,35 @@ public class ProductDto {
 	public void setProImageStr(String proImageStr) {
 		this.proImageStr = proImageStr;
 	}
+	
+	
+	
+
+	public Date getProCreDateDate() {
+		return proCreDateDate;
+	}
+
+	public void setProCreDateDate(Date proCreDateDate) {
+		this.proCreDateDate = proCreDateDate;
+	}
+
+	public Date getProChanDateDate() {
+		return proChanDateDate;
+	}
+
+	public void setProChanDateDate(Date proChanDateDate) {
+		this.proChanDateDate = proChanDateDate;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductDto [proIndexInt=" + proIndexInt + ", proNameStr=" + proNameStr + ", proPriceInt=" + proPriceInt
-				+ ", proStockInt=" + proStockInt + ", proIntroStr=" + proIntroStr + ", proOpenInt=" + proOpenInt + ", proImageStr="
-				+ proImageStr + "]";
+				+ ", proStockInt=" + proStockInt + ", proIntroStr=" + proIntroStr + ", proOpenInt=" + proOpenInt
+				+ ", proImageStr=" + proImageStr + ", proCreDateDate=" + proCreDateDate + ", proChanDateDate="
+				+ proChanDateDate + "]";
 	}
+
+
 	
 	
 	
