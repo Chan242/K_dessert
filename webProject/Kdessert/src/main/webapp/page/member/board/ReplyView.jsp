@@ -3,11 +3,12 @@
 <html>
 <!-- 댓글란 구현 -->
 <style type="text/css">
+
 	#replyText{
 		width: 1000px;
 		height: 90px;
 		resize: none;
-		margin-bottom: 40px;
+		margin-bottom: 10px;
 		
 		font-family: sans-serif;
 	}
@@ -34,6 +35,25 @@
 		min-height: 100px; 
 		margin-bottom: 30px;
 	}
+	
+	.reply form{
+		position:relative;
+
+	}
+	#inputBtn{
+		
+		position: absolute;
+		right: 0px;
+	
+		font-size: 12pt;
+		width: 80px;
+		height: 28px;
+		text-align: center;
+		color: white;
+		background-color: #64473E;
+		border: none;	
+		
+	}
 </style>
 	<!-- 댓글 목록 -->
 	<h4>댓글</h4>
@@ -52,9 +72,12 @@
 	</div>
 	
 	<!-- 댓글 작성부분 -->
-	<form action="./freeboarddetail?brdindexint=$" method="post">
-		<textarea id= 'replyText' name="brdTextStr"></textarea>
-		<input type="submit" value="등록">
-	</form>
+	<div class= "reply">
+		<h4>댓글 쓰기</h4>
+		<form action="./freeboarddetail?brdindexint=$" method="post">
+			<textarea id= 'replyText' name="brdTextStr"></textarea>
+			<input id = 'inputBtn' type="submit" value="등록">
+		</form>
+	</div>
 
 </html>

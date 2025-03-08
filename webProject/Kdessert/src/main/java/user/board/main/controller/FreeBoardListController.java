@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.member.MemberDto;
+
 /**
  * Servlet implementation class FreeBoard
  */
@@ -55,9 +57,10 @@ public class FreeBoardListController extends HttpServlet {
 			boardList = (ArrayList<FreeBoardDto>)boardDao.freeBoardList();
 			
 			//회원목록 정보 준비
-			req.setAttribute("boardList", boardList);
+			req.setAttribute("boardList", boardList);	
 			HttpSession s = req.getSession();
 			s.setAttribute("boardList", boardList);
+			
 			//페이지 준비
 			RequestDispatcher dispatcher = 
 				req.getRequestDispatcher("./page/member/board/FreeBoardListView.jsp");

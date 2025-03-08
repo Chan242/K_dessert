@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import admin.member.MemberDao;
+import admin.member.MemberDto;
+import jakarta.servlet.ServletContext;
 import user.board.main.FreeBoardDto;
 
 
@@ -32,7 +35,7 @@ public class FreeBoardDao {
 		sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
 				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
 				+ "FROM FREE_BOARD "
-				+ "ORDER BY F_index ASC";
+				+ "ORDER BY F_index DESC";
 
 		try {
 			/* sql 연결 */
@@ -43,22 +46,33 @@ public class FreeBoardDao {
 			int brdIndexInt = 0;
 			int brdViewInt = 0;
 			int brdNoticeInt = 0;
-			String brdIdStr = "";
+			int memIndexInt = 0;
 			String brdSubjectStr = "";
 			Date brdCreDate = null;
-			
+
 			
 			while (rs.next()) {
 				brdIndexInt = rs.getInt("F_index");
 				brdViewInt = rs.getInt("F_VIEW");
 				brdNoticeInt = rs.getInt("F_NOTICE");
-				brdIdStr = rs.getString("M_INDEX");
+				memIndexInt = rs.getInt("M_INDEX");
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 
-				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, brdIdStr, brdSubjectStr
+				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, memIndexInt, brdSubjectStr
 						, brdCreDate, brdViewInt, brdNoticeInt);
 
+				//여기부터 추가
+				
+				// freeboardWriter가 반환하는 리스트에서 첫 번째 MemberDto 객체를 가져옴
+				//각 개시물에 대해 작성자 리스트를 생성하는데, 한명만 씀으로 어차피 리스트엔 한명분의 정보만 들어간다.
+				//그러므로 get(0)으로 첫번째 작성자 정보(한명밖에 없으니 첫번째만 불러도 ok)를 불러온다.
+				//(그렇다면 굳이 리스트가 아니라 단수로 반환해도 되지 않을까 가능성 생각중)
+				MemberDto memberDto = freeboardWriter(memIndexInt).get(0);
+				freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+
+				
+				//이건 원래 있던거
 				freeBoardList.add(freeBoardDto);
 			}
 
@@ -114,7 +128,7 @@ public class FreeBoardDao {
 			int brdIndexInt = 0;
 			String brdSubjectStr = "";//제목
 			String brdTextStr = "";//내용
-			String brdIdStr = "";//작성자
+			int memIndexInt = 0;//작성자
 			Date brdCreDate = null;//작성일
 			int brdViewInt = 0;// 조회수
 
@@ -123,16 +137,22 @@ public class FreeBoardDao {
 				brdIndexInt = rs.getInt("F_INDEX");
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdTextStr = rs.getString("F_TEXT");
-				brdIdStr = rs.getString("M_INDEX");
+				memIndexInt = rs.getInt("M_INDEX");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 
 				freeboardDto.setBrdIndexInt(brdindexint);
 				freeboardDto.setBrdSubjectStr(brdSubjectStr);
 				freeboardDto.setBrdTextStr(brdTextStr);
-				freeboardDto.setBrdIdStr(brdIdStr);
+				freeboardDto.setMemIndexInt(memIndexInt);
 				freeboardDto.setBrdCreDate(brdCreDate);
 				freeboardDto.setBrdViewInt(brdViewInt);
+				
+			
+				// freeboardWriter가 반환하는 리스트에서 첫 번째 MemberDto 객체를 가져옴
+				MemberDto memberDto = freeboardWriter(memIndexInt).get(0);
+				freeboardDto.setMemberDto(memberDto); 
+				
 
 			} else {
 				throw new Exception("해당 게시물은 존재하지 않습니다.");
@@ -164,7 +184,7 @@ public class FreeBoardDao {
 		// SQL 객체준비
 		try {
 			
-			String brdIdStr = freeBoardDto.getBrdIdStr();
+			int memIndexInt = freeBoardDto.getMemIndexInt();
 			String brdSubjectStr = freeBoardDto.getBrdSubjectStr();
 			String brdTextStr = freeBoardDto.getBrdTextStr();
 //			String brdImageStr = freeBoardDto.getBrdImageStr();
@@ -177,7 +197,7 @@ public class FreeBoardDao {
 			
 			pstmt = connection.prepareStatement(sql);
 
-			pstmt.setString(1, brdIdStr);
+			pstmt.setInt(1, memIndexInt);
 			pstmt.setString(2, brdSubjectStr);
 			pstmt.setString(3, brdTextStr);
 //			pstmt.setString(4, brdImageStr);
@@ -205,7 +225,8 @@ public class FreeBoardDao {
 		} // finally 종료
 	}
 	
-	public int deleteBoard(int brdIndexInt) throws SQLException {
+	public int deleteBoard(int brdIndexInt) 
+			throws SQLException {
 		// TODO Auto-generated method stub
 		int result = 0;
 		// sql 실행을 위한 PreparedStatement 객체를 선언
@@ -296,7 +317,8 @@ public class FreeBoardDao {
 	
 	// 업데이트 페이지에 정보를 넣을 Dao
 	
-	public FreeBoardDto freeBoardWritedInfo(int brdIndexInt) {
+	public FreeBoardDto freeBoardWritedInfo(int brdIndexInt) 
+			throws SQLException{
 		// TODO Auto-generated method stub
 		FreeBoardDto boardDto = null;
 
@@ -360,6 +382,77 @@ public class FreeBoardDao {
 		} // finally 종료
 		return boardDto;
 	}
+	
+	
+	//멤버와 게시판 join-글쓴이명 가져오기용 메서드
+	
+	public List<MemberDto> freeboardWriter(int memIndex) 
+			throws SQLException{
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
+		ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
+
+		String sql = "";
+
+		//멤버 인덱스로 해당 게시물 글쓴이 찾기
+		sql = "SELECT F.F_INDEX, M.M_NAME, M.M_ID"
+				+ " FROM FREE_BOARD F INNER JOIN MEMBER M"
+				+ " ON M.M_INDEX = ?"
+				+ " ORDER BY F_INDEX DESC";
+
+		try {
+			/* sql 연결 */
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, memIndex);
+
+			rs = pstmt.executeQuery();
+
+			int brdIndexInt = 0;
+			String memNameStr = "";
+			String memIdStr = "";
+
+			
+			
+			while (rs.next()) {
+				brdIndexInt = rs.getInt("F_INDEX");
+				memNameStr = rs.getString("M_NAME");
+				memIdStr = rs.getString("M_ID");
+
+
+				MemberDto memberDto = new MemberDto(memIndex, memNameStr, memIdStr);
+
+				memberList.add(memberDto);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		return memberList;
+	}
+	
 
 	
 }

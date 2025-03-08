@@ -50,6 +50,14 @@ public class MemberDto {
 			this.memBirthDate = memBirthDate;
 			this.memSignTimeDate = memSignTimeDate;
 		}
+
+		/* 게시물에서 멤버변수를 가져오기 위해 추가했어요 */
+	public MemberDto(int memIndexInt, String memNameStr, String memIdStr) {
+			super();
+			this.memIndexInt = memIndexInt;
+			this.memNameStr = memNameStr;
+			this.memIdStr = memIdStr;
+		}
 	
 	
 	@Override

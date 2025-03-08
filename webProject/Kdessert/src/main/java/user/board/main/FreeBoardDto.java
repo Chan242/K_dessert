@@ -2,37 +2,41 @@ package user.board.main;
 
 import java.util.Date;
 
+import admin.member.MemberDto;
+
 public class FreeBoardDto {
 
 	private int brdIndexInt = 0;// 게시판 번호
-	private String brdIdStr = "";// 작성자 ID-외래키
+	private int memIndexInt = 0;// 작성자 번호-외래키
 	private String brdSubjectStr = "";// 제목
 	private String brdTextStr = "";// 텍스트(내용)
 	private String brdImageStr = "";// 이미지(주소)
 	private Date brdCreDate = null;// 작성일
 	private int brdViewInt = 0;// 조회수
 	private int brdNoticeInt = 0;// 공지여부(0:일반, 1:공지)
+	//멤버테이블 끌고옴
+	private MemberDto memberDto; // 게시글의 작성자 정보
 
 	public FreeBoardDto() {
 		super();
 	}
 	
-	public FreeBoardDto(int brdIndexInt, String brdIdStr, String brdSubjectStr
+	public FreeBoardDto(int brdIndexInt, int memIndexInt, String brdSubjectStr
 			, Date brdCreDate, int brdViewInt, int brdNoticeInt) {
 		super();
 		this.brdIndexInt = brdIndexInt;
-		this.brdIdStr = brdIdStr;
+		this.memIndexInt = memIndexInt;
 		this.brdSubjectStr = brdSubjectStr;
 		this.brdCreDate = brdCreDate;
 		this.brdViewInt = brdViewInt;
 		this.brdNoticeInt = brdNoticeInt;
 	}
 
-	public FreeBoardDto(int brdIndexInt, String brdIdStr, String brdSubjectStr, String brdTextStr
+	public FreeBoardDto(int brdIndexInt, int memIndexInt, String brdSubjectStr, String brdTextStr
 			, String brdImageStr, Date brdCreDate, int brdViewInt, int brdNoticeInt) {
 		super();
 		this.brdIndexInt = brdIndexInt;
-		this.brdIdStr = brdIdStr;
+		this.memIndexInt = memIndexInt;
 		this.brdSubjectStr = brdSubjectStr;
 		this.brdTextStr = brdTextStr;
 		this.brdImageStr = brdImageStr;
@@ -40,6 +44,14 @@ public class FreeBoardDto {
 		this.brdViewInt = brdViewInt;
 		this.brdNoticeInt = brdNoticeInt;
 	}
+	
+    public MemberDto getMemberDto() {
+        return memberDto;
+    }
+
+    public void setMemberDto(MemberDto memberDto) {
+        this.memberDto = memberDto;
+    }
 	
 
 	public int getBrdIndexInt() {
@@ -50,12 +62,12 @@ public class FreeBoardDto {
 		this.brdIndexInt = brdIndexInt;
 	}
 
-	public String getBrdIdStr() {
-		return brdIdStr;
+	public int getMemIndexInt() {
+		return memIndexInt;
 	}
 
-	public void setBrdIdStr(String brdIdStr) {
-		this.brdIdStr = brdIdStr;
+	public void setMemIndexInt(int memIndexInt) {
+		this.memIndexInt = memIndexInt;
 	}
 
 	public String getBrdSubjectStr() {
@@ -110,7 +122,7 @@ public class FreeBoardDto {
 	public String toString() {
 
 		return	"FreeBoardDto [brdIndexInt =" + brdIndexInt + 
-				"brdIdStr = " + brdIdStr + 
+				"memIndexInt = " + memIndexInt + 
 				"brdSubjectStr = " + brdSubjectStr + 
 				"brdTextStr = " + brdTextStr + 
 				"brdImageStr = " + brdImageStr + 

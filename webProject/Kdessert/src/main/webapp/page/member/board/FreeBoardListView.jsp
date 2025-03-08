@@ -71,13 +71,14 @@
 
 .writeType{
 	text-align: center;
-	margin-left: 25px;
+	margin-left: 30px;
+	margin-right: 5px;
 }
 
 .writer {
 	text-align: center;
-	margin-left: 25px;
-	margin-right: 10px;
+	margin-left: 20px;
+	margin-right: 15px;
 }
 
 #title{
@@ -108,9 +109,11 @@
 		</div>
 
 		<h4>
-			<span style="margin-left: 200px;">타이틀</span> <span
-				style="margin-right: 40px"> <span class="writeType">작성자</span>
-				<span class="writeType">작성일</span> <span class="writeType">조회수</span>
+			<span style="margin-left: 200px;">타이틀</span> 
+			<span style="margin-right: 40px"> 
+				<span class="writeType">작성자</span>
+				<span class="writeType">작성일</span> 
+				<span class="writeType">조회수</span>
 			</span>
 		</h4>
 
@@ -120,7 +123,7 @@
 			<div id="boardLine">
 				<a href="./board/freeboarddetail?brdindexint=${board.brdIndexInt}">
 					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-					<span style="margin-right: 40px;"> <span class="writer">${board.brdIdStr}</span>
+					<span style="margin-right: 40px;"> <span class="writer">${board.memberDto.memNameStr}</span>
 						<span class="writer">${board.brdCreDate}</span> 
 						<span class="writer">${board.brdViewInt}</span>
 				</span>

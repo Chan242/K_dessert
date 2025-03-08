@@ -91,6 +91,10 @@
 <jsp:useBean id="boardDto"
 	scope="session"
 	class="user.board.main.FreeBoardDto"/>
+	
+<jsp:useBean id="memberDto"
+	scope="session"
+	class="admin.member.MemberDto"/>
 <body>
 <jsp:include page="../commPage/Mem_Header.jsp"/>
 <jsp:include page="../commPage/Category_Main.jsp"/>
@@ -99,7 +103,7 @@
 	<div id="title">
 		<h1>${boardDto.getBrdSubjectStr()}</h1>
 		<div id="head">
-			<span class="writer">작성자: ${boardDto.getBrdIdStr()}</span> <!-- 작성자 텍스트 -->
+			<span class="writer">작성자: ${boardDto.getMemberDto().memNameStr}</span> <!-- 작성자 텍스트 -->
 			
 			<div class="date-view">
 				<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->

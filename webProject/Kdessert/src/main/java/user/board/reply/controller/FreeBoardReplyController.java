@@ -64,14 +64,14 @@ public class FreeBoardReplyController extends HttpServlet {
 		System.out.println("글쓰기 작성자 가져옴");
 		
 		
-		String memIdStr = memberDtoSelect.getMemIdStr();// 유저 아이디-작성자명 조인해서 가져올 재료
+		int memIndexInt = memberDtoSelect.getMemIndexInt();// 유저 아이디-작성자명 조인해서 가져올 재료
 		String brdSubjectStr = req.getParameter("brdSubjectStr");// 제목
 		String brdTextStr = req.getParameter("brdTextStr");// 텍스트(내용)
 		String memNameStr = req.getParameter("memNameStr");// 유저명
 
 		FreeBoardDto boardDto = new FreeBoardDto();
 		
-		boardDto.setBrdIdStr(memIdStr);//유저아이디 저장
+		boardDto.setMemIndexInt(memIndexInt);//유저아이디 저장
 		boardDto.setBrdSubjectStr(brdSubjectStr);//제목 저장
 		boardDto.setBrdTextStr(brdTextStr);//내용 저장
 
