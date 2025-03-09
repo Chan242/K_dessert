@@ -33,17 +33,33 @@
 		font-weight: bold;
 	}
 	
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: left;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+	
 	#div_pointInfo {
 		width: 500px;
-		height: 400px;
+		height: 300px;
 		margin: auto;
 	}
 
 	#div_pointInfo table {
 		margin: auto;
-		margin-top: 100px;
-		font-size: 24px;
-		border-bottom: 1px solid black;
+		font-size: 20px;
 	}
 	
 	#div_pointInfo table td {
@@ -53,7 +69,7 @@
 	
 	#div_pointInfo div {
 		text-align: center;
-		margin-top: 100px;
+		margin-top: 50px;
 	}
 	
 	.btn_style {
@@ -94,12 +110,11 @@
 					<table>
 						<tr>
 							<th>현재 포인트</th>
-							<td>${sessionScope.member.memPointInt}P</td>
+							<td>${member.memPointInt} P</td>
 						</tr>
 					</table>
 					<div>
-						<input class="btn_style" type="button" value="충전하기" 
-						onclick="window.open('/Kdessert/page/member/mypage/MypagePointCharge.jsp', 'chargePop', 'width=500,height=600,left=500px, top=500px')">
+						<input class="btn_style" type="button" value="충전하기" onclick="chargePopup()">
 					</div>
 				</div>
 			</div>
@@ -109,6 +124,16 @@
 </body>
 
 <script type="text/javascript">
+
+	function chargePopup() {
+		
+		var popupSetStr = "";
+		
+		popupSetStr += "width=400px, height=300px, left=850px, top=300px";
+		
+		window.open('/Kdessert/page/member/mypage/point/charge', 'chargePop', popupSetStr);
+		
+	}
 
 </script>
 

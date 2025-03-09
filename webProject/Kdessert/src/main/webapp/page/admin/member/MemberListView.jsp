@@ -47,8 +47,36 @@
 	}
 
 	#div_search{
- 		width: 250px;
-		margin: auto;
+ 		width: 290px;
+ 		margin-right: 50px;
+ 		margin-bottom: 10px;
+		float: right; 
+	}
+	
+	#search_text {
+		width: 200px;
+		height: 10px;
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		margin-top: 3px;
+		line-height: 5px;
+	}
+	
+	#search_submit {
+		width: 60px;
+		height: 32px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		margin-top: 3px;
+		line-height: 5px;
+		cursor: pointer;
 	}
 
 	#table_info{
@@ -62,9 +90,12 @@
 	}
 	
 	#div_content h2 {
-		 margin: 40px; 
-		 padding-bottom: 20px;
-		 border-bottom: 2px solid black;
+		width: 1200px;
+		margin: auto;
+		margin-top: 40px;
+		margin-bottom: 40px; 
+		padding-bottom: 20px;
+		border-bottom: 2px solid black;
 	}
 
 </style>
@@ -85,8 +116,8 @@
 				<h2>　회원관리</h2>
 				
 				<div id="div_search">
-					<input type="text">
-					<input type="submit" value="검색">
+					<input id="search_text" type="text">
+					<input id="search_submit" type="submit" value="검색">
 				</div>
 			
 				<table id="table_info">

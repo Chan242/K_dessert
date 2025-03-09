@@ -16,7 +16,7 @@ public class MemberDao {
 		this.connection = conn;
 	}
 	
-	//로그인
+	// 로그인
 	public MemberDto memberExist(String id, String pwd)
 		throws SQLException {
 		
@@ -56,22 +56,22 @@ public class MemberDao {
 				index = rs.getInt("M_INDEX");
 				memberDto.setMemIndexInt(index);
 				
-				name = rs.getString("M_ID");
+				id = rs.getString("M_ID");
 				memberDto.setMemIdStr(id);
 				
-				name = rs.getString("M_EMAIL");
+				email = rs.getString("M_EMAIL");
 				memberDto.setMemEmailStr(email);
 				
-				name = rs.getString("M_ADDRESS");
+				addressSec = rs.getString("M_ADDRESS");
 				memberDto.setMemAddressStr(addressSec);
 				
-				name = rs.getString("M_ADDRESS_SEC");
+				addressSec = rs.getString("M_ADDRESS_SEC");
 				memberDto.setMemAddressSecStr(addressSec);
 				
-				name = rs.getString("M_BIRTH");
+				birth = rs.getDate("M_BIRTH");
 				memberDto.setMemBirthDate(birth);
 				
-				name = rs.getString("M_POINT");
+				point = rs.getInt("M_POINT");
 				memberDto.setMemPointInt(point);
 				
 				// 회원 정보 조회 확인됨
@@ -171,7 +171,7 @@ public class MemberDao {
 		return result;
 	}
 
-	//email 중복 확인
+	// email 중복 확인
 	public boolean memberEmailCheck(String email) throws Exception {
 		
 		PreparedStatement pstmt = null;
@@ -222,7 +222,7 @@ public class MemberDao {
 		
 	}
 	
-	//id 중복 확인
+	// id 중복 확인
 	public boolean memberIdCheck(String id) throws Exception {
 		
 		PreparedStatement pstmt = null;
@@ -272,7 +272,7 @@ public class MemberDao {
 		return false;
 	}
 	
-	//id 찾기
+	// id 찾기
  	public MemberDto findId(String name, String email) {
 		
 		PreparedStatement pstmt = null;
@@ -346,7 +346,7 @@ public class MemberDao {
 		
 		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
 		sql += " FROM MEMBER";
-		sql += " ORDER BY M_INDEX ASC";
+		sql += " ORDER BY M_INDEX DESC";
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -574,9 +574,50 @@ public class MemberDao {
 		} // finally 종료
 		return result;
 	}
+	
+	// 회원 포인트 충전
+	public int memberPointCharge(MemberDto memberDto) throws SQLException {
 		
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+
+		String sql = "";
+		sql = "UPDATE MEMBER";
+		sql += " SET M_POINT=?";
+		sql += " WHERE M_INDEX =?";
+		
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, memberDto.getMemPointInt());
+			pstmt.setInt(2, memberDto.getMemIndexInt());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+		return result;
+		
+	}
+	
+	
 	// 회원 삭제
-		public int memberDelete(int no) throws SQLException {
+	public int memberDelete(int no) throws SQLException {
 			
 			int result = 0;
 
