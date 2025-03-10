@@ -20,8 +20,8 @@
 			이름: <input type='text' name='proName' value='${productDto.getProNameStr()}'><br>
 			제품가격: <input type='number' name='proPrice' value='${productDto.getProPriceInt()}'><br>
 			재고: <input type='number' name='proStock' value='${productDto.getProStockInt()}'><br>
-			공개여부: <input type="radio" name='proOpen' value='0' checked="checked">공개
-					<input type="radio" name='proOpen' value='1'>비공개<br>
+			공개여부: <input type="radio" name='proOpen' value='0' ${productDto.getProOpenInt() == 0 ? "checked" : ""}>공개
+					<input type="radio" name='proOpen' value='1' ${productDto.getProOpenInt() == 1 ? "checked" : ""}>비공개<br>
 			소개: <textarea rows="4" cols="52" name="proIntro">${productDto.getProIntroStr()}</textarea><br>
 	
 			<input type='submit' value='저장'>

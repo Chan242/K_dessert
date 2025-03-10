@@ -1,5 +1,6 @@
 package user.order.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,6 +28,11 @@ public class UserOrderController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/page/member/mypage/MypageOrderView.jsp");
+
+		rd.forward(req, res);
+		
 		
 	}
 
