@@ -129,7 +129,7 @@
 		
 		var popupSetStr = "";
 		
-		popupSetStr += "width=400px, height=300px, left=850px, top=300px";
+		popupSetStr += "width=480px, height=300px, left=720px, top=300px";
 		
 		window.open('/Kdessert/page/member/mypage/point/charge', 'chargePop', popupSetStr);
 		

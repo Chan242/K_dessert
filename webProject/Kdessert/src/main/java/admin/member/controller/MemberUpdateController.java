@@ -67,11 +67,14 @@ public class MemberUpdateController extends HttpServlet{
 		try {
 			
 			String note = req.getParameter("note");
+			String admCheckStr = req.getParameter("adminCheck");
+			int admCheck = Integer.parseInt(admCheckStr);
 			String mIndexStr = req.getParameter("index");
 			int mIndex = Integer.parseInt(mIndexStr);
 			
 			memberDto = new MemberDto();
 			memberDto.setMemNoteStr(note);
+			memberDto.setMemAdmCheckInt(admCheck);
 			memberDto.setMemIndexInt(mIndex);
 			
 			ServletContext sc = this.getServletContext();

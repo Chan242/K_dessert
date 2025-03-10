@@ -24,17 +24,12 @@ public class MemberDao {
 		ResultSet rs = null;
 
 		String sql = "";
-		sql += "SELECT M_NAME, M_INDEX, M_ID, M_EMAIL, M_ADDRESS, M_ADDRESS_SEC, M_BIRTH, M_POINT";
+		sql += "SELECT M_NAME, M_INDEX, M_ID";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_ID = ? AND M_PASSWORD = ?";
 
 		String name = "";
-		String email = "";
-		String address = "";
-		String addressSec = "";
-		Date birth = null;
 		int index = 0;
-		int point = 0;
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -58,21 +53,6 @@ public class MemberDao {
 				
 				id = rs.getString("M_ID");
 				memberDto.setMemIdStr(id);
-				
-				email = rs.getString("M_EMAIL");
-				memberDto.setMemEmailStr(email);
-				
-				addressSec = rs.getString("M_ADDRESS");
-				memberDto.setMemAddressStr(addressSec);
-				
-				addressSec = rs.getString("M_ADDRESS_SEC");
-				memberDto.setMemAddressSecStr(addressSec);
-				
-				birth = rs.getDate("M_BIRTH");
-				memberDto.setMemBirthDate(birth);
-				
-				point = rs.getInt("M_POINT");
-				memberDto.setMemPointInt(point);
 				
 				// 회원 정보 조회 확인됨
 				return memberDto;
@@ -412,7 +392,7 @@ public class MemberDao {
 		String sql = "";
 
 		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_TEL, ";
-		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_POINT, M_NOTE";
+		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_CORR_DATE, M_POINT, M_ADM_CHECK, M_NOTE";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_INDEX =?";
 
@@ -432,7 +412,9 @@ public class MemberDao {
 			String address = "";
 			String addressSec ="";
 			Date signTime = null;
+			Date corrDate = null;
 			int point = 0;
+			int admCheck = 0;
 			String note = "";
 
 			if (rs.next()) {
@@ -445,7 +427,9 @@ public class MemberDao {
 				address = rs.getString("M_ADDRESS");
 				addressSec = rs.getString("M_ADDRESS_SEC");
 				signTime = rs.getDate("M_SIGN_TIME");
+				corrDate = rs.getDate("M_CORR_DATE");
 				point = rs.getInt("M_POINT");
+				admCheck = rs.getInt("M_ADM_CHECK");
 				note = rs.getString("M_NOTE");
 
 				memberDto = new MemberDto();
@@ -459,7 +443,9 @@ public class MemberDao {
 				memberDto.setMemAddressStr(address);
 				memberDto.setMemAddressSecStr(addressSec);
 				memberDto.setMemSignTimeDate(signTime);
+				memberDto.setMemCorrDate(corrDate);
 				memberDto.setMemPointInt(point);
+				memberDto.setMemAdmCheckInt(admCheck);
 				memberDto.setMemNoteStr(note);
 				
 			} else {
@@ -493,6 +479,101 @@ public class MemberDao {
 		return memberDto;
 	}
 	
+	
+	//회원 검색
+	public List<MemberDto> searchList(String searchText) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberDto> memberList = new ArrayList<MemberDto>();
+		
+		String sql = "";
+		
+		String namePattern = "%" + searchText + "%";
+		String idPattern = "%" + searchText + "%";
+		
+		
+		try {
+			
+			if (searchText.matches("\\d+")) {  // 숫자만 포함된 경우
+				int indexSearch = Integer.parseInt(searchText);
+
+				sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
+				sql += " FROM MEMBER";
+				sql += " WHERE M_INDEX=? OR M_NAME LIKE ? OR M_ID LIKE ?";
+				sql += " ORDER BY M_INDEX DESC";
+				
+				pstmt = connection.prepareStatement(sql);
+				
+				pstmt.setInt(1, indexSearch);
+				pstmt.setString(2, namePattern);
+				pstmt.setString(3, idPattern);
+				
+			} else {
+				
+				sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
+				sql += " FROM MEMBER";
+				sql += " WHERE M_NAME LIKE ? OR M_ID LIKE ?";
+				sql += " ORDER BY M_INDEX DESC";
+				
+				pstmt = connection.prepareStatement(sql);
+				
+				pstmt.setString(1, namePattern);
+				pstmt.setString(2, idPattern);
+				
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			int index = 0;
+			String name = "";
+			String id = "";
+			String email = "";
+			Date birth = null;
+			Date signTime = null;
+			
+			while (rs.next()) {
+				index = rs.getInt("M_INDEX");
+				name = rs.getString("M_NAME");
+				id = rs.getString("M_ID");
+				email = rs.getString("M_EMAIL");
+				birth = rs.getDate("M_BIRTH");
+				signTime = rs.getDate("M_SIGN_TIME");
+				
+				MemberDto memberDto = new MemberDto(index, name, id, email, birth, signTime);
+				
+				memberList.add(memberDto);
+						
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		
+		return memberList;
+		
+	}
+	
+	
 	// 회원 정보 수정 /관리자용
 	public int memberUpdate(MemberDto memberDto) throws SQLException {
 		
@@ -502,7 +583,7 @@ public class MemberDao {
 
 		String sql = "";
 		sql = "UPDATE MEMBER";
-		sql += " SET M_NOTE=?";
+		sql += " SET M_NOTE=?, M_CORR_DATE=SYSDATE, M_ADM_CHECK=?";
 		sql += " WHERE M_INDEX =?";
 
 		try {
@@ -510,7 +591,8 @@ public class MemberDao {
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, memberDto.getMemNoteStr());
-			pstmt.setInt(2, memberDto.getMemIndexInt());
+			pstmt.setInt(2, memberDto.getMemAdmCheckInt());
+			pstmt.setInt(3, memberDto.getMemIndexInt());
 
 			result = pstmt.executeUpdate();
 			

@@ -14,7 +14,9 @@ public class MemberDto {
 	private String memAddressSecStr = "";
 	private Date memBirthDate = null;
 	private Date memSignTimeDate = null;
+	private Date memCorrDate = null;
 	private int memPointInt = 0;
+	private int memAdmCheckInt = 0;
 	private String memNoteStr = "";
 	
 	public MemberDto() {
@@ -23,8 +25,8 @@ public class MemberDto {
 	
 	public MemberDto(int memIndexInt, String memIdStr, String memPasswordStr, 
 		String memNameStr, String memTelStr, String memEmailStr, String memAddressStr, 
-		String memAddressSecStr, Date memBirthDate, Date memSignTimeDate, 
-		int memPointInt, String memNoteStr) {
+		String memAddressSecStr, Date memBirthDate, Date memSignTimeDate, Date memCorrDate, 
+		int memPointInt, int memAdmCheckInt, String memNoteStr) {
 		super();
 		this.memIndexInt = memIndexInt;
 		this.memIdStr = memIdStr;
@@ -36,9 +38,13 @@ public class MemberDto {
 		this.memAddressSecStr = memAddressSecStr;
 		this.memBirthDate = memBirthDate;
 		this.memSignTimeDate = memSignTimeDate;
+		this.memCorrDate = memCorrDate;
 		this.memPointInt = memPointInt;
+		this.memAdmCheckInt = memAdmCheckInt;
 		this.memNoteStr = memNoteStr;
 	}
+
+	
 
 	public MemberDto(int memIndexInt, String memNameStr, String memIdStr, 
 			String memEmailStr,Date memBirthDate, Date memSignTimeDate) {
@@ -73,9 +79,27 @@ public class MemberDto {
 				"memAddressSecStr = " + memAddressSecStr + 
 				"memBirthDate = " + memBirthDate + 
 				"memSignTimeDate = " + memSignTimeDate + 
+				"memCorrDate = " + memCorrDate + 
 				"memPointInt = " + memPointInt + 
+				"memAdmCheckInt = " + memAdmCheckInt +
 				"memNoteStr = " + memNoteStr + 
 				"]";
+	}
+
+	public Date getMemCorrDate() {
+		return memCorrDate;
+	}
+
+	public void setMemCorrDate(Date memCorrDate) {
+		this.memCorrDate = memCorrDate;
+	}
+	
+	public int getMemAdmCheckInt() {
+		return memAdmCheckInt;
+	}
+
+	public void setMemAdmCheckInt(int memAdmCheckInt) {
+		this.memAdmCheckInt = memAdmCheckInt;
 	}
 
 	public int getMemIndexInt() {

@@ -45,6 +45,7 @@
 		color: white;
 		font-size: 16px;
 		
+		cursor: pointer;
     }
     
     #div_category {
@@ -129,8 +130,19 @@
 							<td>${memberDto.memSignTimeDate}</td>
 						</tr>
 						<tr>
+							<th scope="row">수정일</th>
+							<td>${memberDto.memCorrDate}</td>
+						</tr>
+						<tr>
 							<th scope="row">포인트</th>
 							<td>${memberDto.memPointInt}</td>
+						</tr>
+						<tr>
+							<th scope="row">관리자</th>
+							<td>
+								<input type="radio" name='adminCheck' value='1' ${memberDto.memAdmCheckInt == 1 ? "checked" : ""} > 허용
+								<input type="radio" name='adminCheck' value='0' ${memberDto.memAdmCheckInt == 0 ? "checked" : ""} > 비허용
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">비고</th>

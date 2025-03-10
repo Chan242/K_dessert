@@ -134,14 +134,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="member" items="${memberList}">
+						<c:forEach var="search" items="${memberList}">
 							<tr>
-								<td>${member.memIndexInt}</td>
-								<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
-								<td>${member.memIdStr}</td>
-								<td>${member.memEmailStr}</td>
-								<td>${member.memBirthDate}</td>
-								<td>${member.memSignTimeDate}</td>
+								<td>${search.memIndexInt}</td>
+								<td><a href="./details?no=${search.memIndexInt}">${search.memNameStr}</a></td>
+								<td>${search.memIdStr}</td>
+								<td>${search.memEmailStr}</td>
+								<td>${search.memBirthDate}</td>
+								<td>${search.memSignTimeDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
