@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,6 +23,7 @@ table, tr, th, td {
 table {
 	border-top: 2px solid black;
 	margin: auto;
+	width: 900px;
 }
 
 th {
@@ -103,46 +105,51 @@ input {
 		<div id="div_category">
 			<jsp:include page="../commPage/Category_Mypage.jsp" />
 		</div>
+		<c:if test="${basketList.size() == 0}">
+			<br><h2 style="text-align: center;">장바구니가 비었습니다.</h2>
+		</c:if>
+		<c:if test="${basketList.size()>0}">
 
-		<table>
-			<h2 style="text-align: center;">장바구니</h2>
-			<tr>
-				<td>제품명</td>
-				<td>수량</td>
-				<td>가격</td>
-				<td>총계</td>
-				<td></td>
-			</tr>
-			<c:forEach var="basketDto" items="${basketList}">
+			<table>
+				<h2 style="text-align: center;">장바구니</h2>
 				<tr>
-					<td><a
-						href="../../../product/select?no=${basketDto.getProIndexInt()}">${basketDto.getProNameStr()}</a></td>
-					<td>
-						<form action="./basket/update?no=${basketDto.getProIndexInt()}" method="post">
-							<input type="number" name="basStock" value="${basketDto.getBasStockInt()}" min="1">
-							<input type="submit" value="변경" width="40px;">
-						</form>
-					</td>
-					<td>${basketDto.getProPriceInt()}</td>
-					<td>${basketDto.getBasStockInt() * basketDto.getProPriceInt()}</td>
-					<td><a href="./basket/delete?no=${basketDto.getProIndexInt()}">삭제</a></td>
+					<td>제품명</td>
+					<td>수량</td>
+					<td>가격</td>
+					<td>총계</td>
+					<td></td>
 				</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="5" style="text-align: right;">총계: 
-                   <c:set var="total" value="0" />
-                    <c:forEach var="basketDto" items="${basketList}">
-                        <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
-                        <c:set var="total" value="${total + itemTotal}" />
-                    </c:forEach>
-                   	 ${total} 원
-				</td>
-			</tr>
-			<tr>
-				<td><a href="./order" id="order">주문하기</a></td>
-				<td colspan="3" style="text-align: right;"><a href="./basket/clear" id="clearBasket">장바구니 비우기</a></td>
-			</tr>
-		</table>
+				<c:forEach var="basketDto" items="${basketList}">
+					<tr>
+						<td><a
+							href="../../../product/select?no=${basketDto.getProIndexInt()}">${basketDto.getProNameStr()}</a></td>
+						<td>
+							<form action="./basket/update?no=${basketDto.getProIndexInt()}" method="post">
+								<input type="number" name="basStock" value="${basketDto.getBasStockInt()}" min="1">
+								<input type="submit" value="변경" width="40px;">
+							</form>
+						</td>
+						<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+						<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+						<td><a href="./basket/delete?no=${basketDto.getProIndexInt()}">삭제</a></td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<td colspan="5" style="text-align: right;">총계: 
+	                   <c:set var="total" value="0" />
+	                    <c:forEach var="basketDto" items="${basketList}">
+	                        <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
+	                        <c:set var="total" value="${total + itemTotal}" />
+	                    </c:forEach>
+	                   	 <fmt:formatNumber value="${total}" pattern="#,##0" /> 원
+					</td>
+				</tr>
+				<tr>
+					<td><a href="./order" id="order">주문하기</a></td>
+					<td colspan="3" style="text-align: right;"><a href="./basket/clear" id="clearBasket">장바구니 비우기</a></td>
+				</tr>
+			</table>
+		</c:if>
 		<div style="margin: auto; clear: both;">
 			
 		</div>

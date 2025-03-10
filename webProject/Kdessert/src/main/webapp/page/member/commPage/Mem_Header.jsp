@@ -39,7 +39,7 @@
 	<c:if test="${member.memNameStr ne null}">
 		<span id="user_page" class="login_status" style="float:right;">
 			<a href="/Kdessert/page/member/mypage/info">${member.memNameStr}님</a>
-			<a href="장바구니 링크">장바구니</a>
+			<a href="/Kdessert/page/member/mypage/basket">장바구니</a>
 			<a href="/Kdessert/auth/logout">로그아웃</a>
 		</span>
 	</c:if>

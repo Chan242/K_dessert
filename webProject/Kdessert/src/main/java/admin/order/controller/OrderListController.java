@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import admin.order.OrderDao;
-import admin.order.OrderDto;
+import admin.order.OrderListDto;
 import admin.product.ProductDao;
 import admin.product.ProductDto;
 
@@ -21,13 +21,13 @@ import admin.product.ProductDto;
  * Servlet implementation class ProductController
  */
 @WebServlet("/admin/order/list")
-public class OrderController extends HttpServlet {
+public class OrderListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderController() {
+    public OrderListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,10 +47,8 @@ public class OrderController extends HttpServlet {
 			
 			OrderDao orderDao = new OrderDao();
 			
-//			orderDao.setConnection(conn);
 			
-			ArrayList<OrderDto> orderList = null;
-//			orderList = (ArrayList<OrderDto>)orderDao.selectList();
+			ArrayList<OrderListDto> orderList = null;
 			
 			req.setAttribute("orderList", orderList);
 			

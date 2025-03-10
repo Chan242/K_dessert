@@ -10,10 +10,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDao;
 import user.board.main.FreeBoardDto;
+import user.board.reply.BoardReplyDao;
+import user.board.reply.BoardReplyDto;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 
 /**
@@ -72,6 +75,27 @@ public class FreeBoardDetailController extends HttpServlet {
 			//boardDto객체에 boardDao.selectOne(no)값을 넣음(반환값이 BoardDto이기 때문에 BoardDto타입)
 			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndex);
 			
+			//----------------------------------------------------------------//
+			//댓글부분
+			
+			//BoardReplyDao 객체 생성
+			BoardReplyDao boardreplyDao = new BoardReplyDao();
+			
+			//BoardReplyDao와 DB 연결
+			boardreplyDao.setConnection(conn);
+			
+			//댓글 데이터들이 들어갈 리스트 생성
+			ArrayList<BoardReplyDto> boardreplyList = null;
+			
+			boardreplyList = (ArrayList<BoardReplyDto>)boardreplyDao.replyList(brdIndex);
+			
+			req.setAttribute("boardreplyList", boardreplyList);
+			
+			for(int i=0;i<boardreplyList.size() ;i++) {
+				System.out.println(boardreplyList.get(i).getReplyTextStr());
+			}
+			
+			//-------------------리퀘부분-------------------//
 			//BoardUpdateForm.jsp에서 <jsp:useBean id="boardDto"...의 id를 가져올거라 "boardDto", 
 			//boardDto가 위에 선언한 boardDto이다.
 			req.setAttribute("boardDto", boardDto);

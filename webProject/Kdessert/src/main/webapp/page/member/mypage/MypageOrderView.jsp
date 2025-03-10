@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,6 +23,7 @@ table, tr, th, td {
 table {
 	border-top: 2px solid black;
 	margin: auto;
+	width: 900px;
 }
 
 th {
@@ -105,7 +107,6 @@ input {
 				<td>수량</td>
 				<td>가격</td>
 				<td>총계</td>
-				<td></td>
 			</tr>
 			<c:forEach var="basketDto" items="${basketList}">
 				<tr>
@@ -117,9 +118,8 @@ input {
 							<input type="submit" value="변경" width="40px;">
 						</form>
 					</td>
-					<td>${basketDto.getProPriceInt()}</td>
-					<td>${basketDto.getBasStockInt() * basketDto.getProPriceInt()}</td>
-					<td><a href="./basket/delete?no=${basketDto.getProIndexInt()}">삭제</a></td>
+					<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+					<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
 				</tr>
 			</c:forEach>
 			<tr>
@@ -129,7 +129,7 @@ input {
                         <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
                         <c:set var="total" value="${total + itemTotal}" />
                     </c:forEach>
-                   	 ${total} 원
+                   	<fmt:formatNumber value="${total}" pattern="#,##0" /> 원
 				</td>
 			</tr>
 
@@ -140,21 +140,41 @@ input {
 		<table>
 			<tr>
 				<td>받을 사람</td>
-				<td>홍길동</td>
+				<td>${orderInfo.getMemNameStr() }</td>
 			</tr>
 			<tr>
 				<td>받을 주소</td>
-				<td>주소 1</td>
+				<td>${orderInfo.getMemAddressStr() }</td>
 			</tr>
 			<tr>
 				<td>상세 주소</td>
-				<td>주소 2</td>
+				<td>${orderInfo.getMemAddressSecStr() }</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td>000-0000-0000</td>
+				<td>${orderInfo.getMemTelStr() }</td>
 			</tr>
 		</table>
+		<hr>
+		<h2 style="text-align: center;">결제 정보</h2>
+		<table>
+			<tr>
+				<td>보유 포인트</td>
+				<td style="text-align: right"><fmt:formatNumber value="${orderInfo.getMemPointInt()}" pattern="#,##0" />
+					<c:if test="${total > orderInfo.getMemPointInt()}">
+						<br>포인트가 부족합니다.
+					</c:if>
+					<c:if test="${total <= orderInfo.getMemPointInt()}">
+						<br><form action="./order/sucess" method="post">
+						<input type="submit" value="구매">
+						</form>
+					</c:if>
+
+					
+				</td>
+			</tr>
+		</table>
+
 		
 		<div style="margin: auto; clear: both;">
 

@@ -1,17 +1,10 @@
 package admin.order;
 
-import java.util.Date;
-
 public class OrderDto {
-
-	int ordIndexint = 0;
-	String staStatStr = "";
-	Date ordTime = null;
-	String memAdd1Str = "";
-	String memAdd2Str = "";
-	String memTelStr = "";
-	int memIndexInt = 0;
-	String memNameStr = "";
+	int orderIndexInt = 0;
+	int productIndexInt = 0;
+	int orderStock = 0;
+	int orderProductPrice = 0;
 	
 	
 	
@@ -19,20 +12,67 @@ public class OrderDto {
 		super();
 	}
 
-	
-	
-	
-	public OrderDto(int ordIndexint, String staStatStr, String memAdd1Str, String memAdd2Str,
-			String memTelStr) {
+
+
+	public OrderDto(int orderIndexInt, int productIndexInt, int orderStock, int orderProductPrice) {
 		super();
-		this.ordIndexint = ordIndexint;
-		this.staStatStr = staStatStr;
-		this.memAdd1Str = memAdd1Str;
-		this.memAdd2Str = memAdd2Str;
-		this.memTelStr = memTelStr;
+		this.orderIndexInt = orderIndexInt;
+		this.productIndexInt = productIndexInt;
+		this.orderStock = orderStock;
+		this.orderProductPrice = orderProductPrice;
 	}
 
+
+
+	public int getOrderIndexInt() {
+		return orderIndexInt;
+	}
+
+
+
+	public void setOrderIndexInt(int orderIndexInt) {
+		this.orderIndexInt = orderIndexInt;
+	}
+
+
+
+	public int getProductIndexInt() {
+		return productIndexInt;
+	}
+
+
+
+	public void setProductIndexInt(int productIndexInt) {
+		this.productIndexInt = productIndexInt;
+	}
+
+
+
+	public int getOrderStock() {
+		return orderStock;
+	}
+
+
+
+	public void setOrderStock(int orderStock) {
+		this.orderStock = orderStock;
+	}
+
+
+
+	public int getOrderProductPrice() {
+		return orderProductPrice;
+	}
+
+
+
+	public void setOrderProductPrice(int orderProductPrice) {
+		this.orderProductPrice = orderProductPrice;
+	}
 	
 	
 	
+	
+	
+
 }

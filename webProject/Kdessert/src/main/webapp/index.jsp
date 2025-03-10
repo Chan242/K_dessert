@@ -20,7 +20,7 @@
 	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
 	
-	<c:if test="${member.memNameStr ne null}">
+	<c:if test="${member.getMemAdmCheckInt() == 1}">
 		<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
 	</c:if>
 	

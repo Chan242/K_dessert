@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="user.board.reply.BoardReplyDto"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <!-- 댓글란 구현 -->
 <style type="text/css">
@@ -12,6 +14,7 @@
 		
 		font-family: sans-serif;
 	}
+	
 	#WriterInfo{
 	
 		display: flex;
@@ -55,21 +58,28 @@
 		
 	}
 </style>
+
+	
 	<!-- 댓글 목록 -->
 	<h4>댓글</h4>
-	<div id="WritedRyply">
-		<div id="WriterInfo">
+	${boardDto.brdIndexInt}
 	
-			<span style="color: black;">작성자</span>
-			<span>작성일</span>
-			
-			<a>수정</a>
-			<a>삭제</a>
+	<c:forEach var="reply" items="${boardreplyList}">
+		<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
+		<div id="WritedReply">
+			<div id="WriterInfo">
+		
+				<span style="color: black;">작성자</span>
+				<span>작성일-${reply.replyCreDate}</span>
+				
+				<a>수정</a>
+				<a>삭제</a>
+			</div>
+			<div id="replyList">
+				${reply.replyTextStr}
+			</div>
 		</div>
-		<div id="replyList">
-			댓글 작성부분
-		</div>
-	</div>
+	</c:forEach>
 	
 	<!-- 댓글 작성부분 -->
 	<div class= "reply">
@@ -79,5 +89,4 @@
 			<input id = 'inputBtn' type="submit" value="등록">
 		</form>
 	</div>
-
 </html>

@@ -85,6 +85,7 @@
 		<form action="./update" method="post">
 			<div id="inputHead">
 				<h1>게시글 수정</h1>
+				
 				<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}" />
 				<h3>제목</h3>
 				<input class="textBox" id='title' type="text" name="brdSubjectStr" 

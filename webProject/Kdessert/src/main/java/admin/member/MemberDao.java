@@ -53,7 +53,7 @@ public class MemberDao {
 				memberDto.setMemIndexInt(index);
 				
 				admCheck = rs.getInt("M_ADM_CHECK");
-				memberDto.setMemIndexInt(admCheck);
+				memberDto.setMemAdmCheckInt(admCheck);
 				
 				id = rs.getString("M_ID");
 				memberDto.setMemIdStr(id);
@@ -372,20 +372,20 @@ public class MemberDao {
 		String sql = "";
 		
 //		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
-//		sql += " FROM MEMBER";
+//		sql += " FROM (";
+//		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME, ROWNUM rnum";
+//		sql += " FROM MEMBER m";
+//		sql += " WHERE ROWNUM <= ?)";
+//		sql += " WHERE rnum >= ?";
 //		sql += " ORDER BY M_INDEX DESC";
 		
-		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
-		sql += " FROM (";
-		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME, ROWNUM rnum";
-		sql += " FROM MEMBER m";
-		sql += " WHERE ROWNUM <= ?)";
-		sql += " WHERE rnum >= ?";
-		sql += " ORDER BY M_INDEX DESC";
+		sql += "SELECT * FROM (";
+		sql += " SELECT A.*, ROWNUM rnum FROM (";
+		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME";
+		sql += " FROM MEMBER m ORDER BY m.M_INDEX DESC";
+		sql += " ) A WHERE ROWNUM <= ?";
+		sql += " ) WHERE rnum >= ?";
 		
-//		int pageNum = 1;  // 1페이지
-//		int pageSize = 10; // 한 페이지에 10개
-
 		int startRow = (pageNum - 1) * pageSize + 1;
 		int endRow = pageNum * pageSize;
 		
@@ -544,8 +544,8 @@ public class MemberDao {
 	}
 	
 	
-	//회원 검색
-	public List<MemberDto> searchList(String searchText) {
+	//회원 검색 (페이징)
+	public List<MemberDto> searchList(String searchText, int pageNum, int pageSize) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -556,34 +556,48 @@ public class MemberDao {
 		String namePattern = "%" + searchText + "%";
 		String idPattern = "%" + searchText + "%";
 		
+		int startRow = (pageNum - 1) * pageSize + 1;
+		int endRow = pageNum * pageSize;
 		
 		try {
 			
 			if (searchText.matches("\\d+")) {  // 숫자만 포함된 경우
 				int indexSearch = Integer.parseInt(searchText);
-
-				sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
-				sql += " FROM MEMBER";
+				
+				sql += "SELECT * FROM (";
+				sql += " SELECT A.*, ROWNUM rnum FROM (";
+				sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME";
+				sql += " FROM MEMBER m";
 				sql += " WHERE M_INDEX=? OR M_NAME LIKE ? OR M_ID LIKE ?";
-				sql += " ORDER BY M_INDEX DESC";
+				sql += " ORDER BY m.M_INDEX DESC";
+				sql += " ) A WHERE ROWNUM <= ?";
+				sql += " ) WHERE rnum >= ?";
 				
 				pstmt = connection.prepareStatement(sql);
 				
 				pstmt.setInt(1, indexSearch);
 				pstmt.setString(2, namePattern);
 				pstmt.setString(3, idPattern);
+				pstmt.setInt(4, endRow);
+				pstmt.setInt(5, startRow);
 				
 			} else {
 				
-				sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
-				sql += " FROM MEMBER";
+				sql += "SELECT * FROM (";
+				sql += " SELECT A.*, ROWNUM rnum FROM (";
+				sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME";
+				sql += " FROM MEMBER m";
 				sql += " WHERE M_NAME LIKE ? OR M_ID LIKE ?";
-				sql += " ORDER BY M_INDEX DESC";
+				sql += " ORDER BY m.M_INDEX DESC";
+				sql += " ) A WHERE ROWNUM <= ?";
+				sql += " ) WHERE rnum >= ?";
 				
 				pstmt = connection.prepareStatement(sql);
 				
 				pstmt.setString(1, namePattern);
 				pstmt.setString(2, idPattern);
+				pstmt.setInt(3, endRow);
+				pstmt.setInt(4, startRow);
 				
 			}
 			
@@ -637,6 +651,76 @@ public class MemberDao {
 		
 	}
 	
+	// 회원 검색 조회에서 전체 데이터의 수를 가져오는 메소드
+	 	public int getSearchTotalCount(String searchText) {
+	 		
+	 		PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = "";
+			
+			String namePattern = "%" + searchText + "%";
+			String idPattern = "%" + searchText + "%";
+	 		
+			int totalCount = 0;
+
+			try {
+				
+				if (searchText.matches("\\d+")) { // 숫자만 포함된 경우
+					int indexSearch = Integer.parseInt(searchText);
+					sql = "";
+					sql += "SELECT COUNT(M_INDEX)";
+					sql += " FROM MEMBER";
+					sql += " WHERE M_INDEX=? OR M_NAME LIKE ? OR M_ID LIKE ?";
+					
+					pstmt = connection.prepareStatement(sql);
+					
+					pstmt.setInt(1, indexSearch);
+					pstmt.setString(2, namePattern);
+					pstmt.setString(3, idPattern);
+					
+				} else {
+					sql = "";
+					sql += "SELECT COUNT(M_INDEX)";
+					sql += " FROM MEMBER";
+					sql += " WHERE M_NAME LIKE ? OR M_ID LIKE ?";
+					
+					pstmt = connection.prepareStatement(sql);
+					
+					pstmt.setString(1, namePattern);
+					pstmt.setString(2, idPattern);
+					
+				}
+				
+				rs = pstmt.executeQuery();
+				
+				rs.next();
+				totalCount = rs.getInt(1);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null) {
+						rs.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				
+				try {
+					if(pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			} // finally end
+			return totalCount;
+		}
 	
 	// 회원 정보 수정 /관리자용
 	public int memberUpdate(MemberDto memberDto) throws SQLException {

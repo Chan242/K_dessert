@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,11 +66,11 @@
 			</tr>
 			<tr>
 				<td>제품가격</td>
-				<td>${productDto.getProPriceInt()}</td>
+				<td><fmt:formatNumber value="${productDto.getProPriceInt()}" pattern="#,##0" /></td>
 			</tr>
 			<tr>
 				<td>재고</td>
-				<td>${productDto.getProStockInt()}</td>
+				<td><fmt:formatNumber value="${productDto.getProStockInt()}" pattern="#,##0" /></td>
 			</tr>
 			<tr>
 				<td>공개여부</td>

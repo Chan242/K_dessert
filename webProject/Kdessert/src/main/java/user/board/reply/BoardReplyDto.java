@@ -3,8 +3,9 @@ package user.board.reply;
 import java.util.Date;
 
 import admin.member.MemberDto;
+import jakarta.servlet.annotation.WebServlet;
 import user.board.main.FreeBoardDto;
-
+@WebServlet("/board/freeboarddetail/reply")
 public class BoardReplyDto {
 
 	private int replyIndexInt = 0;// 댓글 번호
@@ -33,7 +34,7 @@ public class BoardReplyDto {
 
 	}
 	
-	/* 나주엥 필요하면 추가하는 걸로 */
+	/* 생성자 나중에 필요하면 추가하는 걸로 */
 	
 	public FreeBoardDto getFreeboardDto() {
 		return freeboardDto;
