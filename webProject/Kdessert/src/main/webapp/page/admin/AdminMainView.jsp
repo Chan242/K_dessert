@@ -46,6 +46,7 @@
 			
 			<div id="div_content">
 				<h2>　관리자 페이지</h2>
+				<a href="http://localhost:9080/Kdessert/">메인가기</a>
 				
 			</div>	
 		</div>
