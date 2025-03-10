@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <style type="text/css">
 	#user_page{
 		display: flex; 
@@ -25,6 +26,13 @@
 	}
 
 </style>
+
+<c:if test="${member.getMemAdmCheckInt() ne 1}">
+    <script type="text/javascript">
+        alert('권한이 없습니다. 메인 페이지로 이동합니다.');
+        window.location.href = '/Kdessert'; // 메인 페이지로 리다이렉트
+    </script>
+</c:if>
 
 <div id="header">
 		<span id="logo">
