@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,10 +55,10 @@ table {
 					<td><a href="./select?no=${userProductDto.getProIndexInt()}">${userProductDto.getProNameStr()}</a></td>
 				</tr>
 				<tr>
-					<td>가격: ${userProductDto.getProPriceInt()}</td>
+					<td>가격: <fmt:formatNumber value="${userProductDto.getProPriceInt()}" pattern="#,##0" /></td>
 				</tr>
 				<tr>
-					<td>재고: ${userProductDto.getProStockInt()}</td>
+					<td>재고: <fmt:formatNumber value="${userProductDto.getProStockInt()}" pattern="#,##0" /></td>
 				</tr>
 <%-- 				<tr> 기술이 모자라서 일단 주석처리.
 					<td><form action="">

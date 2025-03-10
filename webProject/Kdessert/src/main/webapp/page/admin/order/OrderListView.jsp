@@ -15,6 +15,8 @@
 	
 	table {
 		border-top: 2px solid black;
+		width: 900px;
+		margin: auto;
 	}
 	
 	th {
@@ -41,13 +43,19 @@
 		font-size: 16px;
 		
     }
+    
+    #container{
+    	margin: auto;
+    	width: 1200px;
+    	height: 800px;
+    }
 
 </style>
 
 
 </head>
 <body>
-주문 목록
+
 
 
 	<jsp:include page="../commPage/Adm_Header.jsp"></jsp:include>
@@ -56,8 +64,9 @@
 		<jsp:include page="../commPage/Category_Mgr.jsp"></jsp:include>
 	</div>
 	<div id="container">
+		<h2 style="text-align: center;">주문 목록</h2>
 
-		<div style="margin: 40px;">
+		<div style="margin: auto;">
 			<table>
 				<tr>
 					<td>주문번호</td>
@@ -68,10 +77,10 @@
 					<td>삭제</td>
 
 				</tr>
-				여기 주문 정보가 들어가야 함
-				<c:forEach var="productDto" items="${productList}">
+				
+				<c:forEach var="orderDto" items="${orderList}">
 					<tr>
-						여기 주문 정보가 들어가야 함
+						
 					</tr>
 				</c:forEach>
 			</table>

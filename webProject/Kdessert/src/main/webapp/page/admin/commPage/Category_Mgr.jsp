@@ -66,7 +66,7 @@
 <div id="side_MenuBar">
 	<ul>
 		<li class='side_Menues'>
-			<a id="select_order" href="주문_관리_링크"><span>주문 관리(미개발)</span></a>
+			<a id="select_order" href="/Kdessert/admin/order/list"><span>주문 관리(개발중)</span></a>
 		</li>
 		<li class='side_Menues'>
 			<a id="select_member" href="/Kdessert/page/admin/member/list"><span>회원 관리</span></a>

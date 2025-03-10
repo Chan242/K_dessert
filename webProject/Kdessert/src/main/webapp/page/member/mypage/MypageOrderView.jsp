@@ -161,14 +161,20 @@ input {
 			<tr>
 				<td>보유 포인트</td>
 				<td style="text-align: right"><fmt:formatNumber value="${orderInfo.getMemPointInt()}" pattern="#,##0" />
-					<c:if test="${total > orderInfo.getMemPointInt()}"><br>포인트가 부족합니다.</c:if>
+					<c:if test="${total > orderInfo.getMemPointInt()}">
+						<br>포인트가 부족합니다.
+					</c:if>
+					<c:if test="${total <= orderInfo.getMemPointInt()}">
+						<br><form action="./order/sucess" method="post">
+						<input type="submit" value="구매">
+						</form>
+					</c:if>
+
+					
 				</td>
 			</tr>
 		</table>
-		<form action="./order/sucess" method="post">
-			<input type="submit" value="구매">
-		
-		</form>
+
 		
 		<div style="margin: auto; clear: both;">
 

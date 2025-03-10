@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,8 +51,8 @@ window.onload = function() {
 			이미지 자리
 		</div>
 		<div style="width: 200px; height: 200px; float: left; margin-left: 100px; text-align: left; padding-left: 30px;">
-			가격: ${userProductDto.getProPriceInt()}<br>
-			재고: ${userProductDto.getProStockInt()}<br>
+			가격: <fmt:formatNumber value="${userProductDto.getProPriceInt()}" pattern="#,##0" /><br>
+			재고: <fmt:formatNumber value="${userProductDto.getProStockInt()}" pattern="#,##0" /><br>
 			<form action="/Kdessert/basket" method="post">
 				<input type="number" id="basStock" name="basStock" value="1" min="1" max="${userProductDto.getProStockInt()}">
 				<input type="hidden" id="proIndex" name="proIndex" value="${userProductDto.getProIndexInt()}">

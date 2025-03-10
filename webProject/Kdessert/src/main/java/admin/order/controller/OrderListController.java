@@ -21,13 +21,13 @@ import admin.product.ProductDto;
  * Servlet implementation class ProductController
  */
 @WebServlet("/admin/order/list")
-public class OrderController extends HttpServlet {
+public class OrderListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderController() {
+    public OrderListController() {
         super();
         // TODO Auto-generated constructor stub
     }
