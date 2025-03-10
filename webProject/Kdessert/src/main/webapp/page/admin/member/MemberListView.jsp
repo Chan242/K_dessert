@@ -11,7 +11,7 @@
 <style type="text/css">
 
 	#wrap {
-		width:1920px;
+		width:1895px;
 	}
 
 	table, tr, th, td {
@@ -154,12 +154,12 @@
 				<table id="table_info">
 					<thead>
 						<tr>
-							<th scope="col">회원번호</th>
-							<th scope="col">이름</th>
-							<th scope="col">아이디</th>
-							<th scope="col">이메일</th>
-							<th scope="col">생년월일</th>
-							<th scope="col">가입일자</th>
+							<th scope="col" style="width: 150px;">회원번호</th>
+							<th scope="col" style="width: 150px;">이름</th>
+							<th scope="col" style="width: 170px;">아이디</th>
+							<th scope="col" style="width: 330px;">이메일</th>
+							<th scope="col" style="width: 200px;">생년월일</th>
+							<th scope="col" style="width: 200px;">가입일자</th>
 						</tr>
 					</thead>
 					<tbody>

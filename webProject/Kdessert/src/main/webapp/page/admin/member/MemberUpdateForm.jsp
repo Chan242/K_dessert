@@ -10,7 +10,7 @@
 <style type="text/css">
 
 	#wrap {
-		width:1920px;
+		width:1895px;
 	}
 
 	table, tr, th, td {
