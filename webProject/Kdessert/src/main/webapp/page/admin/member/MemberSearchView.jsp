@@ -98,6 +98,32 @@
 		border-bottom: 2px solid black;
 	}
 
+	#div_pageBtn {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    gap: 10px; /* 버튼 간격 */
+	    margin-top: 20px;
+	}
+
+	.page-btn {
+	    text-decoration: none;
+	    color: black;
+	    font-size: 16px;
+	    padding: 5px 10px;
+	    border-radius: 5px;
+	    transition: 0.3s;
+	}
+	
+	.page-btn:hover {
+	    background-color: #f0f0f0;
+	}
+	
+	.active {
+	    text-decoration: underline;
+	    font-weight: bold;
+	}
+
 </style>
 
 </head>
@@ -147,6 +173,27 @@
 					</tbody>
 					
 				</table>
+				
+				<div id="div_pageBtn">
+				    <c:if test="${pageNum > 1}">
+				        <a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}" class="page-btn">&lt;</a>
+				    </c:if>
+				
+				    <c:forEach begin="1" end="${totalPage}" var="i">
+				        <c:choose>
+				            <c:when test="${i == pageNum}">
+				                <span class="page-btn active">${i}</span>
+				            </c:when>
+				            <c:otherwise>
+				                <a href="?pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
+				            </c:otherwise>
+				        </c:choose>
+				    </c:forEach>
+				
+				    <c:if test="${pageNum < totalPage}">
+				        <a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}" class="page-btn">&gt;</a>
+				    </c:if>
+				</div>
 			
 			</div>	
 		</div>

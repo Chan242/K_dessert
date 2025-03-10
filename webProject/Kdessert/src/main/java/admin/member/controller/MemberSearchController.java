@@ -20,10 +20,18 @@ public class MemberSearchController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+		ArrayList<MemberDto> memberList = null;
 		Connection conn = null;
 		String searchText = req.getParameter("searchText");
+		int pageNum = 1;  // 기본값 1페이지
+		int pageSize = 10; // 한 페이지에 10개
+		int totalCount = 0;
 		
 		try {
+			//선택된 페이지 넘버
+			if (req.getParameter("pageNum") != null) {
+		        pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		    }
 			
 			//DB연결
 			ServletContext sc = this.getServletContext();
@@ -32,12 +40,18 @@ public class MemberSearchController extends HttpServlet{
 			MemberDao memberDao = new MemberDao();
 			memberDao.setConnection(conn);
 			
-			//페이지로 보낼 정보 준비
-			ArrayList<MemberDto> memberList = null;
+			//조회 정보 (페이징) 가져오기
+			memberList = (ArrayList<MemberDto>)memberDao.searchList(searchText, pageNum, pageSize);
+			//총 데이터 수 가져오기
+			totalCount = memberDao.getSearchTotalCount(searchText);
+			// 전체 페이지 수 계산
+	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 			
-			memberList = (ArrayList<MemberDto>)memberDao.searchList(searchText);
-			
-			req.setAttribute("memberList", memberList);
+	        // 요청에 필요한 정보 저장
+	        req.setAttribute("memberList", memberList);
+	        req.setAttribute("totalPage", totalPage);
+	        req.setAttribute("pageNum", pageNum);
+	        req.setAttribute("pageSize", pageSize);
 			
 			RequestDispatcher dispatcher = req.getRequestDispatcher("./MemberSearchView.jsp");
 			

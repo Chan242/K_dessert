@@ -22,27 +22,37 @@ public class MemberListController extends HttpServlet{
 	
 		Connection conn = null;
 		
-		String pageNumStr = req.getParameter("");
-		int pageNum = 1;  // 1페이지
+		ArrayList<MemberDto> memberList = null;
+		int pageNum = 1;  // 기본값 1페이지
 		int pageSize = 10; // 한 페이지에 10개
 		int totalCount = 0;
 		
 		try {
 			
+			//선택된 페이지 넘버
+			if (req.getParameter("pageNum") != null) {
+		        pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		    }
 			
-
+			//DB 연결
 			ServletContext sc = this.getServletContext();
-			
 			conn = (Connection)sc.getAttribute("conn");
 			
 			MemberDao memberDao = new MemberDao();
 			memberDao.setConnection(conn);
 			
-			ArrayList<MemberDto> memberList = null;
-			
+			//조회 정보 (페이징) 가져오기
 			memberList = (ArrayList<MemberDto>)memberDao.selectList(pageNum, pageSize);
+			//총 데이터 수 가져오기
+			totalCount = memberDao.getTotalCount();
+			// 전체 페이지 수 계산
+	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 			
-			req.setAttribute("memberList", memberList);
+	        // 요청에 필요한 정보 저장
+	        req.setAttribute("memberList", memberList);
+	        req.setAttribute("totalPage", totalPage);
+	        req.setAttribute("pageNum", pageNum);
+	        req.setAttribute("pageSize", pageSize);
 			
 			RequestDispatcher dispatcher = req.getRequestDispatcher("./MemberListView.jsp");
 			
