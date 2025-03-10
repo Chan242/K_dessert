@@ -53,7 +53,7 @@ public class MemberDao {
 				memberDto.setMemIndexInt(index);
 				
 				admCheck = rs.getInt("M_ADM_CHECK");
-				memberDto.setMemIndexInt(admCheck);
+				memberDto.setMemAdmCheckInt(admCheck);
 				
 				id = rs.getString("M_ID");
 				memberDto.setMemIdStr(id);

@@ -25,8 +25,11 @@ public class MemberListController extends HttpServlet{
 		String pageNumStr = req.getParameter("");
 		int pageNum = 1;  // 1페이지
 		int pageSize = 10; // 한 페이지에 10개
+		int totalCount = 0;
 		
 		try {
+			
+			
 
 			ServletContext sc = this.getServletContext();
 			
