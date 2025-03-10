@@ -39,7 +39,7 @@ table {
 				<input type="submit" value="검색">
 			</form>
 		</div>
-		
+		<h2 style="text-align: center;">검색 결과</h2>
 		<hr style="clear: both;">
 		
 		<c:forEach var="userProductDto" items="${userProductList}">

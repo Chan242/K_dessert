@@ -1,12 +1,22 @@
 package user.order.controller;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import user.basket.BasketDao;
+import user.basket.BasketDto;
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import admin.member.MemberDao;
+import admin.member.MemberDto;
 
 /**
  * Servlet implementation class UserOrderController
@@ -28,10 +38,51 @@ public class UserOrderController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Connection conn = null;
+		RequestDispatcher rd = null;
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/page/member/mypage/MypageOrderView.jsp");
+		
+		try {
+			ServletContext sc = this.getServletContext();
+			HttpSession session = req.getSession();
+			MemberDto memberDto = new MemberDto();
+			MemberDto orderInfo = new MemberDto();
+			MemberDao memberDao = new MemberDao();
 
-		rd.forward(req, res);
+			memberDto = (MemberDto) session.getAttribute("member");
+
+			int memIndexInt = memberDto.getMemIndexInt();
+			
+			conn = (Connection)sc.getAttribute("conn");
+			
+			BasketDao basketDao = new BasketDao();
+			
+			basketDao.setConnection(conn);
+			
+			ArrayList<BasketDto> basketList = null;
+			basketList = (ArrayList<BasketDto>)basketDao.basketList(memIndexInt);
+			
+			memberDao.setConnection(conn);
+
+			orderInfo = memberDao.memberSelectOne(memIndexInt);
+			
+			req.setAttribute("orderInfo", orderInfo);
+			req.setAttribute("basketList", basketList);
+			
+			rd = req.getRequestDispatcher("/page/member/mypage/MypageOrderView.jsp");
+
+			rd.forward(req, res);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+			req.setAttribute("error", e);
+			rd = req.getRequestDispatcher("/Error.jsp");
+			rd.forward(req, res);
+		}
+		
+		
 		
 		
 	}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -22,6 +23,7 @@ table, tr, th, td {
 table {
 	border-top: 2px solid black;
 	margin: auto;
+	width: 900px;
 }
 
 th {
@@ -123,8 +125,8 @@ input {
 							<input type="submit" value="변경" width="40px;">
 						</form>
 					</td>
-					<td>${basketDto.getProPriceInt()}</td>
-					<td>${basketDto.getBasStockInt() * basketDto.getProPriceInt()}</td>
+					<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+					<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
 					<td><a href="./basket/delete?no=${basketDto.getProIndexInt()}">삭제</a></td>
 				</tr>
 			</c:forEach>
@@ -135,7 +137,7 @@ input {
                         <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
                         <c:set var="total" value="${total + itemTotal}" />
                     </c:forEach>
-                   	 ${total} 원
+                   	 <fmt:formatNumber value="${total}" pattern="#,##0" /> 원
 				</td>
 			</tr>
 			<tr>
