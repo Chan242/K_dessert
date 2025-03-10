@@ -110,7 +110,7 @@
 					<table>
 						<tr>
 							<th>현재 포인트</th>
-							<td>${member.memPointInt} P</td>
+							<td>${memberDto.memPointInt} P</td>
 						</tr>
 					</table>
 					<div>

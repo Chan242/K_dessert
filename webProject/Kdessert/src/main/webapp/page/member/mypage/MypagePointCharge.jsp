@@ -65,7 +65,7 @@
 	<div id="wrap">
 		<h2>포인트 충전</h2>
 		<form action="./charge" method="post">
-			<p>현재 포인트 ${member.memPointInt} P</p>
+			<p>현재 포인트 ${memberDto.memPointInt} P</p>
 			<p>최대 1억 포인트까지 충전이 가능합니다</p>
 			<p>충전할 금액을 입력해주세요 (단위: 1,000 P)</p>
 			<div class="div_center">

@@ -24,12 +24,13 @@ public class MemberDao {
 		ResultSet rs = null;
 
 		String sql = "";
-		sql += "SELECT M_NAME, M_INDEX, M_ID";
+		sql += "SELECT M_NAME, M_INDEX, M_ID, M_ADM_CHECK";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_ID = ? AND M_PASSWORD = ?";
 
 		String name = "";
 		int index = 0;
+		int admCheck = 0;
 
 		try {
 			pstmt = connection.prepareStatement(sql);
@@ -50,6 +51,9 @@ public class MemberDao {
 				
 				index = rs.getInt("M_INDEX");
 				memberDto.setMemIndexInt(index);
+				
+				admCheck = rs.getInt("M_ADM_CHECK");
+				memberDto.setMemIndexInt(admCheck);
 				
 				id = rs.getString("M_ID");
 				memberDto.setMemIdStr(id);
@@ -313,9 +317,52 @@ public class MemberDao {
 		return null;
 		
 	}
+
+ 	// 회원 전체 조회에서 전체 데이터의 수를 가져오는 메소드
+ 	public int getTotalCount() {
+ 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCount = 0;
+		String sql = "";
 		
-	// 전체 회원 조회	
-	public List<MemberDto> selectList() {
+		sql += "SELECT COUNT(M_INDEX) FROM MEMBER";
+
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalCount = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		return totalCount;
+	}
+ 	
+	// 전체 회원 조회 (페이징)	
+	public List<MemberDto> selectList(int pageNum, int pageSize) {
 	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -324,12 +371,29 @@ public class MemberDao {
 		
 		String sql = "";
 		
+//		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
+//		sql += " FROM MEMBER";
+//		sql += " ORDER BY M_INDEX DESC";
+		
 		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
-		sql += " FROM MEMBER";
+		sql += " FROM (";
+		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME, ROWNUM rnum";
+		sql += " FROM MEMBER m";
+		sql += " WHERE ROWNUM <= ?)";
+		sql += " WHERE rnum >= ?";
 		sql += " ORDER BY M_INDEX DESC";
+		
+//		int pageNum = 1;  // 1페이지
+//		int pageSize = 10; // 한 페이지에 10개
+
+		int startRow = (pageNum - 1) * pageSize + 1;
+		int endRow = pageNum * pageSize;
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, endRow);  // ROWNUM <= endRow
+			pstmt.setInt(2, startRow); // rnum >= startRow
 			
 			rs = pstmt.executeQuery();
 			

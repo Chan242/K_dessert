@@ -136,12 +136,12 @@
 					<tbody>
 						<c:forEach var="member" items="${memberList}">
 							<tr>
-								<td>${member.memIndexInt}</td>
-								<td><a href="./details?no=${member.memIndexInt}">${member.memNameStr}</a></td>
-								<td>${member.memIdStr}</td>
-								<td>${member.memEmailStr}</td>
-								<td>${member.memBirthDate}</td>
-								<td>${member.memSignTimeDate}</td>
+								<td>${member.getMemIndexInt()}</td>
+								<td><a href="./details?no=${member.getMemIndexInt()}">${member.getMemNameStr()}</a></td>
+								<td>${member.getMemIdStr()}</td>
+								<td>${member.getMemEmailStr()}</td>
+								<td>${member.getMemBirthDate()}</td>
+								<td>${member.getMemSignTimeDate()}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

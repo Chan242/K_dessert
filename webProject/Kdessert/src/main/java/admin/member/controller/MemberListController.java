@@ -22,6 +22,10 @@ public class MemberListController extends HttpServlet{
 	
 		Connection conn = null;
 		
+		String pageNumStr = req.getParameter("");
+		int pageNum = 1;  // 1페이지
+		int pageSize = 10; // 한 페이지에 10개
+		
 		try {
 
 			ServletContext sc = this.getServletContext();
@@ -33,7 +37,7 @@ public class MemberListController extends HttpServlet{
 			
 			ArrayList<MemberDto> memberList = null;
 			
-			memberList = (ArrayList<MemberDto>)memberDao.selectList();
+			memberList = (ArrayList<MemberDto>)memberDao.selectList(pageNum, pageSize);
 			
 			req.setAttribute("memberList", memberList);
 			

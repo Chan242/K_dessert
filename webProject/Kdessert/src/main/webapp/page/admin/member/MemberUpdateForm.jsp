@@ -95,59 +95,59 @@
 					<table id="table_update">
 						<tr>
 							<th scope="row">회원번호</th>
-							<td><input type="hidden" name="index" value="${memberDto.memIndexInt}">${memberDto.memIndexInt}</td>
+							<td><input type="hidden" name="index" value="${memberDto.getMemIndexInt()}">${memberDto.getMemIndexInt()}</td>
 						</tr>
 						<tr>
 							<th scope="row">이름</th>
-							<td>${memberDto.memNameStr}</td>
+							<td>${memberDto.getMemNameStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">아이디</th>
-							<td>${memberDto.memIdStr}</td>
+							<td>${memberDto.getMemIdStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">이메일</th>
-							<td>${memberDto.memEmailStr}</td>
+							<td>${memberDto.getMemEmailStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">생년월일</th>
-							<td>${memberDto.memBirthDate}</td>
+							<td>${memberDto.getMemBirthDate()}</td>
 						</tr>
 						<tr>
 							<th scope="row">전화번호</th>
-							<td>${memberDto.memTelStr}</td>
+							<td>${memberDto.getMemTelStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">기본주소</th>
-							<td>${memberDto.memAddressStr}</td>
+							<td>${memberDto.getMemAddressStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">상세주소</th>
-							<td>${memberDto.memAddressSecStr}</td>
+							<td>${memberDto.getMemAddressSecStr()}</td>
 						</tr>
 						<tr>
 							<th scope="row">가입일</th>
-							<td>${memberDto.memSignTimeDate}</td>
+							<td>${memberDto.getMemSignTimeDate()}</td>
 						</tr>
 						<tr>
 							<th scope="row">수정일</th>
-							<td>${memberDto.memCorrDate}</td>
+							<td>${memberDto.getMemCorrDate()}</td>
 						</tr>
 						<tr>
 							<th scope="row">포인트</th>
-							<td>${memberDto.memPointInt}</td>
+							<td>${memberDto.getMemPointInt()}</td>
 						</tr>
 						<tr>
 							<th scope="row">관리자</th>
 							<td>
-								<input type="radio" name='adminCheck' value='1' ${memberDto.memAdmCheckInt == 1 ? "checked" : ""} > 허용
-								<input type="radio" name='adminCheck' value='0' ${memberDto.memAdmCheckInt == 0 ? "checked" : ""} > 비허용
+								<input type="radio" name='adminCheck' value='1' ${memberDto.getMemAdmCheckInt() == 1 ? "checked" : ""} > 허용
+								<input type="radio" name='adminCheck' value='0' ${memberDto.getMemAdmCheckInt() == 0 ? "checked" : ""} > 비허용
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">비고</th>
 							<td>
-								<textarea rows="5" cols="40" placeholder="" name="note" style="resize: none;">${memberDto.memNoteStr}</textarea>
+								<textarea rows="5" cols="40" placeholder="" name="note" style="resize: none;">${memberDto.getMemNoteStr()}</textarea>
 							</td>
 						</tr>
 					</table>

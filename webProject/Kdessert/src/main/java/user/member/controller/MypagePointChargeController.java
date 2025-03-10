@@ -19,10 +19,45 @@ import jakarta.servlet.http.HttpSession;
 public class MypagePointChargeController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Connection conn = null;
+		int index = 0;
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("../MypagePointCharge.jsp");
-		
-		dispatcher.include(req, res);
+		try {
+			MemberDto memberDtoSelect = new MemberDto();
+			
+			//해당 회원의 인덱스 값을 세션에서 구함
+			HttpSession session = req.getSession();
+			memberDtoSelect = (MemberDto) session.getAttribute("member");
+			index = memberDtoSelect.getMemIndexInt();
+			
+			//DB연결
+			ServletContext sc = this.getServletContext();
+			conn = (Connection)sc.getAttribute("conn");
+			
+			MemberDao memberDao = new MemberDao();
+			memberDao.setConnection(conn);
+			
+			//새 dto 객체에 dao로 받아온 dto 담기
+			MemberDto memberDto = new MemberDto();
+			memberDto = memberDao.memberSelectOne(index);
+			
+			req.setAttribute("memberDto", memberDto);
+			
+			RequestDispatcher dispatcher = req.getRequestDispatcher("../MypagePointCharge.jsp");
+			
+			dispatcher.include(req, res);
+			
+		} catch (Exception e) {
+//			throw new ServletException(e);
+			System.out.println("회원 목록에서 예외 발생");
+			e.printStackTrace();
+			
+			req.setAttribute("error", e);
+			
+			RequestDispatcher dispatcher =
+				req.getRequestDispatcher("/Error.jsp");
+			dispatcher.forward(req, res);
+		}
 	}
 	
 	@Override
