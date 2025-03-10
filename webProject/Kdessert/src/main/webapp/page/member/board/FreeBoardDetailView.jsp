@@ -103,6 +103,8 @@
 		gap: 15px; /* 간격 */
 		justify-content: flex-start;
 		
+		margin-top: 15px;
+		
 		font-size: 14px;
 		color: #888;
 	}
@@ -180,7 +182,6 @@
 	${boardDto.brdIndexInt}
 	
 	<c:forEach var="reply" items="${boardreplyList}">
-		<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
 		<div id="WritedReply">
 			<div id="WriterInfo">
 		

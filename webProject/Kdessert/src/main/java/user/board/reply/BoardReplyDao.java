@@ -27,10 +27,11 @@ public class BoardReplyDao {
 
 		System.out.println("댓글리스트 Dao 시작");
 		try {
-			sql = "SELECT R_INDEX, M_INDEX, R_TEXT, F_INDEX," 
-					+ " R_CRE_DATE, R_CHAN_DATE"
+			sql = "SELECT R_INDEX, M_INDEX, R_TEXT, F_INDEX,"
+					+ " R_CRE_DATE, R_CORR_DATE"
 					+ " FROM REPLY"
-					+ " WHERE F_INDEX = ?";
+					+ " WHERE F_INDEX = ?"
+					+ " ORDER BY R_INDEX DESC";
 
 			// sql문 연결
 			pstmt = connection.prepareStatement(sql);
@@ -49,7 +50,6 @@ public class BoardReplyDao {
 			Date replyCreDate = null;
 			Date replyCorrDate = null;
 			
-			System.out.println(rs.next());
 			// 다음값이 존재하는 동안
 			while (rs.next()) {
 				System.out.println("댓글리스트 while문 시작");
@@ -57,7 +57,7 @@ public class BoardReplyDao {
 				memIndexInt = rs.getInt("M_INDEX");
 				replyTextStr = rs.getString("R_TEXT");
 				replyCreDate = rs.getDate("R_CRE_DATE");
-				replyCorrDate = rs.getDate("R_CHAN_DATE");
+				replyCorrDate = rs.getDate("R_CORR_DATE");
 
 				BoardReplyDto boardReplyDto = new BoardReplyDto(replyIndexInt, memIndexInt, replyTextStr, 
 						brdIndexInt, replyCreDate, replyCorrDate);
@@ -65,7 +65,7 @@ public class BoardReplyDao {
 				System.out.println(replyIndexInt+" / "+memIndexInt+" / "+replyTextStr+" / "+replyCreDate+" / "+replyCorrDate+" / ");
 
 				boardreplyList.add(boardReplyDto);
-			}
+			} 
 
 
 		} catch (Exception e) {
