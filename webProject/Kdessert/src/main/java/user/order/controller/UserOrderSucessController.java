@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 import admin.member.MemberDto;
-import admin.order.OrderListDto;
+import admin.order.OrderDto;
 
 /**
  * Servlet implementation class UserOrderSucessController

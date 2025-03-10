@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import admin.order.OrderDao;
-import admin.order.OrderListDto;
+import admin.order.OrderDto;
 import admin.product.ProductDao;
 import admin.product.ProductDto;
 
@@ -48,7 +48,10 @@ public class OrderListController extends HttpServlet {
 			OrderDao orderDao = new OrderDao();
 			
 			
-			ArrayList<OrderListDto> orderList = null;
+			ArrayList<OrderDto> orderList = null;
+			
+			orderDao.setConnection(conn);
+			orderList = orderDao.selectList();
 			
 			req.setAttribute("orderList", orderList);
 			

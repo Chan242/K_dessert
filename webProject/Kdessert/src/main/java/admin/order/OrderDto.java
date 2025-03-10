@@ -1,78 +1,170 @@
 package admin.order;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class OrderDto {
-	int orderIndexInt = 0;
-	int productIndexInt = 0;
-	int orderStock = 0;
-	int orderProductPrice = 0;
-	
-	
+
+	int ordIndexint = 0;
+	String staStatStr = "";
+	Date ordTime = null;
+	String memAdd1Str = "";
+	String memAdd2Str = "";
+	String memTelStr = "";
+	int memIndexInt = 0;
+	String memNameStr = "";
+	int totalPriceInt = 0;
+	ArrayList<OrderProductDto> orderInfo = new ArrayList<OrderProductDto>();
 	
 	public OrderDto() {
 		super();
 	}
 
-
-
-	public OrderDto(int orderIndexInt, int productIndexInt, int orderStock, int orderProductPrice) {
+	
+	
+	
+	public OrderDto(int ordIndexint, String staStatStr, String memAdd1Str, String memAdd2Str,
+			String memTelStr) {
 		super();
-		this.orderIndexInt = orderIndexInt;
-		this.productIndexInt = productIndexInt;
-		this.orderStock = orderStock;
-		this.orderProductPrice = orderProductPrice;
+		this.ordIndexint = ordIndexint;
+		this.staStatStr = staStatStr;
+		this.memAdd1Str = memAdd1Str;
+		this.memAdd2Str = memAdd2Str;
+		this.memTelStr = memTelStr;
 	}
 
 
 
-	public int getOrderIndexInt() {
-		return orderIndexInt;
+
+	public int getOrdIndexint() {
+		return ordIndexint;
 	}
 
 
 
-	public void setOrderIndexInt(int orderIndexInt) {
-		this.orderIndexInt = orderIndexInt;
+
+	public void setOrdIndexint(int ordIndexint) {
+		this.ordIndexint = ordIndexint;
 	}
 
 
 
-	public int getProductIndexInt() {
-		return productIndexInt;
+
+	public String getStaStatStr() {
+		return staStatStr;
 	}
 
 
 
-	public void setProductIndexInt(int productIndexInt) {
-		this.productIndexInt = productIndexInt;
+
+	public void setStaStatStr(String staStatStr) {
+		this.staStatStr = staStatStr;
 	}
 
 
 
-	public int getOrderStock() {
-		return orderStock;
+
+	public Date getOrdTime() {
+		return ordTime;
 	}
 
 
 
-	public void setOrderStock(int orderStock) {
-		this.orderStock = orderStock;
+
+	public void setOrdTime(Date ordTime) {
+		this.ordTime = ordTime;
 	}
 
 
 
-	public int getOrderProductPrice() {
-		return orderProductPrice;
+
+	public String getMemAdd1Str() {
+		return memAdd1Str;
 	}
 
 
 
-	public void setOrderProductPrice(int orderProductPrice) {
-		this.orderProductPrice = orderProductPrice;
+
+	public void setMemAdd1Str(String memAdd1Str) {
+		this.memAdd1Str = memAdd1Str;
 	}
+
+
+
+
+	public String getMemAdd2Str() {
+		return memAdd2Str;
+	}
+
+
+
+
+	public void setMemAdd2Str(String memAdd2Str) {
+		this.memAdd2Str = memAdd2Str;
+	}
+
+
+
+
+	public String getMemTelStr() {
+		return memTelStr;
+	}
+
+
+
+
+	public void setMemTelStr(String memTelStr) {
+		this.memTelStr = memTelStr;
+	}
+
+
+
+
+	public int getMemIndexInt() {
+		return memIndexInt;
+	}
+
+
+
+
+	public void setMemIndexInt(int memIndexInt) {
+		this.memIndexInt = memIndexInt;
+	}
+
+
+
+
+	public String getMemNameStr() {
+		return memNameStr;
+	}
+
+
+
+
+	public void setMemNameStr(String memNameStr) {
+		this.memNameStr = memNameStr;
+	}
+
+
+
+
+	public int getTotalPriceInt() {
+		return totalPriceInt;
+	}
+
+
+
+
+	public void setTotalPriceInt(int totalPriceInt) {
+		this.totalPriceInt = totalPriceInt;
+	}
+
+
+
+
+	
+
 	
 	
 	
-	
-	
-
 }
