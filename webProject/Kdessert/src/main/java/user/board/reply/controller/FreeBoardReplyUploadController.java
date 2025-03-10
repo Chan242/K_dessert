@@ -20,6 +20,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDao;
 import user.board.main.FreeBoardDto;
+import user.board.reply.BoardReplyDao;
+import user.board.reply.BoardReplyDto;
 
 
 public class FreeBoardReplyUploadController extends HttpServlet {
@@ -33,16 +35,7 @@ public class FreeBoardReplyUploadController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		System.out.println("댓글 doget");
-		
-		//세션 객체 가져오기
-		HttpSession session = req.getSession();
-		
-		
-		//페이지 준비
-		RequestDispatcher dispatcher = 
-			req.getRequestDispatcher("/page/member/board/ReplyView.jsp");
-		
-		dispatcher.forward(req, res);
+		res.sendRedirect("/page/member/board/ReplyView.jsp");
 
 	}
 
@@ -50,11 +43,32 @@ public class FreeBoardReplyUploadController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		System.out.println("게시판글쓰기 doPost");
+		System.out.println("댓글쓰기 doPost 수행");
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		String  brdIndexInt= "";
+		
+		try {
+			brdIndexInt = req.getParameter("brdIndexInt");
+			int brdIndex = Integer.parseInt(brdIndexInt);
+			
+			ServletContext sc = this.getServletContext();
+			//conn 연결
+			conn = (Connection)sc.getAttribute("conn");
+			
+			//BoardReplyDao 객체 생성
+			BoardReplyDao boardreplyDao = new BoardReplyDao();
+			
+			boardreplyDao.setConnection(conn);
+			
+			BoardReplyDto boardReplyDto = new BoardReplyDto();
+			
+			boardreplyDao.relpyAdd(brdIndex);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		
 	}

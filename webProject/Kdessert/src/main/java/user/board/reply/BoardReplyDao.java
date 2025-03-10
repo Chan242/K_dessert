@@ -94,4 +94,17 @@ public class BoardReplyDao {
 		return boardreplyList;
 
 	}
+	
+	public BoardReplyDto relpyAdd(int brdIndexInt) 
+			throws Exception {
+		
+		BoardReplyDto brdReplyDto =null;
+		
+		
+		
+		return brdReplyDto;
+		
+	}
+	
+	
 }
