@@ -57,6 +57,7 @@
 	</div>
 	<div id="container">
 		<div>
+			<h1 style="text-align: center;">제품 목록</h1>
 			<table>
 				<tr>
 					<td><button style="float: left; margin: auto;"

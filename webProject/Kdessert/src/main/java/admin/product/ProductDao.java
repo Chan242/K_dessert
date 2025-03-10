@@ -25,7 +25,7 @@ public class ProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CHAN_DATE";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
 		sql += " FROM PRODUCT";
 		sql += " ORDER BY P_INDEX DESC";
 
@@ -52,7 +52,7 @@ public class ProductDao {
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
 				proCreDateDate = rs.getDate("P_CRE_DATE");
-				proChanDateDate = rs.getDate("P_CHAN_DATE");
+				proChanDateDate = rs.getDate("P_CORR_DATE");
 				
 				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
 
@@ -178,7 +178,7 @@ public class ProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CHAN_DATE";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CORR_DATE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_INDEX = ?";
 		
@@ -211,7 +211,7 @@ public class ProductDao {
 				proOpenInt = rs.getInt("P_OPEN");
 				proIntroStr = rs.getString("P_INTRO");
 				proCreDateDate = rs.getDate("P_CRE_DATE");
-				proChanDateDate = rs.getDate("P_CHAN_DATE");
+				proChanDateDate = rs.getDate("P_CORR_DATE");
 
 				productDto.setProIndexInt(proIndexInt);
 				productDto.setProNameStr(proNameStr);
@@ -258,7 +258,7 @@ public class ProductDao {
 		String sql = "";
 
 		sql = "UPDATE PRODUCT";
-		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?, P_CHAN_DATE = SYSDATE";
+		sql += " SET P_NAME = ?, P_PRICE = ?, P_STOCK = ?, P_OPEN = ?, P_INTRO = ?, P_CORR_DATE = SYSDATE";
 		sql += " WHERE P_INDEX = ?";
 
 		try {
@@ -289,6 +289,81 @@ public class ProductDao {
 		}
 
 		return result;
+	}
+
+	public ArrayList<ProductDto> searchList(String queryStr) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<ProductDto> productList = new ArrayList<ProductDto>();
+
+		String sql = "";
+
+		sql += "SELECT P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
+		sql += " FROM PRODUCT";
+		sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?";
+		sql += " ORDER BY P_INDEX DESC";
+
+		try {
+
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, "%" + queryStr + "%");
+			pstmt.setString(2, "%" + queryStr + "%");
+			
+			
+			rs = pstmt.executeQuery();
+
+			System.out.println(rs.isClosed());
+
+			int proIndexInt = 0;
+			String proNameStr = "";
+			int proStockInt = 0;
+			int proPriceInt = 0;
+			int proOpenInt = 0;
+			Date proCreDateDate = null;
+			Date proChanDateDate = null;
+
+			while (rs.next()) {
+				proIndexInt = rs.getInt("P_INDEX");
+				proNameStr = rs.getString("P_NAME");
+				proPriceInt = rs.getInt("P_PRICE");
+				proStockInt = rs.getInt("P_STOCK");
+				proOpenInt = rs.getInt("P_OPEN");
+				proCreDateDate = rs.getDate("P_CRE_DATE");
+				proChanDateDate = rs.getDate("P_CORR_DATE");
+				
+				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
+
+				productList.add(productDto);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return productList;
+
 	}
 
 }

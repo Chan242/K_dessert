@@ -93,10 +93,14 @@
 				<td>소개</td>
 				<td>${productDto.getProIntroStr()}</td>
 			</tr>
+			<tr>
+				<td><button class="btn_style" onclick="location.href='./update?no=${productDto.getProIndexInt()}'">수정하기</button></td>
+				<td><button class="btn_style" onclick="history.back()">돌아가기</button></td>
+				
+			</tr>
 			
 		</table>
-		<button class="btn_style" onclick="location.href='./update?no=${productDto.getProIndexInt()}'">수정하기</button>
-		<button class="btn_style" onclick="history.back()">돌아가기</button>
+
 		
 		
 	</div>
