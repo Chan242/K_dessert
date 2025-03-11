@@ -622,7 +622,6 @@ public class MemberDao {
 			
 			if(memberList.isEmpty()) {
 				//리스트에 값이 존재하지 않음
-				System.out.println("memberList is empty");
 				return null;
 			}
 			

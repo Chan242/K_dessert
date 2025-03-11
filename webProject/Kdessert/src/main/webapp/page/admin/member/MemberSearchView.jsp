@@ -143,7 +143,7 @@
 				
 				<div id="div_search">
 					<form action="./search" method="get">
-						<input id="search_text" name="searchText" type="text">
+						<input id="search_text" name="searchText" type="text" value="${searchText}">
 						<input id="search_submit" type="submit" value="검색">
 					</form>
 				</div>

@@ -28,6 +28,9 @@ public class MemberSearchController extends HttpServlet{
 		int totalCount = 0;
 		
 		try {
+
+			req.setAttribute("searchText", searchText);//입력값 그대로 넘기기
+			
 			//선택된 페이지 넘버
 			if (req.getParameter("pageNum") != null) {
 		        pageNum = Integer.parseInt(req.getParameter("pageNum"));
@@ -44,7 +47,6 @@ public class MemberSearchController extends HttpServlet{
 			memberList = (ArrayList<MemberDto>)memberDao.searchList(searchText, pageNum, pageSize);
 			
 			if(memberList == null) {
-				System.out.println("searchController에서 memberList null");
 				boolean searchResult = false;
 				req.setAttribute("searchResult", searchResult);
 				
@@ -53,18 +55,18 @@ public class MemberSearchController extends HttpServlet{
 				return;
 			}
 			
-			
 			//총 데이터 수 가져오기
 			totalCount = memberDao.getSearchTotalCount(searchText);
 			// 전체 페이지 수 계산
 	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 			
+	        
 	        // 요청에 필요한 정보 저장
 	        req.setAttribute("memberList", memberList);
 	        req.setAttribute("totalPage", totalPage);
 	        req.setAttribute("pageNum", pageNum);
 	        req.setAttribute("pageSize", pageSize);
-			
+	        
 			RequestDispatcher dispatcher = req.getRequestDispatcher("./MemberSearchView.jsp");
 			
 			dispatcher.include(req, res);
