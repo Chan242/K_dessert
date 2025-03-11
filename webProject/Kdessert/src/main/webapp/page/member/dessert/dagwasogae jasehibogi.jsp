@@ -10,11 +10,11 @@
 <title>다과 소개 상세보기</title>
 
 <style type="text/css">
-body {
+/* body {
 	margin: 0;
 	font-family: Arial, sans-serif;
 	text-align: center;
-}
+} */
 
 .header {
 	padding: flex;
@@ -56,11 +56,15 @@ body {
 </head>
 
 <body>
-	<div class="header">로고</div>
-	<div class="nav">
-		<a href="#">다과 소개</a> <a href="#">구매</a> <a href="#">행사</a> <a
-			href="#">고객게시판</a>
-	</div>
+
+ 		<jsp:include page=" /page/member/commPage/Mem_Header.jsp"/>
+		<jsp:include page=" /page/member/commPage/Category_Main.jsp"/> 
+	
+	    <jsp:include page=" /page/admin/commPage/Move_MrgPage.jsp"/> 
+		<jsp:include page=" /page/member/commPage/Mem_Footer.jsp"/>
+	
+
+
 	<div class="content">
 		<h2>정과</h2>
 		<div class="image-placeholder">이미지</div>
