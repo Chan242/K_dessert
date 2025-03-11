@@ -30,6 +30,10 @@
 		margin: auto;
 	}
 	
+	#table_in_form {
+		width: 650px;	
+	}
+	
 
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
@@ -43,6 +47,7 @@
 	th {
 		background-color: #F5F5F5;
 		text-align: left;
+		width: 150px;
 	}
 
 	th, td {
@@ -80,7 +85,6 @@
     	cursor: pointer;
     }
 
-
 </style>
 
 </head>
@@ -111,9 +115,10 @@
 						아이디
 					</th>
 					<td>
-						<input type="text" id="id" name="id" required oninput="resetIdCheck()">
+						<input type="text" id="id" name="id" required oninput="resetIdCheck()" onkeyup="valiCheckId()">
 						<input id="idCheck" type="button" value="중복확인" onclick="checkIdAvailability()">
 						<div id="idStatus"></div> <!-- 중복 여부 메시지가 표시될 곳 -->
+						<div id="idStatus2"></div> <!-- 유효성 검사 메시지가 표시될 곳 -->
 					</td>
 				</tr>
 				<tr>
@@ -121,7 +126,8 @@
 						비밀번호
 					</th>
 					<td>
-						<input id="password" type="password" name="password" required oninput="pwdCheck()">
+						<input id="password" type="password" name="password" required oninput="pwdCheck()" onkeyup="valiCheckPwd()">
+						<div id="pwdStatus2"></div> <!-- 비밀번호 확인 메시지가 표시될 곳 -->
 					</td>
 				</tr>
 				<tr>
@@ -140,7 +146,7 @@
 					<td>
 						<input type="email" id="email" name="email" required oninput="resetEmailCheck()">
 						<input id="emailCheck" type="button" value="중복확인" onclick="checkEmailAvailability()">
-						<div id="emailStatus"></div> <!-- 이메일 중복 여부 메시지가 표시될 곳 -->
+						<div id="emailStatus" class="valiCheck_text"></div> <!-- 이메일 중복 여부 메시지가 표시될 곳 -->
 					</td>
 				</tr>
 				<tr>
@@ -191,6 +197,7 @@
 
 	var isIdChecked = false;  // 아이디 중복확인 실행 여부를 체크하는 변수
 	var ableId = false; //사용가능 아이디
+
 	var isEmailChecked = false;  // 이메일 중복확인 실행 여부를 체크하는 변수
 	var ableEmail = false; //사용가능 이메일
 	
@@ -203,6 +210,10 @@
 	        alert("아이디를 입력해주세요.");
 	        return;
 	    }
+	    if (!validationId) {
+			alert("유효한 아이디를 입력해주세요.");
+			return;
+	    }
 	    
 	    var xhr = new XMLHttpRequest();
 	    xhr.open('POST', './idcheck', true);  // 서버 URL로 요청 보냄
@@ -212,7 +223,9 @@
 	        if (xhr.status === 200) {
 	            // 서버로부터 받은 결과를 #idStatus div에 표시
 	            var response = xhr.responseText;
-	            document.getElementById('idStatus').innerHTML = response;
+	            var idStatusObj = document.getElementById('idStatus');
+	            idStatusObj.innerHTML = response;
+	            idStatusObj.style.fontSize = '12px';
 	            isIdChecked = true; // 중복확인 실행함
 	            
 	            // 중복된 아이디
@@ -235,6 +248,28 @@
 	    document.getElementById('idStatus').innerHTML = '';  // 상태 메시지도 초기화
 	}
 	
+	var validationId = false; //유효한 아이디
+	
+	//아이디 유효성 검사
+	function valiCheckId() {
+		var id = document.getElementById("id").value;
+		var idStatus2Obj = document.getElementById('idStatus2');
+		
+		//조건 불충족 시 메시지가 출력
+		if(!(id.length >= 4 && id.length <= 12) || !/^[A-Za-z0-9][A-Za-z0-9]*$/.test(id)){
+			idStatus2Obj.innerHTML = '아이디는 영어 또는 숫자만 가능하며 4자리 이상 12자리 이하여야 합니다.';
+			idStatus2Obj.style.color = 'red';
+			idStatus2Obj.style.fontSize = '12px';
+			validationId = false;
+		}
+		
+		//조건 충족 시 또는 값이 없을 때 초기화
+		if(id == '' || ((id.length >= 4 && id.length <= 12) && /^[A-Za-z0-9][A-Za-z0-9]*$/.test(id)) ){
+			idStatus2Obj.innerHTML = '';
+			validationId = true;
+		}
+	}
+	
 	
 	
 	////////이메일 중복확인///////
@@ -254,7 +289,9 @@
 	        if (xhr.status === 200) {
 	            // 서버로부터 받은 결과를 #emailStatus div에 표시
 	            var response = xhr.responseText;
-	            document.getElementById('emailStatus').innerHTML = response;
+	            var emailStatusObj = document.getElementById('emailStatus')
+	            emailStatusObj.innerHTML = response;
+	            emailStatusObj.style.fontSize = '12px';
 	            
 	            isEmailChecked = true; // 중복확인 실행함
 	            
@@ -285,18 +322,48 @@
 	    var passwordCheck = document.getElementById("passwordCheck").value;
 		var pwdStatusObj = document.getElementById('pwdStatus');
 		
+		
 	    //비번과 비번확인이 같지 않을 때
 	    if (password !== passwordCheck) {
 	    	pwdStatusObj.innerHTML = '입력된 비밀번호가 일치하지 않습니다.';
 	    	pwdStatusObj.style.color = 'red';
-	    	return;
+	    	pwdStatusObj.style.fontSize = '12px';
+	    	
 	    }else {
 	    	pwdStatusObj.innerHTML = '입력된 비밀번호가 일치합니다.';
 	    	pwdStatusObj.style.color = 'green';
-	    	return;
+	    	pwdStatusObj.style.fontSize = '12px';
 	    }
 	    
+	    //입력란이 비었을 때 초기화
+		if (password == '' && passwordCheck == ''){
+	    	pwdStatusObj.innerHTML = '';
+	    }
 	}
+	
+	var validationPwd = false; //유효한 비밀번호
+	
+	//비밀번호 유효성 검사
+	function valiCheckPwd() {
+		var pwd = document.getElementById("password").value;
+		var pwdStatus2Obj = document.getElementById('pwdStatus2');
+		
+		//조건 불충족 시 메시지가 출력
+		if(!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(pwd))){
+			pwdStatus2Obj.innerHTML = '비밀번호는 영문, 숫자, 특수문자를 모두 포함해야 하며 8자리 이상이어야 합니다.';
+			pwdStatus2Obj.style.color = 'red';
+			pwdStatus2Obj.style.fontSize = '12px';
+			validationPwd = false;
+		}
+		
+		//조건 충족 시 또는 값이 없을 때 초기화
+		if(pwd == '' || /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(pwd) ){
+			pwdStatus2Obj.innerHTML = '';
+			validationPwd = true;
+		}
+	}
+	
+	
 	
 	
 	//회원가입 폼을 제출하기 전에 중복확인 여부를 체크하는 함수
@@ -331,10 +398,14 @@
 			return false;
 	    }
 	    
+	    if (!validationPwd) {
+			alert("유효한 비밀번호를 입력해주세요");
+			return false;
+	    }
+	    
 	    return true;  // 폼을 정상적으로 제출
 	}
 </script>
-
 
 
 </html>

@@ -170,6 +170,11 @@
 								<td>${search.getMemSignTimeDate()}</td>
 							</tr>
 						</c:forEach>
+						<c:if test="${searchResult == false}">
+							<tr>
+								<td colspan="6" style="text-align: center;">검색 결과 없음</td>
+							</tr>
+						</c:if>
 					</tbody>
 					
 				</table>
