@@ -20,14 +20,14 @@ import admin.member.MemberDto;
 /**
  * Servlet implementation class FreeBoard
  */
-@WebServlet("/board")
-public class FreeBoardListController extends HttpServlet {
+@WebServlet("/board/search")
+public class FreeBoardSearchListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeBoardListController() {
+    public FreeBoardSearchListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,11 +37,14 @@ public class FreeBoardListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		System.out.println("게시판리스트 doget");
+		System.out.println("검색용 리스트 doget");
+		ArrayList<FreeBoardDto> boardList = null;
 		Connection conn = null;
 		
+		String searchStr = "";
+		
 		try {
-
+			
 			ServletContext sc = this.getServletContext();
 			
 			conn = (Connection)sc.getAttribute("conn");
@@ -51,20 +54,22 @@ public class FreeBoardListController extends HttpServlet {
 			boardDao.setConnection(conn);
 			
 			
-			ArrayList<FreeBoardDto> boardList = null;
-			//boardDao는 DB에 관한 로직만 존재해야함
-			//회원목록 가져옴
-			boardList = (ArrayList<FreeBoardDto>)boardDao.freeBoardList();
 			
-			//게시물목록 정보 준비
-			req.setAttribute("boardList", boardList);	
+			//입력한 검색어 가져오기
+			searchStr = req.getParameter("searchStr");
+			//검색어를 request에 저장
 
 			
+			boardList = (ArrayList<FreeBoardDto>)boardDao.freeboardSearch(searchStr);
+
+			req.setAttribute("boardList", boardList);
 			//페이지 준비
 			RequestDispatcher dispatcher = 
-				req.getRequestDispatcher("./page/member/board/FreeBoardListView.jsp");
+				req.getRequestDispatcher("/page/member/board/FreeBoardListView.jsp");
 			//dispatcher를 통해 링크 화면으로 이어짐.
 			dispatcher.include(req, res);
+			
+			
 			
 			
 			
@@ -88,7 +93,8 @@ public class FreeBoardListController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(req, res);
+		System.out.println("검리스트 doPost");
+		
 	}
 
 }

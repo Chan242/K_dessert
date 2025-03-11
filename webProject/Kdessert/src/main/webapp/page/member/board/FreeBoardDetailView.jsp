@@ -85,6 +85,15 @@
 	
 	}
 	
+	/* 제목 넘칠 경우 */
+	#subject{
+		display: block; 
+	    max-width: 1000px;  /* 최대 너비 설정 */
+	    word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
+	    white-space: normal; /* 기본적으로 줄바꿈 허용 */
+	    overflow-wrap: break-word; /* 강제로 줄바꿈 */
+	}
+	
 	/* 댓글부분 */
 	
 
@@ -92,6 +101,7 @@
 </style>
 
 </head>
+
 <jsp:useBean id="boardDto"
 	scope="session"
 	class="user.board.main.FreeBoardDto"/>
@@ -99,36 +109,44 @@
 <jsp:useBean id="memberDto"
 	scope="session"
 	class="admin.member.MemberDto"/>
+	
 <body>
-<jsp:include page="../commPage/Mem_Header.jsp"/>
-<jsp:include page="../commPage/Category_Main.jsp"/>
-
-<div id="boardWrap">
-	<div id="title">
-		<h1>${boardDto.getBrdSubjectStr()}</h1>
-		<div id="head">
-			<span class="writer">작성자: ${boardDto.getMemberDto().memNameStr}</span> <!-- 작성자 텍스트 -->
-			
-			<div class="date-view">
-				<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
-				<span>조회수: ${boardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
+	<jsp:include page="../commPage/Mem_Header.jsp"/>
+	<jsp:include page="../commPage/Category_Main.jsp"/>
+	
+	<div id="boardWrap">
+		<div id="title">
+			<h1 id='subject'>${boardDto.getBrdSubjectStr()}</h1>
+			<div id="head">
+				<span class="writer">작성자: 
+					<c:if test="${empty boardDto.getMemberDto().memNameStr}"> 
+						(알 수 없는 회원)
+					</c:if>
+					${boardDto.getMemberDto().memNameStr}</span> <!-- 작성자 텍스트 -->
+				
+				<div class="date-view">
+					<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
+					<span>조회수: ${boardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
+				</div>
 			</div>
 		</div>
-	</div>
-		<div id="context">
-			<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
-			<div id='contentBtn'>
-				<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
-				<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}">삭제</a>
-			</div>
-
+			<div id="context">
+				<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
+				 <!-- 관리자이거나, 접속 번호와 글쓴이 인덱스 번호가 같을 경우 수정 삭제페이지가 보임-->
+				<c:if test="${boardDto.getMemIndexInt()==sessionScope.member.memIndexInt 
+							|| member.getMemAdmCheckInt() == 1}"> 
+					<div id='contentBtn'>
+						<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
+						<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}">삭제</a>
+					</div>
+				</c:if>
 		</div>
 		
 <!-- 댓글부분 -->
-	<h4>댓글</h4>
-
-	<jsp:include page="./ReplyView.jsp"/>
-</div>
-<jsp:include page="../commPage/Mem_Footer.jsp" />
+		<h4>댓글</h4>
+	
+		<jsp:include page="./ReplyView.jsp"/>
+	</div>
+	<jsp:include page="../commPage/Mem_Footer.jsp" />
 </body>
 </html>

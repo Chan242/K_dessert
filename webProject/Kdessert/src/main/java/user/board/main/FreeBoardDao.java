@@ -202,8 +202,7 @@ public class FreeBoardDao {
 //			pstmt.setString(4, brdImageStr);
 
 			pstmt.executeUpdate();
-			
-			connection.commit();
+
 
 
 		}catch (Exception e) {
@@ -224,6 +223,7 @@ public class FreeBoardDao {
 		} // finally 종료
 	}
 	
+	//삭제
 	public int deleteBoard(int brdIndexInt) 
 			throws SQLException {
 		// TODO Auto-generated method stub
@@ -326,11 +326,12 @@ public class FreeBoardDao {
 
 		String sql = "";
 
-		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT"
-				+ " FROM FREE_BOARD"
-				+ " WHERE F_INDEX = ?";
 
 		try {
+			sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT"
+					+ " FROM FREE_BOARD"
+					+ " WHERE F_INDEX = ?";
+			
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setInt(1, brdIndexInt);
@@ -382,6 +383,85 @@ public class FreeBoardDao {
 		return boardDto;
 	}
 	
+	//검색창에 의한 정보 조회
+	public List<FreeBoardDto> freeboardSearch(String searchWord) 
+			throws SQLException{
+		ResultSet rs = null;
+		ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
+		
+		String sql = "";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			sql = "SELECT F_INDEX, M_INDEX, F_SUBJECT, F_TEXT,"
+					+ " F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE"
+					+ " FROM FREE_BOARD"
+					+ " WHERE F_SUBJECT LIKE ?"
+					+ " ORDER BY F_index DESC";
+			
+			pstmt = connection.prepareStatement(sql);
+
+			searchWord = '%' + searchWord +  '%';
+			pstmt.setString(1, searchWord);
+			
+
+			rs = pstmt.executeQuery();
+
+			int brdIndexInt = 0;
+			int brdViewInt = 0;
+			int brdNoticeInt = 0;
+			int memIndexInt = 0;
+			String brdSubjectStr = "";
+			Date brdCreDate = null;
+
+			
+			while (rs.next()) {
+				brdIndexInt = rs.getInt("F_index");
+				brdViewInt = rs.getInt("F_VIEW");
+				brdNoticeInt = rs.getInt("F_NOTICE");
+				memIndexInt = rs.getInt("M_INDEX");
+				brdSubjectStr = rs.getString("F_SUBJECT");
+				brdCreDate = rs.getDate("F_CRE_DATE");
+
+				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, memIndexInt, brdSubjectStr
+						, brdCreDate, brdViewInt, brdNoticeInt);
+
+
+				MemberDto memberDto = freeboardWriter(memIndexInt);
+				
+				freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+
+
+				freeBoardList.add(freeBoardDto);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return freeBoardList;
+		
+	}
+	
+	
 	
 	//멤버와 게시판 join-글쓴이명 가져오기용 메서드
 	
@@ -422,12 +502,6 @@ public class FreeBoardDao {
 				memNameStr = rs.getString("M_NAME");
 				memIdStr = rs.getString("M_ID");
 
-				if(memNameStr==null || memNameStr.equals("") ) {
-					System.out.println(memNameStr);
-					memNameStr="탈퇴한 회원";
-					memIdStr = "탈퇴한 회원";
-					System.out.println(memNameStr);
-				}
 				memberDto = new MemberDto(memIndex, memNameStr, memIdStr);
 
 			}

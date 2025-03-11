@@ -14,22 +14,24 @@
 </script>
 
 <style type="text/css">
-#listBox {
-	width: 1000px;
-	display: 0;
-	margin: auto;
-	/* 푸터 맨 하단으로 고정할 수 있게 추가 */
-	min-height: 800px; /* 최소높이 지정 */
-}
-
-	#table_info{
+	#listWrap {
+		width: 1000px;
+		margin: auto;
+		/* 푸터 맨 하단으로 고정할 수 있게 추가 */
+		min-height: 800px; /* 최소높이 지정 */
+	}
+	
+	#table_info {
 		margin: auto;
 		width: 1000px;
 		
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
 		border-top: 2px solid black;
-		table-layout: fixed;
+
 	}
-	#colum{
+	
+	#colum {
 		text-align: center;
 	}
 	
@@ -41,63 +43,58 @@
 	table {
 		border-top: 2px solid black;
 	}
-
+	
 	th, td {
 		padding: 15px;
 	}
 	
+	.boardListbtn {
+		font-size: 12pt;
+		width: 80px;
+		height: 28px;
+		text-align: center;
+		color: white;
+		background-color: #64473E;
+		border: none;
+	}
+	
+	.boardLists {
+		text-align: center;
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	#writeSearchBox {
+		width: 200px;
+		height: 23px;
+	}
+	
+	#boardSearch {
+		float: right;
+	}
+	
+	#topInter {
+		margin-bottom: 10px;
+		margin-top: 70px;
+		padding: 10px;
+	}
 
-.boardListbtn {
-	font-size: 12pt;
-	width: 80px;
-	height: 28px;
-	text-align: center;
-	color: white;
-	background-color: #64473E;
-	border: none;
-}
+	.title {
+	    display: block;
+	    max-width: 400px; /* 최대 너비 설정 */
+	    white-space: nowrap; /* 한 줄로 유지 */
+	    overflow: hidden; /* 넘치는 글자 숨김 */
+	    text-overflow: ellipsis; /* 말줄임표(...) 추가 */
+	}
+	
+	#writer{
 
-#writeSearchBox {
-	width: 200px;
-	height: 23px;
-}
+	    max-width: 400px; /* 최대 너비 설정 */
+	    white-space: nowrap; /* 한 줄로 유지 */
+	    overflow: hidden; /* 넘치는 글자 숨김 */
+	    text-overflow: ellipsis; /* 말줄임표(...) 추가 */
+	}
 
-#boardSearch {
-	float: right;
-}
-
-#topInter {
-	margin-bottom: 10px;
-	margin-top: 70px;
-	padding: 10px;
-}
-
-#boardLine a {
-	border-bottom: 1px solid lightgray;
-	display: flex; /* a 태그 안에 flex 적용 */
-	justify-content: space-between;
-	align-items: center; /* 수직 정렬 */
-	padding-top: 10px;
-	padding-bottom: 10px;
-	text-decoration: none; /* a태그 밑줄 제거 */
-	color: black; /* a태그 텍스트 검은색 */
-}
-
-.writeType{
-	text-align: center;
-	margin-left: 30px;
-	margin-right: 5px;
-}
-
-.writer {
-	text-align: center;
-	margin-left: 20px;
-	margin-right: 15px;
-}
-
-#title{
-	width: 600px;
-}
 
 </style>
 
@@ -109,73 +106,42 @@
 	<jsp:include page="../commPage/Mem_Header.jsp" />
 	<jsp:include page="../commPage/Category_Main.jsp" />
 
-
-	<div id="listBox">
+	<div id="listWrap">
 		<div id="topInter">
 			<input class="boardListbtn" type="button" value="글쓰기"
 				onclick="location.href='/Kdessert/board/write'">
 			<div id="boardSearch">
-				<form action="/Kdessert/board">
-					<input id="writeSearchBox" type="text" placeholder="검색창"> <input
-						class="boardListbtn" type="submit" value="검색">
+				<form action="/Kdessert/board/search">
+					<input id="writeSearchBox" type="text" name= 'searchStr' placeholder="검색창"> 
+					<input class="boardListbtn" type="submit" value="검색">
 				</form>
 			</div>
 		</div>
-<!-----상단컬럼---->
-		<h4>
-			<span style="margin-left: 200px;">타이틀</span> 
-			<span style="margin-right: 40px"> 
-			<span class="writeType">작성자</span>
-				<span class="writeType">작성일</span> 
-				<span class="writeType">조회수</span>
-			</span>
-		</h4>
 
-		<!--  보드 리스트가 비어있지 않다면(null이 아니라면) -->
-		<c:forEach var="board" items="${boardList}">
-
-			<div id="boardLine">
-				<a href="./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}">
-					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-					<span style="margin-right: 40px;"> <span class="writer">
-							<c:if test="${empty board.memberDto.memNameStr}"> 
-							(알 수 없는회원)
-						</c:if> ${board.memberDto.memNameStr}
-					</span> <span class="writer">${board.brdCreDate}</span> <span
-						class="writer">${board.brdViewInt}</span>
-				</span>
-				</a>
-
-			</div>
-		</c:forEach>
 
 		<table id="table_info">
 			<thead id="colum">
 				<tr>
-					<th scope="col" style="width: 700px;">타이틀</th>
-					<th scope="col" style="width: 100px;">작성자</th>
+					<th scope="col" style="max-width: 660px;">타이틀</th>
+					<th scope="col" style="width: 160px;">작성자</th>
 					<th scope="col" style="width: 100px;">작성일</th>
-					<th scope="col" style="width: 100px;">조회수</th>
+					<th scope="col" style="width: 80px;">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="board" items="${boardList}">
-					<tr>
-					
-						<td >
-							<a href="./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}">
-								<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-							</a>
-						</td>
-						<td>${board.brdSubjectStr}</td>
+					<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}'">
 						<td>
+							<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
+						</td>
+						<td class='boardLists' id='writer'>
 							<c:if test="${empty board.memberDto.memNameStr}"> 
-								(알 수 없는회원)
+								(알 수 없는 회원)
 							</c:if>
 							 ${board.memberDto.memNameStr}
 						</td>
-						<td>${board.brdCreDate}</td>
-						<td>${board.brdViewInt}</td>
+						<td class='boardLists'>${board.brdCreDate}</td>
+						<td class='boardLists'>${board.brdViewInt}</td>
 
 					</tr>
 				</c:forEach>

@@ -76,7 +76,12 @@
 		<div class="WritedReply">
 			<div class="WriterInfo">
 		
-				<span style="color: black; font-weight: bold; font-size: 17px;">${reply.memberDto.memNameStr}</span>
+				<span style="color: black; font-weight: bold; font-size: 15px;">
+					<c:if test="${empty reply.memberDto.memNameStr}"> 
+					(알 수 없는 회원)
+				</c:if>
+				${reply.memberDto.memNameStr}
+				</span>
 				<span>작성일: ${reply.replyCreDate}</span>
 				
 				<a>수정</a>
