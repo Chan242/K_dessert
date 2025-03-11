@@ -11,7 +11,7 @@ public class BoardReplyDto {
 	private int replyIndexInt = 0;// 댓글 번호
 	private int memIndexInt = 0;// 작성자 번호-외래키
 	private String replyTextStr = "";// 텍스트(내용)
-	private int brdIndexInt = 0;// 작성한 게시글 번호-외래키
+	private int brdIndexInt = 0;// 작성한 댓글 번호-외래키
 	private Date replyCreDate = null;// 작성일
 	private Date replyCorrDate = null;// 수정일
 

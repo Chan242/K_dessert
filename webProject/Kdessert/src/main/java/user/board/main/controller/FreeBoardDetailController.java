@@ -59,7 +59,7 @@ public class FreeBoardDetailController extends HttpServlet {
 	        }
 	        
 			
-			brdIndexInt = req.getParameter("brdindexint");
+			brdIndexInt = req.getParameter("brdIndexInt");
 			int brdIndex = Integer.parseInt(brdIndexInt);
 			
 			//this는 ServletContext
@@ -90,11 +90,7 @@ public class FreeBoardDetailController extends HttpServlet {
 			boardreplyList = (ArrayList<BoardReplyDto>)boardreplyDao.replyList(brdIndex);
 			
 			req.setAttribute("boardreplyList", boardreplyList);
-			
-			for(int i=0;i<boardreplyList.size() ;i++) {
-				System.out.println(boardreplyList.get(i).getReplyTextStr());
-			}
-			
+		
 			//-------------------리퀘부분-------------------//
 			//BoardUpdateForm.jsp에서 <jsp:useBean id="boardDto"...의 id를 가져올거라 "boardDto", 
 			//boardDto가 위에 선언한 boardDto이다.
@@ -115,11 +111,49 @@ public class FreeBoardDetailController extends HttpServlet {
 		}
 	}
 
-
+	//댓글 작성
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 
-		doGet(req, res);
+	BoardReplyDto boardReplyDto = null;
+		
+		Connection conn =null;
+		
+		try {
+			String memIndexStr = req.getParameter("memIndexInt");
+			int memIndexInt = Integer.parseInt(memIndexStr);
+			String replyTextStr = req.getParameter("replyTextStr");
+			String brdIndexStr = req.getParameter("brdIndexInt");
+			int brdIndexInt = Integer.parseInt(brdIndexStr);
+			
+			boardReplyDto =new BoardReplyDto();
+			//dto에 값 저장
+			boardReplyDto.setMemIndexInt(memIndexInt);
+			boardReplyDto.setReplyTextStr(replyTextStr);
+			boardReplyDto.setBrdIndexInt(brdIndexInt);
+			
+			ServletContext sc = this.getServletContext();
+
+			conn = (Connection) sc.getAttribute("conn");
+			
+			BoardReplyDao boardReplyDao = new BoardReplyDao();
+			boardReplyDao.setConnection(conn);
+			
+			boardReplyDao.relpyNew(boardReplyDto);
+			
+			res.sendRedirect("/Kdessert/board/freeboarddetail?brdIndexInt=" + brdIndexInt);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+			req.setAttribute("error", e);
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		
 	}
 
 }

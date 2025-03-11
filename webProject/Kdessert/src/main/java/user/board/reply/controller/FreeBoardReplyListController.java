@@ -79,12 +79,43 @@ public class FreeBoardReplyListController extends HttpServlet {
 
 	}
 
-	// 글쓰기 버튼 누를 시 doPost 실행
+	// 댓글란 등록 버튼 누를 시 doPost 실행
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		BoardReplyDto boardReplyDto = null;
+		
+		Connection conn =null;
+		
+		try {
+			String memIndexStr = req.getParameter("memIndexInt");
+			int memIndexInt = Integer.parseInt(memIndexStr);
+			String replyTextStr = req.getParameter("replyTextStr");
+			String brdIndexStr = req.getParameter("brdIndexInt");
+			int brdIndexInt = Integer.parseInt(brdIndexStr);
+			
+			boardReplyDto =new BoardReplyDto();
+			//dto에 값 저장
+			boardReplyDto.setMemIndexInt(memIndexInt);
+			boardReplyDto.setReplyTextStr(replyTextStr);
+			boardReplyDto.setBrdIndexInt(brdIndexInt);
+			
+			ServletContext sc = this.getServletContext();
 
-		super.doPost(req, res);
+			conn = (Connection) sc.getAttribute("conn");
+			
+			BoardReplyDao boardReplyDao = new BoardReplyDao();
+			boardReplyDao.setConnection(conn);
+			
+			boardReplyDao.relpyNew(boardReplyDto);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		//댓글 작성
+		
+		
 
 	}
 }

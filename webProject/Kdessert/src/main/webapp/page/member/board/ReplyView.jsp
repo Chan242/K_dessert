@@ -15,11 +15,13 @@
 		font-family: sans-serif;
 	}
 	
-	#WriterInfo{
+	.WriterInfo{
 	
 		display: flex;
 		gap: 15px; /* 간격 */
 		justify-content: flex-start;
+		
+		margin-top: 15px;
 		
 		font-size: 14px;
 		color: #888;
@@ -28,26 +30,29 @@
 	#replyList{
 
 		border-bottom: 2px solid #E1E1E1;
-		padding-bottom: 20px;
-		padding-top: 10px;
+		padding-bottom: 15px;
+		margin-top: 10px;
 	}
 	
-	#WritedRyply{
+	.WritedRyply{
 
 		
 		min-height: 100px; 
 		margin-bottom: 30px;
+		margin-top: 10px;
 	}
 	
-	.reply form{
+	#reply form{
 		position:relative;
 
 	}
 	#inputBtn{
+		display: flex;
 		
-		position: absolute;
-		right: 0px;
-	
+		float: right;
+
+		margin-bottom: 50px;
+		justify-content: flex-end;
 		font-size: 12pt;
 		width: 80px;
 		height: 28px;
@@ -57,24 +62,28 @@
 		border: none;	
 		
 	}
+	#reply{
+		display: flex;
+	}
 </style>
 
 	
 	<!-- 댓글 목록 -->
-	<h4>댓글</h4>
-	${boardDto.brdIndexInt}
+<div>
 	
 	<c:forEach var="reply" items="${boardreplyList}">
 		<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
-		<div id="WritedReply">
-			<div id="WriterInfo">
+		<div class="WritedReply">
+			<div class="WriterInfo">
 		
-				<span style="color: black;">작성자</span>
-				<span>작성일-${reply.replyCreDate}</span>
+				<span style="color: black; font-weight: bold; font-size: 17px;">${reply.memberDto.memNameStr}</span>
+				<span>작성일: ${reply.replyCreDate}</span>
 				
 				<a>수정</a>
-				<a>삭제</a>
+				<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
+
 			</div>
+			
 			<div id="replyList">
 				${reply.replyTextStr}
 			</div>
@@ -82,11 +91,14 @@
 	</c:forEach>
 	
 	<!-- 댓글 작성부분 -->
-	<div class= "reply">
-		<h4>댓글 쓰기</h4>
-		<form action="./freeboarddetail?brdindexint=$" method="post">
-			<textarea id= 'replyText' name="brdTextStr"></textarea>
+	<h4>댓글 쓰기</h4>
+	<div id= "reply">
+		<form action="/Kdessert/board/freeboarddetail" method="post">
+			<input type="hidden" name="memIndexInt" value="${sessionScope.member.memIndexInt}">
+			<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
+			<textarea id= 'replyText' name="replyTextStr"></textarea>
 			<input id = 'inputBtn' type="submit" value="등록">
 		</form>
 	</div>
+</div>
 </html>

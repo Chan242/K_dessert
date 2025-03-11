@@ -103,7 +103,7 @@ public class FreeBoardDao {
 	}
 	
 	//게시판 상세 내용 보이기
-	public FreeBoardDto freeBoardDetail(int brdindexint) 
+	public FreeBoardDto freeBoardDetail(int brdIndexInt) 
 			throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -122,10 +122,10 @@ public class FreeBoardDao {
 
 		try {
 
-			pstmt.setInt(1, brdindexint);
+			pstmt.setInt(1, brdIndexInt);
 			rs = pstmt.executeQuery();
 			
-			int brdIndexInt = 0;
+
 			String brdSubjectStr = "";//제목
 			String brdTextStr = "";//내용
 			int memIndexInt = 0;//작성자
@@ -141,7 +141,7 @@ public class FreeBoardDao {
 				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 
-				freeboardDto.setBrdIndexInt(brdindexint);
+				freeboardDto.setBrdIndexInt(brdIndexInt);
 				freeboardDto.setBrdSubjectStr(brdSubjectStr);
 				freeboardDto.setBrdTextStr(brdTextStr);
 				freeboardDto.setMemIndexInt(memIndexInt);

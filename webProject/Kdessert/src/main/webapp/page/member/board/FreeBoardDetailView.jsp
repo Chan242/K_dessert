@@ -87,60 +87,7 @@
 	
 	/* 댓글부분 */
 	
-	
-	#replyText{
-		width: 1000px;
-		height: 90px;
-		resize: none;
-		margin-bottom: 10px;
-		
-		font-family: sans-serif;
-	}
-	
-	#WriterInfo{
-	
-		display: flex;
-		gap: 15px; /* 간격 */
-		justify-content: flex-start;
-		
-		margin-top: 15px;
-		
-		font-size: 14px;
-		color: #888;
-	}
-	
-	#replyList{
 
-		border-bottom: 2px solid #E1E1E1;
-		padding-bottom: 20px;
-		padding-top: 10px;
-	}
-	
-	#WritedRyply{
-
-		
-		min-height: 100px; 
-		margin-bottom: 30px;
-	}
-	
-	.reply form{
-		position:relative;
-
-	}
-	#inputBtn{
-		
-		position: absolute;
-		right: 0px;
-	
-		font-size: 12pt;
-		width: 80px;
-		height: 28px;
-		text-align: center;
-		color: white;
-		background-color: #64473E;
-		border: none;	
-		
-	}
 
 </style>
 
@@ -179,34 +126,9 @@
 		
 <!-- 댓글부분 -->
 	<h4>댓글</h4>
-	${boardDto.brdIndexInt}
-	
-	<c:forEach var="reply" items="${boardreplyList}">
-		<div id="WritedReply">
-			<div id="WriterInfo">
-		
-				<span style="color: black;">작성자</span>
-				<span>작성일: ${reply.replyCreDate}</span>
-				
-				<a>수정</a>
-				<a>삭제</a>
-			</div>
-			<div id="replyList">
-				${reply.replyTextStr}
-			</div>
-		</div>
-	</c:forEach>
-	
-	<!-- 댓글 작성부분 -->
-	<div class= "reply">
-		<h4>댓글 쓰기</h4>
-		<form action="./freeboarddetail?brdindexint=$" method="post">
-			<textarea id= 'replyText' name="brdTextStr"></textarea>
-			<input id = 'inputBtn' type="submit" value="등록">
-		</form>
-	</div>
-</div>
 
-<jsp:include page="../commPage/Mem_Footer.jsp"/>
+	<jsp:include page="./ReplyView.jsp"/>
+</div>
+<jsp:include page="../commPage/Mem_Footer.jsp" />
 </body>
 </html>
