@@ -30,7 +30,7 @@ public class DessertController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		RequestDispatcher rd = req.getRequestDispatcher("/page/member/dessert/dagwasogae.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/page/member/dessert/sogae.jsp");
 		
 		rd.forward(req, res);
 		
