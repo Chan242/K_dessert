@@ -26,11 +26,12 @@
 	
 	th {
 		background-color: #F5F5F5;
-		text-align: left;
+		
 	}
 
 	th, td {
 		padding: 15px;
+		text-align: center;
 	}
 	
 	a {
@@ -57,13 +58,13 @@
 	</div>
 	<div id="container">
 		<div>
-			<h1 style="text-align: center;">제품 목록</h1>
-			<table>
+			<h1 style="text-align: center;">제품 관리</h1>
+			<table style="width: 600px;">
 				<tr>
 					<td><button style="float: left; margin: auto;"
 				onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
 					</td>
-					<td>
+					<td colspan="6">
 						<form action="query" method="get" style="float: right;">
 							<input type="search" name="search" placeholder="검색어 입력창" value="">
 							<input type="submit" value="검색">

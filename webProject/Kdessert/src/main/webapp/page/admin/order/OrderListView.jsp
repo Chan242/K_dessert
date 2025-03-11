@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +22,12 @@
 	
 	th {
 		background-color: #F5F5F5;
-		text-align: left;
+		
 	}
 
 	th, td {
 		padding: 15px;
+		text-align: center;
 	}
 	
 	.btn_style {
@@ -64,7 +66,7 @@
 		<jsp:include page="../commPage/Category_Mgr.jsp"></jsp:include>
 	</div>
 	<div id="container">
-		<h2 style="text-align: center;">주문 목록</h2>
+		<h2 style="text-align: center;">주문 관리</h2>
 
 		<div style="margin: auto;">
 			<table>
@@ -80,7 +82,11 @@
 				
 				<c:forEach var="orderDto" items="${orderList}">
 					<tr>
-						
+						<td>${orderDto.getOrdIndexint()}</td>
+						<td><a href="./detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
+						<td>${orderDto.getStaStatStr()}</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
+						<td>${orderDto.getTotalPriceInt()}</td>
 					</tr>
 				</c:forEach>
 			</table>

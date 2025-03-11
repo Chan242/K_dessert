@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import oracle.net.aso.e;
 import user.basket.BasketDao;
 import user.basket.BasketDto;
 
@@ -129,7 +130,17 @@ public class UserBasketAddController extends HttpServlet {
             out.println("</script>");
 			
 
-		} catch (Exception e) {
+		} 	catch (NullPointerException ne) {
+			// TODO: handle exception
+			ne.printStackTrace();
+			
+		    res.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = res.getWriter();
+		    out.println("<script>alert('로그인이 필요합니다.'); location.href='/Kdessert/auth/login';</script>");
+		    out.close();
+			
+		}
+			catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 

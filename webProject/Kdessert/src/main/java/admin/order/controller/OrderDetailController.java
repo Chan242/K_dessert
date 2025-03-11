@@ -1,28 +1,24 @@
-package user.order.controller;
+package admin.order.controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 
-import admin.member.MemberDto;
-import admin.order.OrderDto;
-
 /**
- * Servlet implementation class UserOrderSucessController
+ * Servlet implementation class OrderDetailController
  */
-@WebServlet("/page/member/mypage/order/sucess")
-public class UserOrderSucessController extends HttpServlet {
+@WebServlet("/admin/order/detail")
+public class OrderDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserOrderSucessController() {
+    public OrderDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,31 +28,17 @@ public class UserOrderSucessController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderDetailView.jsp");
+		
+		rd.forward(req, res);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		HttpSession session = req.getSession();//세션정보획득
-		MemberDto memberDto = new MemberDto();//빈 객체 생성
-		memberDto = (MemberDto)session.getAttribute("member");//객체에 정보 담음
-		System.out.println(memberDto.getMemNameStr());//멤버 이름 확인
-		
-		int memIndexInt = memberDto.getMemIndexInt();//멤버 인덱스 확인
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 	}
 
 }
