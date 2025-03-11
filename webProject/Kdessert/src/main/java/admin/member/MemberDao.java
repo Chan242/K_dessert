@@ -107,9 +107,9 @@ public class MemberDao {
 		sql += "INSERT INTO MEMBER";
 		sql += " (M_INDEX, M_ID, M_PASSWORD, M_NAME, M_TEL,";
 		sql += " M_EMAIL, M_ADDRESS, M_ADDRESS_SEC, M_BIRTH,";
-		sql += " M_SIGN_TIME, M_POINT, M_NOTE)";
+		sql += " M_SIGN_TIME, M_NOTE)";
 		sql += " VALUES(M_INDEX_SEQ.NEXTVAL, ?, ?, ?, ?,";
-		sql += " ?, ?, ?, ?, SYSDATE, 0, '')";
+		sql += " ?, ?, ?, ?, SYSDATE, '')";
 
 		try {
 			
@@ -456,7 +456,7 @@ public class MemberDao {
 		String sql = "";
 
 		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_TEL, ";
-		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_CORR_DATE, M_POINT, M_ADM_CHECK, M_NOTE";
+		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_CORR_DATE, M_ADM_CHECK, M_NOTE";
 		sql += " FROM MEMBER";
 		sql += " WHERE M_INDEX =?";
 
@@ -477,7 +477,6 @@ public class MemberDao {
 			String addressSec ="";
 			Date signTime = null;
 			Date corrDate = null;
-			int point = 0;
 			int admCheck = 0;
 			String note = "";
 
@@ -492,7 +491,6 @@ public class MemberDao {
 				addressSec = rs.getString("M_ADDRESS_SEC");
 				signTime = rs.getDate("M_SIGN_TIME");
 				corrDate = rs.getDate("M_CORR_DATE");
-				point = rs.getInt("M_POINT");
 				admCheck = rs.getInt("M_ADM_CHECK");
 				note = rs.getString("M_NOTE");
 
@@ -508,7 +506,6 @@ public class MemberDao {
 				memberDto.setMemAddressSecStr(addressSec);
 				memberDto.setMemSignTimeDate(signTime);
 				memberDto.setMemCorrDate(corrDate);
-				memberDto.setMemPointInt(point);
 				memberDto.setMemAdmCheckInt(admCheck);
 				memberDto.setMemNoteStr(note);
 				
@@ -621,7 +618,12 @@ public class MemberDao {
 				MemberDto memberDto = new MemberDto(index, name, id, email, birth, signTime);
 				
 				memberList.add(memberDto);
-						
+			}
+			
+			if(memberList.isEmpty()) {
+				//리스트에 값이 존재하지 않음
+				System.out.println("memberList is empty");
+				return null;
 			}
 			
 		} catch (Exception e) {
@@ -821,8 +823,8 @@ public class MemberDao {
 			
 			pstmt = connection.prepareStatement(sql);
 
-			pstmt.setInt(1, memberDto.getMemPointInt());
-			pstmt.setInt(2, memberDto.getMemIndexInt());
+//			pstmt.setInt(1, memberDto.getMemPointInt());
+//			pstmt.setInt(2, memberDto.getMemIndexInt());
 
 			result = pstmt.executeUpdate();
 			

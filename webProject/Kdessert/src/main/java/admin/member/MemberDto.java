@@ -15,7 +15,6 @@ public class MemberDto {
 	private Date memBirthDate = null;
 	private Date memSignTimeDate = null;
 	private Date memCorrDate = null;
-	private int memPointInt = 0;
 	private int memAdmCheckInt = 0;
 	private String memNoteStr = "";
 	
@@ -26,7 +25,7 @@ public class MemberDto {
 	public MemberDto(int memIndexInt, String memIdStr, String memPasswordStr, 
 		String memNameStr, String memTelStr, String memEmailStr, String memAddressStr, 
 		String memAddressSecStr, Date memBirthDate, Date memSignTimeDate, Date memCorrDate, 
-		int memPointInt, int memAdmCheckInt, String memNoteStr) {
+		int memAdmCheckInt, String memNoteStr) {
 		super();
 		this.memIndexInt = memIndexInt;
 		this.memIdStr = memIdStr;
@@ -39,7 +38,6 @@ public class MemberDto {
 		this.memBirthDate = memBirthDate;
 		this.memSignTimeDate = memSignTimeDate;
 		this.memCorrDate = memCorrDate;
-		this.memPointInt = memPointInt;
 		this.memAdmCheckInt = memAdmCheckInt;
 		this.memNoteStr = memNoteStr;
 	}
@@ -80,7 +78,6 @@ public class MemberDto {
 				"memBirthDate = " + memBirthDate + 
 				"memSignTimeDate = " + memSignTimeDate + 
 				"memCorrDate = " + memCorrDate + 
-				"memPointInt = " + memPointInt + 
 				"memAdmCheckInt = " + memAdmCheckInt +
 				"memNoteStr = " + memNoteStr + 
 				"]";
@@ -182,13 +179,6 @@ public class MemberDto {
 		this.memSignTimeDate = memSignTimeDate;
 	}
 
-	public int getMemPointInt() {
-		return memPointInt;
-	}
-
-	public void setMemPointInt(int memPointInt) {
-		this.memPointInt = memPointInt;
-	}
 
 	public String getMemNoteStr() {
 		return memNoteStr;

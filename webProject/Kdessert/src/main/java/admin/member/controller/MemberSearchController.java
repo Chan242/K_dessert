@@ -42,6 +42,18 @@ public class MemberSearchController extends HttpServlet{
 			
 			//조회 정보 (페이징) 가져오기
 			memberList = (ArrayList<MemberDto>)memberDao.searchList(searchText, pageNum, pageSize);
+			
+			if(memberList == null) {
+				System.out.println("searchController에서 memberList null");
+				boolean searchResult = false;
+				req.setAttribute("searchResult", searchResult);
+				
+				RequestDispatcher dispatcher = req.getRequestDispatcher("./MemberSearchView.jsp");
+				dispatcher.include(req, res);
+				return;
+			}
+			
+			
 			//총 데이터 수 가져오기
 			totalCount = memberDao.getSearchTotalCount(searchText);
 			// 전체 페이지 수 계산

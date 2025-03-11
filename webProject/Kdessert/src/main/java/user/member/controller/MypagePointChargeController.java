@@ -87,7 +87,7 @@ public class MypagePointChargeController extends HttpServlet{
 			MemberDto memberDto = new MemberDto(); //memberDto에는 대부분의 회원 정보가 저장되어 있음
 			memberDto = memberDao.memberSelectOne(index);
 			
-			memPoint = memberDto.getMemPointInt(); //로그인 중인 회원의 현재 포인트 값
+//			memPoint = memberDto.getMemPointInt(); //로그인 중인 회원의 현재 포인트 값
 			
 			// 충전하려는 금액 값
 			chargePointStr = req.getParameter("point");
@@ -98,14 +98,14 @@ public class MypagePointChargeController extends HttpServlet{
 			
 			//Dao 메서드에 보낼 memberDto 객체 생성
 			MemberDto memberDtoForDao = new MemberDto(); //memberDtoForDao에는 충전 후 포인트 값과 회원의 인덱스가 존재함
-			memberDtoForDao.setMemPointInt(memPoint); // 충전 후 포인트 값
+//			memberDtoForDao.setMemPointInt(memPoint); // 충전 후 포인트 값
 			memberDtoForDao.setMemIndexInt(index); // 로그인 중인 회원의 인덱스
 			
 			//Dao 메서드 실행
 			int result = memberDao.memberPointCharge(memberDtoForDao);
 
 			//변경된 포인트 값을 다시 넣어서 세션에 재저장
-			memberDto.setMemPointInt(memPoint);
+//			memberDto.setMemPointInt(memPoint);
 			session.setAttribute("member", memberDto);
 			
 			memberDto = (MemberDto) session.getAttribute("member");
