@@ -20,15 +20,16 @@ public class MypagePointViewController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Connection conn = null;
+		MemberDto memberDto = null;
 		int index = 0;
 		
 		try {
-			MemberDto memberDtoSelect = new MemberDto();
+			MemberDto memberDtoindex = new MemberDto();
 			
 			//해당 회원의 인덱스 값을 세션에서 구함
 			HttpSession session = req.getSession();
-			memberDtoSelect = (MemberDto) session.getAttribute("member");
-			index = memberDtoSelect.getMemIndexInt();
+			memberDtoindex = (MemberDto) session.getAttribute("member");
+			index = memberDtoindex.getMemIndexInt();
 			
 			//DB연결
 			ServletContext sc = this.getServletContext();
@@ -37,9 +38,8 @@ public class MypagePointViewController extends HttpServlet{
 			MemberDao memberDao = new MemberDao();
 			memberDao.setConnection(conn);
 			
-			//새 dto 객체에 dao로 받아온 dto 담기
-			MemberDto memberDto = new MemberDto();
-			memberDto = memberDao.memberSelectOne(index);
+			//dao로 받아온 dto 담기
+			memberDto = memberDao.memberPointGet(index);
 			
 			req.setAttribute("memberDto", memberDto);
 			

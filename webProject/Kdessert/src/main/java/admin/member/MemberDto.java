@@ -1,6 +1,6 @@
 package admin.member;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MemberDto {
 
@@ -18,6 +18,12 @@ public class MemberDto {
 	private int memAdmCheckInt = 0;
 	private String memNoteStr = "";
 	
+	//member 테이블에 없는 컬럼
+	private int memPointInt = 0;
+	private Date memPointDate = null;
+	
+
+
 	public MemberDto() {
 		super();
 	}
@@ -78,9 +84,26 @@ public class MemberDto {
 				"memBirthDate = " + memBirthDate + 
 				"memSignTimeDate = " + memSignTimeDate + 
 				"memCorrDate = " + memCorrDate + 
+				"memPointInt = " + memPointInt +
 				"memAdmCheckInt = " + memAdmCheckInt +
 				"memNoteStr = " + memNoteStr + 
 				"]";
+	}
+	
+	public Date getMemPointDate() {
+		return memPointDate;
+	}
+
+	public void setMemPointDate(Date memPointDate) {
+		this.memPointDate = memPointDate;
+	}
+
+	public int getMemPointInt() {
+		return memPointInt;
+	}
+
+	public void setMemPointInt(int memPointInt) {
+		this.memPointInt = memPointInt;
 	}
 
 	public Date getMemCorrDate() {
