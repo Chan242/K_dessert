@@ -22,16 +22,30 @@
 	min-height: 800px; /* 최소높이 지정 */
 }
 
-#listBox h4 {
-	border-top: 2px solid black;
-	border-bottom: 1px solid gray;
-	display: flex; /* a 태그 안에 flex 적용 */
-	justify-content: space-between;
-	align-items: center; /* 수직 정렬 */
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin: 0;
-}
+	#table_info{
+		margin: auto;
+		width: 1000px;
+		
+		border-top: 2px solid black;
+		table-layout: fixed;
+	}
+	#colum{
+		text-align: center;
+	}
+	
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+	
 
 .boardListbtn {
 	font-size: 12pt;
@@ -98,20 +112,20 @@
 
 	<div id="listBox">
 		<div id="topInter">
-			<input class="boardListbtn" type="button" value="글쓰기" 
-					 onclick="location.href='/Kdessert/board/write'">
+			<input class="boardListbtn" type="button" value="글쓰기"
+				onclick="location.href='/Kdessert/board/write'">
 			<div id="boardSearch">
 				<form action="/Kdessert/board">
-					<input id="writeSearchBox" type="text" placeholder="검색창">
-					 <input class="boardListbtn" type="submit" value="검색">
+					<input id="writeSearchBox" type="text" placeholder="검색창"> <input
+						class="boardListbtn" type="submit" value="검색">
 				</form>
 			</div>
 		</div>
-
+<!-----상단컬럼---->
 		<h4>
 			<span style="margin-left: 200px;">타이틀</span> 
 			<span style="margin-right: 40px"> 
-				<span class="writeType">작성자</span>
+			<span class="writeType">작성자</span>
 				<span class="writeType">작성일</span> 
 				<span class="writeType">조회수</span>
 			</span>
@@ -123,15 +137,51 @@
 			<div id="boardLine">
 				<a href="./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}">
 					<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-					<span style="margin-right: 40px;"> <span class="writer">${board.memberDto.memNameStr}</span>
-						<span class="writer">${board.brdCreDate}</span> 
-						<span class="writer">${board.brdViewInt}</span>
+					<span style="margin-right: 40px;"> <span class="writer">
+							<c:if test="${empty board.memberDto.memNameStr}"> 
+							(알 수 없는회원)
+						</c:if> ${board.memberDto.memNameStr}
+					</span> <span class="writer">${board.brdCreDate}</span> <span
+						class="writer">${board.brdViewInt}</span>
 				</span>
 				</a>
 
 			</div>
 		</c:forEach>
 
+		<table id="table_info">
+			<thead id="colum">
+				<tr>
+					<th scope="col" style="width: 700px;">타이틀</th>
+					<th scope="col" style="width: 100px;">작성자</th>
+					<th scope="col" style="width: 100px;">작성일</th>
+					<th scope="col" style="width: 100px;">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="board" items="${boardList}">
+					<tr>
+					
+						<td >
+							<a href="./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}">
+								<span id='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
+							</a>
+						</td>
+						<td>${board.brdSubjectStr}</td>
+						<td>
+							<c:if test="${empty board.memberDto.memNameStr}"> 
+								(알 수 없는회원)
+							</c:if>
+							 ${board.memberDto.memNameStr}
+						</td>
+						<td>${board.brdCreDate}</td>
+						<td>${board.brdViewInt}</td>
+
+					</tr>
+				</c:forEach>
+			</tbody>
+
+		</table>
 	</div>
 
 
