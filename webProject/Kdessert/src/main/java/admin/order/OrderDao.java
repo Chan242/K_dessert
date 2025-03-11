@@ -175,4 +175,10 @@ try {
 	}
 
 
+	public OrderDto selectOne() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
