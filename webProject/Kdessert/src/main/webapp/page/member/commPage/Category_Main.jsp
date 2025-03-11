@@ -55,7 +55,7 @@
 	<div id="top_MenuBar">
 		<ul>
 			<li class='top_Menues'>
-				<a id="select_dessert" href="다과링크"><span>다과 소개</span></a>
+				<a id="select_dessert" href="/Kdessert/dessert/list"><span>다과 소개</span></a>
 			</li>
 			<li class='top_Menues'>
 				<a id="select_produt" href="/Kdessert/product/list"><span>구매</span></a>
