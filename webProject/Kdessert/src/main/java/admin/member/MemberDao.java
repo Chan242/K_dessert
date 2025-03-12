@@ -772,7 +772,7 @@ public class MemberDao {
 
 		String sql = "";
 		sql = "UPDATE MEMBER";
-		sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?";
+		sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?, M_name=?";
 		sql += " WHERE M_INDEX =?";
 		
 		try {
@@ -784,7 +784,8 @@ public class MemberDao {
 			pstmt.setString(3, memberDto.getMemTelStr());
 			pstmt.setString(4, memberDto.getMemAddressStr());
 			pstmt.setString(5, memberDto.getMemAddressSecStr());
-			pstmt.setInt(6, memberDto.getMemIndexInt());
+			pstmt.setString(6, memberDto.getMemNameStr());
+			pstmt.setInt(7, memberDto.getMemIndexInt());
 
 			result = pstmt.executeUpdate();
 			
