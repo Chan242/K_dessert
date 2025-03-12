@@ -162,6 +162,7 @@ create table product_order(
 
 O_INDEX	NUMBER(6),
 P_INDEX	NUMBER(6),
+P_NAME VARCHAR2(255),
 PO_STOCK NUMBER(2),
 PO_PRICE NUMBER(6)
 );

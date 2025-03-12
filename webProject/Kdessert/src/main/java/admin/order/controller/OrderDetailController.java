@@ -38,6 +38,7 @@ public class OrderDetailController extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		Connection conn = null;
+		int no = Integer.parseInt(req.getParameter("no"));
 
 		try {
 			ServletContext sc = this.getServletContext();
@@ -47,15 +48,16 @@ public class OrderDetailController extends HttpServlet {
 			OrderDao orderDao = new OrderDao();
 
 			OrderDto orderDto = null;
-			OrderProductDto orderProductDto = null;
+			ArrayList<OrderProductDto> orderProductList = null;
 
 			orderDao.setConnection(conn);
-			orderDto = orderDao.selectOne();
+			orderDto = orderDao.selectOne(no);
+			orderProductList = orderDao.orderProductList(no);
 			
 //			orderProductDto = orderDao.orderDetail()
 
 			req.setAttribute("orderDto", orderDto);
-			req.setAttribute("orderProductDto", orderProductDto);
+			req.setAttribute("orderProductList", orderProductList);
 			
 			
 			

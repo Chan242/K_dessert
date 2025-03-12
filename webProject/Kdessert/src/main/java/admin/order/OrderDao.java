@@ -106,12 +106,12 @@ try {
 	}
 	
 	
-	public ArrayList<OrderProductDto> orderProduct(int ordIndexInt){
+	public ArrayList<OrderProductDto> orderProductList(int ordIndexInt){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<OrderProductDto> orderProduct = new ArrayList<OrderProductDto>();
+		ArrayList<OrderProductDto> orderProductList = new ArrayList<OrderProductDto>();
 		
 		
 		String sql = "";
@@ -119,7 +119,7 @@ try {
 		
 		try {
 			
-			sql += "SELECT P_INDEX, PO_STOCK, PO_PRICE";
+			sql += "SELECT P_INDEX, P_NAME, PO_STOCK, PO_PRICE";
 			sql += " FROM PRODUCT_ORDER";
 			sql += " WHERE O_INDEX = ?";
 			
@@ -130,18 +130,20 @@ try {
 			rs = pstmt.executeQuery();
 			
 			int proIndexInt = 0;
+			String proNameStr = "";
 			int proOrdStockInt = 0;
 			int proOrderPriceInt = 0;
 			
 			while(rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
+				proNameStr = rs.getString("P_NAME");
 				proOrdStockInt = rs.getInt("PO_STOCK");
 				proOrderPriceInt = rs.getInt("PO_PRICE");
 				
 				OrderProductDto orderProductDto = new OrderProductDto
-						(proIndexInt, proOrdStockInt, proOrderPriceInt);
+						(proIndexInt,proNameStr, proOrdStockInt, proOrderPriceInt);
 				
-				orderProduct.add(orderProductDto);
+				orderProductList.add(orderProductDto);
 				
 				
 			}
@@ -168,16 +170,96 @@ try {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-		}return orderProduct;
+		}return orderProductList;
 		
 		
 		
 	}
 
 
-	public OrderDto selectOne() {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderDto selectOne(int no) {
+		
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		
+		OrderDto orderDto = new OrderDto();
+		
+		
+		String sql = "";
+		
+try {
+			
+			sql += "SELECT O_INDEX, STA_STATUS, O_TIME, O_TOTAL, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL";
+			sql += " FROM S_ORDER";
+			sql += " WHERE O_INDEX = ?";
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			int ordIndexint = 0;//주문번호
+			String staStatStr = "";//주문상태
+			Date ordTime = null;//주문일자
+			String memAdd1Str = "";
+			String memAdd2Str = "";
+			String memTelStr = "";
+			int memIndexInt = 0;//주문자 멤버 인덱스
+			String memNameStr = "";//주문자명
+			int totalPriceInt = 0;//총주문액
+			
+			if(rs.next()) {
+				
+				ordIndexint = rs.getInt("O_INDEX");
+				staStatStr = rs.getString("STA_STATUS");
+				ordTime = rs.getTimestamp("O_TIME");
+				totalPriceInt = rs.getInt("O_TOTAL");
+				memIndexInt = rs.getInt("M_INDEX");
+				memNameStr = rs.getString("O_NAME");
+				memAdd1Str = rs.getString("O_ADDRESS");
+				memAdd2Str = rs.getString("O_ADDRESS_SEC");
+				memTelStr = rs.getString("O_TEL");
+				
+				orderDto.setOrdIndexint(ordIndexint);
+				orderDto.setStaStatStr(staStatStr);
+				orderDto.setOrdTime(ordTime);
+				orderDto.setTotalPriceInt(totalPriceInt);
+				orderDto.setMemIndexInt(memIndexInt);
+				orderDto.setMemNameStr(memNameStr);
+				orderDto.setMemAdd1Str(memAdd1Str);
+				orderDto.setMemAdd2Str(memAdd2Str);
+				orderDto.setMemTelStr(memTelStr);
+							
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}return orderDto;
+		
+		
 	}
 
 

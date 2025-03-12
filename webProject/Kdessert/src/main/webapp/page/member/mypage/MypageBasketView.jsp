@@ -72,6 +72,12 @@ th, td {
 	width: 120px;
 }
 
+#select_basket {
+	background-color: white;
+	color: #64473E;
+	font-weight: bold;
+}
+
 input {
 	padding: 10px;
 	font-size: 16px;

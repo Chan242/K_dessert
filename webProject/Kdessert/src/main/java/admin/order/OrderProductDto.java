@@ -2,6 +2,7 @@ package admin.order;
 
 public class OrderProductDto {
 	private int productIndexInt = 0;
+	private String productNameStr = "";
 	private int productStockInt = 0;
 	private int productPriceInt = 0;
 	
@@ -13,12 +14,19 @@ public class OrderProductDto {
 
 
 
-	public OrderProductDto(int productIndexInt, int productStockInt, int productPriceInt) {
+
+
+
+	public OrderProductDto(int productIndexInt, String productNameStr, int productStockInt, int productPriceInt) {
 		super();
 		this.productIndexInt = productIndexInt;
+		this.productNameStr = productNameStr;
 		this.productStockInt = productStockInt;
 		this.productPriceInt = productPriceInt;
 	}
+
+
+
 
 
 
@@ -30,6 +38,18 @@ public class OrderProductDto {
 
 	public void setProductIndexInt(int productIndexInt) {
 		this.productIndexInt = productIndexInt;
+	}
+
+
+
+	public String getProductNameStr() {
+		return productNameStr;
+	}
+
+
+
+	public void setProductNameStr(String productNameStr) {
+		this.productNameStr = productNameStr;
 	}
 
 
@@ -58,13 +78,7 @@ public class OrderProductDto {
 
 
 
-	@Override
-	public String toString() {
-		return "OrderProductDto [productIndexInt=" + productIndexInt + ", productStockInt=" + productStockInt
-				+ ", productPriceInt=" + productPriceInt + "]";
-	}
-	
-	
+
 	
 	
 
