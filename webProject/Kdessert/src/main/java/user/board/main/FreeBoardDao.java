@@ -13,6 +13,7 @@ import java.util.List;
 import admin.member.MemberDao;
 import admin.member.MemberDto;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDto;
 
 
@@ -130,7 +131,7 @@ public class FreeBoardDao {
 			int memIndexInt = 0;//작성자
 			Date brdCreDate = null;//작성일
 			int brdViewInt = 0;// 조회수
-
+			
 
 			if (rs.next()) {
 				brdIndexInt = rs.getInt("F_INDEX");
@@ -139,6 +140,7 @@ public class FreeBoardDao {
 				memIndexInt = rs.getInt("M_INDEX");
 				brdCreDate = rs.getDate("F_CRE_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
+				
 
 				freeboardDto.setBrdIndexInt(brdIndexInt);
 				freeboardDto.setBrdSubjectStr(brdSubjectStr);
@@ -151,7 +153,6 @@ public class FreeBoardDao {
 				// freeboardWriter가 반환하는 리스트에서 첫 번째 MemberDto 객체를 가져옴
 				MemberDto memberDto = freeboardWriter(memIndexInt);
 				freeboardDto.setMemberDto(memberDto); 
-				
 
 			} else {
 				throw new Exception("해당 게시물은 존재하지 않습니다.");
@@ -460,6 +461,58 @@ public class FreeBoardDao {
 		return freeBoardList;
 		
 	}
+	
+	/* 조회수 카운트하는 로직*/
+	
+	public void freeBoardView(int brdIndexInt) 
+			throws SQLException {
+		System.out.println("뷰 카운트 시작");
+		PreparedStatement pstmt = null;
+		String sql = "";
+		/*
+		 * if (session == null || session.getAttribute("member") == null) {
+		 * 
+		 * return; // 더 이상 코드 실행하지 않도록 종료 }
+		 */
+		
+		
+		try {
+
+			sql = "UPDATE FREE_BOARD"
+					+ " SET F_VIEW = F_VIEW+1"
+					+ " WHERE F_INDEX = ?";
+			
+			/* index에 따른 view값 찾기 */
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, brdIndexInt);
+	
+			// 쿼리 실행 및 반환값 확인
+	        int rowsUpdated = pstmt.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            System.out.println("조회수 증가 성공: F_INDEX = " + brdIndexInt);
+	        } else {
+	            System.out.println("조회수 증가 실패: F_INDEX = " + brdIndexInt);
+	        }
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} 
+		
+		
+	}
+	
 	
 	
 	

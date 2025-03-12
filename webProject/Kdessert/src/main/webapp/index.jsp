@@ -6,11 +6,22 @@
 <head>
 
 <style type="text/css">
-#container{
-	/* 푸터 맨 하단으로 고정할 수 있게 추가 */
-	min-height: 800px; /* 최소높이 지정 */
-
-}
+	#containerWrap{
+		/* 푸터 맨 하단으로 고정할 수 있게 추가 */
+		min-height: 800px; /* 최소높이 지정 */
+		width: 1000px;
+		margin: auto;
+	
+	}
+	
+	
+	#rollingContent{
+		width: 1000px;
+		height: 500px;
+		margin-top: 100px;
+		background-color: lightgray;
+	}
+	
 </style>
 <meta charset="UTF-8">
 <title>알근달근: 한국 전통 과자 전문점</title>
@@ -24,9 +35,10 @@
 		<jsp:include page="./page/admin/commPage/Move_MrgPage.jsp"/>
 	</c:if>
 	
-	<div id="container">
-		hello everyone
-	
+	<div id="containerWrap">
+		<div id="rollingContent">
+			롤링화면이 들어갈 곳
+		</div>
 	</div>
 	<jsp:include page="./page/member/commPage/Mem_Footer.jsp"/>
 	

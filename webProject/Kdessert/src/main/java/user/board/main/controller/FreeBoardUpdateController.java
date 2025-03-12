@@ -23,7 +23,8 @@ public class FreeBoardUpdateController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		Connection conn = null;
@@ -60,7 +61,8 @@ public class FreeBoardUpdateController extends HttpServlet{
 	}
 	//업데이트 정보 보냄
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		FreeBoardDto boardDto = null;
 		

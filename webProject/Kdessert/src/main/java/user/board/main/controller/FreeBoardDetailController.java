@@ -72,8 +72,12 @@ public class FreeBoardDetailController extends HttpServlet {
 			FreeBoardDao boardDao = new FreeBoardDao();
 			boardDao.setConnection(conn);//윗줄에서 만든 conn을 여러곳(boardDao)에서 재사용하게 연결
 		
-			//boardDto객체에 boardDao.selectOne(no)값을 넣음(반환값이 BoardDto이기 때문에 BoardDto타입)
+			//boardDto객체에 boardDao.freeBoardDetail(brdIndex)값을 넣음(반환값이 BoardDto이기 때문에 BoardDto타입)
 			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndex);
+			
+			
+			boardDao.freeBoardView(brdIndex);
+			
 			
 			//----------------------------------------------------------------//
 			//댓글부분
@@ -89,13 +93,15 @@ public class FreeBoardDetailController extends HttpServlet {
 			
 			boardreplyList = (ArrayList<BoardReplyDto>)boardreplyDao.replyList(brdIndex);
 			
+			
 			req.setAttribute("boardreplyList", boardreplyList);
 		
 			//-------------------리퀘부분-------------------//
 			//BoardUpdateForm.jsp에서 <jsp:useBean id="boardDto"...의 id를 가져올거라 "boardDto", 
 			//boardDto가 위에 선언한 boardDto이다.
 			req.setAttribute("boardDto", boardDto);
-			
+
+
 			
 			RequestDispatcher dispatcher = 
 					req.getRequestDispatcher("../page/member/board/FreeBoardDetailView.jsp");

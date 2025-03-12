@@ -89,7 +89,7 @@
 	
 	#writer{
 
-	    max-width: 400px; /* 최대 너비 설정 */
+	    max-width: 100px; /* 최대 너비 설정 */
 	    white-space: nowrap; /* 한 줄로 유지 */
 	    overflow: hidden; /* 넘치는 글자 숨김 */
 	    text-overflow: ellipsis; /* 말줄임표(...) 추가 */
@@ -99,7 +99,9 @@
 </style>
 
 </head>
-
+<jsp:useBean id="boardDao"
+	scope="session"
+	class="user.board.main.FreeBoardDao"/>
 <body>
 
 
@@ -122,15 +124,15 @@
 		<table id="table_info">
 			<thead id="colum">
 				<tr>
-					<th scope="col" style="max-width: 660px;">타이틀</th>
-					<th scope="col" style="width: 160px;">작성자</th>
+					<th scope="col" style="max-width:690px;">타이틀</th>
+					<th scope="col" style="width: 130px;">작성자</th>
 					<th scope="col" style="width: 100px;">작성일</th>
 					<th scope="col" style="width: 80px;">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="board" items="${boardList}">
-					<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}'">
+					<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' ">
 						<td>
 							<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
 						</td>
