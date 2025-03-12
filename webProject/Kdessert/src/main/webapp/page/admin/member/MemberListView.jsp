@@ -99,6 +99,8 @@
 	}
 	
 	
+/* 	페이징 버튼 관련 css */
+	
 	#div_pageBtn {
     display: flex;
     justify-content: center;

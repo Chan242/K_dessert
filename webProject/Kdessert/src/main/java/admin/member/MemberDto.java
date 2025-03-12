@@ -20,8 +20,8 @@ public class MemberDto {
 	
 	//member 테이블에 없는 컬럼
 	private int memPointInt = 0;
+	private int memBalancePointInt = 0;
 	private Date memPointDate = null;
-	
 
 
 	public MemberDto() {
@@ -90,6 +90,15 @@ public class MemberDto {
 				"]";
 	}
 	
+	public int getMemBalancePointInt() {
+		return memBalancePointInt;
+	}
+
+	public void setMemBalancePointInt(int memBalancePointInt) {
+		this.memBalancePointInt = memBalancePointInt;
+	}
+
+
 	public Date getMemPointDate() {
 		return memPointDate;
 	}

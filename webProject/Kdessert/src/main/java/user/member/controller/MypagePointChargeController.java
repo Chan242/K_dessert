@@ -3,6 +3,7 @@ package user.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 
 import admin.member.MemberDao;
 import admin.member.MemberDto;
@@ -108,9 +109,13 @@ public class MypagePointChargeController extends HttpServlet{
 				
 				System.out.println("마이포인트 충전 성공");
 				
+				// 🔹 숫자 포맷 설정 (천 단위 콤마 추가)
+				DecimalFormat df = new DecimalFormat("#,###");
+				String formattedMemPoint = df.format(memPoint); // 포맷 적용
+				
 				res.setContentType("text/html; charset=UTF-8");
 				PrintWriter writer = res.getWriter();
-				writer.println("<script> alert('포인트가 충전되었습니다. \\n현재 마이포인트 "+ memPoint + "P'); "
+				writer.println("<script> alert('포인트가 충전되었습니다. \\n현재 마이포인트 "+ formattedMemPoint + "P'); "
 						+ "window.close(); </script>"); 
 				writer.close();
 				return;

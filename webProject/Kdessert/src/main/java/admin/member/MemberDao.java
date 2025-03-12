@@ -405,6 +405,7 @@ public class MemberDao {
 			Date signTime = null;
 			
 			while (rs.next()) {
+				
 				index = rs.getInt("M_INDEX");
 				name = rs.getString("M_NAME");
 				id = rs.getString("M_ID");
@@ -539,7 +540,6 @@ public class MemberDao {
 		} // finally 종료
 		return memberDto;
 	}
-	
 	
 	//회원 검색 (페이징)
 	public List<MemberDto> searchList(String searchText, int pageNum, int pageSize) {
@@ -911,6 +911,115 @@ public class MemberDao {
 		} // finally 종료
 		return result;
 		
+	}
+	
+	//회원 포인트 내역 전체 데이터의 수를 가져오는 메소드
+	public int getPointListTotalCount(int index) {
+ 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCount = 0;
+		String sql = "";
+
+		sql += "SELECT COUNT(POINT_POINT)";
+		sql += " FROM POINT WHERE M_INDEX = ?";
+	
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalCount = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		return totalCount;
+	}
+ 	
+	
+	// 회원 포인트 내역 리스트
+	public List<MemberDto> memberPointHistory(int index, int pageNum, int pageSize)  {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<MemberDto> memberList = null;
+		MemberDto memberDto = null;
+		
+		int point = 0;
+		int balancePoint = 0;
+		Date pointDate = null;
+
+		int startRow = (pageNum - 1) * pageSize + 1;
+		int endRow = pageNum * pageSize;
+		
+		String sql = "";
+		
+//		sql += "SELECT POINT_DATE, POINT_POINT";
+//		sql += " FROM POINT WHERE M_INDEX = ? ORDER BY POINT_DATE DESC";
+		
+		sql += "SELECT * FROM (";
+		sql += " SELECT A.*, ROWNUM rnum FROM (";
+		sql += "  SELECT p.POINT_DATE, p.POINT_POINT, SUM(p.POINT_POINT) OVER (ORDER BY p.POINT_DATE) AS ACCUMULATED_POINT";
+		sql += " FROM POINT p WHERE p.M_INDEX = ? ORDER BY p.POINT_DATE DESC";
+		sql += " ) A WHERE ROWNUM <= ?)";
+		sql += " WHERE rnum >= ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, index);
+			pstmt.setInt(2, endRow);  // ROWNUM <= endRow
+			pstmt.setInt(3, startRow); // rnum >= startRow
+			
+			rs = pstmt.executeQuery();
+			
+			memberList = new ArrayList<MemberDto>();
+			
+			while(rs.next()) {
+				point = rs.getInt("POINT_POINT");
+				pointDate = rs.getTimestamp("POINT_DATE");
+				balancePoint = rs.getInt("ACCUMULATED_POINT");
+				
+				memberDto = new MemberDto();
+				memberDto.setMemPointInt(point);
+				memberDto.setMemPointDate(pointDate);
+				memberDto.setMemBalancePointInt(balancePoint);
+				
+				memberList.add(memberDto);
+			}
+			return memberList;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	

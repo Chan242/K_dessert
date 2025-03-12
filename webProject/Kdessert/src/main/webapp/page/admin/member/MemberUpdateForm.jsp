@@ -136,7 +136,7 @@
 						</tr>
 						<tr>
 							<th scope="row">포인트</th>
-							<td>${memberDtoPoint.getMemPointInt()}</td>
+							<td><fmt:formatNumber value="${memberDtoPoint.getMemPointInt()}" type="number"/></td>
 						</tr>
 						<tr>
 							<th scope="row">관리자</th>
