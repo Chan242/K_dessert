@@ -43,9 +43,6 @@
 </style>
 
 <script type="text/javascript">
-	window.onload = function () {
-		cfmDelFnc()
-	}
 
 </script>
 </head>
@@ -58,7 +55,7 @@
 	</div>
 	<div id="container">
 		<div>
-			<h1 style="text-align: center;">제품 관리</h1>
+			<h2 style="text-align: center;">제품 관리</h2>
 			<table style="width: 600px;">
 				<tr>
 					<td><button style="float: left; margin: auto;"
@@ -94,7 +91,7 @@
 								<c:otherwise>에러: ${productDto.getProOpenInt()}</c:otherwise>
 							</c:choose></td>
 						<td><a href="./update?no=${productDto.getProIndexInt()}">수정</a></td>
-						<td><a href="./delete?no=${productDto.getProIndexInt()}" onclick="return cfmDelFnc();">삭제</a></td>
+						<td><a href="./delete?no=${productDto.getProIndexInt()}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</table>

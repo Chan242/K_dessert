@@ -92,12 +92,12 @@ input {
 <body>
 
 
-	<jsp:include page="../commPage/Mem_Header.jsp" />
-	<jsp:include page="../commPage/Category_Main.jsp" />
+	<jsp:include page="../../commPage/Mem_Header.jsp" />
+	<jsp:include page="../../commPage/Category_Main.jsp" />
 
 	<div id="container">
 		<div id="div_category">
-			<jsp:include page="../commPage/Category_Mypage.jsp" />
+			<jsp:include page="../../commPage/Category_Mypage.jsp" />
 		</div>
 
 		<table>

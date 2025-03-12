@@ -55,6 +55,7 @@ th, td {
 
 #div_category {
 	float: left;
+	clear: both;
 }
 
 #div_content {
@@ -111,13 +112,18 @@ input {
 		<div id="div_category">
 			<jsp:include page="../commPage/Category_Mypage.jsp" />
 		</div>
+		
+		<div style="width: 950px; float: right;">
 		<c:if test="${basketList.size() == 0}">
 			<br><h2 style="text-align: center;">장바구니가 비었습니다.</h2>
 		</c:if>
+		
+		
+		
 		<c:if test="${basketList.size()>0}">
-
+			<h2 style="text-align:center; margin-top: 40px; margin-bottom: 40px;">장바구니</h2>
 			<table>
-				<h2 style="text-align: center;">장바구니</h2>
+				
 				<tr>
 					<td>제품명</td>
 					<td>수량</td>
@@ -160,6 +166,7 @@ input {
 			
 		</div>
 
+	</div>
 	</div>
 </body>
 

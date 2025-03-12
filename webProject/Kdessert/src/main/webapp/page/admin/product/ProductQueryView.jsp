@@ -42,9 +42,7 @@
 </style>
 
 <script type="text/javascript">
-	window.onload = function () {
-		cfmDelFnc()
-	}
+
 
 </script>
 </head>
@@ -63,7 +61,7 @@
 					<td><button style="float: left; margin: auto;"
 				onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
 					</td>
-					<td>
+					<td colspan="6">
 						<form action="query" method="get" style="float: right;">
 							<input type="search" name="search" placeholder="검색어 입력창" value="">
 							<input type="submit" value="검색">
@@ -93,7 +91,7 @@
 								<c:otherwise>에러: ${productDto.getProOpenInt()}</c:otherwise>
 							</c:choose></td>
 						<td><a href="./update?no=${productDto.getProIndexInt()}">수정</a></td>
-						<td><a href="./delete?no=${productDto.getProIndexInt()}" onclick="return cfmDelFnc();">삭제</a></td>
+						<td><a href="./delete?no=${productDto.getProIndexInt()}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</table>

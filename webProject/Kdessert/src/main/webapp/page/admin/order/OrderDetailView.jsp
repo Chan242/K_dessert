@@ -109,6 +109,10 @@
 					<td>주문액</td>
 					<td>${orderDto.getTotalPriceInt()}</td>
 				</tr>
+				<tr>
+					<td>주문상태</td>
+					<td>${orderDto.getStaStatStr()}</td>
+				</tr>
 			</table>
 		</div>
 		

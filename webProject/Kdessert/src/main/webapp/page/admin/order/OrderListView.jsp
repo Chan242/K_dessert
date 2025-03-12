@@ -84,7 +84,16 @@
 					<tr>
 						<td>${orderDto.getOrdIndexint()}</td>
 						<td><a href="./detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
-						<td>${orderDto.getStaStatStr()}</td>
+						<td>
+							<select id="status" style="width: 80px;" onchange="changeFnc()">
+								<c:forEach var="orderStatusDto" items="${orderStatusList}">
+									<option value="${orderStatusDto.getStaStatusStr()}"
+									 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
+										${orderStatusDto.getStaStatusStr()}
+									</option>
+								</c:forEach>
+							</select>
+						</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
 						<td>${orderDto.getTotalPriceInt()}</td>
 					</tr>
@@ -94,4 +103,19 @@
 	</div>
 
 </body>
+
+<script type="text/javascript">
+
+function changeFnc() {
+	let status = document.getElementById("status");
+	confirm("상태를 바꾸시겠습니까?: " + status.value);
+	window.open('/admin/order/popup','상태변경',
+			'width=600,height=400,resizable=yes,scrollbars=yes,top=100,left=100'		
+	);
+
+	
+	
+}
+
+</script>
 </html>

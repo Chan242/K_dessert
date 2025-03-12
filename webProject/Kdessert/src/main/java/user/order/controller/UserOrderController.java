@@ -73,7 +73,7 @@ public class UserOrderController extends HttpServlet {
 			req.setAttribute("pointInfo", pointInfo);
 			req.setAttribute("basketList", basketList);
 
-			rd = req.getRequestDispatcher("/page/member/mypage/MypageOrderView.jsp");
+			rd = req.getRequestDispatcher("/page/member/mypage/order/MypageOrderView.jsp");
 
 			rd.forward(req, res);
 
