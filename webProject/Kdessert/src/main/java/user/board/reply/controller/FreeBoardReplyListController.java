@@ -34,7 +34,6 @@ public class FreeBoardReplyListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		System.out.println("댓글 doget 실행");
 		
 		//Db 연결
 		Connection conn = null;
@@ -95,16 +94,6 @@ public class FreeBoardReplyListController extends HttpServlet {
 			int brdIndexInt = Integer.parseInt(brdIndexStr);
 			
 			boardReplyDto =new BoardReplyDto();
-			
-			System.out.println("리플값:"+r
-			if(replyTextStr =="" || replyTextStr ==null) {
-				res.setContentType("text/html; charset=UTF-8");
-				PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
-	            writer.println("<script> alert('내용이 비었습니다.'); location.href='" 
-	            				+ "/Kdessert/board" + "'; </script>"); 
-	            writer.close();
-				return;
-			}
 			
 			
 			//dto에 값 저장

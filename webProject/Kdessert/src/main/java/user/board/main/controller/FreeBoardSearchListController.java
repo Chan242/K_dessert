@@ -40,6 +40,12 @@ public class FreeBoardSearchListController extends HttpServlet {
 		System.out.println("검색용 리스트 doget");
 		ArrayList<FreeBoardDto> boardList = null;
 		Connection conn = null;
+		int totalCount = 0;
+		int pageSize = 0;
+		int pageNum = 0;
+		
+		pageSize = 10; // 한 페이지에 10개
+		pageNum = 1;  // 기본값 1페이지
 		
 		String searchStr = "";
 		
@@ -60,9 +66,22 @@ public class FreeBoardSearchListController extends HttpServlet {
 			//검색어를 request에 저장
 
 			
-			boardList = (ArrayList<FreeBoardDto>)boardDao.freeboardSearch(searchStr);
+			boardList = (ArrayList<FreeBoardDto>)boardDao.freeboardSearch(searchStr,pageNum, pageSize);
 
 			req.setAttribute("boardList", boardList);
+			
+			
+			/* 페이징관련 */
+
+			//게시글의 총 데이터 수 가져오기
+			totalCount = boardDao.freeBoardListSearchTo(searchStr);
+			// 페이지의 총 개수 계산
+	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+	        // 요청에 필요한 정보 저장
+	        req.setAttribute("totalPage", totalPage);
+	        req.setAttribute("pageNum", pageNum);
+	        req.setAttribute("pageSize", pageSize);
+	        
 			//페이지 준비
 			RequestDispatcher dispatcher = 
 				req.getRequestDispatcher("/page/member/board/FreeBoardListView.jsp");

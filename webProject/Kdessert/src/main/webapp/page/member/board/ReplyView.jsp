@@ -74,7 +74,21 @@
 		font-size: 15px;
 	}
 </style>
+<script type="text/javascript">
 
+    function validateForm() {
+        var replyText = document.getElementById('replyText').value;//textarea.value 저장
+        
+        // 입력값이 비어 있을 경우
+        if (replyText == "") {
+            alert("댓글을 입력해주세요.");
+            return false; // 폼 제출을 막음
+        }else{
+	        // 입력값이 있으면 폼을 제출
+	        return true;
+        }
+    }
+</script>
 	
 	<!-- 댓글 목록 -->
 <div>
@@ -105,7 +119,7 @@
 	<!-- 댓글 작성부분 -->
 	<h4>댓글 쓰기</h4>
 	<div id= "reply">
-		<form action="/Kdessert/board/freeboarddetail" method="post">
+		<form action="/Kdessert/board/freeboarddetail" method="post" onsubmit="return validateForm()"><!-- validateForm() 반환값 영향을 받음(return 없으면 반환값(return) 무시) -->
 			<input type="hidden" name="memIndexInt" value="${sessionScope.member.memIndexInt}">
 			<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
 			<textarea id= 'replyText' name="replyTextStr"></textarea>
