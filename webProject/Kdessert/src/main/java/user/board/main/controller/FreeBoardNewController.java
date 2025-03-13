@@ -120,7 +120,7 @@ public class FreeBoardNewController extends HttpServlet {
 			boardDao.setConnection(conn);
 			
 			//Dao의 freeBoardNew 메서드 불러와서 불러온 값을 넣음
-			boardDao.freeBoardNew(boardDto, res);
+			boardDao.freeBoardNew(boardDto);
 			
 			
 			res.sendRedirect("/Kdessert/board");

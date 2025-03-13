@@ -178,7 +178,7 @@ public class FreeBoardDao {
 	}
 	
 	//게시물 새로 작성하기
-	public void freeBoardNew(FreeBoardDto freeBoardDto, HttpServletResponse res) 
+	public void freeBoardNew(FreeBoardDto freeBoardDto) 
 			throws Exception {
 		
 		PreparedStatement pstmt = null;
