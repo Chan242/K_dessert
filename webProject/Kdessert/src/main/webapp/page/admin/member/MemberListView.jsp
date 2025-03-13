@@ -276,8 +276,7 @@
 									<c:otherwise>
 										<!-- 페이지 번호가 중간일 때 (최대 5개까지) -->
 										<c:forEach begin="${pageNum - 2 < 1 ? 1 : pageNum - 2}"
-											end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}"
-											var="i">
+											end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}" var="i">
 											<c:choose>
 												<c:when test="${i == pageNum}">
 													<span class="page-btn active">${i}</span>

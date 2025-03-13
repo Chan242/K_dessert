@@ -25,7 +25,7 @@ public class MemberListController extends HttpServlet{
 		ArrayList<MemberDto> memberList = null;
 		int pageNum = 1;  // 기본값 1페이지
 		int pageSize = 10; // 한 페이지에 10개
-		int totalCount = 0;
+		int totalCount = 0; // 전체 페이지 수
 		
 		try {
 			
@@ -50,6 +50,7 @@ public class MemberListController extends HttpServlet{
 			
 	        // 요청에 필요한 정보 저장
 	        req.setAttribute("memberList", memberList);
+	        
 	        req.setAttribute("totalPage", totalPage);
 	        req.setAttribute("pageNum", pageNum);
 	        req.setAttribute("pageSize", pageSize);
