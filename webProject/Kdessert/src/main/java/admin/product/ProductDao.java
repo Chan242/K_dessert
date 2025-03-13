@@ -51,8 +51,8 @@ public class ProductDao {
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
-				proCreDateDate = rs.getDate("P_CRE_DATE");
-				proChanDateDate = rs.getDate("P_CORR_DATE");
+				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
+				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
 				
 				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
 
@@ -210,8 +210,8 @@ public class ProductDao {
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
 				proIntroStr = rs.getString("P_INTRO");
-				proCreDateDate = rs.getDate("P_CRE_DATE");
-				proChanDateDate = rs.getDate("P_CORR_DATE");
+				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
+				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
 
 				productDto.setProIndexInt(proIndexInt);
 				productDto.setProNameStr(proNameStr);
@@ -331,8 +331,8 @@ public class ProductDao {
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
 				proOpenInt = rs.getInt("P_OPEN");
-				proCreDateDate = rs.getDate("P_CRE_DATE");
-				proChanDateDate = rs.getDate("P_CORR_DATE");
+				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
+				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
 				
 				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
 

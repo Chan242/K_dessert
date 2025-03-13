@@ -1,14 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
-<title>주문목록</title>
+<title>마이페이지</title>
 
 <style type="text/css">
+
+	#wrap {
+		width:1895px;
+	}
+
+	#container {
+		width: 1200px;
+		margin: auto;
+	}
+
+	#div_category {
+		float: left;
+	}
+	#div_content {
+		width: 950px;
+		float: right;
+	}
+	
+	#select_order {
+		background-color: white;
+		color: #64473E;
+		font-weight: bold;
+	}
+	
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
@@ -16,18 +41,37 @@
 	
 	table {
 		border-top: 2px solid black;
-		width: 900px;
 		margin: auto;
 	}
 	
 	th {
 		background-color: #F5F5F5;
-		
+		text-align: left;
 	}
 
 	th, td {
 		padding: 15px;
+	}
+	
+	#div_pointInfo {
+		width: 500px;
+		height: 300px;
+		margin: auto;
+	}
+
+	#div_pointInfo table {
+		margin: auto;
+		font-size: 20px;
+	}
+	
+	#div_pointInfo table td {
+		width: 200px;
+		text-align: right;
+	}
+	
+	#div_pointInfo div {
 		text-align: center;
+		margin-top: 50px;
 	}
 	
 	.btn_style {
@@ -40,33 +84,34 @@
 		outline: none;
 		transition: border-color 0.3s;
 
-		background-color: white;
-		color: #7B7B7B;
+		background-color: #64473E;
+		color: white;
 		font-size: 16px;
 		
-    }
-    
-    #container{
-    	margin: auto;
-    	width: 1200px;
-    	height: 800px;
+		cursor: pointer;
+		
     }
 
 </style>
 
-
 </head>
+
 <body>
 
-
-
-	<jsp:include page="../commPage/Adm_Header.jsp"></jsp:include>
-
-	<div style="float: left;">
-		<jsp:include page="../commPage/Category_Mgr.jsp"></jsp:include>
-	</div>
-	<div id="container">
-		<h2 style="text-align: center;">주문 관리</h2>
+	<div id="wrap">
+		<jsp:include page="../../commPage/Mem_Header.jsp"/>
+		<jsp:include page="../../commPage/Category_Main.jsp"/>
+		
+		<div id="container">
+			
+			<div id="div_category">
+				<jsp:include page="../../commPage/Category_Mypage.jsp"/>
+			</div>
+			
+			
+			
+		<div style="width: 950px; float: right;">
+		<h2 style="text-align: center;">내 주문 목록</h2>
 
 		<div style="margin: auto;">
 			<table>
@@ -76,7 +121,7 @@
 					<td>처리현황</td>
 					<td>주문일시</td>
 					<td>총금액</td>
-					
+					<td>취소</td>
 
 				</tr>
 				
@@ -85,37 +130,34 @@
 						<td>${orderDto.getOrdIndexint()}</td>
 						<td><a href="./detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
 						<td>
-							<select id="status" style="width: 80px;" onchange="changeFnc()">
-								<c:forEach var="orderStatusDto" items="${orderStatusList}">
-									<option value="${orderStatusDto.getStaStatusStr()}"
-									 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
-										${orderStatusDto.getStaStatusStr()}
-									</option>
-								</c:forEach>
-							</select>
+							${orderDto.getStaStatStr()}
 						</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
 						<td>${orderDto.getTotalPriceInt()}</td>
+						
+						<c:if test="${orderDto.getStaStatStr() eq '접수대기'}">
+    						<td>
+        						<button>취소</button>
+    						</td>
+						</c:if>
+
+						
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
+		
+		</div>
 	</div>
+
+		</div>
+
 
 </body>
 
 <script type="text/javascript">
 
-function changeFnc() {
-	let status = document.getElementById("status");
-	confirm("상태를 바꾸시겠습니까?: " + status.value);
-	window.open('/admin/order/popup','상태변경',
-			'width=600,height=400,resizable=yes,scrollbars=yes,top=100,left=100'		
-	);
-
-	
-	
-}
 
 </script>
+
 </html>

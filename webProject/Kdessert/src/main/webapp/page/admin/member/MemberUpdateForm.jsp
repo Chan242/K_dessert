@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -127,15 +128,15 @@
 						</tr>
 						<tr>
 							<th scope="row">가입일</th>
-							<td>${memberDto.getMemSignTimeDate()}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberDto.getMemSignTimeDate()}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">수정일</th>
-							<td>${memberDto.getMemCorrDate()}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberDto.getMemCorrDate()}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">포인트</th>
-							<td>${memberDto.getMemPointInt()}</td>
+							<td><fmt:formatNumber value="${memberDtoPoint.getMemPointInt()}" type="number"/></td>
 						</tr>
 						<tr>
 							<th scope="row">관리자</th>

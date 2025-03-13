@@ -113,7 +113,7 @@
 							이름
 						</th>
 						<td>
-							${memberDto.memNameStr}
+							<input id="name" type="text" name="name" value="${memberDto.memNameStr}" required >
 						</td>
 					</tr>
 					<tr>

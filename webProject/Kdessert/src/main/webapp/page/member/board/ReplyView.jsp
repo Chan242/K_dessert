@@ -20,6 +20,7 @@
 		display: flex;
 		gap: 15px; /* 간격 */
 		justify-content: flex-start;
+		align-items: center;
 		
 		margin-top: 15px;
 		
@@ -65,6 +66,13 @@
 	#reply{
 		display: flex;
 	}
+	
+	#writerRe{
+/* 	#493D26	 */
+		color: #493D26; 
+		font-weight: 560; 
+		font-size: 15px;
+	}
 </style>
 
 	
@@ -76,12 +84,16 @@
 		<div class="WritedReply">
 			<div class="WriterInfo">
 		
-				<span style="color: black; font-weight: bold; font-size: 17px;">${reply.memberDto.memNameStr}</span>
+				<span id="writerRe">
+					<c:if test="${empty reply.memberDto.memNameStr}"> 
+					(알 수 없는 회원)
+				</c:if>
+				${reply.memberDto.memNameStr}
+				</span>
 				<span>작성일: ${reply.replyCreDate}</span>
-				
-				<a>수정</a>
-				<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
-
+				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
+					<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
+				</c:if>
 			</div>
 			
 			<div id="replyList">

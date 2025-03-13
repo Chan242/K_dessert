@@ -5,6 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Product Add View place</title>
+
+<style type="text/css">
+
+table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+		margin: auto;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: left;
+	}
+
+	th, td {
+		padding: 15px;
+	}
+
+</style>
+
+
 </head>
 <body>
 
@@ -14,23 +39,55 @@
 		<jsp:include page="../commPage/Category_Mgr.jsp"></jsp:include>
 	</div>
 
-	<div>
-		<form action=""method="post">
-			제품명<input type="text" size="50" name="proName" placeholder="제품명" required><br>
-			제품가격<input type="number" size="50" name="proPrice" placeholder="제품가격" required><br>
-			제품설명<textarea name="proIntro" rows="4" cols="52" placeholder="제품설명" required></textarea><br>
-			재고<input type="number" size="50" name="proStock" placeholder="재고" required><br>
-			공개여부<input type="radio" name="proOpen" value="0" checked="checked">공개
-			<input type="radio" name="proOpen" value="1">비공개<br>			
-			<input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
-			#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br>
-			<input type="text" size="50" placeholder="#태그"><br><!-- 추후구현 -->
-			추후 구현 예정(현재 받는 곳이 없음)
-			<input type="submit" value="입력">
-			<input type="reset" value="비우기"> <br>
+	<div style="width:800px; margin: auto;">
+		<h2 style="text-align: center;">제품등록</h2>
+		<form action=""method="post" style="margin: auto;">
+			
+			<table>
+				<tr>
+					<td>제품명</td>
+					<td><input type="text" size="50" name="proName" placeholder="제품명" required></td>
+				</tr>
+				<tr>
+					<td>제품가격</td>
+					<td><input type="number" size="50" name="proPrice" placeholder="제품가격" required></td>
+				</tr>
+				<tr>
+					<td>제품설명</td>
+					<td><textarea name="proIntro" rows="4" cols="52" placeholder="제품설명" required></textarea></td>
+				</tr>
+				<tr>
+					<td>재고</td>
+					<td><input type="number" size="50" name="proStock" placeholder="재고" required></td>
+				</tr>
+				<tr>
+					<td>공개여부</td>
+					<td><input type="radio" name="proOpen" value="0" checked="checked">공개
+				<input type="radio" name="proOpen" value="1">비공개</td>
+				</tr>
+				<tr>
+					<td>이미지</td>
+					<td><input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
+				#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br></td>
+				</tr>
+				<tr>
+					<td>태그</td>
+					<td><input type="text" size="50" placeholder="#태그"><br><!-- 추후구현 -->
+				추후 구현 예정(현재 받는 곳이 없음)</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="입력"></td>
+					<td><input type="reset" value="비우기"> </td>
+				</tr>
+				<tr>
+					<td colspan="2"><button onclick="history.back()">뒤로가기</button></td>
+				</tr>
+	
+				
+			</table>
 		</form>
+	
 		
-		<button onclick="history.back()">뒤로가기</button>
 			
 				
 	</div>

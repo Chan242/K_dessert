@@ -11,6 +11,7 @@
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
+		
 	}
 	
 	table {
@@ -19,11 +20,11 @@
 	
 	th {
 		background-color: #F5F5F5;
-		text-align: left;
 	}
 
 	th, td {
 		padding: 15px;
+		text-align: center;
 	}
 	
 	.btn_style {
@@ -55,7 +56,7 @@
 	
 	<div>
 		<h1 style="text-align: center;">제품 정보</h1>
-		<table style="margin: auto;">
+		<table style="margin: auto; ">
 			<tr>
 				<td>인덱스</td>
 				<td>${productDto.getProIndexInt()}</td>
@@ -84,11 +85,11 @@
 			</tr>
 			<tr>
 				<td>생성일</td>
-				<td>${productDto.getProCreDateDate()}</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${productDto.getProCreDateDate()}"/></td>
 			</tr>
 			<tr>
 				<td>수정일</td>
-				<td>${productDto.getProChanDateDate()}</td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${productDto.getProChanDateDate()}"/></td>
 			</tr>				
 			<tr>
 				<td>소개</td>

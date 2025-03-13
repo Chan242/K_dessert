@@ -1,7 +1,7 @@
 package admin.member;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,7 +101,7 @@ public class MemberDao {
 		String email = "";
 		String address = "";
 		String addressSec = "";
-		Date birth = null; 
+		java.sql.Date birth = null; 
 		
 		String sql = "";
 		sql += "INSERT INTO MEMBER";
@@ -123,7 +123,7 @@ public class MemberDao {
 			email = memberDto.getMemEmailStr();
 			address = memberDto.getMemAddressStr();
 			addressSec = memberDto.getMemAddressSecStr();
-			birth = memberDto.getMemBirthDate();
+			birth = (java.sql.Date) memberDto.getMemBirthDate();
 			
 			//를 ?에 집어넣음
 			int colIndex = 1;
@@ -405,6 +405,7 @@ public class MemberDao {
 			Date signTime = null;
 			
 			while (rs.next()) {
+				
 				index = rs.getInt("M_INDEX");
 				name = rs.getString("M_NAME");
 				id = rs.getString("M_ID");
@@ -457,7 +458,7 @@ public class MemberDao {
 
 		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_TEL, ";
 		sql += "M_ADDRESS, M_ADDRESS_SEC, M_SIGN_TIME, M_CORR_DATE, M_ADM_CHECK, M_NOTE";
-		sql += " FROM MEMBER";
+		sql += " FROM MEMBER M ";
 		sql += " WHERE M_INDEX =?";
 
 		try {
@@ -489,8 +490,8 @@ public class MemberDao {
 				tel = rs.getString("M_TEL");
 				address = rs.getString("M_ADDRESS");
 				addressSec = rs.getString("M_ADDRESS_SEC");
-				signTime = rs.getDate("M_SIGN_TIME");
-				corrDate = rs.getDate("M_CORR_DATE");
+				signTime = rs.getTimestamp("M_SIGN_TIME");
+				corrDate = rs.getTimestamp("M_CORR_DATE");
 				admCheck = rs.getInt("M_ADM_CHECK");
 				note = rs.getString("M_NOTE");
 
@@ -539,7 +540,6 @@ public class MemberDao {
 		} // finally 종료
 		return memberDto;
 	}
-	
 	
 	//회원 검색 (페이징)
 	public List<MemberDto> searchList(String searchText, int pageNum, int pageSize) {
@@ -622,7 +622,6 @@ public class MemberDao {
 			
 			if(memberList.isEmpty()) {
 				//리스트에 값이 존재하지 않음
-				System.out.println("memberList is empty");
 				return null;
 			}
 			
@@ -773,7 +772,7 @@ public class MemberDao {
 
 		String sql = "";
 		sql = "UPDATE MEMBER";
-		sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?";
+		sql += " SET M_PASSWORD=?, M_EMAIL=?, M_TEL=?, M_ADDRESS=?, M_ADDRESS_SEC=?, M_name=?";
 		sql += " WHERE M_INDEX =?";
 		
 		try {
@@ -785,7 +784,8 @@ public class MemberDao {
 			pstmt.setString(3, memberDto.getMemTelStr());
 			pstmt.setString(4, memberDto.getMemAddressStr());
 			pstmt.setString(5, memberDto.getMemAddressSecStr());
-			pstmt.setInt(6, memberDto.getMemIndexInt());
+			pstmt.setString(6, memberDto.getMemNameStr());
+			pstmt.setInt(7, memberDto.getMemIndexInt());
 
 			result = pstmt.executeUpdate();
 			
@@ -807,6 +807,71 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 회원 포인트 확인 메소드
+	public MemberDto memberPointGet(int no) {
+		
+		MemberDto memberDto = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "";
+		
+		sql += "SELECT m.M_INDEX, po.m_point, po.m_index ";
+		sql += " FROM member m inner join (select sum(point_point) m_point,m_index from Point group by m_index) po";
+		sql += " ON m.m_index= po.m_index";
+		sql += " WHERE m.M_index = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+
+			int point = 0;
+
+			memberDto = new MemberDto();
+			
+			//포인트 충전 기록이 있을 때
+			if (rs.next()) {
+				point = rs.getInt("m_point");
+				memberDto.setMemPointInt(point);
+				
+			} else { //포인트 충전 기록이 없을 때 POINT = 0
+				memberDto = new MemberDto();
+				memberDto.setMemPointInt(point);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} // finally 종료
+		return memberDto;
+		
+	}
+	
+	
 	// 회원 포인트 충전
 	public int memberPointCharge(MemberDto memberDto) throws SQLException {
 		
@@ -815,16 +880,17 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		String sql = "";
-		sql = "UPDATE MEMBER";
-		sql += " SET M_POINT=?";
-		sql += " WHERE M_INDEX =?";
+		sql = "INSERT INTO POINT";
+		sql += " (POINT_INDEX, M_INDEX, POINT_DATE, POINT_POINT) ";
+		sql += " VALUES(POINT_INDEX_SEQ.NEXTVAL, ?, SYSDATE, ?)";
+		
 		
 		try {
 			
 			pstmt = connection.prepareStatement(sql);
 
-//			pstmt.setInt(1, memberDto.getMemPointInt());
-//			pstmt.setInt(2, memberDto.getMemIndexInt());
+			pstmt.setInt(1, memberDto.getMemIndexInt());
+			pstmt.setInt(2, memberDto.getMemPointInt());
 
 			result = pstmt.executeUpdate();
 			
@@ -845,6 +911,115 @@ public class MemberDao {
 		} // finally 종료
 		return result;
 		
+	}
+	
+	//회원 포인트 내역 전체 데이터의 수를 가져오는 메소드
+	public int getPointListTotalCount(int index) {
+ 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCount = 0;
+		String sql = "";
+
+		sql += "SELECT COUNT(POINT_POINT)";
+		sql += " FROM POINT WHERE M_INDEX = ?";
+	
+
+		try {
+			
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalCount = rs.getInt(1);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		return totalCount;
+	}
+ 	
+	
+	// 회원 포인트 내역 리스트
+	public List<MemberDto> memberPointHistory(int index, int pageNum, int pageSize)  {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<MemberDto> memberList = null;
+		MemberDto memberDto = null;
+		
+		int point = 0;
+		int balancePoint = 0;
+		Date pointDate = null;
+
+		int startRow = (pageNum - 1) * pageSize + 1;
+		int endRow = pageNum * pageSize;
+		
+		String sql = "";
+		
+//		sql += "SELECT POINT_DATE, POINT_POINT";
+//		sql += " FROM POINT WHERE M_INDEX = ? ORDER BY POINT_DATE DESC";
+		
+		sql += "SELECT * FROM (";
+		sql += " SELECT A.*, ROWNUM rnum FROM (";
+		sql += "  SELECT p.POINT_DATE, p.POINT_POINT, SUM(p.POINT_POINT) OVER (ORDER BY p.POINT_DATE) AS ACCUMULATED_POINT";
+		sql += " FROM POINT p WHERE p.M_INDEX = ? ORDER BY p.POINT_DATE DESC";
+		sql += " ) A WHERE ROWNUM <= ?)";
+		sql += " WHERE rnum >= ?";
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, index);
+			pstmt.setInt(2, endRow);  // ROWNUM <= endRow
+			pstmt.setInt(3, startRow); // rnum >= startRow
+			
+			rs = pstmt.executeQuery();
+			
+			memberList = new ArrayList<MemberDto>();
+			
+			while(rs.next()) {
+				point = rs.getInt("POINT_POINT");
+				pointDate = rs.getTimestamp("POINT_DATE");
+				balancePoint = rs.getInt("ACCUMULATED_POINT");
+				
+				memberDto = new MemberDto();
+				memberDto.setMemPointInt(point);
+				memberDto.setMemPointDate(pointDate);
+				memberDto.setMemBalancePointInt(balancePoint);
+				
+				memberList.add(memberDto);
+			}
+			return memberList;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	

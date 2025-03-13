@@ -61,8 +61,8 @@ background-color 와 color 를 수정하며 사용하면 됩니다 (ex: backgrou
 
 0. 헤더와 사이드바를 인클루드한다
 
-<jsp:include page="../commPage/Adm_Header.jsp"/>
-<jsp:include page="../commPage/Category_Mgr.jsp"/>
+<jsp:include page="/page/admin/commPage/Adm_Header.jsp"/>
+<jsp:include page="/page/admin/commPage/Category_Mgr.jsp"/>
 
 1. 사이드바, 내용부분을 각각 div로 감싼 뒤, 두 div를 다시 div로 감싼다(wrap)
 

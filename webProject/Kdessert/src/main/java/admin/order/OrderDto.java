@@ -5,16 +5,15 @@ import java.util.Date;
 
 public class OrderDto {
 
-	int ordIndexint = 0;
-	String staStatStr = "";
-	Date ordTime = null;
-	String memAdd1Str = "";
-	String memAdd2Str = "";
-	String memTelStr = "";
-	int memIndexInt = 0;
-	String memNameStr = "";
-	int totalPriceInt = 0;
-	ArrayList<OrderProductDto> orderInfo = new ArrayList<OrderProductDto>();
+	private int ordIndexint = 0;
+	private String staStatStr = "";
+	private Date ordTime = null;
+	private String memAdd1Str = "";
+	private String memAdd2Str = "";
+	private String memTelStr = "";
+	private int memIndexInt = 0;
+	private String memNameStr = "";
+	private int totalPriceInt = 0;
 	
 	public OrderDto() {
 		super();

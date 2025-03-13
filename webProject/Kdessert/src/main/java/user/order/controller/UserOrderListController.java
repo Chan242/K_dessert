@@ -1,4 +1,4 @@
-package admin.order.controller;
+package user.order.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -7,31 +7,26 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import admin.member.MemberDto;
 import admin.order.OrderDao;
 import admin.order.OrderDto;
 import admin.order.status.OrderStatusDao;
 import admin.order.status.OrderStatusDto;
-import admin.product.ProductDao;
-import admin.product.ProductDto;
 
 /**
- * Servlet implementation class ProductController
+ * Servlet implementation class UserOrderListController
  */
-@WebServlet("/admin/order/list")
-public class OrderListController extends HttpServlet {
+@WebServlet("/page/member/mypage/orderlist")
+public class UserOrderListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderListController() {
+    public UserOrderListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,11 +41,6 @@ public class OrderListController extends HttpServlet {
 		
 		try {
 			ServletContext sc = this.getServletContext();
-			HttpSession session = req.getSession();
-			
-			MemberDto memberDto = (MemberDto) session.getAttribute("member");
-			
-			int memIndexInt = memberDto.getMemIndexInt();
 			
 			conn = (Connection)sc.getAttribute("conn");
 			
@@ -61,7 +51,7 @@ public class OrderListController extends HttpServlet {
 			ArrayList<OrderStatusDto> orderStatusList = null;
 			
 			orderDao.setConnection(conn);
-			orderList = orderDao.userSelectList(memIndexInt);
+			orderList = orderDao.selectList();
 			
 			orderStatusDao.setConnection(conn);
 			
@@ -71,7 +61,7 @@ public class OrderListController extends HttpServlet {
 			req.setAttribute("orderStatusList", orderStatusList);
 			
 			
-			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderListView.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/page/member/mypage/order/MypageOrderListView.jsp");
 			
 			rd.forward(req, res);
 			
@@ -82,14 +72,15 @@ public class OrderListController extends HttpServlet {
 		}
 
 		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

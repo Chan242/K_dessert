@@ -75,6 +75,7 @@ public class MypageInfoUpdateController extends HttpServlet{
 			memberDao.setConnection(conn);
 
 			//수정 값 받아오기
+			String name = req.getParameter("name");
 			String pwd = req.getParameter("password");
 			String email = req.getParameter("email");
 			String tel = req.getParameter("tel");
@@ -85,6 +86,7 @@ public class MypageInfoUpdateController extends HttpServlet{
 			memberDto = new MemberDto();
 			
 			memberDto.setMemIndexInt(index);
+			memberDto.setMemNameStr(name);
 			memberDto.setMemPasswordStr(pwd);
 			memberDto.setMemEmailStr(email);
 			memberDto.setMemTelStr(tel);

@@ -36,12 +36,14 @@ public class MemberUpdateController extends HttpServlet{
 			memberDao.setConnection(conn);
 			
 			MemberDto memberDto = memberDao.memberSelectOne(mIndex);
+			MemberDto memberDtoPoint = memberDao.memberPointGet(mIndex);
 			
 			if (memberDto == null) {
 				throw new Exception("해당 번호의 회원을 찾을 수 없습니다.");
 			}
 			
 			req.setAttribute("memberDto", memberDto);
+			req.setAttribute("memberDtoPoint", memberDtoPoint);
 			
 			rd = req.getRequestDispatcher("./MemberUpdateForm.jsp");
 			rd.forward(req, res);
