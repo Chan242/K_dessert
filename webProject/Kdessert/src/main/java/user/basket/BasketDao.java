@@ -62,6 +62,10 @@ public class BasketDao {
 				basketList.add(basketDto);
 
 			}
+			
+			for (BasketDto basketDto : basketList) {
+				System.out.println(basketDto.getProNameStr());
+			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
