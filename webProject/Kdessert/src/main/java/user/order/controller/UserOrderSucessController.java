@@ -62,15 +62,15 @@ public class UserOrderSucessController extends HttpServlet {
 
 			int memIndexInt = memberDto.getMemIndexInt();// 멤버 인덱스 확인
 			
-			member
+	
 
-			OrderDao orderDao = new OrderDao();
+			OrderDao OrderDao = new OrderDao();
 			
-			orderDao.setConnection(conn);
+			OrderDao.setConnection(conn);
 
 			
 
-			result = orderDao.orderProcess(memIndexInt);
+			result = OrderDao.orderProcess(memIndexInt);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
