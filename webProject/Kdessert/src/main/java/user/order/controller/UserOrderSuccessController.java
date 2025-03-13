@@ -97,7 +97,7 @@ public class UserOrderSuccessController extends HttpServlet {
 			
 			result = orderDao.orderProcess(orderDto, basketList);
 			
-			RequestDispatcher rd = req.getRequestDispatcher("/page/member/mypage/order/MypageOrderView.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/page/member/mypage/order/MypageOrderSuccessView.jsp");
 			
 			rd.forward(req, res);
 			

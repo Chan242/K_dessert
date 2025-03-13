@@ -128,7 +128,7 @@
 				<c:forEach var="orderDto" items="${orderList}">
 					<tr>
 						<td>${orderDto.getOrdIndexint()}</td>
-						<td><a href="./detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
+						<td><a href="./order/detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
 						<td>
 							${orderDto.getStaStatStr()}
 						</td>
