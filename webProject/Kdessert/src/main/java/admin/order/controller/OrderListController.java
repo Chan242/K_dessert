@@ -46,12 +46,7 @@ public class OrderListController extends HttpServlet {
 		
 		try {
 			ServletContext sc = this.getServletContext();
-			HttpSession session = req.getSession();
-			
-			MemberDto memberDto = (MemberDto) session.getAttribute("member");
-			
-			int memIndexInt = memberDto.getMemIndexInt();
-			
+						
 			conn = (Connection)sc.getAttribute("conn");
 			
 			OrderDao orderDao = new OrderDao();
@@ -61,7 +56,7 @@ public class OrderListController extends HttpServlet {
 			ArrayList<OrderStatusDto> orderStatusList = null;
 			
 			orderDao.setConnection(conn);
-			orderList = orderDao.userSelectList(memIndexInt);
+			orderList = orderDao.selectList();
 			
 			orderStatusDao.setConnection(conn);
 			

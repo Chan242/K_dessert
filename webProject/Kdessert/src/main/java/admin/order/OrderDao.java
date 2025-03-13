@@ -448,11 +448,14 @@ public class OrderDao {
 			connection.rollback();
 
 		} finally {
-			// 리소스 정리
-			pstmtOrder.close();
-			pstmtOrderProduct.close();
-			pstmtDecreaseStock.close();
+			// 리소스정리
 			pstmtClearBasket.close();
+			pstmtDecreaseStock.close();
+			pstmtOrderProduct.close();
+			pstmtOrder.close();
+			
+			
+			
 		}
 
 		return result; // 결과 반환
