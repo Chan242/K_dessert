@@ -15,7 +15,9 @@ public class AdminMainController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		res.sendRedirect("./admin/AdminMainView.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("./admin/AdminMainView.jsp");
+		
+		dispatcher.include(req, res);
 		
 	}
 

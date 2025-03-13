@@ -154,7 +154,7 @@
 						생년월일
 					</th>
 					<td>
-						<input  type="text" name="birth" placeholder="YYYY-MM-DD" required>
+						<input  type="date" name="birth" placeholder="YYYY-MM-DD" required>
 					</td>
 				</tr>
 				<tr>
