@@ -69,6 +69,12 @@ public class MemberDto {
 			this.memIdStr = memIdStr;
 			this.memAdmCheckInt = memAdmCheckInt;
 		}
+	public MemberDto(int memIndexInt, String memNameStr, String memIdStr) {
+		super();
+		this.memIndexInt = memIndexInt;
+		this.memNameStr = memNameStr;
+		this.memIdStr = memIdStr;
+	}
 	
 	
 	@Override
