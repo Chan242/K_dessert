@@ -13,6 +13,7 @@ import java.util.List;
 import admin.member.MemberDao;
 import admin.member.MemberDto;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDto;
 
@@ -177,30 +178,42 @@ public class FreeBoardDao {
 	}
 	
 	//게시물 새로 작성하기
-	public void freeBoardNew(FreeBoardDto freeBoardDto) 
+	public void freeBoardNew(FreeBoardDto freeBoardDto, HttpServletResponse res) 
 			throws Exception {
 		
 		PreparedStatement pstmt = null;
+		String sql=" ";
+		
 		// SQL 객체준비
 		try {
 			
 			int memIndexInt = freeBoardDto.getMemIndexInt();
 			String brdSubjectStr = freeBoardDto.getBrdSubjectStr();
 			String brdTextStr = freeBoardDto.getBrdTextStr();
+			int brdNoticeInt = freeBoardDto.getBrdNoticeInt();
 //			String brdImageStr = freeBoardDto.getBrdImageStr();
 			
-			String sql=" ";
+
 			
 			sql = "INSERT INTO FREE_BOARD"
 					+ " (F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
-					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 3, 0)";
+					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, ?)";
 			
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setInt(1, memIndexInt);
 			pstmt.setString(2, brdSubjectStr);
 			pstmt.setString(3, brdTextStr);
-//			pstmt.setString(4, brdImageStr);
+			pstmt.setInt(4, brdNoticeInt);
+			
+			MemberDto memberDto = freeboardWriter(memIndexInt);
+			
+			freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+			
+			System.out.println();
+			
+
+			
 
 			pstmt.executeUpdate();
 
@@ -529,7 +542,7 @@ public class FreeBoardDao {
 		String sql = "";
 
 		//멤버 인덱스로 해당 게시물 글쓴이 찾기
-		sql = "SELECT F.F_INDEX, M.M_NAME, M.M_ID"
+		sql = "SELECT F.F_INDEX, M.M_NAME, M.M_ID, M_ADM_CHECK"
 				+ " FROM FREE_BOARD F INNER JOIN MEMBER M"
 				+ " ON M.M_INDEX = F.M_INDEX"
 				+ " where M.M_INDEX = ?"
@@ -547,6 +560,7 @@ public class FreeBoardDao {
 
 			String memNameStr = "";
 			String memIdStr = "";
+			int memAdmCheckInt = 0;
 
 			
 			
@@ -554,11 +568,16 @@ public class FreeBoardDao {
 
 				memNameStr = rs.getString("M_NAME");
 				memIdStr = rs.getString("M_ID");
+				memAdmCheckInt = rs.getInt("M_ADM_CHECK");
+				
+				
 
-				memberDto = new MemberDto(memIndex, memNameStr, memIdStr);
+				memberDto = new MemberDto(memIndex, memNameStr, memIdStr, memAdmCheckInt);
 
 			}
-
+			/*
+			 * System.out.println(memAdmCheckInt); System.out.println(memberDto);
+			 */
 		} catch (Exception e) {
 			// TODO: handle exception
 
@@ -582,6 +601,7 @@ public class FreeBoardDao {
 				e.printStackTrace();
 			}
 		} // finally end
+		
 		return memberDto;
 	}
 	

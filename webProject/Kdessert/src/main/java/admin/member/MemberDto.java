@@ -62,11 +62,12 @@ public class MemberDto {
 		}
 
 		/* 게시물에서 멤버변수를 가져오기 위해 추가했어요 */
-	public MemberDto(int memIndexInt, String memNameStr, String memIdStr) {
+	public MemberDto(int memIndexInt, String memNameStr, String memIdStr, int memAdmCheckInt) {
 			super();
 			this.memIndexInt = memIndexInt;
 			this.memNameStr = memNameStr;
 			this.memIdStr = memIdStr;
+			this.memAdmCheckInt = memAdmCheckInt;
 		}
 	
 	
