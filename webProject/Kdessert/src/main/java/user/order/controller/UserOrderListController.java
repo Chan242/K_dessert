@@ -7,10 +7,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.member.MemberDto;
 import admin.order.OrderDao;
 import admin.order.OrderDto;
 import admin.order.status.OrderStatusDao;
@@ -37,7 +40,15 @@ public class UserOrderListController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		HttpSession session = req.getSession();
+		MemberDto memberDto = new MemberDto();
+		
+		memberDto = (MemberDto) session.getAttribute("member");
+
+		int memIndexInt = memberDto.getMemIndexInt();
+		
 		Connection conn = null;
+		
 		
 		try {
 			ServletContext sc = this.getServletContext();
@@ -51,7 +62,8 @@ public class UserOrderListController extends HttpServlet {
 			ArrayList<OrderStatusDto> orderStatusList = null;
 			
 			orderDao.setConnection(conn);
-			orderList = orderDao.selectList();
+			
+			orderList = orderDao.userSelectList(memIndexInt);
 			
 			orderStatusDao.setConnection(conn);
 			

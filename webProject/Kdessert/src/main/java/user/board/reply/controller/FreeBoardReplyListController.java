@@ -34,7 +34,6 @@ public class FreeBoardReplyListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
-		System.out.println("댓글 doget 실행");
 		
 		//Db 연결
 		Connection conn = null;
@@ -82,6 +81,7 @@ public class FreeBoardReplyListController extends HttpServlet {
 	// 댓글란 등록 버튼 누를 시 doPost 실행
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
+		System.out.println("댓글 입력 doPost시작");
 		BoardReplyDto boardReplyDto = null;
 		
 		Connection conn =null;
@@ -94,6 +94,8 @@ public class FreeBoardReplyListController extends HttpServlet {
 			int brdIndexInt = Integer.parseInt(brdIndexStr);
 			
 			boardReplyDto =new BoardReplyDto();
+			
+			
 			//dto에 값 저장
 			boardReplyDto.setMemIndexInt(memIndexInt);
 			boardReplyDto.setReplyTextStr(replyTextStr);

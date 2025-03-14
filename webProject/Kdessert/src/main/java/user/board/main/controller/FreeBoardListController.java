@@ -39,8 +39,20 @@ public class FreeBoardListController extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("게시판리스트 doget");
 		Connection conn = null;
+		int totalCount = 0;
+		int pageSize = 0;
+		int pageNum = 0;
+		
+		pageSize = 10; // 한 페이지에 10개
+		pageNum = 1;  // 기본값 1페이지
+		
 		
 		try {
+			
+			//선택한 페이지 넘버 받아오기
+			if (req.getParameter("pageNum") != null) {
+				pageNum = Integer.parseInt(req.getParameter("pageNum"));
+			}
 
 			ServletContext sc = this.getServletContext();
 			
@@ -52,17 +64,31 @@ public class FreeBoardListController extends HttpServlet {
 			
 			
 			ArrayList<FreeBoardDto> boardList = null;
+			ArrayList<FreeBoardDto> boardNotiList = null;
 			//boardDao는 DB에 관한 로직만 존재해야함
 			//회원목록 가져옴
-			boardList = (ArrayList<FreeBoardDto>)boardDao.freeBoardList();
+			boardList = (ArrayList<FreeBoardDto>)boardDao.freeBoardList(pageNum, pageSize);
+			boardNotiList = (ArrayList<FreeBoardDto>)boardDao.freeBoardNotiList();
 			
 			//게시물목록 정보 준비
 			req.setAttribute("boardList", boardList);	
+			req.setAttribute("boardNotiList", boardNotiList);	
 
+			
+			/* 페이징관련 */
+
+			//게시글의 총 데이터 수 가져오기
+			totalCount = boardDao.freeBoardListTotal();
+			// 페이지의 총 개수 계산
+	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+	        // 요청에 필요한 정보 저장
+	        req.setAttribute("totalPage", totalPage);
+	        req.setAttribute("pageNum", pageNum);
+	        req.setAttribute("pageSize", pageSize);
 			
 			//페이지 준비
 			RequestDispatcher dispatcher = 
-				req.getRequestDispatcher("./page/member/board/FreeBoardListView.jsp");
+				req.getRequestDispatcher("/page/member/board/FreeBoardListView.jsp");
 			//dispatcher를 통해 링크 화면으로 이어짐.
 			dispatcher.include(req, res);
 			

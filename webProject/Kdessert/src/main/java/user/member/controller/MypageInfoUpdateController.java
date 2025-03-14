@@ -105,6 +105,11 @@ public class MypageInfoUpdateController extends HttpServlet{
 				return;
 			}
 			
+			memberDtoSelect.setMemNameStr(name);
+			session.setAttribute("member", memberDtoSelect);
+			
+			
+			
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = res.getWriter();
 			writer.println("<script> alert('개인정보가 수정되었습니다.'); location.href='" + "../info" + "'; </script>"); 

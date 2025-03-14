@@ -59,9 +59,6 @@ public class OrderDetailController extends HttpServlet {
 			req.setAttribute("orderDto", orderDto);
 			req.setAttribute("orderProductList", orderProductList);
 			
-			
-			
-			
 
 			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderDetailView.jsp");
 

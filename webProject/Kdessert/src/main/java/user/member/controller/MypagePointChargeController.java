@@ -116,7 +116,7 @@ public class MypagePointChargeController extends HttpServlet{
 				res.setContentType("text/html; charset=UTF-8");
 				PrintWriter writer = res.getWriter();
 				writer.println("<script> alert('포인트가 충전되었습니다. \\n현재 마이포인트 "+ formattedMemPoint + "P'); "
-						+ "window.close(); </script>"); 
+						+ "opener.location.reload();" + "window.close(); </script>"); 
 				writer.close();
 				return;
 			}

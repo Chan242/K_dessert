@@ -44,6 +44,7 @@ public class UserOrderController extends HttpServlet {
 
 		try {
 			ServletContext sc = this.getServletContext();
+			
 			HttpSession session = req.getSession();
 			MemberDto memberDto = new MemberDto();
 			MemberDto pointInfo = new MemberDto();
@@ -58,9 +59,11 @@ public class UserOrderController extends HttpServlet {
 
 			BasketDao basketDao = new BasketDao();
 
-			basketDao.setConnection(conn);
 
 			ArrayList<BasketDto> basketList = null;
+			
+			basketDao.setConnection(conn);
+			
 			basketList = (ArrayList<BasketDto>) basketDao.basketList(memIndexInt);
 
 			memberDao.setConnection(conn);

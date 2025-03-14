@@ -6,13 +6,16 @@
 		right: 120px;
 		bottom: 200px;
 		color: white;
+		z-index: 999;
 
 	}
 	#mrgButton img{
+
 		width: 200px;
 	}
 	
 	#mrgButton span{
+
 		position: absolute;
     	width: 200px;
 		font-size: 15pt;

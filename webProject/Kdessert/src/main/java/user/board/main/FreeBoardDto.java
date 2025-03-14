@@ -15,7 +15,7 @@ public class FreeBoardDto {
 	private int brdViewInt = 0;// 조회수
 	private int brdNoticeInt = 0;// 공지여부(0:일반, 1:공지)
 	//멤버테이블 끌고옴
-	private MemberDto memberDto; // 게시글의 작성자 정보
+	private MemberDto memberDto = null; // 게시글의 작성자 정보
 
 	public FreeBoardDto() {
 		super();

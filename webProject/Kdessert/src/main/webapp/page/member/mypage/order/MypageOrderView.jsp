@@ -79,8 +79,14 @@ input {
 	border-radius: 4px;
 	outline: none;
 	transition: border-color 0.3s;
-	width: 60px;
+	width: 500px;
 }
+
+#price{
+	width: 200px;
+	text-align: right;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -113,10 +119,7 @@ input {
 					<td><a
 						href="../../../product/select?no=${basketDto.getProIndexInt()}">${basketDto.getProNameStr()}</a></td>
 					<td>
-						<form action="./basket/update?no=${basketDto.getProIndexInt()}" method="post">
-							<input type="number" name="basStock" value="${basketDto.getBasStockInt()}" min="1">
-							<input type="submit" value="변경" width="40px;">
-						</form>
+						${basketDto.getBasStockInt()}
 					</td>
 					<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
 					<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
@@ -137,44 +140,63 @@ input {
 		</table>
 		<hr>
 		<h2 style="text-align: center;">배송 정보</h2>
+		<form action="./order/success" method="post">
 		<table>
+		
 			<tr>
 				<td>받을 사람</td>
-				<td>${orderInfo.getMemNameStr() }</td>
+				<td><input name="recipient" value="${orderInfo.getMemNameStr()}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>받을 주소</td>
-				<td>${orderInfo.getMemAddressStr() }</td>
+				<td><input name="addressOne" value="${orderInfo.getMemAddressStr()}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>상세 주소</td>
-				<td>${orderInfo.getMemAddressSecStr() }</td>
+				<td><input name="addressTwo" value="${orderInfo.getMemAddressSecStr()}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td>${orderInfo.getMemTelStr() }</td>
+				<td><input name="tel" value="${orderInfo.getMemTelStr()}" readonly="readonly"></td>
 			</tr>
 		</table>
 		<hr>
 		<h2 style="text-align: center;">결제 정보</h2>
 		<table>
 			<tr>
-				<td>보유 포인트</td>
-				<td style="text-align: right"><fmt:formatNumber value="${pointInfo.getMemPointInt()}" pattern="#,##0" />
-					<c:if test="${total > pointInfo.getMemPointInt()}">
-						<br>포인트가 부족합니다.
-					</c:if>
-					<c:if test="${total <= pointInfo.getMemPointInt()}">
-						<br><form action="./order/sucess" method="post">
-						<input type="submit" value="구매">
-						</form>
-					</c:if>
-
-					
+				<td>총계</td>
+				<td style="text-align: right"><fmt:formatNumber value="${total}" pattern="#,##0" /> 원
+					<input type="hidden" name="total" id="price" value="${total}" readonly="readonly">
 				</td>
 			</tr>
+			<tr>
+				<td>보유 포인트</td>
+				<td style="text-align: right"><fmt:formatNumber value="${pointInfo.getMemPointInt()}" pattern="#,##0" />P				
+				</td>
+			</tr>
+			<tr>
+				<td>
+					포인트-구매금액
+				</td>
+				<td style="text-align: right">
+					<fmt:formatNumber value="${pointInfo.getMemPointInt()-total}" pattern="#,##0" />P
+				</td>
+			</tr>
+			
+			<tr>
+				<td>상태</td>
+				<td style="text-align: right">
+					<c:if test="${total > pointInfo.getMemPointInt()}">
+						포인트가 부족합니다.
+					</c:if>
+					<c:if test="${total <= pointInfo.getMemPointInt()}">
+						
+						<input style="width: 100px;" type="submit" value="구매">
+					</c:if>
+				</td>	
+			</tr>
 		</table>
-
+		</form>
 		
 		<div style="margin: auto; clear: both;">
 

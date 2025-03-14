@@ -129,7 +129,8 @@
 							비밀번호
 						</th>
 						<td>
-							<input id="password" type="password" name="password" value="" required oninput="pwdCheck()">
+							<input id="password" type="password" name="password" value="" required oninput="pwdCheck()" onkeyup="valiCheckPwd()">
+							<div id="pwdStatus2"></div> <!-- 비밀번호 확인 메시지가 표시될 곳 -->
 						</td>
 					</tr>
 					<tr>
@@ -194,6 +195,7 @@
 
 	var isEmailChecked = false;  // 이메일 중복확인 실행 여부를 체크하는 변수
 	var ableEmail = false; //사용가능 이메일
+	
 	var initialEmail = document.getElementById('email').value;  // 이메일 초기값 저장
 	
 	////////이메일 중복확인///////
@@ -258,7 +260,28 @@
 	    	pwdStatusObj.style.color = 'green';
 	    	return;
 	    }
-	    
+	}
+	
+	var validationPwd = false; //유효한 비밀번호
+	
+	//비밀번호 유효성 검사
+	function valiCheckPwd() {
+		var pwd = document.getElementById("password").value;
+		var pwdStatus2Obj = document.getElementById('pwdStatus2');
+		
+		//조건 불충족 시 메시지가 출력
+		if(!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(pwd))){
+			pwdStatus2Obj.innerHTML = '비밀번호는 영문, 숫자, 특수문자를 모두 포함해야 하며 8자리 이상이어야 합니다.';
+			pwdStatus2Obj.style.color = 'red';
+			pwdStatus2Obj.style.fontSize = '12px';
+			validationPwd = false;
+		}
+		
+		//조건 충족 시 또는 값이 없을 때 초기화
+		if(pwd == '' || /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(pwd) ){
+			pwdStatus2Obj.innerHTML = '';
+			validationPwd = true;
+		}
 	}
 	
 	// 폼을 제출하기 전에 중복확인 여부를 체크하는 함수
@@ -282,6 +305,11 @@
 	    //비번과 비번확인이 같지 않을 때
 	    if (password !== passwordCheck) {
 			alert("비밀번호를 확인해주세요");
+			return false;
+	    }
+	    
+	    if (!validationPwd) {
+			alert("유효한 비밀번호를 입력해주세요");
 			return false;
 	    }
 	    

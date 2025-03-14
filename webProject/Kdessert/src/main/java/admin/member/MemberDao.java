@@ -317,6 +317,47 @@ public class MemberDao {
 		return null;
 		
 	}
+ 	
+ 	
+ 	
+ 	// pwd 발급
+ 	public int memberTempPwd(String id, String tempPwd) throws SQLException {
+ 		
+ 		int result = 0;
+
+ 		PreparedStatement pstmt = null;
+
+ 		String sql = "";
+ 		sql = "UPDATE MEMBER";
+ 		sql += " SET M_PASSWORD=?";
+ 		sql += " WHERE M_ID =?";
+ 		
+ 		try {
+ 			
+ 			pstmt = connection.prepareStatement(sql);
+
+ 			pstmt.setString(1, tempPwd);
+ 			pstmt.setString(2, id);
+
+ 			result = pstmt.executeUpdate(); // 이놈이 범인 .. 
+ 			
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 			
+ 		} finally {
+ 			try {
+ 				if (pstmt != null) {
+ 					pstmt.close();
+ 				}
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+
+ 		} // finally 종료
+ 		return result;
+ 	}
 
  	// 회원 전체 조회에서 전체 데이터의 수를 가져오는 메소드
  	public int getTotalCount() {
@@ -371,6 +412,7 @@ public class MemberDao {
 		
 		String sql = "";
 		
+		//페이징 이전 sql
 //		sql += "SELECT M_INDEX, M_NAME, M_ID, M_EMAIL, M_BIRTH, M_SIGN_TIME";
 //		sql += " FROM (";
 //		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME, ROWNUM rnum";
@@ -379,6 +421,7 @@ public class MemberDao {
 //		sql += " WHERE rnum >= ?";
 //		sql += " ORDER BY M_INDEX DESC";
 		
+		//페이징 적용을 위한 sql
 		sql += "SELECT * FROM (";
 		sql += " SELECT A.*, ROWNUM rnum FROM (";
 		sql += " SELECT m.M_INDEX, m.M_NAME, m.M_ID, m.M_EMAIL, m.M_BIRTH, m.M_SIGN_TIME";
@@ -386,14 +429,15 @@ public class MemberDao {
 		sql += " ) A WHERE ROWNUM <= ?";
 		sql += " ) WHERE rnum >= ?";
 		
-		int startRow = (pageNum - 1) * pageSize + 1;
-		int endRow = pageNum * pageSize;
+		//pageNum에 따라 startRow 부터 endRow 까지의 값을 보여준다
+		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
+		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
 		
 		try {
 			pstmt = connection.prepareStatement(sql);
 			
-			pstmt.setInt(1, endRow);  // ROWNUM <= endRow
-			pstmt.setInt(2, startRow); // rnum >= startRow
+			pstmt.setInt(1, endRow);  // ROWNUM <= endRow 마지막 행보다 행보다 작거나 같을 때
+			pstmt.setInt(2, startRow); // rnum >= startRow 첫번째 행보다 크거나 같을 때
 			
 			rs = pstmt.executeQuery();
 			

@@ -13,6 +13,7 @@ import java.util.List;
 import admin.member.MemberDao;
 import admin.member.MemberDto;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDto;
 
@@ -26,7 +27,7 @@ public class FreeBoardDao {
 	}
 	
 	//게시판 정보 조회-메인 화면에 보여질 리스트
-	public List<FreeBoardDto> freeBoardList() 
+	public List<FreeBoardDto> freeBoardList(int pageNum, int pageSize) 
 			throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -34,15 +35,55 @@ public class FreeBoardDao {
 
 		String sql = "";
 
-		sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
-				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
-				+ "FROM FREE_BOARD "
-				+ "ORDER BY F_index DESC";
+		//pageNum~pageSize만큼의 목록 불러옴
+
+		
+		sql =  "SELECT * "
+	               + "FROM ( SELECT "
+	               + "	F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
+	               + "  F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE, "
+	               + "  ROWNUM AS rnum"
+	               + "  FROM FREE_BOARD F "
+	               + "  WHERE F.F_NOTICE=0"
+	               + "  ORDER BY F.F_INDEX DESC ) "
+	               + "WHERE rnum BETWEEN ? AND ?";
+		
+		/*
+		sql = "SELECT *"
+				+ "FROM ( SELECT "
+				+ "        F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE,"
+				+ "        F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE,"
+				+ "        ROW_NUMBER() OVER (ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC) AS rnum"
+				+ "    FROM FREE_BOARD F)"
+				+ "   WHERE rnum BETWEEN ? AND ?";
+				*/
+		/*
+		sql = "SELECT * "
+				+ "FROM (SELECT "
+				+ "        F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
+				+ "        F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE,"
+				+ "        ROWNUM AS rnum"
+				+ "    FROM ( SELECT "
+				+ "            F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE,"
+				+ "            F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE"
+				+ "        FROM FREE_BOARD F"
+				+ "        ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC"
+				+ "    ) f"
+				+ ")"
+				+ "WHERE rnum BETWEEN ? AND ?";
+		*/
+		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
+		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
 
 		try {
 			/* sql 연결 */
 			pstmt = connection.prepareStatement(sql);
 
+
+			 pstmt.setInt(1, startRow);
+			 pstmt.setInt(2, endRow); 
+			
+			
 			rs = pstmt.executeQuery();
 
 			int brdIndexInt = 0;
@@ -54,7 +95,7 @@ public class FreeBoardDao {
 
 			
 			while (rs.next()) {
-				brdIndexInt = rs.getInt("F_index");
+				brdIndexInt = rs.getInt("F_INDEX");
 				brdViewInt = rs.getInt("F_VIEW");
 				brdNoticeInt = rs.getInt("F_NOTICE");
 				memIndexInt = rs.getInt("M_INDEX");
@@ -102,6 +143,297 @@ public class FreeBoardDao {
 		return freeBoardList;
 	}
 	
+	//게시판 정보 조회-메인 화면에 보여질 리스트
+		public List<FreeBoardDto> freeBoardNotiList() 
+				throws Exception {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
+
+			String sql = "";
+
+			/*원본 리스트 보여줌
+			 * sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, " +
+			 * "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE " + "FROM FREE_BOARD " +
+			 * "ORDER BY F_index DESC";
+			 */
+			//pageNum~pageSize만큼의 목록 불러옴
+			sql =  "SELECT * "
+		               + "FROM ( SELECT "
+		               + "	F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
+		               + "  F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE, "
+		               + "  ROWNUM AS rnum"
+		               + "  FROM FREE_BOARD F "
+		               + "  WHERE F.F_NOTICE=1"
+		               + "  ORDER BY F.F_INDEX DESC ) ";
+			
+
+			try {
+				/* sql 연결 */
+				pstmt = connection.prepareStatement(sql);
+
+
+				
+				rs = pstmt.executeQuery();
+
+				int brdIndexInt = 0;
+				int brdViewInt = 0;
+				int brdNoticeInt = 0;
+				int memIndexInt = 0;
+				String brdSubjectStr = "";
+				Date brdCreDate = null;
+
+				
+				while (rs.next()) {
+					brdIndexInt = rs.getInt("F_INDEX");
+					brdViewInt = rs.getInt("F_VIEW");
+					brdNoticeInt = rs.getInt("F_NOTICE");
+					memIndexInt = rs.getInt("M_INDEX");
+					brdSubjectStr = rs.getString("F_SUBJECT");
+					brdCreDate = rs.getDate("F_CRE_DATE");
+
+					FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, memIndexInt, brdSubjectStr
+							, brdCreDate, brdViewInt, brdNoticeInt);
+
+					//여기부터 추가
+					
+
+					MemberDto memberDto = freeboardWriter(memIndexInt);
+					
+					freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+
+					
+					//이건 원래 있던거
+					freeBoardList.add(freeBoardDto);
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			} // finally end
+			return freeBoardList;
+		}
+	
+	//일반회원 게시글 총 개수
+	public int freeBoardListTotal() 
+			throws Exception {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalCount = 0;
+	
+
+		String sql = "";
+
+		sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
+				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
+				+ "FROM FREE_BOARD "
+	            + "  WHERE F_NOTICE=0"
+				+ "ORDER BY F_index DESC";
+
+		try {
+			/* sql 연결 */
+			pstmt = connection.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				totalCount += 1;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		
+		return totalCount;
+
+	}
+	
+	//검색창에 의한 정보 조회
+	public List<FreeBoardDto> freeboardSearch(String searchWord, int pageNum, int pageSize) 
+			throws SQLException{
+		ResultSet rs = null;
+		ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
+		
+		String sql = "";
+		
+		PreparedStatement pstmt = null;
+		
+		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
+		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
+		
+		try {
+			//ROWNUM 이름 지정 필수(다른 ROWNUM으로 인식해버리기 때문)
+			sql = "SELECT F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_IMAGE,"
+					+ "        F_VIEW, F_CRE_DATE, F_NOTICE\r\n"
+					+ " FROM ( SELECT F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE,"
+					+ "        	F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE, ROWNUM AS rnum"
+					+ "			FROM FREE_BOARD F"
+					+ "			WHERE F_SUBJECT LIKE ?"
+					+ "        	ORDER BY F_INDEX DESC )"
+					+ " WHERE rnum BETWEEN ? AND ?";
+			
+			pstmt = connection.prepareStatement(sql);
+
+			searchWord = '%' + searchWord +  '%';
+			pstmt.setString(1, searchWord);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+
+			rs = pstmt.executeQuery();
+
+			int brdIndexInt = 0;
+			int brdViewInt = 0;
+			int brdNoticeInt = 0;
+			int memIndexInt = 0;
+			String brdSubjectStr = "";
+			Date brdCreDate = null;
+
+			
+			while (rs.next()) {
+				brdIndexInt = rs.getInt("F_index");
+				brdViewInt = rs.getInt("F_VIEW");
+				brdNoticeInt = rs.getInt("F_NOTICE");
+				memIndexInt = rs.getInt("M_INDEX");
+				brdSubjectStr = rs.getString("F_SUBJECT");
+				brdCreDate = rs.getDate("F_CRE_DATE");
+
+				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, memIndexInt, brdSubjectStr
+						, brdCreDate, brdViewInt, brdNoticeInt);
+
+
+				MemberDto memberDto = freeboardWriter(memIndexInt);
+				
+				freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+
+
+				freeBoardList.add(freeBoardDto);
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return freeBoardList;
+		
+	}
+	
+	//검색한 게시글 총 개수
+		public int freeBoardListSearchTo(String searchWord) 
+				throws Exception {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalCount = 0;
+		
+
+			String sql = "";
+
+			sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
+					+ " F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
+					+ " FROM FREE_BOARD"
+					+ " WHERE F_SUBJECT LIKE ?"
+					+ " ORDER BY F_index DESC";
+
+			try {
+				/* sql 연결 */
+				pstmt = connection.prepareStatement(sql);
+				
+				searchWord = '%' + searchWord +  '%';
+				pstmt.setString(1, searchWord);
+
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					
+					totalCount += 1;
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			} // finally end
+			
+			return totalCount;
+
+		}
+	
+	
+	
 	//게시판 상세 내용 보이기
 	public FreeBoardDto freeBoardDetail(int brdIndexInt) 
 			throws Exception {
@@ -115,7 +447,7 @@ public class FreeBoardDao {
 				+ " F_IMAGE, M_INDEX, F_VIEW, F_NOTICE,"
 				+ " F_CRE_DATE"
 				+ " FROM FREE_BOARD"
-				+ " WHERE F_INDEX=?"
+				+ " WHERE F_INDEX = ?"
 				+ " ORDER BY F_INDEX DESC";
 
 		pstmt = connection.prepareStatement(sql);
@@ -181,26 +513,34 @@ public class FreeBoardDao {
 			throws Exception {
 		
 		PreparedStatement pstmt = null;
+		String sql=" ";
+		
 		// SQL 객체준비
 		try {
 			
 			int memIndexInt = freeBoardDto.getMemIndexInt();
 			String brdSubjectStr = freeBoardDto.getBrdSubjectStr();
 			String brdTextStr = freeBoardDto.getBrdTextStr();
+			int brdNoticeInt = freeBoardDto.getBrdNoticeInt();
 //			String brdImageStr = freeBoardDto.getBrdImageStr();
 			
-			String sql=" ";
+
 			
 			sql = "INSERT INTO FREE_BOARD"
 					+ " (F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
-					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 3, 0)";
+					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, ?)";
 			
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setInt(1, memIndexInt);
 			pstmt.setString(2, brdSubjectStr);
 			pstmt.setString(3, brdTextStr);
-//			pstmt.setString(4, brdImageStr);
+			pstmt.setInt(4, brdNoticeInt);
+			
+			MemberDto memberDto = freeboardWriter(memIndexInt);
+			
+			freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
+		
 
 			pstmt.executeUpdate();
 
@@ -384,96 +724,14 @@ public class FreeBoardDao {
 		return boardDto;
 	}
 	
-	//검색창에 의한 정보 조회
-	public List<FreeBoardDto> freeboardSearch(String searchWord) 
-			throws SQLException{
-		ResultSet rs = null;
-		ArrayList<FreeBoardDto> freeBoardList = new ArrayList<FreeBoardDto>();
-		
-		String sql = "";
-		
-		PreparedStatement pstmt = null;
-		
-		try {
-			
-			sql = "SELECT F_INDEX, M_INDEX, F_SUBJECT, F_TEXT,"
-					+ " F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE"
-					+ " FROM FREE_BOARD"
-					+ " WHERE F_SUBJECT LIKE ?"
-					+ " ORDER BY F_index DESC";
-			
-			pstmt = connection.prepareStatement(sql);
 
-			searchWord = '%' + searchWord +  '%';
-			pstmt.setString(1, searchWord);
-			
-
-			rs = pstmt.executeQuery();
-
-			int brdIndexInt = 0;
-			int brdViewInt = 0;
-			int brdNoticeInt = 0;
-			int memIndexInt = 0;
-			String brdSubjectStr = "";
-			Date brdCreDate = null;
-
-			
-			while (rs.next()) {
-				brdIndexInt = rs.getInt("F_index");
-				brdViewInt = rs.getInt("F_VIEW");
-				brdNoticeInt = rs.getInt("F_NOTICE");
-				memIndexInt = rs.getInt("M_INDEX");
-				brdSubjectStr = rs.getString("F_SUBJECT");
-				brdCreDate = rs.getDate("F_CRE_DATE");
-
-				FreeBoardDto freeBoardDto = new FreeBoardDto(brdIndexInt, memIndexInt, brdSubjectStr
-						, brdCreDate, brdViewInt, brdNoticeInt);
-
-
-				MemberDto memberDto = freeboardWriter(memIndexInt);
-				
-				freeBoardDto.setMemberDto(memberDto); // MemberDto를 FreeBoardDto에 설정
-
-
-				freeBoardList.add(freeBoardDto);
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		}
-		return freeBoardList;
-		
-	}
-	
 	/* 조회수 카운트하는 로직*/
 	
 	public void freeBoardView(int brdIndexInt) 
 			throws SQLException {
-		System.out.println("뷰 카운트 시작");
+//		System.out.println("뷰 카운트 시작");
 		PreparedStatement pstmt = null;
 		String sql = "";
-		/*
-		 * if (session == null || session.getAttribute("member") == null) {
-		 * 
-		 * return; // 더 이상 코드 실행하지 않도록 종료 }
-		 */
 		
 		
 		try {
@@ -488,12 +746,13 @@ public class FreeBoardDao {
 	
 			// 쿼리 실행 및 반환값 확인
 	        int rowsUpdated = pstmt.executeUpdate();
+	        /*
 	        if (rowsUpdated > 0) {
 	            System.out.println("조회수 증가 성공: F_INDEX = " + brdIndexInt);
 	        } else {
 	            System.out.println("조회수 증가 실패: F_INDEX = " + brdIndexInt);
 	        }
-			
+			*/
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -529,10 +788,10 @@ public class FreeBoardDao {
 		String sql = "";
 
 		//멤버 인덱스로 해당 게시물 글쓴이 찾기
-		sql = "SELECT F.F_INDEX, M.M_NAME, M.M_ID"
+		sql = "SELECT F.F_INDEX, M.M_NAME, M.M_ID, M_ADM_CHECK"
 				+ " FROM FREE_BOARD F INNER JOIN MEMBER M"
 				+ " ON M.M_INDEX = F.M_INDEX"
-				+ " where M.M_INDEX = ?"
+				+ " WHERE M.M_INDEX = ?"
 				+ " ORDER BY F_INDEX DESC";
 
 		try {
@@ -547,6 +806,7 @@ public class FreeBoardDao {
 
 			String memNameStr = "";
 			String memIdStr = "";
+			int memAdmCheckInt = 0;
 
 			
 			
@@ -554,11 +814,16 @@ public class FreeBoardDao {
 
 				memNameStr = rs.getString("M_NAME");
 				memIdStr = rs.getString("M_ID");
+				memAdmCheckInt = rs.getInt("M_ADM_CHECK");
+				
+				
 
-				memberDto = new MemberDto(memIndex, memNameStr, memIdStr);
+				memberDto = new MemberDto(memIndex, memNameStr, memIdStr, memAdmCheckInt);
 
 			}
-
+			/*
+			 * System.out.println(memAdmCheckInt); System.out.println(memberDto);
+			 */
 		} catch (Exception e) {
 			// TODO: handle exception
 
@@ -582,6 +847,7 @@ public class FreeBoardDao {
 				e.printStackTrace();
 			}
 		} // finally end
+		
 		return memberDto;
 	}
 	

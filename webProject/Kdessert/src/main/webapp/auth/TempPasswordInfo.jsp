@@ -9,21 +9,31 @@
 
 <style type="text/css">
 
+	body { 
+	width: 100%;
+	margin: 0px;
+	}
+	
 	#wrap {
-		width:1920px;
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
+	#container {
+		width: 1280px;
+		margin: 0 auto;
+		margin-top: 100px;
 	}
 
-	#div_info {
-		width: 300px;
-		margin: auto;
+	#container p, #container h2 {
+		text-align: center;
+		margin: 5px;
+		margin-bottom: 30px;
 	}
 	
 	#div_btn {
-	
 		text-align: center;
-	
 	}
-	
 	
 	.btn_style {
 		cursor: pointer;
@@ -58,9 +68,11 @@
 
 	<jsp:include page="./Auth_Header.jsp"/>
 
-	<div id="div_info">
+	<div id="container">
 	
-		<h2 style="text-align: center;">임시 비밀번호를<br>메일로 전송했습니다</h2>
+		<h2>임시 비밀번호 발급</h2>
+		<p style="margin-bottom: 5px;">회원님의 임시 비밀번호는</p>
+		<p>${tempPwd} 입니다.</p>
 	
 		<div id="div_btn">
 			<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
