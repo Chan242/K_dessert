@@ -40,16 +40,18 @@
 </head>
 <body>
 
+
+	<jsp:include page="/page/admin/commPage/Category_Mgr.jsp"/>
 <!-- 헤더 -->
-<header>
+<!-- <header>
     <h1>다과 관리</h1>
     <span class="user-info">홍길동 님이 로그인 중입니다.</span>
 </header>
 
-<!-- 전체 레이아웃 컨테이너 -->
+전체 레이아웃 컨테이너
 <div class="container">
 
-    <!-- 사이드바 -->
+    사이드바
     <aside class="sidebar">
         <h2>로고</h2>
         <ul>
@@ -60,7 +62,7 @@
             <li><a href="#">행사 관리</a></li>
             <li><a href="#">통계</a></li>
         </ul>
-    </aside>
+    </aside> -->
 
     <!-- 메인 컨텐츠 -->
     <main class="content">
@@ -78,8 +80,7 @@
                 <tr>
                     <th>다과번호</th>
                     <th>다과명</th>
-                    <th>설명</th>
-                    <th>포인트</th>
+                    <th>설명</th>                 
                     <th>삭제</th>
                 </tr>
             </thead>

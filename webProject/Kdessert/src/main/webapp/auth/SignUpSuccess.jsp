@@ -9,8 +9,23 @@
 
 <style type="text/css">
 
+	body { 
+	width: 100%;
+	margin: 0px;
+	overflow-y:scroll;  
+	}
+	
 	#wrap {
-		width:1920px;
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
+	#container {
+		width: 1280px;
+		height: 300px;
+		margin: 0 auto;
+		padding-top: 100px;
+		padding-bottom: 200px;
 	}
 	
 	.btn_style {
@@ -29,9 +44,8 @@
 		font-size: 16px;
 	}	
 	
-	#container {
+	#container_inner {
 		text-align: center;
-		margin-top: 100px;
 	}
 	
 
@@ -46,9 +60,14 @@
 		<jsp:include page="./Auth_Header.jsp"/>
 		
 		<div id="container">
-			<h1>가입이 완료되었습니다</h1>
-			<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
+			<div id="container_inner">
+				<h1>가입이 완료되었습니다</h1>
+				<input class="btn_style" type="button" onclick="location.href='./login'" value="로그인 화면으로 돌아가기">
+			</div>
 		</div>
+		
+		<jsp:include page="../page/member/commPage/Mem_Footer.jsp"/>
+		
 	</div>
 	
 </body>

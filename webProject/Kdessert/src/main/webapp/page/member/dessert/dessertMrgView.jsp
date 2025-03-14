@@ -1,299 +1,193 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<title>다과 관리</title>
+<title>관리자페이지 | 다과 관리</title>
 
-<style type="text/css">
 
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-} */
-
-.sidebar {
-    width: 200px;
-    background-color: #5c3b1e;
-    color: white;
-    height: 100vh;
-    float: left;
-    padding: 20px;
+<style>
+#wrap {
+	width:1895px;
 }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
+table, tr, th, td {
+	border-bottom: 1px solid #BEBEBE;
+	border-collapse: collapse;
 }
 
-.sidebar ul li {
-    margin: 20px 0;
+table {
+	border-top: 2px solid black;
+	margin: auto;
+	width: 1200px;
 }
 
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
+th {
+	background-color: #F5F5F5;
+	text-align: left;
 }
 
-.main-content {
-    margin-left: 220px;
-    padding: 20px;
+th, td {
+	padding: 15px;
 }
 
-.search-bar {
-	text-align: right; /* 🔹 검색창을 오른쪽 정렬 */
-	margin-bottom: 10px;
+#sidebar{
+	float: left;	
 }
 
-.search-bar input {
-	padding: 5px;
-	width: 200px;
-}
-
-.search-bar button {
+/* #div_search{
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: white;
 	padding: 5px 10px;
-	background-color: #a67c52;
-	color: white;
-	border: none;
-	cursor: pointer;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-th {
-    background-color: #a67c52;
-    color: white;
-}
-
-.pagination {
-	text-align: center; /* 🔹 페이지네이션 가운데 정렬 */
-	margin-top: 20px;
-}
-
-.pagination a {
-	display: inline-block;
-	padding: 8px 12px;
-	margin: 0 5px;
-	text-decoration: none;
-	background-color: #ddd;
-	color: black;
 	border-radius: 5px;
+	box-shadow:  0 2px 5px rgba(0, 0, 0, 0.2); */
+/* 	width: 300px;
+	margin-right:50px;
+	margin-bottom: 10px;
+	float: right; */
+/* } */
+.div_search form placeholder{
+	display: flex;
+	align-items: center;
+	text-align: right;
+	width:10px;
+	margin-top: 30px;
+	right;
+}
+.div_search  {
+	text-align: right;
 }
 
-.pagination a:hover {
-	background-color: #a67c52;
-	color: white;
+#search_text {
+		padding: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		margin-right: 10px;
+		
+/* 		width: 200px;
+		height: 10px;
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		margin-top: 3px;
+		line-height: 5px; */
 }
 
+#search_submit {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#search_submit:hover {
+  background-color: #0056b3;
+}
+
+#div_content h2 {
+	text-align: center;
+	width: 1200px;
+	margin: quto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	padding-bottom: 20px;
+	border-bottom: 10px solid black;
+}
+
+#table_info {
+	margin: auto;
+	width: 1200px;
+}
+
+#div_content{
+		width: 1300px;
+		margin-left: 50px; 
+		float: left;
+}
+.pagination {
+	text-align: center;		
+}
+#div_pagBtn {
+	gap: 10px;
+}
+
+#index {
+	width: 10px;
+}
 
 </style>
+
+<script>
+	function deletDagwa(dagwId) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			location.href = "dagwa_delete.jsp?dawaId=" + dagwId;
+		}
+	}
+</script>
 
 
 </head>
 
 <body>
-<!-- <header> -->
-		<jsp:include page="/page/admin/commPage/Adm_Header.jsp"/>
-		<jsp:include page="/page/admin//commPage/Category_Mgr.jsp"/> 
-		
-		
-	
-<!--     <h1>다과 관리</h1>
-     <span class="user-info">홍길동 님
-     이 로그인 중입니다.</span>
-</header> -->
 
-<!-- 전체 레이아웃 컨테이너
-<div class="container">
+	<%-- 공통 헤더 포함 --%>
+	<div id="wrap">
+		<jsp:include page="/page/admin/commPage/Adm_Header.jsp" />
+		<div>
+			<div id="sidebar">
+				<jsp:include page="/page/admin/commPage/Category_Mgr.jsp" />
+			</div>
+			<div id="content">
+			<h2> 다과 관리</h2>
+				<!-- 검색창 -->
+				<div class="div_search">
+				<form action="./search" method="get">
+					<input id="search_text" name="searchText" type="text" placeholder="다과, 음료를 입력해 주세요.">
+					<input id="search_submit" type="submit" value="검색">
+				</form>
+				</div>
 
-    사이드바
-    <aside class="sidebar">
-        <h2>로고</h2>
-        <ul>
-            <li><a href="#">주문 관리</a></li>
-            <li><a href="#">최종 관리</a></li>
-            <li><a href="#">제품 관리</a></li>
-            <li><a href="#">다과 관리</a></li>
-            <li><a href="#">행사 관리</a></li>
-            <li><a href="#">통계</a></li>
-        </ul>
-    </aside>  -->
+				<!-- 테이블 -->
+				<table id="table_info">
+					<thead>
+						<tr>
+							<th scope="col" style="width: 150px;">다과번호</th>
+							<th scope="col" style="width: 150px;">다과명</th>
+							<th scope="col" style="width: 160px;">공개여부</th>
+							<th scope="col" style="width: 170px;">조회수</th>
+							<th scope="col" style="width: 170px">삭제</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="inedx">
+							<td style="width: 10px;">1</td>
+							<td>정과</td>
+							<td>공개</td>
+							<td>1</td>
+							<td><button onclick="delteDagwa(1)">삭제</button></td>
+						</tr>
+					</tbody>
+				</table>
 
-    <!-- 메인 컨텐츠 -->
-    <main class="content">
-        <h2>다과 관리</h2>
-        
-        <!-- 검색창 -->
-        <div class="search-bar">
-            <input type="text" placeholder="검색어 입력">
-            <button>검색</button>
-        </div>
+				<!-- 페이지네이션 -->
+				<div class="pagination">
+					<a href="#">&lt;</a> <a href="#">1</a> <a href="#">2</a> <a
+						href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">&gt;</a>
+				</div>
 
-        <!-- 테이블 -->
-        <table>
-            <thead>
-                <tr>
-                    <th>다과번호</th>
-                    <th>다과명</th>
-                    <th>공개여부</th>
-                    <th>조회수</th>
-                    <th>삭제</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>정과</td>
-                    <td>공개</td>
-                    <td>10</td>
-                    <td><button>삭제</button></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- 페이지네이션 -->
-        <div class="pagination">
-            <a href="#">&lt;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">&gt;</a>
-        </div>
-    </main>
-
+			</div>
+		</div>
+	</div>
 </body>
-</body>
-</html> 
-
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="model.Daqua" %> 
-<%@ page import="dao.DaquaDAO" %>
-<%
-    // 다과 목록 가져오기
-    DaquaDAO dao = new DaquaDAO();
-    List<Daqua> daquaList = dao.getAllDaqua();
-%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>다과 관리</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
-    
-    <style type="text/css">
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #5c3b1e;
-    color: white;
-    height: 100vh;
-    float: left;
-    padding: 20px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 20px 0;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.main-content {
-    margin-left: 220px;
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-th {
-    background-color: #a67c52;
-    color: white;
-}
-
-
-</style>
-    
-</head>
-<body>
-    <div class="sidebar">
-        <h2>다과 관리</h2>
-        <ul>
-            <li><a href="#">주문 관리</a></li>
-            <li><a href="#">제품 관리</a></li>
-            <li><a href="#">다과 관리</a></li>
-            <li><a href="#">행사 관리</a></li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <h1>다과 관리</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>다과번호</th>
-                    <th>다과명</th>
-                    <th>종류</th>
-                    <th>재고</th>
-                    <th>수정</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (Daqua d : daquaList) { %>
-                    <tr>
-                        <td><%= d.getId() %></td>
-                        <td><%= d.getName() %></td>
-                        <td><%= d.getCategory() %></td>
-                        <td><%= d.getStock() %></td>
-                        <td>
-                            <a href="daquaUpdate.jsp?id=<%= d.getId() %>">수정</a>
-                        </td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html> --%>
-
-
+</html>

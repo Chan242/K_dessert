@@ -80,7 +80,7 @@ background-color 와 color 를 수정하며 사용하면 됩니다 (ex: backgrou
 
 2. 사이드바div를 css에서 float: left;
 
-3. 내용div를 css에서 width: 1300px; margin-left: 50px; float: left;
+3. 내용div를 css에서 width: 1300px; margin-left: 50px; float: right;
 
 4. 내용div 내부 제일 위에 카테고리명 삽입: <h2 style="margin: 40px;">해당 카테고리 명</h2>
 

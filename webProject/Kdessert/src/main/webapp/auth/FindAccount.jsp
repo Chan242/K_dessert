@@ -5,17 +5,27 @@
 
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>로그인 | 계정찾기</title>
 
 <style type="text/css">
 	
+	body { 
+	width: 100%;
+	margin: 0px;
+	overflow-y:scroll;
+	}
+	
 	#wrap {
-		width:1920px;
+		overflow-x: hidden;
+		min-width: 1340px;
 	}
 	
 	#container {
-		width:860px;
-		margin: auto;
+		width: 1280px;
+		height: 300px;
+		margin: 0 auto;
+		padding-top: 100px;
+		padding-bottom: 200px;
 	}
 	
 	.div_input_class {
@@ -34,10 +44,14 @@
 	
 	#find_id {
 		float: left;
+		margin: 0 auto;
+		margin-left: 280px;
 	}
 	
 	#find_pwd {
 		float: right;
+		margin: 0 auto;
+		margin-right: 280px;
 	}
 	
 	.input_style {
@@ -47,15 +61,14 @@
 		border-radius: 4px;
 		outline: none;
 		transition: border-color 0.3s;
-		width: 300px;
+		width: 250px;
 		margin-top: 3px;
     }
-	
 	
 	.btn_style {
 		cursor: pointer;
 		
-		width: 200px;
+		width: 280px;
 		padding: 10px;
 
 		border: 1px solid #ccc;
@@ -67,7 +80,7 @@
 		color: white;
 		font-size: 16px;
 		
-		margin-top: 30px;
+		margin-top: 20px;
 	}
 	
 	
@@ -85,27 +98,33 @@
 		<div id="container">
 		
 			<div id="find_id" class="div_find_class">
-				<p>아이디 찾기</p>
+				<h3>아이디 찾기</h3>
 				<form action="./findid" method="get">
 					<div class="div_input_class">
-						<input class="input_style" type="text" name="name" placeholder="이름">
-						<input class="input_style" type="email" name="email" placeholder="이메일">
+						<input class="input_style" type="text" name="name" placeholder="이름" required>
+						<input class="input_style" type="email" name="email" placeholder="이메일" required>
 					</div>					
 					<input class="btn_style" type="submit" value="아이디 찾기"> 
 				</form>
 			</div>
 			
 			<div id="find_pwd" class="div_find_class">
-				<p>비밀번호 찾기</p>
-				<form action="/findpwd" method="get">
+				<h3>비밀번호 찾기</h3>
+				<form action="./findpwd" method="get">
 					<div class="div_input_class">
-						<input class="input_style" type="email" name="email" placeholder="이메일">
+						<input class="input_style" type="text" name="id" placeholder="아이디" required>
+<!-- 						<input class="input_style" type="email" name="email" placeholder="이메일" required> -->
 					</div>
-					<input class="btn_style" type="button" onclick="location.href='./TempPasswordInfo.jsp'" value="임시비밀번호 발송">
+					<input class="btn_style" type="submit" value="임시비밀번호 발급">
 				</form>
 			</div>
 			
+			<div style="clear: both;"></div>
+			
 			</div>
+	
+		<jsp:include page="../page/member/commPage/Mem_Footer.jsp"/>
+		
 	</div>
 	
 </body>

@@ -8,16 +8,20 @@
 
 <style type="text/css">
 
-	#wrap {
-		width:1920px;
-	}
-
-	body {
-		margin: 0px;
+	body { 
+	width: 100%;
+	margin: 0px;
+	overflow-y:scroll;  
 	}
 	
-	#div_signup {
-		width: 700px;
+	#wrap {
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
+	#container {
+		width: 1280px;
+		margin: 0 auto;
 		padding-bottom: 100px;
 		padding-top: 50px;
 	}
@@ -26,14 +30,15 @@
 		width: 410px;
 	}
 	
-	#div_signup, #table_in_form, #div_buttons {
-		margin: auto;
-	}
-	
 	#table_in_form {
 		width: 650px;	
 	}
+
+	#table_in_form, #div_buttons {
+		margin: auto;
+	}
 	
+/* 	-------- form(테이블)css -------- */
 
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
@@ -53,6 +58,7 @@
 	th, td {
 		padding: 15px;
 	}
+	
 	
 	
 	input {
@@ -94,7 +100,7 @@
 
 	<jsp:include page="./Auth_Header.jsp"/>
 
-	<div id="div_signup">
+	<div id="container">
 	
 		<h1 style="text-align: center;">회원가입</h1>
 		

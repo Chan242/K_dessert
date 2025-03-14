@@ -6,7 +6,14 @@
 <head>
 
 <style type="text/css">
-	#containerWrap{
+
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
+	}
+	
+	#container{
 		/* 푸터 맨 하단으로 고정할 수 있게 추가 */
 		min-height: 800px; /* 최소높이 지정 */
 		width: 900px;
@@ -18,7 +25,7 @@
 	#rolling{
 		width: 3600px;
 		height: 500px;
-		margin-top: 100px;
+/* 		margin-top: 100px; */
 		background-color: lightgray;
 		position: relative;
 		display: flex;
@@ -105,7 +112,7 @@
 	<jsp:include page="./page/member/commPage/Mem_Header.jsp"/>
 	<jsp:include page="./page/member/commPage/Category_Main.jsp"/>
 	
-	<div id="containerWrap">
+	<div id="container">
 		<div id="rolling">
 			<a href="/Kdessert/dessert/list">
 				<img src="./bannerImg/img0.jpg">
