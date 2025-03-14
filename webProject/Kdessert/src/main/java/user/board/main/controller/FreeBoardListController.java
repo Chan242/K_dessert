@@ -64,12 +64,15 @@ public class FreeBoardListController extends HttpServlet {
 			
 			
 			ArrayList<FreeBoardDto> boardList = null;
+			ArrayList<FreeBoardDto> boardNotiList = null;
 			//boardDao는 DB에 관한 로직만 존재해야함
 			//회원목록 가져옴
 			boardList = (ArrayList<FreeBoardDto>)boardDao.freeBoardList(pageNum, pageSize);
+			boardNotiList = (ArrayList<FreeBoardDto>)boardDao.freeBoardNotiList();
 			
 			//게시물목록 정보 준비
 			req.setAttribute("boardList", boardList);	
+			req.setAttribute("boardNotiList", boardNotiList);	
 
 			
 			/* 페이징관련 */

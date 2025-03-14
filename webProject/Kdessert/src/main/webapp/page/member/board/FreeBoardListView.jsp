@@ -19,9 +19,10 @@
 		margin: auto;
 		/* 푸터 맨 하단으로 고정할 수 있게 추가 */
 		min-height: 800px; /* 최소높이 지정 */
+		margin-bottom: 300px;
 	}
 	
-	#table_info {
+	.table_info {
 		margin: auto;
 		width: 1000px;
 		
@@ -148,8 +149,8 @@
 			</div>
 		</div>
 
-
-		<table id="table_info">
+<!-- 		공지용 -->
+		<table class="table_info">
 			<thead id="colum">
 				<tr>
 					<th scope="col" style="max-width:690px;">타이틀</th>
@@ -159,12 +160,30 @@
 				</tr>
 			</thead>
 			<tbody id = 'content'>
-				<c:forEach var="board" items="${boardList}">
+				<c:forEach var="boardNotice" items="${boardNotiList}">
 
-						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' "
-								 <c:if test="${board.brdNoticeInt == 1}">
+						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' "
+								 <c:if test="${boardNotice.brdNoticeInt == 1}">
 					                style="color: #5c5c0a; background-color: #f5f5dc "
 					            </c:if> >
+							<td>
+								<span class='title' style="margin-left: 40px;">${boardNotice.brdSubjectStr}</span>
+							</td>
+							<td class='boardLists' id='writer'>
+								<c:if test="${empty boardNotice.memberDto.memNameStr}"> 
+									(알 수 없는 회원)
+								</c:if>
+								 ${boardNotice.memberDto.memNameStr}
+							</td>
+							<td class='boardLists'>${boardNotice.brdCreDate}</td>
+							<td class='boardLists'>${boardNotice.brdViewInt}</td>
+						</tr>
+				</c:forEach>
+				
+				<!-- 일반회원용 -->
+				<c:forEach var="board" items="${boardList}">
+
+						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' " >
 							<td>
 								<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
 							</td>
@@ -182,6 +201,8 @@
 			</tbody>
 
 		</table>
+
+
 		
 		<!------------ 페이지 버튼 ------------>
 		<div id="div_pageBtn">

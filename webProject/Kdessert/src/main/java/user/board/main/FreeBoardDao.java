@@ -37,7 +37,7 @@ public class FreeBoardDao {
 
 		//pageNum~pageSize만큼의 목록 불러옴
 
-		/*
+		
 		sql =  "SELECT * "
 	               + "FROM ( SELECT "
 	               + "	F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
@@ -45,9 +45,9 @@ public class FreeBoardDao {
 	               + "  ROWNUM AS rnum"
 	               + "  FROM FREE_BOARD F "
 	               + "  WHERE F.F_NOTICE=0"
-	               + "  ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC ) "
+	               + "  ORDER BY F.F_INDEX DESC ) "
 	               + "WHERE rnum BETWEEN ? AND ?";
-		*/
+		
 		/*
 		sql = "SELECT *"
 				+ "FROM ( SELECT "
@@ -57,7 +57,7 @@ public class FreeBoardDao {
 				+ "    FROM FREE_BOARD F)"
 				+ "   WHERE rnum BETWEEN ? AND ?";
 				*/
-		
+		/*
 		sql = "SELECT * "
 				+ "FROM (SELECT "
 				+ "        F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
@@ -71,6 +71,7 @@ public class FreeBoardDao {
 				+ "    ) f"
 				+ ")"
 				+ "WHERE rnum BETWEEN ? AND ?";
+		*/
 		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
 		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
 
@@ -143,7 +144,7 @@ public class FreeBoardDao {
 	}
 	
 	//게시판 정보 조회-메인 화면에 보여질 리스트
-		public List<FreeBoardDto> freeBoardNotiList(int pageNum, int pageSize) 
+		public List<FreeBoardDto> freeBoardNotiList() 
 				throws Exception {
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -164,20 +165,14 @@ public class FreeBoardDao {
 		               + "  ROWNUM AS rnum"
 		               + "  FROM FREE_BOARD F "
 		               + "  WHERE F.F_NOTICE=1"
-		               + "  ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC ) "
-		               + "WHERE rnum BETWEEN ? AND ?";
+		               + "  ORDER BY F.F_INDEX DESC ) ";
 			
-			int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
-			int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
 
 			try {
 				/* sql 연결 */
 				pstmt = connection.prepareStatement(sql);
 
 
-				 pstmt.setInt(1, startRow);
-				 pstmt.setInt(2, endRow); 
-				
 				
 				rs = pstmt.executeQuery();
 
@@ -238,7 +233,7 @@ public class FreeBoardDao {
 			return freeBoardList;
 		}
 	
-	//게시글 총 개수
+	//일반회원 게시글 총 개수
 	public int freeBoardListTotal() 
 			throws Exception {
 		PreparedStatement pstmt = null;
@@ -251,6 +246,7 @@ public class FreeBoardDao {
 		sql = "SELECT F_index, M_INDEX, F_SUBJECT, F_TEXT, "
 				+ "F_IMAGE, F_VIEW, F_CRE_DATE, F_NOTICE "
 				+ "FROM FREE_BOARD "
+	            + "  WHERE F_NOTICE=0"
 				+ "ORDER BY F_index DESC";
 
 		try {
