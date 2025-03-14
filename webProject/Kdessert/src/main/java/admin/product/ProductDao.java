@@ -16,30 +16,23 @@ public class ProductDao {
 		this.connection = conn;
 	}
 
-	public List<ProductDto> selectList(int no,int divRowInt) throws Exception {
+	public List<ProductDto> selectList(int no, int divRowInt) throws Exception {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		ArrayList<ProductDto> productList = new ArrayList<ProductDto>();
 
-		String sql = 
-			    "SELECT rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
-			    "FROM ( " +
-			    "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
-			    "    FROM ( " +
-			    "        SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
-			    "        FROM PRODUCT " +
-			    "        ORDER BY P_INDEX DESC " +
-			    "    ) " +
-			    "    WHERE ROWNUM <= ? " +
-			    ") " +
-			    "WHERE rn >= ?";
+		String sql = "SELECT rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " + "FROM ( "
+				+ "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE "
+				+ "    FROM ( " + "        SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE "
+				+ "        FROM PRODUCT " + "        ORDER BY P_INDEX DESC " + "    ) " + "    WHERE ROWNUM <= ? "
+				+ ") " + "WHERE rn >= ?";
 
 		try {
 
 			pstmt = connection.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, no * divRowInt); // 끝 범위
 			pstmt.setInt(2, (no - 1) * divRowInt + 1); // 시작 범위
 
@@ -63,8 +56,9 @@ public class ProductDao {
 				proOpenInt = rs.getInt("P_OPEN");
 				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
 				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
-				
-				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
+
+				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt,
+						proCreDateDate, proChanDateDate);
 
 				productList.add(productDto);
 
@@ -191,8 +185,6 @@ public class ProductDao {
 		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CORR_DATE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_INDEX = ?";
-		
-
 
 		try {
 
@@ -301,7 +293,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public ArrayList<ProductDto> searchList(String queryStr) {
+	public ArrayList<ProductDto> searchList(String queryStr, int no, int divRowInt) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -309,11 +301,18 @@ public class ProductDao {
 		ArrayList<ProductDto> productList = new ArrayList<ProductDto>();
 
 		String sql = "";
-
-		sql += "SELECT P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
-		sql += " FROM PRODUCT"; 
-		sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?"; 
-		sql += " ORDER BY P_INDEX DESC";
+		sql += "SELECT rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
+		sql += "FROM ( ";
+		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
+		sql += "    FROM ( ";
+		sql += "        SELECT P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
+		sql += "        FROM PRODUCT ";
+		sql += "        WHERE P_NAME LIKE ? OR P_INTRO LIKE ? ";
+		sql += "        ORDER BY P_INDEX DESC ";
+		sql += "    ) ";
+		sql += "    WHERE ROWNUM <= ? ";
+		sql += ") ";
+		sql += "WHERE rn >= ?";
 
 		try {
 
@@ -321,8 +320,9 @@ public class ProductDao {
 
 			pstmt.setString(1, "%" + queryStr + "%");
 			pstmt.setString(2, "%" + queryStr + "%");
-			
-			
+			pstmt.setInt(3, no * divRowInt); // 끝 범위
+			pstmt.setInt(4, (no - 1) * divRowInt + 1); // 시작 범위
+
 			rs = pstmt.executeQuery();
 
 			System.out.println(rs.isClosed());
@@ -343,8 +343,9 @@ public class ProductDao {
 				proOpenInt = rs.getInt("P_OPEN");
 				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
 				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
-				
-				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt, proCreDateDate, proChanDateDate);
+
+				ProductDto productDto = new ProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt, proOpenInt,
+						proCreDateDate, proChanDateDate);
 
 				productList.add(productDto);
 
@@ -379,33 +380,97 @@ public class ProductDao {
 	public int productCount() {
 		// TODO Auto-generated method stub
 		int result = 0;
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		String sql = "";
-		
+
 		try {
-			
+
 			sql += "SELECT COUNT(P_INDEX)";
 			sql += " FROM PRODUCT";
-			
+
 			pstmt = connection.prepareStatement(sql);
-			
+
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				result = rs.getInt("COUNT(P_INDEX)");
 			}
-			
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
-		
-		
+		return result;
+	}
+
+	public int queryProductCount(String queryStr) {
+		// TODO Auto-generated method stub
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "";
+
+		try {
+			sql += "SELECT COUNT(P_INDEX)";
+			sql += " FROM PRODUCT";
+			sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?";
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, "%" + queryStr + "%");
+			pstmt.setString(2, "%" + queryStr + "%");
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt("COUNT(P_INDEX)");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+
 		return result;
 	}
 

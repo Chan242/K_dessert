@@ -26,7 +26,7 @@ public class UserProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_IMAGE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_OPEN = 0";
 		sql += " ORDER BY P_INDEX DESC";
@@ -43,14 +43,17 @@ public class UserProductDao {
 			String proNameStr = "";
 			int proStockInt = 0;
 			int proPriceInt = 0;
+			String proImageStr = "";
 
 			while (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
 				proNameStr = rs.getString("P_NAME");
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
+				proImageStr = rs.getString("P_IMAGE");
 
 				UserProductDto userProductDto = new UserProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt);
+				userProductDto.setProImageStr(proImageStr);
 
 				userProductList.add(userProductDto);
 
@@ -91,7 +94,7 @@ public class UserProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_INTRO";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_INTRO, P_IMAGE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_INDEX = ?";
 
@@ -110,6 +113,7 @@ public class UserProductDao {
 			int proStockInt = 0;
 			int proPriceInt = 0;
 			String proIntroStr = "";
+			String proImageStr = "";
 
 			if (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
@@ -117,12 +121,14 @@ public class UserProductDao {
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
 				proIntroStr =rs.getString("P_INTRO");
+				proImageStr = rs.getString("P_IMAGE");
 
 				userProductDto.setProIndexInt(proIndexInt);
 				userProductDto.setProNameStr(proNameStr);
 				userProductDto.setProPriceInt(proPriceInt);
 				userProductDto.setProStockInt(proStockInt);
 				userProductDto.setProIntroStr(proIntroStr);
+				userProductDto.setProImageStr(proImageStr);
 			}
 
 		} catch (Exception e) {

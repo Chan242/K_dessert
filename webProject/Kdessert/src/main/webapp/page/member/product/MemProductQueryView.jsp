@@ -60,17 +60,28 @@ table {
 				<tr>
 					<td>재고: <fmt:formatNumber value="${userProductDto.getProStockInt()}" pattern="#,##0" /></td>
 				</tr>
-<%-- 				<tr> 기술이 모자라서 일단 주석처리.
-					<td><form action="">
-							<input type="number" id="numberInput" value="" min="1"
-								max=" ${userProductDto.getProStockInt()}"> <input
-								type="submit" value="담기">
-						</form></td>
 
-				</tr> --%>
 			</table>
 		</c:forEach>
 		<hr style="clear: both;">
+		
+			<!-- 페이지네이션 네비게이션 -->
+		<div style="text-align: center;">
+	<!-- 이전 페이지 -->
+	  		  <c:if test="${no > 1}">
+	   		     <a href="./list?no=${no - 1}"><</a>
+	   		 </c:if>	
+	    
+	 <!-- 페이지 번호 -->
+	   		 <c:forEach var="i" begin="${start}" end="${maxEnd}">
+	   	    	 <a href="./list?no=${i}">${i}</a>
+	   	 	</c:forEach>
+    
+   	 <!-- 다음 페이지 -->
+	    	<c:if test="${no < totalPageInt}">
+	        	<a href="./list?no=${no + 1}">></a>
+	    	</c:if>
+		</div>
 	</div>
 
 	<jsp:include page="../commPage/Mem_Footer.jsp" />
