@@ -43,6 +43,9 @@ public class OrderListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		Connection conn = null;
+		int divRowInt = 5;//한 화면에 보여질 컬럼 개수
+		
+		int no = Integer.parseInt(req.getParameter("no"));
 		
 		try {
 			ServletContext sc = this.getServletContext();
@@ -52,19 +55,34 @@ public class OrderListController extends HttpServlet {
 			OrderDao orderDao = new OrderDao();
 			OrderStatusDao orderStatusDao = new OrderStatusDao();
 			
+			int orderCountInt = 0;
 			ArrayList<OrderDto> orderList = null;
 			ArrayList<OrderStatusDto> orderStatusList = null;
 			
 			orderDao.setConnection(conn);
-			orderList = orderDao.selectList();
+			orderCountInt = orderDao.orderCount();
+			orderList = orderDao.selectList(no,divRowInt);
 			
 			orderStatusDao.setConnection(conn);
 			
 			orderStatusList = orderStatusDao.orderStatusList();
 			
-			req.setAttribute("orderList", orderList);
-			req.setAttribute("orderStatusList", orderStatusList);
 			
+			int totalPageInt = (int) Math.ceil(orderCountInt / (divRowInt*1.0));//총 페이지
+			
+			
+			int start = ((no-1)/5*5)+1;
+			System.out.println("start: " + start);
+			int end = start+4;
+			System.out.println("end: " + end);
+			int maxEnd = end > totalPageInt ? totalPageInt : end;
+			System.out.println("maxEnd: " + maxEnd);
+			req.setAttribute("totalPageInt", totalPageInt);//총 페이지 수
+			req.setAttribute("orderList", orderList);//주문 실 목록
+			req.setAttribute("orderStatusList", orderStatusList);//주문 상태
+			req.setAttribute("no", no);//현재 페이지
+			req.setAttribute("start", start);
+			req.setAttribute("maxEnd", maxEnd);
 			
 			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderListView.jsp");
 			

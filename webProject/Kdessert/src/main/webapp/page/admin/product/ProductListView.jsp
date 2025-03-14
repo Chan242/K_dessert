@@ -64,6 +64,7 @@
 					<td colspan="6">
 						<form action="query" method="get" style="float: right;">
 							<input type="search" name="search" placeholder="검색어 입력창" value="">
+							<input type="hidden" name="no" value="1">
 							<input type="submit" value="검색">
 						</form>
 					</td>
@@ -96,6 +97,25 @@
 				</c:forEach>
 			</table>
 		</div>
+				
+	<!-- 페이지네이션 네비게이션 -->
+		<div style="text-align: center;">
+	<!-- 이전 페이지 -->
+	  		  <c:if test="${no > 1}">
+	   		     <a href="./list?no=${no - 1}"><</a>
+	   		 </c:if>	
+	    
+	 <!-- 페이지 번호 -->
+	   		 <c:forEach var="i" begin="${start}" end="${maxEnd}">
+	   	    	 <a href="./list?no=${i}">${i}</a>
+	   	 	</c:forEach>
+    
+   	 <!-- 다음 페이지 -->
+	    	<c:if test="${no < totalPageInt}">
+	        	<a href="./list?no=${no + 1}">></a>
+	    	</c:if>
+		</div>
+		
 	</div>
 </body>
 </html>

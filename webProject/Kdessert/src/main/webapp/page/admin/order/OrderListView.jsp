@@ -51,6 +51,11 @@
     	width: 1200px;
     	height: 800px;
     }
+   a{
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit;        /* 기본 텍스트 색상 상속 */
+    font-weight: normal;   /* 강조 해제 */
+}
 
 </style>
 
@@ -100,6 +105,29 @@
 				</c:forEach>
 			</table>
 		</div>
+		
+
+		
+<!-- 페이지네이션 네비게이션 -->
+		<div style="text-align: center;">
+    <!-- 이전 페이지 -->
+  		  <c:if test="${no > 1}">
+   		     <a href="./list?no=${no - 1}"><</a>
+   		 </c:if>
+    
+    <!-- 페이지 번호 -->
+   	 <c:forEach var="i" begin="${start}" end="${maxEnd}">
+   	     <a href="./list?no=${i}">${i}</a>
+   	 </c:forEach>
+    
+    <!-- 다음 페이지 -->
+    <c:if test="${no < totalPageInt}">
+        <a href="./list?no=${no + 1}">></a>
+    </c:if>
+	</div>
+
+
+		
 	</div>
 
 </body>

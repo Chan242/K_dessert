@@ -16,22 +16,32 @@ public class ProductDao {
 		this.connection = conn;
 	}
 
-	public List<ProductDto> selectList() throws Exception {
+	public List<ProductDto> selectList(int no,int divRowInt) throws Exception {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		ArrayList<ProductDto> productList = new ArrayList<ProductDto>();
 
-		String sql = "";
-
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
-		sql += " FROM PRODUCT";
-		sql += " ORDER BY P_INDEX DESC";
+		String sql = 
+			    "SELECT rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
+			    "FROM ( " +
+			    "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
+			    "    FROM ( " +
+			    "        SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE " +
+			    "        FROM PRODUCT " +
+			    "        ORDER BY P_INDEX DESC " +
+			    "    ) " +
+			    "    WHERE ROWNUM <= ? " +
+			    ") " +
+			    "WHERE rn >= ?";
 
 		try {
 
 			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, no * divRowInt); // 끝 범위
+			pstmt.setInt(2, (no - 1) * divRowInt + 1); // 시작 범위
 
 			rs = pstmt.executeQuery();
 
@@ -301,8 +311,8 @@ public class ProductDao {
 		String sql = "";
 
 		sql += "SELECT P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
-		sql += " FROM PRODUCT";
-		sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?";
+		sql += " FROM PRODUCT"; 
+		sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?"; 
 		sql += " ORDER BY P_INDEX DESC";
 
 		try {
@@ -364,6 +374,39 @@ public class ProductDao {
 		}
 		return productList;
 
+	}
+
+	public int productCount() {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		
+		try {
+			
+			sql += "SELECT COUNT(P_INDEX)";
+			sql += " FROM PRODUCT";
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt("COUNT(P_INDEX)");
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 }

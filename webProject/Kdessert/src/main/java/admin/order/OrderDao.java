@@ -18,7 +18,7 @@ public class OrderDao {
 		this.connection = conn;
 	}
 
-	public ArrayList<OrderDto> selectList() {
+	public ArrayList<OrderDto> selectList(int no, int divRowInt) {
 		// TODO Auto-generated method stub
 
 		PreparedStatement pstmt = null;
@@ -30,11 +30,24 @@ public class OrderDao {
 
 		try {
 
-			sql += "SELECT O_INDEX, STA_STATUS, O_TIME, O_TOTAL, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL";
-			sql += " FROM S_ORDER";
-			sql += " ORDER BY O_INDEX DESC";
+			sql = 
+				    "SELECT rn, O_INDEX, STA_STATUS, O_TIME, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL, O_TOTAL " +
+				    "FROM ( " +
+				    "    SELECT ROWNUM AS rn, O_INDEX, STA_STATUS, O_TIME, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL, O_TOTAL " +
+				    "    FROM ( " +
+				    "        SELECT O_INDEX, STA_STATUS, O_TIME, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL, O_TOTAL " +
+				    "        FROM s_order " +
+				    "        ORDER BY O_INDEX DESC " +
+				    "    ) " +
+				    "    WHERE ROWNUM <= ? " +
+				    ") " +
+				    "WHERE rn >= ?";
 
-			pstmt = connection.prepareStatement(sql);
+				pstmt = connection.prepareStatement(sql);
+
+				pstmt.setInt(1, no * divRowInt); // 끝 범위
+				pstmt.setInt(2, (no - 1) * divRowInt + 1); // 시작 범위
+
 
 			rs = pstmt.executeQuery();
 
@@ -256,7 +269,7 @@ public class OrderDao {
 
 		try {
 
-			sql += "SELECT O_INDEX, STA_STATUS, O_TIME, O_TOTAL, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL";
+			sql += "SELECT ROWNUM, O_INDEX, STA_STATUS, O_TIME, O_TOTAL, M_INDEX, O_NAME, O_ADDRESS, O_ADDRESS_SEC, O_TEL";
 			sql += " FROM S_ORDER";
 			sql += " WHERE M_INDEX = ?";
 			sql += " ORDER BY O_INDEX DESC";
@@ -449,16 +462,56 @@ public class OrderDao {
 
 		} finally {
 			// 리소스정리
-			pstmtClearBasket.close();
-			pstmtDecreaseStock.close();
-			pstmtOrderProduct.close();
-			pstmtOrder.close();
-			
-			
-			
+			if(pstmtClearBasket != null) {
+				pstmtClearBasket.close();
+			}
+			if(pstmtDecreaseStock != null) {
+				pstmtDecreaseStock.close();
+			}
+			if(pstmtOrderProduct != null) {
+				pstmtOrderProduct.close();
+			}
+			if(pstmtOrder != null) {
+				pstmtOrder.close();
+			}
+
 		}
 
 		return result; // 결과 반환
+	}
+
+	public int orderCount() {
+		// TODO Auto-generated method stub
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "";
+		
+		try {
+			
+			sql += "SELECT COUNT(O_INDEX)";
+			sql += " FROM S_ORDER";
+			
+			pstmt = connection.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt("COUNT(O_INDEX)");
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 }
