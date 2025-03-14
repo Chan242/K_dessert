@@ -163,11 +163,9 @@
 				<c:forEach var="boardNotice" items="${boardNotiList}">
 
 						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' "
-								 <c:if test="${boardNotice.brdNoticeInt == 1}">
-					                style="color: #5c5c0a; background-color: #f5f5dc "
-					            </c:if> >
+					                style="color: #5c5c0a; background-color: #f5f5dc ">
 							<td>
-								<span class='title' style="margin-left: 40px;">${boardNotice.brdSubjectStr}</span>
+								<span class='title' style="margin-left: 40px;"> 🥮${boardNotice.brdSubjectStr}</span>
 							</td>
 							<td class='boardLists' id='writer'>
 								<c:if test="${empty boardNotice.memberDto.memNameStr}"> 

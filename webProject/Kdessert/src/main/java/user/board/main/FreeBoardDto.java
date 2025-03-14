@@ -12,6 +12,7 @@ public class FreeBoardDto {
 	private String brdTextStr = "";// 텍스트(내용)
 	private String brdImageStr = "";// 이미지(주소)
 	private Date brdCreDate = null;// 작성일
+	private Date brdCorrDate = null;// 수정일
 	private int brdViewInt = 0;// 조회수
 	private int brdNoticeInt = 0;// 공지여부(0:일반, 1:공지)
 	//멤버테이블 끌고옴
@@ -33,7 +34,7 @@ public class FreeBoardDto {
 	}
 
 	public FreeBoardDto(int brdIndexInt, int memIndexInt, String brdSubjectStr, String brdTextStr
-			, String brdImageStr, Date brdCreDate, int brdViewInt, int brdNoticeInt) {
+			, String brdImageStr, Date brdCreDate, Date brdCorrDate, int brdViewInt, int brdNoticeInt) {
 		super();
 		this.brdIndexInt = brdIndexInt;
 		this.memIndexInt = memIndexInt;
@@ -41,6 +42,7 @@ public class FreeBoardDto {
 		this.brdTextStr = brdTextStr;
 		this.brdImageStr = brdImageStr;
 		this.brdCreDate = brdCreDate;
+		this.brdCorrDate = brdCorrDate;
 		this.brdViewInt = brdViewInt;
 		this.brdNoticeInt = brdNoticeInt;
 	}
@@ -101,6 +103,14 @@ public class FreeBoardDto {
 	public void setBrdCreDate(Date brdCreDate) {
 		this.brdCreDate = brdCreDate;
 	}
+	
+	public Date getBrdCorrDate() {
+		return brdCorrDate;
+	}
+
+	public void setBrdCorrDate(Date brdCorrDate) {
+		this.brdCorrDate = brdCorrDate;
+	}
 
 	public int getBrdViewInt() {
 		return brdViewInt;
@@ -127,6 +137,7 @@ public class FreeBoardDto {
 				"brdTextStr = " + brdTextStr + 
 				"brdImageStr = " + brdImageStr + 
 				"brdCreDate = " + brdCreDate + 
+				"brdCorrDate = " + brdCorrDate +
 				"brdViewInt = " + brdViewInt + 
 				"brdNoticeInt = " + brdNoticeInt + 
 				"]";

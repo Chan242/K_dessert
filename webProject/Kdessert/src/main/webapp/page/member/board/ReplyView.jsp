@@ -70,7 +70,7 @@
 	}
 	
 	#writerRe{
-/* 	#493D26	 */
+
 		color: #493D26; 
 		font-weight: 560; 
 		font-size: 15px;

@@ -445,7 +445,7 @@ public class FreeBoardDao {
 
 		sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT,"
 				+ " F_IMAGE, M_INDEX, F_VIEW, F_NOTICE,"
-				+ " F_CRE_DATE"
+				+ " F_CRE_DATE, F_CORR_DATE"
 				+ " FROM FREE_BOARD"
 				+ " WHERE F_INDEX = ?"
 				+ " ORDER BY F_INDEX DESC";
@@ -462,6 +462,7 @@ public class FreeBoardDao {
 			String brdTextStr = "";//내용
 			int memIndexInt = 0;//작성자
 			Date brdCreDate = null;//작성일
+			Date brdCorrDate = null;//수정일
 			int brdViewInt = 0;// 조회수
 			
 
@@ -471,6 +472,7 @@ public class FreeBoardDao {
 				brdTextStr = rs.getString("F_TEXT");
 				memIndexInt = rs.getInt("M_INDEX");
 				brdCreDate = rs.getDate("F_CRE_DATE");
+				brdCorrDate = rs.getDate("F_CORR_DATE");
 				brdViewInt = rs.getInt("F_VIEW");
 				
 
@@ -479,6 +481,7 @@ public class FreeBoardDao {
 				freeboardDto.setBrdTextStr(brdTextStr);
 				freeboardDto.setMemIndexInt(memIndexInt);
 				freeboardDto.setBrdCreDate(brdCreDate);
+				freeboardDto.setBrdCorrDate(brdCorrDate);
 				freeboardDto.setBrdViewInt(brdViewInt);
 				
 			
@@ -527,8 +530,8 @@ public class FreeBoardDao {
 
 			
 			sql = "INSERT INTO FREE_BOARD"
-					+ " (F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_CRE_DATE, F_VIEW , F_NOTICE)"
-					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0, ?)";
+					+ " (F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_CRE_DATE, F_CORR_DATE, F_VIEW , F_NOTICE)"
+					+ " VALUES(F_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, null, 0, ?)";
 			
 			pstmt = connection.prepareStatement(sql);
 
@@ -620,7 +623,7 @@ public class FreeBoardDao {
 		String sql = "";
 	
 		sql = "UPDATE FREE_BOARD"
-				+ " SET F_SUBJECT = ?, F_TEXT = ?"
+				+ " SET F_SUBJECT = ?, F_TEXT = ?, F_CORR_DATE = SYSDATE"
 				+ " WHERE F_INDEX = ?";
 		try {
 			pstmt = connection.prepareStatement(sql);

@@ -101,6 +101,16 @@
 
 </head>
 
+<script type="text/javascript">
+function deleteDetail() {
+    var replyText = document.getElementById('contentBtn');//textarea.value 저장
+    var deleteBtn = replyText.getElementsByTagName('a')[1];
+    var findelete = confirm("게시글을 삭제하겠습니까?");
+    // 입력값이 비어 있을 경우
+    return findelete;
+}
+</script>
+
 <jsp:useBean id="boardDto"
 	scope="session"
 	class="user.board.main.FreeBoardDto"/>
@@ -124,6 +134,9 @@
 					${boardDto.getMemberDto().memNameStr}</span> <!-- 작성자 텍스트 -->
 				
 				<div class="dateView">
+					<c:if test="${not empty boardDto.getBrdCorrDate()}">
+						<span>수정일: ${boardDto.getBrdCorrDate()}</span> <!-- 수정일 텍스트 -->
+					</c:if>
 					<span>작성일: ${boardDto.getBrdCreDate()}</span> <!-- 작성일 텍스트 -->
 					<span>조회수: ${boardDto.getBrdViewInt()}</span> <!-- 조회수 텍스트 -->
 				</div>
@@ -135,7 +148,7 @@
 				<c:if test="${boardDto.getMemIndexInt()==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
 					<div id='contentBtn'>
 						<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
-						<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}">삭제</a>
+						<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}" onclick='return deleteDetail()'>삭제</a>
 					</div>
 				</c:if>
 		</div>

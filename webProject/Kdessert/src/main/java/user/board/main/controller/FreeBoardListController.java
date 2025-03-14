@@ -43,7 +43,7 @@ public class FreeBoardListController extends HttpServlet {
 		int pageSize = 0;
 		int pageNum = 0;
 		
-		pageSize = 10; // 한 페이지에 10개
+		pageSize = 8; // 한 페이지에 10개
 		pageNum = 1;  // 기본값 1페이지
 		
 		
