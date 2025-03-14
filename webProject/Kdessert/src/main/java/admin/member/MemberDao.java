@@ -317,6 +317,47 @@ public class MemberDao {
 		return null;
 		
 	}
+ 	
+ 	
+ 	
+ 	// pwd 발급
+ 	public int memberTempPwd(String id, String tempPwd) throws SQLException {
+ 		
+ 		int result = 0;
+
+ 		PreparedStatement pstmt = null;
+
+ 		String sql = "";
+ 		sql = "UPDATE MEMBER";
+ 		sql += " SET M_PASSWORD=?";
+ 		sql += " WHERE M_ID =?";
+ 		
+ 		try {
+ 			
+ 			pstmt = connection.prepareStatement(sql);
+
+ 			pstmt.setString(1, tempPwd);
+ 			pstmt.setString(2, id);
+
+ 			result = pstmt.executeUpdate(); // 이놈이 범인 .. 
+ 			
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 			
+ 		} finally {
+ 			try {
+ 				if (pstmt != null) {
+ 					pstmt.close();
+ 				}
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+
+ 		} // finally 종료
+ 		return result;
+ 	}
 
  	// 회원 전체 조회에서 전체 데이터의 수를 가져오는 메소드
  	public int getTotalCount() {

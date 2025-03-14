@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
     
 <style type="text/css">
+	
 	#top_MenuBar{
 		border-bottom: solid 1px #E1E1E1; /* 헤더 경계선 */
 
 		margin: 0 auto;
-		width: 1650px;
+/* 		width: 1650px; */
 		height: 80px;
 		text-align: center;
 	}
@@ -18,8 +19,8 @@
 	    justify-content: center;  /* 가운데 정렬 */
 	    gap: 65px;  /* 항목 간격 65px */
 		margin-top: 0px;
+	    padding: 0px;
 	    list-style: none; /* 불필요한 리스트 스타일 제거 */
-		
 	}
 	
 	.top_Menues a{
@@ -61,7 +62,7 @@
 				<a id="select_produt" href="/Kdessert/product/list"><span>구매</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a id="select_event" href="행사링크"><span>행사</span></a>
+				<a id="select_event" href="/Kdessert/event/list"><span>행사</span></a>
 			</li>
 			<li class='top_Menues'>
 				<a id="select_board" href="/Kdessert/board"><span>고객 게시판</span></a>

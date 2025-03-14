@@ -8,20 +8,20 @@
 <title>InsertTitle</title>
 
 <style type="text/css">
-
-	#header_wrap {
-		width: 1920px;
-		height: 150px;
-		border-bottom: 1px solid #BEBEBE;
-	}
 	
-	#logo_image {
-		width: 150px;
+    
+	#header {
+		width: 1280px;
 		margin: auto;
-		margin-top: 30px;
+		padding-top: 80px;
+	}
+
+	#logoWrap {
+		height: 120px;
+		text-align: center;
 	}
 	
-	#logo_image img {
+	#logoWrap img {
 		 width: 150px;
 	}
 	
@@ -32,8 +32,8 @@
 
 <body>
 
-	<div id="header_wrap">
-		<div id="logo_image">
+	<div id="header">
+		<div id="logoWrap">
 			<a href="/Kdessert"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
 		</div>
 	</div>
