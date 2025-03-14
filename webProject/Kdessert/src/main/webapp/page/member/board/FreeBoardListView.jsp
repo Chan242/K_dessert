@@ -158,22 +158,26 @@
 					<th scope="col" style="width: 80px;">조회수</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id = 'content'>
 				<c:forEach var="board" items="${boardList}">
-					<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' ">
-						<td>
-							<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
-						</td>
-						<td class='boardLists' id='writer'>
-							<c:if test="${empty board.memberDto.memNameStr}"> 
-								(알 수 없는 회원)
-							</c:if>
-							 ${board.memberDto.memNameStr}
-						</td>
-						<td class='boardLists'>${board.brdCreDate}</td>
-						<td class='boardLists'>${board.brdViewInt}</td>
 
-					</tr>
+						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' "
+								 <c:if test="${board.brdNoticeInt == 1}">
+					                style="color: #5c5c0a; background-color: #f5f5dc "
+					            </c:if> >
+							<td>
+								<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
+							</td>
+							<td class='boardLists' id='writer'>
+								<c:if test="${empty board.memberDto.memNameStr}"> 
+									(알 수 없는 회원)
+								</c:if>
+								 ${board.memberDto.memNameStr}
+							</td>
+							<td class='boardLists'>${board.brdCreDate}</td>
+							<td class='boardLists'>${board.brdViewInt}</td>
+						</tr>
+
 				</c:forEach>
 			</tbody>
 

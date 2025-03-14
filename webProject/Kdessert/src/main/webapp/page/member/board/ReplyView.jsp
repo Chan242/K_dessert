@@ -33,6 +33,8 @@
 		border-bottom: 2px solid #E1E1E1;
 		padding-bottom: 15px;
 		margin-top: 10px;
+		
+		white-space:pre; 
 	}
 	
 	.WritedRyply{
@@ -101,8 +103,8 @@
 				<span id="writerRe">
 					<c:if test="${empty reply.memberDto.memNameStr}"> 
 					(알 수 없는 회원)
-				</c:if>
-				${reply.memberDto.memNameStr}
+					</c:if>
+					${reply.memberDto.memNameStr}
 				</span>
 				<span>작성일: ${reply.replyCreDate}</span>
 				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
@@ -110,14 +112,12 @@
 				</c:if>
 			</div>
 			
-			<div id="replyList">
-				${reply.replyTextStr}
-			</div>
+			<div id="replyList">${reply.replyTextStr}</div>
 		</div>
 	</c:forEach>
 	
 	<!-- 댓글 작성부분 -->
-	<h4>댓글 쓰기</h4>
+	<h3>댓글 쓰기</h3>
 	<div id= "reply">
 		<form action="/Kdessert/board/freeboarddetail" method="post" onsubmit="return validateForm()"><!-- validateForm() 반환값 영향을 받음(return 없으면 반환값(return) 무시) -->
 			<input type="hidden" name="memIndexInt" value="${sessionScope.member.memIndexInt}">
