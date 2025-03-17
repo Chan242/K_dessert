@@ -8,7 +8,7 @@ public class EventDto {
 	private String eveNameStr = "";
 	private String eveImageStr = "";
 	private Date eveEventDate = null;
-	private String eveExplanStr = "";
+	private String eveExplainStr = "";
 	private int eveOpenInt = 0;
 	private Date eveCreDate = null;
 	private Date eveCorrDate = null;
@@ -23,14 +23,14 @@ public class EventDto {
 		super();
 	}
 	
-	public EventDto(int eveIndexInt, String eveNameStr, String eveImageStr, Date eveEventDate, String eveExplanStr, 
+	public EventDto(int eveIndexInt, String eveNameStr, String eveImageStr, Date eveEventDate, String eveExplainStr, 
 		int eveOpenInt, Date eveCreDate, Date eveCorrDate , String eveNoteStr) {
 		super();
 		this.eveIndexInt = eveIndexInt;
 		this.eveNameStr = eveNameStr;
 		this.eveImageStr = eveImageStr;
 		this.eveEventDate = eveEventDate;
-		this.eveExplanStr = eveExplanStr;
+		this.eveExplainStr = eveExplainStr;
 		this.eveOpenInt = eveOpenInt;
 		this.eveCreDate = eveCreDate;
 		this.eveCorrDate = eveCorrDate;
@@ -62,11 +62,11 @@ public class EventDto {
 	public void setEveEventDate(Date eveEventDate) {
 		this.eveEventDate = eveEventDate;
 	}
-	public String getEveExplanStr() {
-		return eveExplanStr;
+	public String getEveExplainStr() {
+		return eveExplainStr;
 	}
-	public void setEveExplanStr(String eveExplanStr) {
-		this.eveExplanStr = eveExplanStr;
+	public void setEveExplainStr(String eveExplainStr) {
+		this.eveExplainStr = eveExplainStr;
 	}
 	public int getEveOpenInt() {
 		return eveOpenInt;

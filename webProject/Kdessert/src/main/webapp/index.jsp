@@ -118,7 +118,7 @@
 			<a href="/Kdessert/dessert/list">
 				<img src="./bannerImg/img1.jpg">
 			</a>
-			<a href="/Kdessert/product/list">
+			<a href="/Kdessert/product/list?no=1">
 				<img src="./bannerImg/img2.jpg">
 			</a>
 			<a href="/Kdessert/event/list">	
