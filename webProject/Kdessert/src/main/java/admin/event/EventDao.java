@@ -158,7 +158,7 @@ public class EventDao {
 
  		String sql = "";
 
- 		sql += "SELECT E_INDEX, E_NAME, E_IMAGE, E_EVENT_DATE, E_EXPLAN, ";
+ 		sql += "SELECT E_INDEX, E_NAME, E_IMAGE, E_EVENT_DATE, E_EXPLAIN, ";
  		sql += "E_OPEN, E_CRE_DATE, E_CORR_DATE, E_NOTE";
  		sql += " FROM EVENT";
  		sql += " WHERE E_INDEX =?";
@@ -186,7 +186,7 @@ public class EventDao {
  				name = rs.getString("E_NAME");
  				image = rs.getString("E_IMAGE");
  				eveDate = rs.getDate("E_EVENT_DATE");
- 				explain = rs.getString("E_EXPLAN");
+ 				explain = rs.getString("E_EXPLAIN");
  				open = rs.getInt("E_OPEN");
  				creDate = rs.getTimestamp("E_CRE_DATE");
  				corrDate = rs.getTimestamp("E_CORR_DATE");
@@ -244,7 +244,7 @@ public class EventDao {
 
   		String sql = "";
   		sql = "INSERT INTO EVENT";
-  		sql += " (E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)";
+  		sql += " (E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)";
   		sql	+= " VALUES(E_INDEX_SEQ.NEXTVAL,?, '이미지', ?, ?, ?, sysdate, sysdate, ?)";
   		
   		
@@ -291,7 +291,7 @@ public class EventDao {
 
  		String sql = "";
  		sql = "UPDATE EVENT";
- 		sql += " SET E_NAME=?, E_EVENT_DATE=?, E_EXPLAN=?,";
+ 		sql += " SET E_NAME=?, E_EVENT_DATE=?, E_EXPLAIN=?,";
  		sql	+= " E_OPEN=?, E_CORR_DATE=SYSDATE, E_NOTE=?";
  		sql += " WHERE E_INDEX =?";
  		
