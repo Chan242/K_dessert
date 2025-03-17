@@ -172,17 +172,24 @@ public class ProductDao {
 		return result;
 	}
 
-	public ProductDto selectOne(int no) {
+	public ProductDto selectOne(int no) throws Exception {
 		// TODO Auto-generated method stub
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
+		String sql = "";
+		
+		PreparedStatement pstmtTagList = null;
+		ResultSet rsTag = null;
+		
+		String sqlTag = "";
 
 		ProductDto productDto = new ProductDto();
 
-		String sql = "";
+		
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CORR_DATE";
+		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_INTRO, P_CRE_DATE, P_CORR_DATE, P_IMAGE";
 		sql += " FROM PRODUCT";
 		sql += " WHERE P_INDEX = ?";
 
@@ -204,6 +211,7 @@ public class ProductDao {
 			String proIntroStr = "";
 			Date proCreDateDate = null;
 			Date proChanDateDate = null;
+			String proImageStr = "";
 
 			if (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
@@ -214,6 +222,7 @@ public class ProductDao {
 				proIntroStr = rs.getString("P_INTRO");
 				proCreDateDate = rs.getTimestamp("P_CRE_DATE");
 				proChanDateDate = rs.getTimestamp("P_CORR_DATE");
+				proImageStr = rs.getString("P_IMAGE");
 
 				productDto.setProIndexInt(proIndexInt);
 				productDto.setProNameStr(proNameStr);
@@ -223,13 +232,51 @@ public class ProductDao {
 				productDto.setProIntroStr(proIntroStr);
 				productDto.setProCreDateDate(proCreDateDate);
 				productDto.setProChanDateDate(proChanDateDate);
+				productDto.setProImageStr(proImageStr);
 
 			}
+			
+			ArrayList<String> tagList = new ArrayList<String>();
+			
+			sqlTag += "SELECT P_INDEX, T_NAME";
+			sqlTag += " FROM PRODUCT_TAG";
+			sqlTag += " WHERE P_INDEX=?";
+			
+			pstmtTagList = connection.prepareStatement(sqlTag);
+			
+			pstmtTagList.setInt(1, no);
+			
+			rsTag = pstmtTagList.executeQuery();
+			String tagNameStr = "";
+			while(rsTag.next()) {
+				tagNameStr = rsTag.getString("T_NAME");
+				tagList.add(tagNameStr);
+				
+			}
+			productDto.setProTagList(tagList);
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
+			try {
+				if(rsTag != null) {
+					rsTag.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			try {
+				if(pstmtTagList != null) {
+					pstmtTagList.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
 			try {
 				if (rs != null) {
 					rs.close();
@@ -252,7 +299,7 @@ public class ProductDao {
 		return productDto;
 	}
 
-	public int productUpdate(ProductDto productDto) {
+	public int productUpdate(ProductDto productDto) throws Exception {
 		// TODO Auto-generated method stub
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -293,7 +340,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public ArrayList<ProductDto> searchList(String queryStr, int no, int divRowInt) {
+	public ArrayList<ProductDto> searchList(String queryStr, int no, int divRowInt) throws Exception {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -377,7 +424,7 @@ public class ProductDao {
 
 	}
 
-	public int productCount() {
+	public int productCount() throws Exception{
 		// TODO Auto-generated method stub
 		int result = 0;
 
@@ -424,7 +471,7 @@ public class ProductDao {
 		return result;
 	}
 
-	public int queryProductCount(String queryStr) {
+	public int queryProductCount(String queryStr) throws Exception{
 		// TODO Auto-generated method stub
 		int result = 0;
 
@@ -469,6 +516,95 @@ public class ProductDao {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+		}
+
+		return result;
+	}
+
+	public int productAdd(ProductDto productDto, String[] tagArray) throws SQLException {
+		// TODO Auto-generated method stub
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		PreparedStatement pstmtProTag = null;
+		String proTagSql = "";
+		
+
+		try {
+			
+			connection.setAutoCommit(false);
+			
+			String proNameStr = productDto.getProNameStr();
+			int proPriceInt = productDto.getProPriceInt();
+			int proStockInt = productDto.getProStockInt();
+			int proOpenInt = productDto.getProOpenInt();
+			String proIntroStr = productDto.getProIntroStr();
+
+			String sql = "";
+
+			sql += "INSERT INTO PRODUCT";
+			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN)";
+			sql += " VALUES(P_INDEX_SEQ.NEXTVAL,?,?,?,?,?)";// 스트링,인트,스트링,인트,인트
+
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, proNameStr);
+			pstmt.setInt(2, proPriceInt);
+			pstmt.setString(3, proIntroStr);
+			pstmt.setInt(4, proStockInt);
+			pstmt.setInt(5, proOpenInt);
+
+			pstmt.addBatch();
+			
+			
+			proTagSql += "INSERT INTO PRODUCT_TAG";
+			proTagSql += " (P_INDEX, T_NAME)";
+			proTagSql += " VALUES(P_INDEX_SEQ.CURRVAL, ?)";
+			
+			pstmtProTag = connection.prepareStatement(proTagSql);
+			
+			for (String str : tagArray) {
+				pstmtProTag.setString(1, str);
+				System.out.println(str);
+				pstmtProTag.addBatch();
+			}
+			
+			
+			
+			int[] result2 = pstmt.executeBatch();
+			int[] result1 = pstmtProTag.executeBatch();
+			
+			result = result2[0];
+
+			
+			
+	        // 모든 작업 성공 시 커밋
+	        connection.commit();
+	        connection.setAutoCommit(true);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			connection.rollback();
+		} finally {
+			try {
+				if(pstmtProTag != null) {
+					pstmtProTag.close();
+				}
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
 		}
 
 		return result;
