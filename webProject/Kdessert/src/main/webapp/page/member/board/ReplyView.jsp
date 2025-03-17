@@ -28,7 +28,7 @@
 		color: #888;
 	}
 	
-	#replyList{
+	.replyList{
 
 		border-bottom: 2px solid #E1E1E1;
 		padding-bottom: 15px;
@@ -45,11 +45,11 @@
 		margin-top: 10px;
 	}
 	
-	#reply form{
+	.reply form{
 		position:relative;
 
 	}
-	#inputBtn{
+	.inputBtn{
 		display: flex;
 		
 		float: right;
@@ -65,7 +65,7 @@
 		border: none;	
 		
 	}
-	#reply{
+	.reply{
 		display: flex;
 	}
 	
@@ -74,6 +74,10 @@
 		color: #493D26; 
 		font-weight: 560; 
 		font-size: 15px;
+	}
+	
+	#modifyFin{
+		float: right;
 	}
 </style>
 <script type="text/javascript">
@@ -90,6 +94,29 @@
 	        return true;
         }
     }
+    
+    
+    function updateReply(replyIndex,brdIndexInt) {
+        // 해당 replyIndex 값을 가진 요소를 찾아 텍스트 값을 가져옴
+        var replyText = document.getElementById("replyList_" + replyIndex).innerText;
+        
+        var replyinput = document.getElementById("replyList_" + replyIndex);
+        
+        // 텍스트박스를 동적으로 생성하고 기존 댓글 내용을 넣음
+/*         replyinput.innerHTML = '<textarea id="replyText" name="replyTextStr">' 
+        						+ replyText 
+        						+ '</textarea>'; */
+						
+        // 텍스트 영역을 충분한 높이로 제공 (사용자가 수정할 공간을 충분히)
+        replyinput.innerHTML = '<div class="reply">'        					 
+        						+ '<form id="updateForm" action="/Kdessert/board/updateReply" method="post">'
+                             + '<textarea id="replyText" name="replyEditStr" style="width: 1000px; height: 100px;">' + replyText + '</textarea>'  // 큰 텍스트 영역
+                             + '<input type="hidden" name="replyIndexInt" value="' + replyIndex+'">'
+                             + '<input type="hidden" name="brdIndexInt" value="' + brdIndexInt+'">'
+                             + '<input id="modifyFin" class="inputBtn" type="submit" value="수정완료">' // 수정 완료 버튼
+                             + '</form>';
+    
+    }
 </script>
 	
 	<!-- 댓글 목록 -->
@@ -97,6 +124,7 @@
 	
 	<c:forEach var="reply" items="${boardreplyList}">
 		<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
+		<input type="hidden" name="replyIndexInt" value="${reply.replyIndexInt}">
 		<div class="WritedReply">
 			<div class="WriterInfo">
 		
@@ -108,22 +136,24 @@
 				</span>
 				<span>작성일: ${reply.replyCreDate}</span>
 				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
+					<%-- <a href="/Kdessert/board/updateReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">수정</a> --%>
+					<a onclick="updateReply(${reply.replyIndexInt},${boardDto.brdIndexInt})">수정</a>
 					<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
 				</c:if>
 			</div>
 			
-			<div id="replyList">${reply.replyTextStr}</div>
+			<div class="replyList" id="replyList_${reply.replyIndexInt}">${reply.replyTextStr}</div>
 		</div>
 	</c:forEach>
 	
 	<!-- 댓글 작성부분 -->
 	<h3>댓글 쓰기</h3>
-	<div id= "reply">
+	<div class= "reply">
 		<form action="/Kdessert/board/freeboarddetail" method="post" onsubmit="return validateForm()"><!-- validateForm() 반환값 영향을 받음(return 없으면 반환값(return) 무시) -->
 			<input type="hidden" name="memIndexInt" value="${sessionScope.member.memIndexInt}">
 			<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
 			<textarea id= 'replyText' name="replyTextStr"></textarea>
-			<input id = 'inputBtn' type="submit" value="등록">
+			<input class = 'inputBtn' type="submit" value="등록">
 		</form>
 	</div>
 </div>

@@ -183,6 +183,115 @@ public class BoardReplyDao {
 		
 	}
 	
+	// 댓글 업데이트 페이지에 정보를 넣을 Dao
+	
+		public BoardReplyDto replyWritedInfo(int replyIndexInt) 
+				throws SQLException{
+			// TODO Auto-generated method stub
+			BoardReplyDto replyDto = null;
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			String sql = "";
+
+
+			try {
+				sql = "SELECT R_TEXT"
+						+ " FROM REPLY"
+						+ " WHERE R_INDEX = ?";
+				
+				pstmt = connection.prepareStatement(sql);
+
+				pstmt.setInt(1, replyIndexInt);
+
+				rs = pstmt.executeQuery();
+
+				String replyTextStr = "";
+
+
+				if (rs.next()) {
+					replyTextStr = rs.getString("R_TEXT");
+
+					replyDto = new BoardReplyDto();
+					
+					replyDto.setReplyIndexInt(replyIndexInt);
+					replyDto.setReplyTextStr(replyTextStr);
+
+
+				} else {
+					throw new Exception("해당 댓글을 찾을 수 없습니다.");
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} // finally 종료
+			return replyDto;
+		}
+	
+	//댓글 업데이트(수정)
+	
+		public void replyUpdate(BoardReplyDto replyDto, int replyIndexInt) 
+				throws SQLException {
+			PreparedStatement pstmt = null;
+			
+			String sql = "";
+		
+			sql = "UPDATE REPLY SET R_TEXT=?, R_CORR_DATE =SYSDATE"
+				+	" WHERE R_INDEX = ?";
+			try {
+				pstmt = connection.prepareStatement(sql);
+
+				pstmt.setString(1, replyDto.getReplyTextStr());
+				pstmt.setInt(2, replyIndexInt);
+
+		
+				int result = pstmt.executeUpdate();
+				
+				if (result > 0) {
+				    connection.commit(); 
+				} else {
+				    connection.rollback(); 
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}finally {
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} 
+			
+			
+		}
+	
 	
 	//멤버와 댓글 테이블 join-글쓴이명 가져오기용 메서드
 	

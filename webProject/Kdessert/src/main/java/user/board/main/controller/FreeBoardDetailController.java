@@ -75,8 +75,20 @@ public class FreeBoardDetailController extends HttpServlet {
 			//boardDto객체에 boardDao.freeBoardDetail(brdIndex)값을 넣음(반환값이 BoardDto이기 때문에 BoardDto타입)
 			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndex);
 			
+			//조회수 중복방지
+			//각 brdIndex 아이디의 게시글마다 board_brdIndex 라는 고유 세션 속성을 생성.
+			//getAttribute("board_" + brdIndex)는 사용자가 이미 조회했는지 여부를 세션에서 찾아옴.
+			Boolean viewed = (Boolean) session.getAttribute("board_" + brdIndex);
 			
-			boardDao.freeBoardView(brdIndex);
+			//
+			 if (viewed == null || !viewed) {
+				 boardDao.freeBoardView(brdIndex);
+
+		            // 세션에 해당 게시글 조회 기록을 추가
+		         session.setAttribute("board_" + brdIndex, true);
+		      }
+			
+//			boardDao.freeBoardView(brdIndex);
 			
 			
 			//----------------------------------------------------------------//
@@ -101,12 +113,10 @@ public class FreeBoardDetailController extends HttpServlet {
 			//boardDto가 위에 선언한 boardDto이다.
 			req.setAttribute("boardDto", boardDto);
 
-
-			
-			RequestDispatcher dispatcher = 
-					req.getRequestDispatcher("../page/member/board/FreeBoardDetailView.jsp");
-			dispatcher.forward(req, res);
-
+			RequestDispatcher dispatcher =
+			  req.getRequestDispatcher("../page/member/board/FreeBoardDetailView.jsp");
+			  dispatcher.forward(req, res);
+			 
 		}catch (Exception e) {
 
 			e.printStackTrace();

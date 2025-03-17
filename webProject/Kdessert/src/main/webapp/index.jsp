@@ -115,16 +115,16 @@
 	<div id="container">
 		<div id="rolling">
 			<a href="/Kdessert/dessert/list">
-				<img src="./bannerImg/img0.jpg">
-			</a>
-			<a href="/Kdessert/product/list">
 				<img src="./bannerImg/img1.jpg">
 			</a>
-			<a href="/Kdessert/board">	
+			<a href="/Kdessert/product/list">
 				<img src="./bannerImg/img2.jpg">
 			</a>
+			<a href="/Kdessert/event/list">	
+				<img src="./bannerImg/img3.jpg">
+			</a>
 			<a href="/Kdessert/dessert/list">	
-				<img src="./bannerImg/img0.jpg">
+				<img src="./bannerImg/img1.jpg">
 			</a>
 		</div>
 	</div>

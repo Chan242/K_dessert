@@ -74,6 +74,7 @@
 	#context p{
 		min-height: 150px;
 		font-size: 14pt;
+		white-space:pre; 
 	}
 	
 	#contentBtn{

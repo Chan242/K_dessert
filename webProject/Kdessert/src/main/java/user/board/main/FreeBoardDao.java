@@ -48,30 +48,7 @@ public class FreeBoardDao {
 	               + "  ORDER BY F.F_INDEX DESC ) "
 	               + "WHERE rnum BETWEEN ? AND ?";
 		
-		/*
-		sql = "SELECT *"
-				+ "FROM ( SELECT "
-				+ "        F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE,"
-				+ "        F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE,"
-				+ "        ROW_NUMBER() OVER (ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC) AS rnum"
-				+ "    FROM FREE_BOARD F)"
-				+ "   WHERE rnum BETWEEN ? AND ?";
-				*/
-		/*
-		sql = "SELECT * "
-				+ "FROM (SELECT "
-				+ "        F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
-				+ "        F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE,"
-				+ "        ROWNUM AS rnum"
-				+ "    FROM ( SELECT "
-				+ "            F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE,"
-				+ "            F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE"
-				+ "        FROM FREE_BOARD F"
-				+ "        ORDER BY F.F_NOTICE DESC, F.F_INDEX DESC"
-				+ "    ) f"
-				+ ")"
-				+ "WHERE rnum BETWEEN ? AND ?";
-		*/
+
 		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
 		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
 
