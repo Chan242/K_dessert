@@ -39,6 +39,7 @@ public class FreeBoardSearchListController extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("검색용 리스트 doget");
 		ArrayList<FreeBoardDto> boardList = null;
+		ArrayList<FreeBoardDto> boardNotiList = null;
 		Connection conn = null;
 		int totalCount = 0;
 		int pageSize = 0;
@@ -67,9 +68,10 @@ public class FreeBoardSearchListController extends HttpServlet {
 
 			
 			boardList = (ArrayList<FreeBoardDto>)boardDao.freeboardSearch(searchStr,pageNum, pageSize);
-
-			req.setAttribute("boardList", boardList);
+			boardNotiList = (ArrayList<FreeBoardDto>)boardDao.freeboardSearchNoti(searchStr,pageNum, pageSize);
 			
+			req.setAttribute("boardList", boardList);
+			req.setAttribute("boardNotiList", boardNotiList);
 			
 			/* 페이징관련 */
 

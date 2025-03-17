@@ -9,7 +9,11 @@
 <title>고객 게시판 | ${boardDto.getBrdSubjectStr()}</title>
 
 <style type="text/css">
-
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
+	}
 	#boardWrap {
 		width: 1000px;
 		min-height: 800px;

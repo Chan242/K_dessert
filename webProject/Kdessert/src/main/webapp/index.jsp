@@ -25,6 +25,7 @@
 	#rolling{
 		width: 3600px;
 		height: 500px;
+		margin-top: 1px;
 /* 		margin-top: 100px; */
 		background-color: lightgray;
 		position: relative;

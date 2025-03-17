@@ -76,8 +76,8 @@ public class FreeBoardDetailController extends HttpServlet {
 			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndex);
 			
 			//조회수 중복방지
-			//각 brdIndex 아이디의 게시글마다 board_brdIndex 라는 고유 세션 속성을 생성.
-			//getAttribute("board_" + brdIndex)는 사용자가 이미 조회했는지 여부를 세션에서 찾아옴.
+			//각 brdIndex 아이디의 게시글마다 board_brdIndex(게시물번호) 라는 고유 세션 속성을 생성.
+			//getAttribute("board_" + brdIndex)는 해당 게시물을 사용자가 이미 조회했는지 여부를 세션에서 찾아옴.
 			Boolean viewed = (Boolean) session.getAttribute("board_" + brdIndex);
 			
 			//
