@@ -65,9 +65,13 @@ table, tr, th, td {
 					<td><textarea rows="4" cols="52" name="proIntro">${productDto.getProIntroStr()}</textarea></td>
 				</tr>
 				<tr>
+					<td>태그:</td>
+					<td><input type="text" name="proTag" value="${productDto.getProTagList().toString().replaceAll('[\\[\\]]', '')}"></td>
+				</tr>
+				<tr>
 					<td><input type='submit' value='저장'></td>
 					<td><input type='button' value='삭제' onclick='location.href="./delete?no=${productDto.getProIndexInt()}"'></td>
-					<td><input type='button' value='취소' onclick='location.href="list"'>	</td>
+					<td><input type="button" value="뒤로 가기" onclick="history.back()">	</td>
 				</tr>
 			</table>
 		</form>

@@ -304,6 +304,12 @@ public class ProductDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
+		PreparedStatement pstmtProTagDel = null;
+		String sqlProTag = "";
+		
+		PreparedStatement pstmtProTag = null;
+		String proTagSql = "";
+		
 		String sql = "";
 
 		sql = "UPDATE PRODUCT";
@@ -311,6 +317,8 @@ public class ProductDao {
 		sql += " WHERE P_INDEX = ?";
 
 		try {
+			connection.setAutoCommit(false);
+			
 			pstmt = connection.prepareStatement(sql);
 
 			pstmt.setString(1, productDto.getProNameStr());
@@ -319,8 +327,48 @@ public class ProductDao {
 			pstmt.setInt(4, productDto.getProOpenInt());
 			pstmt.setString(5, productDto.getProIntroStr());
 			pstmt.setInt(6, productDto.getProIndexInt());
+			
+			pstmt.addBatch();
+			
+			
+			sqlProTag += "DELETE PRODUCT_TAG WHERE P_INDEX = ?";
+			
+			pstmtProTagDel = connection.prepareStatement(sqlProTag);
+			
+			pstmtProTagDel.setInt(1, productDto.getProIndexInt());
+			
+			pstmtProTagDel.addBatch();
+			
+				
+			proTagSql += "INSERT INTO PRODUCT_TAG";
+			proTagSql += " (P_INDEX, T_NAME)";
+			proTagSql += " VALUES(?, ?)";
+			
+			pstmtProTag = connection.prepareStatement(proTagSql);
+			
+			for (String str : productDto.getProTagList()) {
+				pstmtProTag.setInt(1, productDto.getProIndexInt());
+				pstmtProTag.setString(2, str);
+				System.out.println(str);
+				pstmtProTag.addBatch();
+			}
+			
+			int[] result1 = pstmtProTagDel.executeBatch();
+			int[] result2 = pstmtProTag.executeBatch();
+			int[] result3 = pstmt.executeBatch();
+			
+			
+			result = result3[0];
 
-			result = pstmt.executeUpdate();
+			
+			
+	        // 모든 작업 성공 시 커밋
+	        connection.commit();
+	        connection.setAutoCommit(true);
+			
+			
+
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -333,6 +381,7 @@ public class ProductDao {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				connection.rollback();
 			}
 
 		}

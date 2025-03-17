@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import admin.product.ProductDao;
 import admin.product.ProductDto;
@@ -88,7 +90,8 @@ public class ProductUpdateController extends HttpServlet {
 			int proStockInt = Integer.parseInt(req.getParameter("proStock"));
 			int proOpenInt = Integer.parseInt(req.getParameter("proOpen"));
 			String proIntroStr = req.getParameter("proIntro");
-			
+			String[] proTagArray = req.getParameter("proTag").split(",");
+			ArrayList<String> proTagList = new ArrayList<>(Arrays.asList(proTagArray));
 
 			
 			productDto = new ProductDto();
@@ -99,7 +102,7 @@ public class ProductUpdateController extends HttpServlet {
 			productDto.setProStockInt(proStockInt);
 			productDto.setProOpenInt(proOpenInt);
 			productDto.setProIntroStr(proIntroStr);
-
+			productDto.setProTagList(proTagList);
 			
 			ServletContext sc = this.getServletContext();
 
@@ -114,7 +117,7 @@ public class ProductUpdateController extends HttpServlet {
 				System.out.println("제품 정보 조회가 실패하였습니다.");
 			}
 			
-			res.sendRedirect("./list");
+			res.sendRedirect("./list?no=1");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
