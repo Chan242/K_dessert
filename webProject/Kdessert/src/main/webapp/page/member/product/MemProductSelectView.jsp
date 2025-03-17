@@ -47,8 +47,7 @@ window.onload = function() {
 	
 		<h1 style="text-align: center;">${userProductDto.getProNameStr()}</h1>
 		<hr>
-		<div style="width: 300px; height: 300px; border: 1px solid black; float: left; margin: auto; text-align: center;">
-			이미지 자리
+		<div style="width: 300px; height: 300px; float: left; margin: auto; text-align: center;">
 			<img src="/Kdessert/image/${userProductDto.getProImageStr()}">
 		</div>
 		<div style="width: 200px; height: 200px; float: left; margin-left: 100px; text-align: left; padding-left: 30px;">
@@ -61,14 +60,20 @@ window.onload = function() {
 				<input type="submit" value="담기">
 			</form>
 		</div>
-				<table style="margin: auto;">
+		
+		<hr style="clear: both;">
+		
+		<div>
+		
+				<table style="width: 1100px; margin: auto;">
 				<tr>
 					<td>소개</td>
+				</tr>
+				<tr>
 					<td style="width: 30">${userProductDto.getProIntroStr()}</td>
 				</tr>
-				
 			</table>
-			<div style="clear: both;"></div>
+		</div>
 	</div>
 
 </body>

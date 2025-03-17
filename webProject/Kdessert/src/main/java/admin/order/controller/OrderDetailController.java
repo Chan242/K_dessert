@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import admin.order.OrderDao;
 import admin.order.OrderDto;
 import admin.order.OrderProductDto;
+import admin.order.status.OrderStatusDao;
+import admin.order.status.OrderStatusDto;
 
 /**
  * Servlet implementation class OrderDetailController
@@ -50,15 +52,23 @@ public class OrderDetailController extends HttpServlet {
 			OrderDto orderDto = null;
 			ArrayList<OrderProductDto> orderProductList = null;
 
+			
 			orderDao.setConnection(conn);
 			orderDto = orderDao.selectOne(no);
 			orderProductList = orderDao.orderProductList(no);
 			
 //			orderProductDto = orderDao.orderDetail()
 
+			ArrayList<OrderStatusDto> orderStatusList = null;
+			OrderStatusDao orderStatusDao = new OrderStatusDao();
+			orderStatusDao.setConnection(conn);
+			orderStatusList = orderStatusDao.orderStatusList();
+			
+			
 			req.setAttribute("orderDto", orderDto);
 			req.setAttribute("orderProductList", orderProductList);
-			
+			req.setAttribute("orderStatusList", orderStatusList);//주문 상태
+			req.setAttribute("no", no);
 
 			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderDetailView.jsp");
 

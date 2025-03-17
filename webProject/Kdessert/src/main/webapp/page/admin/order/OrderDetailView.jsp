@@ -111,7 +111,16 @@
 				</tr>
 				<tr>
 					<td>주문상태</td>
-					<td>${orderDto.getStaStatStr()}</td>
+					<td>
+						<select id="status" style="width: 80px;" onchange="changeFnc()">
+								<c:forEach var="orderStatusDto" items="${orderStatusList}">
+									<option value="${orderStatusDto.getStaStatusStr()}"
+									 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
+										${orderStatusDto.getStaStatusStr()}
+									</option>
+								</c:forEach>
+						</select>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -145,4 +154,44 @@
 	
 
 </body>
+
+<script type="text/javascript">
+function changeFnc() {
+    let status = document.getElementById("status").value; // 선택된 값 가져오기
+    let no = "${orderDto.getOrdIndexint()}"; // JSP에서 주문 번호 가져오기
+
+    // 상태 변경 확인
+    if (confirm("상태를 바꾸시겠습니까?: " + status)) {
+        // 새 창 열기
+        let popupWindow = window.open("", "popupWindow", "width=600,height=400,resizable=yes,scrollbars=yes,top=100,left=100");
+
+        // POST 방식으로 데이터를 보내기 위한 form 생성
+        let form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/Kdessert/admin/order/popup"; // 팝업 URL
+
+        // 주문 번호와 상태 값을 form에 append
+        let inputNo = document.createElement("input");
+        inputNo.type = "hidden";
+        inputNo.name = "no";
+        inputNo.value = no;
+        form.appendChild(inputNo);
+
+        let inputStatus = document.createElement("input");
+        inputStatus.type = "hidden";
+        inputStatus.name = "status";
+        inputStatus.value = status;
+        form.appendChild(inputStatus);
+
+        // form을 팝업 창에 제출
+        document.body.appendChild(form); // form을 body에 append
+        form.target = "popupWindow"; // 팝업 창에 데이터를 전송하기 위한 target 설정
+        form.submit(); // 폼 전송
+    }
+}
+</script>
+
+
+
+
 </html>

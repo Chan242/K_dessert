@@ -48,7 +48,7 @@ public class ProductListController extends HttpServlet {
 			conn = (Connection)sc.getAttribute("conn");
 			
 			int productCountInt = 0;
-			int divRowInt = 5;//한 화면에 보여질 컬럼 개수
+			
 			ProductDao productDao = new ProductDao();
 			
 			productDao.setConnection(conn);
@@ -56,9 +56,8 @@ public class ProductListController extends HttpServlet {
 			productCountInt = productDao.productCount();
 			
 			ArrayList<ProductDto> productList = null;
-			productList = (ArrayList<ProductDto>)productDao.selectList(no,divRowInt);
-			
-			
+			int divRowInt = 5;//한 화면에 보여질 컬럼 개수
+			productList = (ArrayList<ProductDto>)productDao.selectList(no,divRowInt);			
 			
 			int totalPageInt = (int) Math.ceil(productCountInt / (divRowInt*1.0));//총 페이지
 			

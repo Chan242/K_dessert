@@ -59,7 +59,7 @@
 				<a id="select_dessert" href="/Kdessert/dessert/list"><span>다과 소개</span></a>
 			</li>
 			<li class='top_Menues'>
-				<a id="select_produt" href="/Kdessert/product/list"><span>구매</span></a>
+				<a id="select_produt" href="/Kdessert/product/list?no=1"><span>구매</span></a>
 			</li>
 			<li class='top_Menues'>
 				<a id="select_event" href="/Kdessert/event/list"><span>행사</span></a>

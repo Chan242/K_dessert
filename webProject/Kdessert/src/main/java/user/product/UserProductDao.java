@@ -17,7 +17,7 @@ public class UserProductDao {
 		this.connection = conn;
 	}
 	
-	public ArrayList<UserProductDto> userSelectList() throws Exception {
+	public ArrayList<UserProductDto> userSelectList(int no, int divRowInt) throws Exception {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -26,14 +26,26 @@ public class UserProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_IMAGE";
-		sql += " FROM PRODUCT";
-		sql += " WHERE P_OPEN = 0";
-		sql += " ORDER BY P_INDEX DESC";
+		sql += "SELECT rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_IMAGE " +
+	             "FROM ( " +
+	             "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_IMAGE " +
+	             "    FROM ( " +
+	             "        SELECT P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_IMAGE " +
+	             "        FROM PRODUCT " +
+	             "        WHERE P_OPEN = 0 " +
+	             "        ORDER BY P_INDEX DESC " +
+	             "    ) " +
+	             "    WHERE ROWNUM <= ? " +
+	             ") " +
+	             "WHERE rn >= ?";
 
 		try {
 
 			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setInt(1, no * divRowInt); // 끝 범위
+			pstmt.setInt(2, (no - 1) * divRowInt + 1); // 시작 범위
+			
 
 			rs = pstmt.executeQuery();
 

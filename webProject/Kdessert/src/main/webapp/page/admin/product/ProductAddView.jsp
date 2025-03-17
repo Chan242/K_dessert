@@ -72,7 +72,7 @@ table, tr, th, td {
 				</tr>
 				<tr>
 					<td>태그</td>
-					<td><input type="text" size="50" placeholder="#태그"><br><!-- 추후구현 -->
+					<td><input type="text" name="tag" size="50" placeholder="#태그"><br><!-- 추후구현 -->
 				추후 구현 예정(현재 받는 곳이 없음)</td>
 				</tr>
 				<tr>

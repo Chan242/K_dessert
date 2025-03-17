@@ -76,6 +76,22 @@
 		<div style="margin: auto;">
 			<table>
 				<tr>
+					<td colspan="5" style="text-align: right;">
+					    <form action="./list" method="get">
+					    <input type="hidden" name="no" value="1">
+					        <select name="filter">
+					            <option value="all">전체</option>
+					            <c:forEach var="orderStatus" items="${orderStatusList}">
+					                <option value="${orderStatus.getStaStatusStr()}" <c:if test="${filter eq orderStatus.getStaStatusStr()}">selected</c:if>>${orderStatus.getStaStatusStr()}</option>
+					                					                                          
+					            </c:forEach>
+					        </select>
+					        <input type="submit" value="변경">
+					    </form>
+					</td>
+
+				</tr>
+				<tr>
 					<td>주문번호</td>
 					<td>주문자</td>
 					<td>처리현황</td>
@@ -90,14 +106,7 @@
 						<td>${orderDto.getOrdIndexint()}</td>
 						<td><a href="./detail?no=${orderDto.getOrdIndexint()}">${orderDto.getMemNameStr()}</a></td>
 						<td>
-							<select id="status" style="width: 80px;" onchange="changeFnc()">
-								<c:forEach var="orderStatusDto" items="${orderStatusList}">
-									<option value="${orderStatusDto.getStaStatusStr()}"
-									 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
-										${orderStatusDto.getStaStatusStr()}
-									</option>
-								</c:forEach>
-							</select>
+							${orderDto.getStaStatStr()}
 						</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
 						<td>${orderDto.getTotalPriceInt()}</td>
@@ -112,17 +121,18 @@
 		<div style="text-align: center;">
     <!-- 이전 페이지 -->
   		  <c:if test="${no > 1}">
-   		     <a href="./list?no=${no - 1}"><</a>
+   		     <a href="./list?no=${no - 1}&filter=${filter}"><</a>
    		 </c:if>
     
     <!-- 페이지 번호 -->
    	 <c:forEach var="i" begin="${start}" end="${maxEnd}">
-   	     <a href="./list?no=${i}">${i}</a>
+   	     
+   	     <a href="./list?no=${i}&filter=${filter}" <c:if test="${i eq no}">style="font-weight: bolder;"</c:if> >${i}</a>
    	 </c:forEach>
     
     <!-- 다음 페이지 -->
     <c:if test="${no < totalPageInt}">
-        <a href="./list?no=${no + 1}">></a>
+        <a href="./list?no=${no + 1}&filter=${filter}">></a>
     </c:if>
 	</div>
 
@@ -132,18 +142,5 @@
 
 </body>
 
-<script type="text/javascript">
 
-function changeFnc() {
-	let status = document.getElementById("status");
-	confirm("상태를 바꾸시겠습니까?: " + status.value);
-	window.open('/admin/order/popup','상태변경',
-			'width=600,height=400,resizable=yes,scrollbars=yes,top=100,left=100'		
-	);
-
-	
-	
-}
-
-</script>
 </html>

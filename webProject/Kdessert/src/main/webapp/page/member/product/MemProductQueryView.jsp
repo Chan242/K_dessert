@@ -11,7 +11,6 @@
 <style type="text/css">
 table {
 	margin: auto;
-	border: 1px solid black;
 }
 
 
