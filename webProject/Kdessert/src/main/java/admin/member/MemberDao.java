@@ -319,7 +319,6 @@ public class MemberDao {
 	}
  	
  	
- 	
  	// pwd 발급
  	public int memberTempPwd(String id, String tempPwd) throws SQLException {
  		
