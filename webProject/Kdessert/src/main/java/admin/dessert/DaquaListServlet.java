@@ -44,8 +44,7 @@ public class DaquaListServlet extends HttpServlet {
 			// 오류 발생 시, 에러 페이지로 리다이렉트
 			response.sendRedirect("error.jsp");
 			return;
-			
-			
+						
 		}
 		
 		

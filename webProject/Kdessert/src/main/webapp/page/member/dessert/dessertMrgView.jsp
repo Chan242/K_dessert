@@ -128,13 +128,13 @@ th, td {
 
 </style>
 
-<script>
+<script type="text/javascript">
 	function deletDagwa(dagwId) {
 		if (confirm("정말 삭제하시겠습니까?")) {
 			location.href = "dagwa_delete.jsp?dawaId=" + dagwId;
 		}
 	}
-</script>
+</script >
 
 
 </head>
