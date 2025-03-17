@@ -91,9 +91,10 @@ a{
 	   		     <a href="./list?no=${no - 1}"><</a>
 	   		 </c:if>	
 	    
+	    
 	 <!-- 페이지 번호 -->
 	   		 <c:forEach var="i" begin="${start}" end="${maxEnd}">
-	   	    	 <a href="./list?no=${i}">${i}</a>
+	   	    	 <a href="./list?no=${i}" <c:if test="${i==no}">style="font-weight: bolder;"</c:if>>${i}</a>
 	   	 	</c:forEach>
     
    	 <!-- 다음 페이지 -->
