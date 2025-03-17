@@ -1,5 +1,6 @@
 package admin.product;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ProductDto {
@@ -13,6 +14,7 @@ public class ProductDto {
 	private String proImageStr;
 	private Date proCreDateDate;
 	private Date proChanDateDate;
+	private ArrayList<String> proTagList;
 	
 	public ProductDto() {
 		super();
@@ -102,6 +104,17 @@ public class ProductDto {
 
 	public void setProChanDateDate(Date proChanDateDate) {
 		this.proChanDateDate = proChanDateDate;
+		
+	}
+	
+	
+
+	public ArrayList<String> getProTagList() {
+		return proTagList;
+	}
+
+	public void setProTagList(ArrayList<String> proTagList) {
+		this.proTagList = proTagList;
 	}
 
 	@Override

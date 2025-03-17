@@ -70,6 +70,8 @@ public class ProductAddController extends HttpServlet {
 		int proOpenInt = Integer.parseInt(req.getParameter("proOpen"));
 		
 		String proIntroStr = req.getParameter("proIntro");
+		
+		String[] tagArray = req.getParameter("tag").split(",");
 
 
 		ProductDto productDto = new ProductDto();
@@ -87,7 +89,12 @@ public class ProductAddController extends HttpServlet {
 			ProductDao productDao = new ProductDao();
 			productDao.setConnection(conn);
 
-			result = productDao.productAdd(productDto);
+			if(tagArray == null) {
+				result = productDao.productAdd(productDto);
+			}else if(tagArray != null) {
+				result = productDao.productAdd(productDto,tagArray);
+			}
+			
 
 			if (result == 0) {
 
@@ -95,7 +102,7 @@ public class ProductAddController extends HttpServlet {
 				res.sendRedirect("./error.jsp");
 			}
 
-			res.sendRedirect("./list");
+			res.sendRedirect("/Kdessert/admin/product/list?no=1");
 
 		} catch (Exception e) {
 			// TODO: handle exception
