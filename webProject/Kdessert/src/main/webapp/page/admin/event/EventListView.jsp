@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<title>관리자 | 회원관리</title>
+<title>관리자 | 행사관리</title>
 
 <style type="text/css">
-
-	body { 
+body { 
 		width: 100%;
 		margin: 0px;
 		overflow-y:scroll;  
@@ -91,7 +90,7 @@
 		width: 1200px;
 	}
 	
-	#select_member {
+	#select_event {
 		background-color: white;
 		color: #64473E
 	}
@@ -133,9 +132,6 @@
 	    text-decoration: underline;
 	    font-weight: bold;
 	}
-
-
-
 </style>
 
 </head>
@@ -151,11 +147,11 @@
 			</div>
 			
 			<div id="div_content">
-				<h2>　회원관리</h2>
+				<h2>　행사관리</h2>
 				
 				<div id="div_search">
 					<form action="./search" method="get">
-						<input id="search_text" name="searchText" type="text" placeholder="회원번호, 이름, 아이디">
+						<input id="search_text" name="searchText" type="text" placeholder="행사번호, 이름">
 						<input id="search_submit" type="submit" value="검색">
 					</form>
 				</div>
@@ -163,23 +159,30 @@
 				<table id="table_info">
 					<thead>
 						<tr>
-							<th scope="col" style="width: 150px;">회원번호</th>
-							<th scope="col" style="width: 150px;">이름</th>
-							<th scope="col" style="width: 170px;">아이디</th>
-							<th scope="col" style="width: 330px;">이메일</th>
-							<th scope="col" style="width: 200px;">생년월일</th>
-							<th scope="col" style="width: 200px;">가입일자</th>
+							<th scope="col" style="width: 150px;">행사번호</th>
+							<th scope="col" style="width: 250px;">행사명</th>
+							<th scope="col" style="width: 200px;">날짜</th>
+							<th scope="col" style="width: 200px;">공개여부</th>
+							<th scope="col" style="width: 200px;">생성일</th>
+							<th scope="col" style="width: 200px;">수정일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="member" items="${memberList}">
+						<c:forEach var="event" items="${eventList}">
 							<tr>
-								<td>${member.getMemIndexInt()}</td>
-								<td><a href="./details?no=${member.getMemIndexInt()}">${member.getMemNameStr()}</a></td>
-								<td>${member.getMemIdStr()}</td>
-								<td>${member.getMemEmailStr()}</td>
-								<td>${member.getMemBirthDate()}</td>
-								<td>${member.getMemSignTimeDate()}</td>
+								<td>${event.getEveIndexInt()}</td>
+								<td><a href="./details?no=${event.getEveIndexInt()}">${event.getEveNameStr()}</a></td>
+								<td>${event.getEveEventDate()}</td>
+								<c:choose>
+									<c:when test="${event.getEveOpenInt() == 0}">
+										<td>공개</td>
+									</c:when>
+									<c:otherwise>
+										<td>비공개</td>
+									</c:otherwise>
+								</c:choose>
+								<td>${event.getEveCreDate()}</td>
+								<td>${event.getEveCorrDate()}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
