@@ -51,6 +51,24 @@ body {
 		margin-left: 50px; 
 		float: left;
 	}
+	
+	#div_addButton {
+		float: left;
+		margin-left: 50px;
+	}
+	
+	#addBtn {
+		width: 90px;
+		height: 32px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		margin-top: 3px;
+		line-height: 5px;
+		cursor: pointer;
+	}
 
 	#div_search{
  		width: 290px;
@@ -149,6 +167,10 @@ body {
 			<div id="div_content">
 				<h2>　행사관리</h2>
 				
+				<div id="div_addButton">
+					<input id="addBtn" type="button" value="신규 등록" onclick="location.href='./add'" >
+				</div>
+				
 				<div id="div_search">
 					<form action="./search" method="get">
 						<input id="search_text" name="searchText" type="text" placeholder="행사번호, 이름">
@@ -161,30 +183,39 @@ body {
 						<tr>
 							<th scope="col" style="width: 150px;">행사번호</th>
 							<th scope="col" style="width: 250px;">행사명</th>
-							<th scope="col" style="width: 200px;">날짜</th>
+							<th scope="col" style="width: 200px;">행사날짜</th>
 							<th scope="col" style="width: 200px;">공개여부</th>
 							<th scope="col" style="width: 200px;">생성일</th>
 							<th scope="col" style="width: 200px;">수정일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="event" items="${eventList}">
-							<tr>
-								<td>${event.getEveIndexInt()}</td>
-								<td><a href="./details?no=${event.getEveIndexInt()}">${event.getEveNameStr()}</a></td>
-								<td>${event.getEveEventDate()}</td>
-								<c:choose>
-									<c:when test="${event.getEveOpenInt() == 0}">
-										<td>공개</td>
-									</c:when>
-									<c:otherwise>
-										<td>비공개</td>
-									</c:otherwise>
-								</c:choose>
-								<td>${event.getEveCreDate()}</td>
-								<td>${event.getEveCorrDate()}</td>
-							</tr>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${empty eventList}">
+								<tr>
+									<td colspan="6">등록된 행사가 없습니다</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="event" items="${eventList}">
+									<tr>
+										<td>${event.getEveIndexInt()}</td>
+										<td><a href="./details?no=${event.getEveIndexInt()}">${event.getEveNameStr()}</a></td>
+										<td>${event.getEveEventDate()}</td>
+										<c:choose>
+											<c:when test="${event.getEveOpenInt() == 0}">
+												<td>공개</td>
+											</c:when>
+											<c:otherwise>
+												<td>비공개</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${event.getEveCreDate()}</td>
+										<td>${event.getEveCorrDate()}</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</tbody>
 					
 				</table>

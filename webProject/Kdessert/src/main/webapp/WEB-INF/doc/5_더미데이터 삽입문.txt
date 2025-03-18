@@ -122,6 +122,12 @@ VALUES (R_INDEX_SEQ.NEXTVAL, 3, '테스트8', 3, sysdate, sysdate);
 INSERT INTO REPLY(R_INDEX, M_INDEX, R_TEXT, F_INDEX, R_CRE_DATE, R_CORR_DATE) 
 VALUES (R_INDEX_SEQ.NEXTVAL, 3, '테스트9', 3, sysdate, sysdate);
 
+INSERT INTO EVENT
+(E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)
+VALUES(E_INDEX_SEQ.NEXTVAL,'약과만들기', '이미지', sysdate, '약과를 만들어보는 행사', 0, sysdate, sysdate, '');
+INSERT INTO EVENT
+(E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)
+VALUES(E_INDEX_SEQ.NEXTVAL,'한국의 다도문화 체험', '이미지', sysdate, '한국의 다도문화를 체험해보는 행사', 0, sysdate, sysdate, '');
 
 
 COMMIT;

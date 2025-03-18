@@ -14,6 +14,11 @@
 </script>
 
 <style type="text/css">
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
+	}
 	#listWrap {
 		width: 1000px;
 		margin: auto;
@@ -162,7 +167,7 @@
 			<tbody id = 'content'>
 				<c:forEach var="boardNotice" items="${boardNotiList}">
 
-						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' "
+						<tr onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' "
 					                style="color: #5c5c0a; background-color: #f5f5dc ">
 							<td>
 								<span class='title' style="margin-left: 40px;"> 🥮${boardNotice.brdSubjectStr}</span>
@@ -181,7 +186,11 @@
 				<!-- 일반회원용 -->
 				<c:forEach var="board" items="${boardList}">
 
-						<tr onclick="location.href='./board/freeboarddetail?brdIndexInt=${board.brdIndexInt}' " >
+						<tr onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${board.brdIndexInt}'  "
+							<c:if test="${board.brdNoticeInt}=1">
+								style="color: #5c5c0a; background-color: #f5f5dc "
+							</c:if>
+						>
 							<td>
 								<span class='title' style="margin-left: 40px;">${board.brdSubjectStr}</span>
 							</td>

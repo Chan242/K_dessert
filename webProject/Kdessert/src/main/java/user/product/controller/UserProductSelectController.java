@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.product.ProductDao;
+import admin.product.ProductDto;
+
 /**
  * Servlet implementation class MemProductListController
  */
@@ -45,15 +48,15 @@ public class UserProductSelectController extends HttpServlet {
 			
 			conn = (Connection)sc.getAttribute("conn");
 			
-			UserProductDao userProductDao = new UserProductDao();
+			ProductDao productDao = new ProductDao();
 			
-			userProductDao.setConnection(conn);
+			productDao.setConnection(conn);
 			
-			UserProductDto userProductDto = new UserProductDto();
+			ProductDto productDto = new ProductDto();
 			
-			userProductDto = userProductDao.userSelectOne(no);
+			productDto = productDao.selectOne(no);
 			
-			req.setAttribute("userProductDto", userProductDto);
+			req.setAttribute("productDto", productDto);
 			RequestDispatcher rd = req.getRequestDispatcher("/page/member/product/MemProductSelectView.jsp");
 			
 			rd.forward(req, res);

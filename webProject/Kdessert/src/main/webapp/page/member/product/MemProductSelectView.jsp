@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,30 +46,42 @@ window.onload = function() {
 	
 	<div id="container">
 	
-		<h1 style="text-align: center;">${userProductDto.getProNameStr()}</h1>
+		<h1 style="text-align: center;">${productDto.getProNameStr()}</h1>
 		<hr>
-		<div style="width: 300px; height: 300px; border: 1px solid black; float: left; margin: auto; text-align: center;">
-			이미지 자리
-			<img src="/Kdessert/image/${userProductDto.getProImageStr()}">
+		<div style="width: 300px; height: 300px; float: left; margin: auto; text-align: center;">
+			<img src="/Kdessert/image/${productDto.getProImageStr()}">
 		</div>
 		<div style="width: 200px; height: 200px; float: left; margin-left: 100px; text-align: left; padding-left: 30px;">
-			가격: <fmt:formatNumber value="${userProductDto.getProPriceInt()}" pattern="#,##0" /><br>
-			재고: <fmt:formatNumber value="${userProductDto.getProStockInt()}" pattern="#,##0" /><br>
+			가격: <fmt:formatNumber value="${productDto.getProPriceInt()}" pattern="#,##0" /><br>
+			재고: <fmt:formatNumber value="${productDto.getProStockInt()}" pattern="#,##0" /><br>
 			<form action="/Kdessert/basket" method="post">
-				<input type="number" id="basStock" name="basStock" value="1" min="1" max="${userProductDto.getProStockInt()}">
-				<input type="hidden" id="proIndex" name="proIndex" value="${userProductDto.getProIndexInt()}">
-				<input type="hidden" id="maxStock" name="maxStock" value="${userProductDto.getProStockInt()}">
+				<input type="number" id="basStock" name="basStock" value="1" min="1" max="${productDto.getProStockInt()}">
+				<input type="hidden" id="proIndex" name="proIndex" value="${productDto.getProIndexInt()}">
+				<input type="hidden" id="maxStock" name="maxStock" value="${productDto.getProStockInt()}">
 				<input type="submit" value="담기">
 			</form>
 		</div>
-				<table style="margin: auto;">
+		<div>
+		태그
+		<c:forEach var="tag" items="${productDto.getProTagList()}" varStatus="status">
+   					 ${tag}
+    				<c:if test="${!status.last}">, </c:if> <!-- 마지막이 아닐 경우에만 쉼표 출력 -->
+					</c:forEach>
+		
+		</div>
+		<hr style="clear: both;">
+		
+		<div>
+		
+				<table style="width: 1100px; margin: auto;">
 				<tr>
 					<td>소개</td>
-					<td style="width: 30">${userProductDto.getProIntroStr()}</td>
 				</tr>
-				
+				<tr>
+					<td style="width: 30">${productDto.getProIntroStr()}</td>
+				</tr>
 			</table>
-			<div style="clear: both;"></div>
+		</div>
 	</div>
 
 </body>

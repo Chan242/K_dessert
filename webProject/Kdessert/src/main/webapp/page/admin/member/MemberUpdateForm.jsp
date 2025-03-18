@@ -10,9 +10,16 @@
 
 <style type="text/css">
 
-	#wrap {
-		width:1895px;
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
 	}
+	
+	#wrap {
+		overflow-x: hidden;
+		min-width: 1340px;
+	}	
 
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
@@ -59,6 +66,14 @@
 		float: left;
 	}
 	
+	#div_content h2 {
+		width: 1200px;
+		margin: auto;
+		margin-top: 40px;
+		padding-bottom: 20px;
+		text-align: center;
+	}
+	
 	#table_update {
 		margin: auto;
 		width: 500px;
@@ -91,7 +106,7 @@
 			</div>
 			
 			<div id="div_content">
-				<h2 style="margin: 40px;">회원수정</h2>
+				<h2>회원수정</h2>
 				<form id="form_parameter" action="./update" method="post">
 					<table id="table_update">
 						<tr>

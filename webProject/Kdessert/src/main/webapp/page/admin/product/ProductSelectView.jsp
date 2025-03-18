@@ -96,6 +96,14 @@
 				<td>${productDto.getProIntroStr()}</td>
 			</tr>
 			<tr>
+				<td>태그</td>
+				<td><c:forEach var="tag" items="${productDto.getProTagList()}" varStatus="status">
+   					 ${tag}
+    				<c:if test="${!status.last}">, </c:if> <!-- 마지막이 아닐 경우에만 쉼표 출력 -->
+					</c:forEach>
+				</td>
+			</tr>
+			<tr>
 				<td><button class="btn_style" onclick="location.href='./update?no=${productDto.getProIndexInt()}'">수정하기</button></td>
 				<td><button class="btn_style" onclick="history.back()">돌아가기</button></td>
 				

@@ -3,6 +3,7 @@ package admin.event;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,4 +147,226 @@ public class EventDao {
 		} // finally end
 		return totalCount;
 	}	
+
+ 	// 단일 행사 조회
+ 	public EventDto eventSelectOne(int no) {
+ 		
+ 		EventDto eventDto = null;
+
+ 		PreparedStatement pstmt = null;
+ 		ResultSet rs = null;
+
+ 		String sql = "";
+
+ 		sql += "SELECT E_INDEX, E_NAME, E_IMAGE, E_EVENT_DATE, E_EXPLAIN, ";
+ 		sql += "E_OPEN, E_CRE_DATE, E_CORR_DATE, E_NOTE";
+ 		sql += " FROM EVENT";
+ 		sql += " WHERE E_INDEX =?";
+ 		
+ 		try {
+ 			pstmt = connection.prepareStatement(sql);
+
+ 			pstmt.setInt(1, no);
+
+ 			rs = pstmt.executeQuery();
+ 			
+ 			
+ 			int index = 0;
+			String name = "";
+			String image = "";
+			Date eveDate = null;
+			String explain = "";
+			int open = 0;
+			Date creDate = null;
+			Date corrDate = null;
+ 			String note = "";
+
+ 			if (rs.next()) {
+ 				index = rs.getInt("E_INDEX");
+ 				name = rs.getString("E_NAME");
+ 				image = rs.getString("E_IMAGE");
+ 				eveDate = rs.getDate("E_EVENT_DATE");
+ 				explain = rs.getString("E_EXPLAIN");
+ 				open = rs.getInt("E_OPEN");
+ 				creDate = rs.getTimestamp("E_CRE_DATE");
+ 				corrDate = rs.getTimestamp("E_CORR_DATE");
+ 				note = rs.getString("E_NOTE");
+
+ 				eventDto = new EventDto();
+
+ 				eventDto.setEveIndexInt(index);
+ 				eventDto.setEveNameStr(name);
+ 				eventDto.setEveImageStr(image);
+ 				eventDto.setEveEventDate(eveDate);
+ 				eventDto.setEveExplainStr(explain);
+ 				eventDto.setEveOpenInt(open);
+ 				eventDto.setEveCreDate(creDate);
+ 				eventDto.setEveCorrDate(corrDate);
+ 				eventDto.setEveNoteStr(note);
+ 				
+ 			} else {
+ 				throw new Exception("해당 번호의 행사를 찾을 수 없습니다.");
+ 			}
+
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} finally {
+
+ 			try {
+ 				if (rs != null) {
+ 					rs.close();
+ 				}
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+
+ 			try {
+ 				if (pstmt != null) {
+ 					pstmt.close();
+ 				}
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+
+ 		} // finally 종료
+ 		return eventDto;
+ 	}
+ 	
+ // 행사 정보 수정
+  	public int eventAdd(EventDto eventDto) throws SQLException {
+  		
+  		int result = 0;
+
+  		PreparedStatement pstmt = null;
+
+  		String sql = "";
+  		sql = "INSERT INTO EVENT";
+  		sql += " (E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)";
+  		sql	+= " VALUES(E_INDEX_SEQ.NEXTVAL,?, '이미지', ?, ?, ?, sysdate, sysdate, ?)";
+  		
+  		
+  		try {
+  			
+  			pstmt = connection.prepareStatement(sql);
+
+  			pstmt.setString(1, eventDto.getEveNameStr());
+  			
+  			java.util.Date utilDate = eventDto.getEveEventDate();
+  			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+  			pstmt.setDate(2, sqlDate);
+  			
+  			pstmt.setString(3, eventDto.getEveExplainStr());
+  			pstmt.setInt(4, eventDto.getEveOpenInt());
+  			pstmt.setString(5, eventDto.getEveNoteStr());
+
+  			result = pstmt.executeUpdate();
+  			
+  		} catch (Exception e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  			
+  		} finally {
+  			try {
+  				if (pstmt != null) {
+  					pstmt.close();
+  				}
+  			} catch (SQLException e) {
+  				// TODO Auto-generated catch block
+  				e.printStackTrace();
+  			}
+
+  		} // finally 종료
+  		return result;
+  	}
+ 	
+ 	// 행사 정보 수정
+ 	public int eventUpdate(EventDto eventDto) throws SQLException {
+ 		
+ 		int result = 0;
+
+ 		PreparedStatement pstmt = null;
+
+ 		String sql = "";
+ 		sql = "UPDATE EVENT";
+ 		sql += " SET E_NAME=?, E_EVENT_DATE=?, E_EXPLAIN=?,";
+ 		sql	+= " E_OPEN=?, E_CORR_DATE=SYSDATE, E_NOTE=?";
+ 		sql += " WHERE E_INDEX =?";
+ 		
+ 		
+ 		try {
+ 			
+ 			pstmt = connection.prepareStatement(sql);
+
+ 			pstmt.setString(1, eventDto.getEveNameStr());
+ 			java.util.Date utilDate = eventDto.getEveEventDate();
+ 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+ 			pstmt.setDate(2, sqlDate);
+ 			pstmt.setString(3, eventDto.getEveExplainStr());
+ 			pstmt.setInt(4, eventDto.getEveOpenInt());
+ 			pstmt.setString(5, eventDto.getEveNoteStr());
+ 			pstmt.setInt(6, eventDto.getEveIndexInt());
+
+ 			result = pstmt.executeUpdate();
+ 			
+ 		} catch (Exception e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 			
+ 		} finally {
+ 			try {
+ 				if (pstmt != null) {
+ 					pstmt.close();
+ 				}
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 			}
+
+ 		} // finally 종료
+ 		return result;
+ 	}
+ 	
+ 	// 행사 삭제
+ 	public int eventDelete(int no) throws SQLException {
+ 			
+ 			int result = 0;
+
+ 			PreparedStatement pstmt = null;
+
+ 			String sql = "";
+ 			
+ 			sql += "DELETE FROM EVENT";
+ 			sql += " WHERE E_INDEX = ?";
+
+ 			try {
+ 				
+ 				pstmt = connection.prepareStatement(sql);
+ 				
+ 				pstmt.setInt(1, no);
+
+ 				result = pstmt.executeUpdate();
+
+ 			} catch (SQLException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 				throw e;
+ 			} finally {
+
+ 				try {
+ 					if (pstmt != null) {
+ 						pstmt.close();
+ 					}
+ 				} catch (SQLException e) {
+ 					// TODO Auto-generated catch block
+ 					e.printStackTrace();
+ 				}
+
+ 			} // finally 종료
+
+ 			return result;
+ 		}
+ 		
 }

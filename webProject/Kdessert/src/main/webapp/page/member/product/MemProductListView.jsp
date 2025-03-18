@@ -11,7 +11,6 @@
 <style type="text/css">
 table {
 	margin: auto;
-	border: 1px solid black;
 }
 
 
@@ -21,6 +20,25 @@ table {
 	width: 1200px;
 }
 
+a{
+	text-decoration: none;
+}
+
+
+.btn{
+		font-size: 12pt;
+		width: 80px;
+		height: 28px;
+		text-align: center;
+		color: white;
+		background-color: #64473E;
+		border: none;
+	}
+
+#SearchBox {
+		width: 208px;
+		height: 29px;
+	}
 
 
 </style>
@@ -36,8 +54,9 @@ table {
 	
 		<div>
 			<form action="query" method="get" style="float: right;">
-				<input type="search" name="search" placeholder="검색어 입력창" value="">
-				<input type="submit" value="검색">
+				<input type="search" id="SearchBox" name="search" placeholder="검색창" value="">
+				<input type="hidden" name="no" value="1">
+				<input type="submit" class="btn" value="검색">
 			</form>
 		</div>
 		
@@ -73,9 +92,10 @@ table {
 	   		     <a href="./list?no=${no - 1}"><</a>
 	   		 </c:if>	
 	    
+	    
 	 <!-- 페이지 번호 -->
 	   		 <c:forEach var="i" begin="${start}" end="${maxEnd}">
-	   	    	 <a href="./list?no=${i}">${i}</a>
+	   	    	 <a href="./list?no=${i}" <c:if test="${i==no}">style="font-weight: bolder;"</c:if>>${i}</a>
 	   	 	</c:forEach>
     
    	 <!-- 다음 페이지 -->

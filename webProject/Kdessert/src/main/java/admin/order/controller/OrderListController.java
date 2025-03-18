@@ -44,6 +44,7 @@ public class OrderListController extends HttpServlet {
 		
 		Connection conn = null;
 		int divRowInt = 5;//한 화면에 보여질 컬럼 개수
+		String filter = req.getParameter("filter");
 		
 		int no = Integer.parseInt(req.getParameter("no"));
 		
@@ -53,22 +54,29 @@ public class OrderListController extends HttpServlet {
 			conn = (Connection)sc.getAttribute("conn");
 			
 			OrderDao orderDao = new OrderDao();
-			OrderStatusDao orderStatusDao = new OrderStatusDao();
+			
 			
 			int orderCountInt = 0;
 			ArrayList<OrderDto> orderList = null;
-			ArrayList<OrderStatusDto> orderStatusList = null;
+			
+			int totalPageInt = 0;
 			
 			orderDao.setConnection(conn);
-			orderCountInt = orderDao.orderCount();
-			orderList = orderDao.selectList(no,divRowInt);
 			
-			orderStatusDao.setConnection(conn);
+			if(filter==null||filter == ""||filter.equals("all")) {
+				orderList = orderDao.selectList(no,divRowInt);
+				orderCountInt = orderDao.orderCount();
+				totalPageInt = (int) Math.ceil(orderCountInt / (divRowInt*1.0));//총 페이지
+				
+			}else {
+				orderList = orderDao.selectList(no,divRowInt,filter);
+				orderCountInt = orderDao.orderCount(filter);
+				totalPageInt = (int) Math.ceil(orderCountInt / (divRowInt*1.0));//총 페이지
+			}
 			
-			orderStatusList = orderStatusDao.orderStatusList();
+
 			
 			
-			int totalPageInt = (int) Math.ceil(orderCountInt / (divRowInt*1.0));//총 페이지
 			
 			
 			int start = ((no-1)/5*5)+1;
@@ -79,10 +87,18 @@ public class OrderListController extends HttpServlet {
 			System.out.println("maxEnd: " + maxEnd);
 			req.setAttribute("totalPageInt", totalPageInt);//총 페이지 수
 			req.setAttribute("orderList", orderList);//주문 실 목록
-			req.setAttribute("orderStatusList", orderStatusList);//주문 상태
+			
+			ArrayList<OrderStatusDto> orderStatusList = null;
+			OrderStatusDao orderStatusDao = new OrderStatusDao();
+			orderStatusDao.setConnection(conn);
+			orderStatusList = orderStatusDao.orderStatusList();
+			
+			
 			req.setAttribute("no", no);//현재 페이지
 			req.setAttribute("start", start);
 			req.setAttribute("maxEnd", maxEnd);
+			req.setAttribute("orderStatusList", orderStatusList);//주문 상태
+			req.setAttribute("filter", filter);
 			
 			RequestDispatcher rd = req.getRequestDispatcher("/page/admin/order/OrderListView.jsp");
 			

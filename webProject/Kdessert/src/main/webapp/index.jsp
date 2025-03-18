@@ -25,6 +25,7 @@
 	#rolling{
 		width: 3600px;
 		height: 500px;
+		margin-top: 1px;
 /* 		margin-top: 100px; */
 		background-color: lightgray;
 		position: relative;
@@ -117,7 +118,7 @@
 			<a href="/Kdessert/dessert/list">
 				<img src="./bannerImg/img1.jpg">
 			</a>
-			<a href="/Kdessert/product/list">
+			<a href="/Kdessert/product/list?no=1">
 				<img src="./bannerImg/img2.jpg">
 			</a>
 			<a href="/Kdessert/event/list">	

@@ -38,6 +38,9 @@ public class UserProductQueryController extends HttpServlet {
 		Connection conn = null;
 		String queryStr = "";
 		queryStr = req.getParameter("search");
+		int no = Integer.parseInt(req.getParameter("no"));
+		int productCountInt = 0;
+		int divRowInt = 8;// 한 화면에 보여질 컬럼 개수
 
 		try {
 			ServletContext sc = this.getServletContext();
@@ -49,9 +52,24 @@ public class UserProductQueryController extends HttpServlet {
 			userProductDao.setConnection(conn);
 
 			ArrayList<UserProductDto> productList = null;
-			productList = (ArrayList<UserProductDto>) userProductDao.userSearchList(queryStr);
+			productList = (ArrayList<UserProductDto>) userProductDao.userSearchList(queryStr, no, divRowInt);
 
+			productCountInt = userProductDao.queryProductCount(queryStr);
+			
+			int totalPageInt = (int) Math.ceil(productCountInt / (divRowInt * 1.0));// 총 페이지
+
+			int start = ((no - 1) / 5 * 5) + 1;
+			System.out.println("start: " + start);
+			int end = start + 4;
+			System.out.println("end: " + end);
+			int maxEnd = end > totalPageInt ? totalPageInt : end;
+			System.out.println("maxEnd: " + maxEnd);
+
+			req.setAttribute("start", start);
+			req.setAttribute("maxEnd", maxEnd);
 			req.setAttribute("userProductList", productList);
+			req.setAttribute("no", no);// 현재 페이지
+			req.setAttribute("totalPageInt", totalPageInt);
 
 			RequestDispatcher rd = req.getRequestDispatcher("/page/member/product/MemProductQueryView.jsp");
 

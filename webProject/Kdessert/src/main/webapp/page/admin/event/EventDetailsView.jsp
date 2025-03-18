@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>	
 
-	
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>관리자 | 행사상세</title>
 
 <style type="text/css">
-	
-	body { 
+body { 
 		width: 100%;
 		margin: 0px;
 		overflow-y:scroll;  
@@ -59,7 +57,7 @@
 		
     }
     
-    #btn_memDelete {
+    #btn_eventDelete {
     	background-color: #64473E;
     	color: white;
     }
@@ -97,15 +95,17 @@
     #table_form th{
     	width: 100px;
     }
-
+    
+    #select_event {
+		background-color: white;
+		color: #64473E
+	}
 </style>
-
-
 
 </head>
 
 <body>
-	
+
 	<div id="wrap">	
 		
 		<jsp:include page="../commPage/Adm_Header.jsp"/>
@@ -115,71 +115,55 @@
 				<jsp:include page="../commPage/Category_Mgr.jsp"/>
 			</div>
 			<div id="div_form">
-				<h2>회원상세</h2>
+				<h2>행사상세</h2>
 				
 				<form action="./delete" id="deleteForm" method="get">
 					<table id="table_form">
 						<tr>
-							<th scope="row">회원번호</th>
-							<td><input type="hidden" name="no" value="${memberDto.getMemIndexInt()}">${memberDto.getMemIndexInt()}</td>
+							<th scope="row">행사번호</th>
+							<td><input type="hidden" name="no" value="${eventDto.getEveIndexInt()}">${eventDto.getEveIndexInt()}</td>
 						</tr>
 						<tr>
-							<th scope="row">이름</th>
-							<td>${memberDto.getMemNameStr()}</td>
+							<th scope="row">행사 명</th>
+							<td>${eventDto.getEveNameStr()}</td>
 						</tr>
 						<tr>
-							<th scope="row">아이디</th>
-							<td>${memberDto.getMemIdStr()}</td>
+							<th scope="row">이미지</th>
+							<td>${eventDto.getEveImageStr()}</td>
 						</tr>
 						<tr>
-							<th scope="row">이메일</th>
-							<td>${memberDto.getMemEmailStr()}</td>
+							<th scope="row">행사날짜</th>
+							<td>${eventDto.getEveEventDate()}</td>
 						</tr>
 						<tr>
-							<th scope="row">생년월일</th>
-							<td>${memberDto.getMemBirthDate()}</td>
+							<th scope="row">설명</th>
+							<td>${eventDto.getEveExplainStr()}</td>
 						</tr>
 						<tr>
-							<th scope="row">전화번호</th>
-							<td>${memberDto.getMemTelStr()}</td>
-						</tr>
-						<tr>
-							<th scope="row">주소</th>
+							<th scope="row">공개여부</th>
 							<td>
-								${memberDto.getMemAddressStr()}
-								<br>
-								${memberDto.getMemAddressSecStr()}
+								<input type="radio" name='openCheck' value='1' ${eventDto.getEveOpenInt() == 0 ? "checked" : ""} disabled> 공개
+								<input type="radio" name='openCheck' value='0' ${eventDto.getEveOpenInt() == 1 ? "checked" : ""} disabled> 비공개
 							</td>
 						</tr>
 						<tr>
-							<th scope="row">가입일</th>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberDto.getMemSignTimeDate()}"/></td>
+							<th scope="row">생성일</th>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${eventDto.getEveCreDate()}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">수정일</th>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${memberDto.getMemCorrDate()}"/></td>
-						</tr>
-						<tr>
-							<th scope="row">포인트</th>
-							<td><fmt:formatNumber value="${memberDtoPoint.getMemPointInt()}" type="number"/></td>
-						</tr>
-						<tr>
-							<th scope="row">관리자</th>
-							<td>
-								<input type="radio" name='adminCheck' value='1' ${memberDto.getMemAdmCheckInt() == 1 ? "checked" : ""} disabled> 허용
-								<input type="radio" name='adminCheck' value='0' ${memberDto.getMemAdmCheckInt() == 0 ? "checked" : ""} disabled> 비허용
-							</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${eventDto.getEveCorrDate()}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">비고</th>
-							<td>${memberDto.getMemNoteStr()}</td>
+							<td>${eventDto.getEveNoteStr()}</td>
 						</tr>
 					</table>
 					
 					<div id="div_buttons">
 						<input id="btn_goIndex" class="btn_style" type="button" value="목록으로" onclick="history.go(-1)">
-						<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${memberDto.getMemIndexInt()}'">
-						<input id="btn_memDelete" class="btn_style" type="button" value="강제탈퇴" onclick="deleteMember()">
+						<input id="btn_goUpdate" class="btn_style" type="button" value="수정하기" onclick="location.href='./update?no=${eventDto.getEveIndexInt()}'">
+						<input id="btn_eventDelete" class="btn_style" type="button" value="삭제" onclick="deleteEvent()">
 					</div>
 					
 				</form>
@@ -192,16 +176,15 @@
 
 <script type="text/javascript">
 
-	function deleteMember() {
-		var confirmStr = "주의\n탈퇴는 돌이킬 수 없습니다.\n정말로 실행하겠습니까?"
-		if(confirm(confirmStr) == true){
-			var form = document.getElementById("deleteForm");
-			form.submit();
-		}else{
-			return false;
-		}
+function deleteEvent() {
+	var confirmStr = "행사를 삭제하시겠습니까?"
+	if(confirm(confirmStr) == true){
+		var form = document.getElementById("deleteForm");
+		form.submit();
+	}else{
+		return false;
 	}
-
+}
 </script>
 
 </html>

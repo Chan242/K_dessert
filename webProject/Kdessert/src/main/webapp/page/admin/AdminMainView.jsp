@@ -22,12 +22,22 @@
 		width: 1300px;
 		margin-left: 50px; 
 		float: left;
+		color: #64473E;    
 	}
 	
-	#div_content h2 {
-		 margin: 40px; 
+	#div_content h1 {
+		 margin-top: 40px; 
 		 padding-bottom: 20px;
-		 border-bottom: 2px solid black;
+		 border-bottom: 1px solid black;
+	}
+	
+	.lineArr{
+		display: flex;
+		align-items:center;
+	}
+	
+	.lineArr h2{
+		padding-right: 25px; 
 	}
 
 </style>
@@ -45,8 +55,25 @@
 			</div>
 			
 			<div id="div_content">
-				<h2>　관리자 페이지</h2>
-				<a href="http://localhost:9080/Kdessert/">메인가기</a>
+				<h1>관리자 페이지 설명</h1>
+				<div class='lineArr'>
+					<h2>주문 관리</h2>
+					<p>주문을 관리하는 페이지입니다.</p>
+				</div>
+				<div class='lineArr'>
+					<h2>회원 관리</h2>
+					<p>회원을 관리하는 페이지입니다.</p>
+				</div>
+				<div class='lineArr'>
+					<h2>제품 관리</h2>
+					<p>상품을 관리하는 페이지입니다.</p>
+				</div>
+				<div class='lineArr'>
+					<h2>행사 관리</h2>
+					<p>행사 및 예약을 관리하는 페이지입니다.</p>
+				</div>
+				<br>
+				<a href="/Kdessert/">메인으로 돌아가기</a>
 				
 			</div>	
 		</div>

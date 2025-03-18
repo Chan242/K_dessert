@@ -9,6 +9,12 @@
 <title>InsertTitle</title>
 
 <style type="text/css">
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
+	}
+	
 	#boardWrap {
 		width: 1000px;
 		min-height: 800px;
@@ -77,9 +83,9 @@
 	scope="session"
 	class="user.board.main.FreeBoardDto"/>
 <body>
-<div id="wrap">
 	<jsp:include page="../commPage/Mem_Header.jsp"/>
 	<jsp:include page="../commPage/Category_Main.jsp"/>
+<div id="wrap">
 
 	<div id="boardWrap">
 		<form action="./write" method="post">

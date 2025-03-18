@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import user.basket.BasketDao;
+import user.basket.BasketDto;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import admin.member.MemberDto;
 import admin.order.OrderDao;
@@ -67,10 +70,23 @@ public class UserOrderSucessController extends HttpServlet {
 			OrderDao OrderDao = new OrderDao();
 			
 			OrderDao.setConnection(conn);
-
+			
+			ArrayList<BasketDto> basketList = new ArrayList<BasketDto>();
+			BasketDao basketDao = new BasketDao();
+			
+			basketDao.setConnection(conn);
+			
+			basketList = basketDao.basketList(memIndexInt);
+			
+			OrderDto orderDto = new OrderDto();
+			orderDto.setMemIndexInt(memIndexInt);
+			orderDto.setMemNameStr(req.getParameter("recipient"));
+			orderDto.setMemAdd1Str(req.getParameter("addressOne"));
+			orderDto.setMemAdd2Str(req.getParameter("addressTwo"));
+			orderDto.setMemTelStr(req.getParameter("tel"));
 			
 
-			result = OrderDao.orderProcess(memIndexInt);
+			result = OrderDao.orderProcess(orderDto, basketList);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
