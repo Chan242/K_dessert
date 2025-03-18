@@ -111,7 +111,6 @@ public class EventViewController extends HttpServlet{
 			
 			//사용자로부터 받은 날짜
 			String eventDateStr = year + "-" + String.format("%02d", month) + "-" + String.format("%02d", date);
-			System.out.println("EventViewController 사용자로부터 받은 날짜:" + eventDateStr);
 		    
 		    //선택된 날짜의 행사목록
 			eventDateList = (ArrayList<EventDto>) eventDao.eventCalendarList(pageNum, pageSize, eventDateStr);

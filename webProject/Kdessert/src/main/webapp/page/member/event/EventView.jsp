@@ -171,7 +171,12 @@
 		font-size: 16px;
 	}
 	
-
+	
+	/* 	행사 조회 테이블 관련 css */
+	#eventList_table {
+		width: 1000px;
+		margin: auto;
+	}
 	
 	/* 	페이징 버튼 관련 css */
 	#div_pageBtn {
@@ -336,140 +341,145 @@
 				</table>
 
 			</div>
-
-			<div id="eventList">
-				<div id="eventList_table"></div>
-					<table id="table_form">
-						<tr>
-							<th scope="row">행사명</th>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">날짜</th>
-							<td></td>
-						</tr>
-						<tr>
-							<th scope="row">설명</th>
-							<td></td>
-						</tr>
-					</table>
-				
-				<div id="eventList_pageBtn">
-					<!------------------ 페이지 버튼 ------------------>
-					<div id="div_pageBtn">
-						<c:if test="${pageNum > 1}">
-							<a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}"
-								class="page-btn">&lt;</a>
-						</c:if>
-
-						<c:choose>
-							<c:when test="${totalPage == 1}">
-								<!-- 페이지가 1개일 경우, 1번 페이지만 표시 -->
-								<span class="page-btn active">1</span>
-							</c:when>
-							<c:when test="${totalPage <= 4}">
-								<!-- 전체 페이지가 4 이하일 경우 -->
-								<c:forEach begin="1" end="${totalPage}" var="i">
+				<div id="eventList">
+					<c:forEach var="event" items="${eventMonthList}">
+						<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
+		                <c:if test="${eventDay == date}">
+		                	<br>
+							<div id="eventList_table_div"></div>
+								<table id="eventList_table">
+									<tr>
+										<th scope="row">행사명</th>
+										<td>${event.getEveNameStr()}</td>
+									</tr>
+									<tr>
+										<th scope="row">날짜</th>
+										<td>${event.getEveEventDate()}</td>
+									</tr>
+									<tr>
+										<th scope="row">설명</th>
+										<td>${event.getEveExplainStr()}</td>
+									</tr>
+								</table>
+		                </c:if>
+					</c:forEach>
+			
+					<div id="eventList_pageBtn">
+						<!------------------ 페이지 버튼 ------------------>
+						<div id="div_pageBtn">
+							<c:if test="${pageNum > 1}">
+								<a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}"
+									class="page-btn">&lt;</a>
+							</c:if>
+	
+							<c:choose>
+								<c:when test="${totalPage == 1}">
+									<!-- 페이지가 1개일 경우, 1번 페이지만 표시 -->
+									<span class="page-btn active">1</span>
+								</c:when>
+								<c:when test="${totalPage <= 4}">
+									<!-- 전체 페이지가 4 이하일 경우 -->
+									<c:forEach begin="1" end="${totalPage}" var="i">
+										<c:choose>
+											<c:when test="${i == pageNum}">
+												<span class="page-btn active">${i}</span>
+											</c:when>
+											<c:otherwise>
+												<a href="?pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:when>
+								<c:when test="${totalPage >= 5}">
+									<!-- 전체 페이지가 5개 이상일 때 -->
 									<c:choose>
-										<c:when test="${i == pageNum}">
-											<span class="page-btn active">${i}</span>
+										<c:when test="${pageNum == 1}">
+											<!-- 페이지 번호가 1일 때 (최대 5개까지) -->
+											<c:forEach begin="1" end="5" var="i">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<span class="page-btn active">${i}</span>
+													</c:when>
+													<c:otherwise>
+														<a href="?pageNum=${i}&pageSize=${pageSize}"
+															class="page-btn">${i}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:when>
+										<c:when test="${pageNum == 2}">
+											<!-- 페이지 번호가 2일 때 (최대 5개까지) -->
+											<c:forEach begin="1" end="5" var="i">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<span class="page-btn active">${i}</span>
+													</c:when>
+													<c:otherwise>
+														<a href="?pageNum=${i}&pageSize=${pageSize}"
+															class="page-btn">${i}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:when>
+										<c:when test="${pageNum == totalPage - 1}">
+											<!-- 페이지 번호가 마지막에서 두 번째일 때 (최대 5개까지) -->
+											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
+												end="${totalPage}" var="i">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<span class="page-btn active">${i}</span>
+													</c:when>
+													<c:otherwise>
+														<a href="?pageNum=${i}&pageSize=${pageSize}"
+															class="page-btn">${i}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</c:when>
+										<c:when test="${pageNum == totalPage}">
+											<!-- 페이지 번호가 마지막일 때 (최대 5개까지) -->
+											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
+												end="${totalPage}" var="i">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<span class="page-btn active">${i}</span>
+													</c:when>
+													<c:otherwise>
+														<a href="?pageNum=${i}&pageSize=${pageSize}"
+															class="page-btn">${i}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<a href="?pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
+											<!-- 페이지 번호가 중간일 때 (최대 5개까지) -->
+											<c:forEach begin="${pageNum - 2 < 1 ? 1 : pageNum - 2}"
+												end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}"
+												var="i">
+												<c:choose>
+													<c:when test="${i == pageNum}">
+														<span class="page-btn active">${i}</span>
+													</c:when>
+													<c:otherwise>
+														<a href="?pageNum=${i}&pageSize=${pageSize}"
+															class="page-btn">${i}</a>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
-							</c:when>
-							<c:when test="${totalPage >= 5}">
-								<!-- 전체 페이지가 5개 이상일 때 -->
-								<c:choose>
-									<c:when test="${pageNum == 1}">
-										<!-- 페이지 번호가 1일 때 (최대 5개까지) -->
-										<c:forEach begin="1" end="5" var="i">
-											<c:choose>
-												<c:when test="${i == pageNum}">
-													<span class="page-btn active">${i}</span>
-												</c:when>
-												<c:otherwise>
-													<a href="?pageNum=${i}&pageSize=${pageSize}"
-														class="page-btn">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:when>
-									<c:when test="${pageNum == 2}">
-										<!-- 페이지 번호가 2일 때 (최대 5개까지) -->
-										<c:forEach begin="1" end="5" var="i">
-											<c:choose>
-												<c:when test="${i == pageNum}">
-													<span class="page-btn active">${i}</span>
-												</c:when>
-												<c:otherwise>
-													<a href="?pageNum=${i}&pageSize=${pageSize}"
-														class="page-btn">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:when>
-									<c:when test="${pageNum == totalPage - 1}">
-										<!-- 페이지 번호가 마지막에서 두 번째일 때 (최대 5개까지) -->
-										<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
-											end="${totalPage}" var="i">
-											<c:choose>
-												<c:when test="${i == pageNum}">
-													<span class="page-btn active">${i}</span>
-												</c:when>
-												<c:otherwise>
-													<a href="?pageNum=${i}&pageSize=${pageSize}"
-														class="page-btn">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:when>
-									<c:when test="${pageNum == totalPage}">
-										<!-- 페이지 번호가 마지막일 때 (최대 5개까지) -->
-										<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
-											end="${totalPage}" var="i">
-											<c:choose>
-												<c:when test="${i == pageNum}">
-													<span class="page-btn active">${i}</span>
-												</c:when>
-												<c:otherwise>
-													<a href="?pageNum=${i}&pageSize=${pageSize}"
-														class="page-btn">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<!-- 페이지 번호가 중간일 때 (최대 5개까지) -->
-										<c:forEach begin="${pageNum - 2 < 1 ? 1 : pageNum - 2}"
-											end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}"
-											var="i">
-											<c:choose>
-												<c:when test="${i == pageNum}">
-													<span class="page-btn active">${i}</span>
-												</c:when>
-												<c:otherwise>
-													<a href="?pageNum=${i}&pageSize=${pageSize}"
-														class="page-btn">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</c:when>
-						</c:choose>
-
-						<c:if test="${pageNum < totalPage}">
-							<a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}"
-								class="page-btn">&gt;</a>
-						</c:if>
+								</c:when>
+							</c:choose>
+	
+							<c:if test="${pageNum < totalPage}">
+								<a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}"
+									class="page-btn">&gt;</a>
+							</c:if>
+						</div>
+	
+						<!------------------ 페이지 버튼 ------------------>
 					</div>
-
-					<!------------------ 페이지 버튼 ------------------>
 				</div>
-			</div>
 		</div>
 
 		<jsp:include page="../commPage/Mem_Footer.jsp" />
