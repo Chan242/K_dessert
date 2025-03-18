@@ -235,7 +235,7 @@ public class EventDao {
  		return eventDto;
  	}
  	
- // 행사 정보 수정
+ // 행사 등록
   	public int eventAdd(EventDto eventDto) throws SQLException {
   		
   		int result = 0;
@@ -368,5 +368,210 @@ public class EventDao {
 
  			return result;
  		}
+ 	
+ 	
+ // 달력에서 행사 조회	
+ 	public List<EventDto> eventCalendarCheck(String eventDate) {
+ 	
+ 		PreparedStatement pstmt = null;
+ 		ResultSet rs = null;
  		
+ 		ArrayList<EventDto> eventList = null;
+ 		
+ 		String sql = "";
+ 		
+ 		sql += " SELECT E_INDEX, E_NAME, E_EVENT_DATE, E_OPEN, E_EXPLAIN";
+ 		sql += " FROM EVENT";
+ 		sql += " WHERE e_event_date BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND LAST_DAY(TO_DATE(?))";
+ 		
+ 		try {
+ 			pstmt = connection.prepareStatement(sql);
+ 			
+ 			pstmt.setString(1,eventDate); 
+ 			pstmt.setString(2,eventDate); 
+ 			
+ 			rs = pstmt.executeQuery();
+ 			
+ 			int index = 0;
+ 			String name = "";
+ 			Date eveDate = null;
+ 			int open = 0;
+ 			
+ 			eventList = new ArrayList<EventDto>();
+ 			while (rs.next()) {
+ 				index = rs.getInt("E_INDEX");
+ 				name = rs.getString("E_NAME");
+ 				eveDate = rs.getDate("E_EVENT_DATE");
+ 				open = rs.getInt("E_OPEN");
+ 				
+ 				EventDto eventDto = new EventDto();
+ 				
+ 				eventDto.setEveIndexInt(index);
+ 				eventDto.setEveNameStr(name);
+ 				eventDto.setEveEventDate(eveDate);
+ 				eventDto.setEveOpenInt(open);
+ 				
+ 				eventList.add(eventDto);
+ 			}
+ 			
+ 		} catch (Exception e) {
+ 			// TODO: handle exception
+ 			e.printStackTrace();
+ 		}finally {
+ 			try {
+ 				if(rs != null) {
+ 					rs.close();
+ 				}
+ 			} catch (Exception e) {
+ 				// TODO: handle exception
+ 				e.printStackTrace();
+ 			}
+ 			
+ 			try {
+ 				if(pstmt != null) {
+ 					pstmt.close();
+ 				}
+ 			} catch (Exception e) {
+ 				// TODO: handle exception
+ 				e.printStackTrace();
+ 			}
+ 		} // finally end
+ 		
+ 		return eventList;
+ 		
+ 	}
+ 	
+ 	
+	// 선택된 달력에서 행사 조회 (페이징)	
+	public List<EventDto> eventCalendarList(int pageNum, int pageSize, String eventDate) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<EventDto> eventList = null;
+		
+		String sql = "";
+		
+		//페이징 적용을 위한 sql
+		//행사 번호, 행사명, 행사일, 공개여부, 생성일, 수정일
+		sql += "SELECT * FROM (";
+		sql += " SELECT A.*, ROWNUM rnum FROM (";
+		sql += " SELECT e.E_INDEX, e.E_NAME, e.E_EVENT_DATE, e.E_OPEN, e.E_EXPLAIN";
+		sql += " FROM EVENT e WHERE TRUNC(e_event_date) = TO_DATE(?, 'YYYY-MM-DD') ORDER BY e.E_INDEX DESC";
+		sql += " ) A WHERE ROWNUM <= ?";
+		sql += " ) WHERE rnum >= ?";
+		
+		//pageNum에 따라 startRow 부터 endRow 까지의 값을 보여준다
+		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
+		int endRow = pageNum * pageSize; // 조회한 테이블에서 마지막으로 보여줄 행
+		
+		try {
+			pstmt = connection.prepareStatement(sql);
+			
+			pstmt.setString(1, eventDate); 
+			pstmt.setInt(2, endRow);  // ROWNUM <= endRow 마지막 행보다 행보다 작거나 같을 때
+			pstmt.setInt(3, startRow); // rnum >= startRow 첫번째 행보다 크거나 같을 때
+			
+			rs = pstmt.executeQuery();
+			
+			int index = 0;
+			String name = "";
+			Date eveDate = null;
+			int open = 0;
+			String eveExplain = "";
+			
+			eventList = new ArrayList<EventDto>();
+			while (rs.next()) {
+				
+				index = rs.getInt("E_INDEX");
+				name = rs.getString("E_NAME");
+				eveDate = rs.getDate("E_EVENT_DATE");
+				open = rs.getInt("E_OPEN");
+				eveExplain = rs.getString("E_EXPLAIN");
+				
+				EventDto eventDto = new EventDto();
+				
+				eventDto.setEveIndexInt(index);
+				eventDto.setEveNameStr(name);
+				eventDto.setEveEventDate(eveDate);
+				eventDto.setEveOpenInt(open);
+				eventDto.setEveExplainStr(eveExplain);
+				
+				eventList.add(eventDto);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} // finally end
+		
+		return eventList;
+		
+	}
+		
+	// 달력 행사 조회에서 전체 데이터의 수를 가져오는 메소드
+	 	public int getTotalCountCalendar(String eventDate) {
+	 		
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalCount = 0;
+			String sql = "";
+			
+			
+			sql += "SELECT COUNT(E_INDEX) FROM EVENT";
+			sql += " WHERE TRUNC(E_EVENT_DATE) = TO_DATE(?, 'YYYY-MM-DD')";
+			
+			
+			try {
+				pstmt = connection.prepareStatement(sql);
+				
+				pstmt.setString(1, eventDate); 
+				
+				rs = pstmt.executeQuery();
+				
+				rs.next();
+				totalCount = rs.getInt(1);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null) {
+						rs.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+				
+				try {
+					if(pstmt != null) {
+						pstmt.close();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			} // finally end
+			return totalCount;
+		}	
 }

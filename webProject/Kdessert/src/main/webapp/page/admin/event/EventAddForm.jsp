@@ -114,7 +114,7 @@
 					<table id="table_add">
 						<tr>
 							<th scope="row">행사 명</th>
-							<td><input name="name" type="text" value=""></td>
+							<td><input name="name" type="text" value="" required></td>
 						</tr>
 						<tr>
 							<th scope="row">이미지</th>
@@ -123,20 +123,20 @@
 						<tr>
 							<th scope="row">행사날짜</th>
 							<td>
-								<input name="date" type="date" value=""/>
+								<input name="date" type="date" value="" required/>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">설명</th>
 							<td>
-								<textarea rows="5" cols="40" placeholder="" name="explain" style="resize: none;"></textarea>
+								<textarea rows="5" cols="40" placeholder="" name="explain" style="resize: none;" required></textarea>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">공개여부</th>
 							<td>
-								<input type="radio" name='openCheck' value='0' > 공개
-								<input type="radio" name='openCheck' value='1' > 비공개
+								<input type="radio" name='openCheck' value='0' required> 공개
+								<input type="radio" name='openCheck' value='1' required> 비공개
 							</td>
 						</tr>
 						<tr>

@@ -120,7 +120,7 @@
 						</tr>
 						<tr>
 							<th scope="row">행사 명</th>
-							<td><input name="name" type="text" value="${eventDto.getEveNameStr()}"></td>
+							<td><input name="name" type="text" value="${eventDto.getEveNameStr()}" required></td>
 						</tr>
 						<tr>
 							<th scope="row">이미지</th>
@@ -129,20 +129,20 @@
 						<tr>
 							<th scope="row">행사날짜</th>
 							<td>
-								<input name="date" type="date" value="${eventDto.getEveEventDate()}"/>
+								<input name="date" type="date" value="${eventDto.getEveEventDate()}" required/>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">설명</th>
 							<td>
-								<textarea rows="5" cols="40" placeholder="" name="explain" style="resize: none;">${eventDto.getEveExplainStr()}</textarea>
+								<textarea rows="5" cols="40" placeholder="" name="explain" style="resize: none;" >${eventDto.getEveExplainStr()}</textarea>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row">공개여부</th>
 							<td>
-								<input type="radio" name='openCheck' value='0' ${eventDto.getEveOpenInt() == 0 ? "checked" : ""} > 공개
-								<input type="radio" name='openCheck' value='1' ${eventDto.getEveOpenInt() == 1 ? "checked" : ""} > 비공개
+								<input type="radio" name='openCheck' value='0' ${eventDto.getEveOpenInt() == 0 ? "checked" : ""} required> 공개
+								<input type="radio" name='openCheck' value='1' ${eventDto.getEveOpenInt() == 1 ? "checked" : ""} required> 비공개
 							</td>
 						</tr>
 						<tr>
@@ -156,13 +156,13 @@
 						<tr>
 							<th scope="row">비고</th>
 							<td>
-								<textarea rows="5" cols="40" placeholder="" name="note" style="resize: none;">${eventDto.getEveNoteStr()}</textarea>
+								<textarea rows="5" cols="40" placeholder="" name="note" style="resize: none;" >${eventDto.getEveNoteStr()}</textarea>
 							</td>
 						</tr>
 					</table>
 					
 					<div id="div_buttons">
-						<input id="btn_submit" class="btn_style" type="submit" value="저장하기">
+						<input id="btn_submit" class="btn_style" type="submit" value="저장하기" required>
 					</div>
 					
 				</form>

@@ -5,8 +5,8 @@
 <style type="text/css">
 
 	#header{
-		margin-left: 100px;
-		margin-right: 100px;
+		padding: 20px;
+		padding-left: 50px;
 	}
 	
 	.login_status{

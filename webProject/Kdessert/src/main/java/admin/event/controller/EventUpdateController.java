@@ -79,10 +79,7 @@ public class EventUpdateController extends HttpServlet{
 			String explan = req.getParameter("explain");
 			
 			String openStr = req.getParameter("openCheck");
-			System.out.println("1. openCheck: " + openStr);
 			int open = Integer.parseInt(openStr);
-			System.out.println("2. openCheck: " + open);
-			
 			String note = req.getParameter("note");
 			
 			eventDto = new EventDto();
@@ -102,7 +99,7 @@ public class EventUpdateController extends HttpServlet{
 			int result = eventDao.eventUpdate(eventDto);
 
 			if(result == 0){
-				System.out.println("회원 정보 수정에 실패하였습니다.");
+				System.out.println(" 행사 정보 수정에 실패하였습니다.");
 			}
 			
 			res.sendRedirect("./list");
