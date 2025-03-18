@@ -64,7 +64,7 @@
 <div id="side_MenuBar">
 	<ul>
 		<li class='side_Menues'>
-			<a id="select_order" href="/Kdessert/admin/order/list?no=1"><span>주문 관리(개발중)</span></a>
+			<a id="select_order" href="/Kdessert/admin/order/list?no=1"><span>주문 관리</span></a>
 		</li>
 		<li class='side_Menues'>
 			<a id="select_member" href="/Kdessert/page/admin/member/list"><span>회원 관리</span></a>
@@ -76,7 +76,7 @@
 			<a id="select_event" href="/Kdessert/page/admin/event/list"><span>행사 관리</span></a>
 		</li>	
  		<li class='side_Menues'>
-			<a id="select_dessert" href="/Kdessert/page/admin/DaquaListServlet"><span>다과 관리(미개발)</span></a>
+			<a id="select_dessert" href="/Kdessert/page/admin/DaquaListServlet"><span>다과 관리</span></a>
 		</li>
 		<!-- 
 		<li class='side_Menues'>
