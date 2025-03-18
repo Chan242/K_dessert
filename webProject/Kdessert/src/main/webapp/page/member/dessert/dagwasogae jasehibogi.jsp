@@ -10,11 +10,13 @@
 <title>다과 소개 상세보기</title>
 
 <style type="text/css">
-/* body {
-	margin: 0;
-	font-family: Arial, sans-serif;
-	text-align: center;
-} */
+
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+
 
 .header {
 	padding: flex;

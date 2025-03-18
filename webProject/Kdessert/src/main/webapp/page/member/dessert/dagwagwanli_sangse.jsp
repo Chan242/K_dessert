@@ -12,6 +12,12 @@
 
 <style type="text/css" href="style.css">
 
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+
 /* 전체 레이아웃 설정 */
 /* body, html {
 		margin: 0;

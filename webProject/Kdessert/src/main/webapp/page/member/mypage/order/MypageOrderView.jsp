@@ -10,6 +10,11 @@
 <title>마이페이지</title>
 
 <style type="text/css">
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
 #container {
 	width: 1200px;
 	margin: auto;

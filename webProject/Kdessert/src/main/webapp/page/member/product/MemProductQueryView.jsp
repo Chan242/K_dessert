@@ -9,6 +9,12 @@
 <title>사용자 제품 목록 페이지</title>
 
 <style type="text/css">
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+	
 table {
 	margin: auto;
 }

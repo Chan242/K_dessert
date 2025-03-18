@@ -11,6 +11,12 @@
 
 
 <style>
+
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
 #wrap {
 	width:1895px;
 }
