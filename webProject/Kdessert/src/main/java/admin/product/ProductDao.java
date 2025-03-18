@@ -100,11 +100,12 @@ public class ProductDao {
 			int proStockInt = productDto.getProStockInt();
 			int proOpenInt = productDto.getProOpenInt();
 			String proIntroStr = productDto.getProIntroStr();
+			String proImageStr = productDto.getProImageStr();
 
 			String sql = "";
 
 			sql += "INSERT INTO PRODUCT";
-			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN)";
+			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN,P_IMAGE)";
 			sql += " VALUES(P_INDEX_SEQ.NEXTVAL,?,?,?,?,?)";// 스트링,인트,스트링,인트,인트
 
 			pstmt = connection.prepareStatement(sql);
@@ -114,6 +115,7 @@ public class ProductDao {
 			pstmt.setString(3, proIntroStr);
 			pstmt.setInt(4, proStockInt);
 			pstmt.setInt(5, proOpenInt);
+			pstmt.setString(6, proImageStr);
 
 			result = pstmt.executeUpdate();
 
@@ -589,12 +591,13 @@ public class ProductDao {
 			int proStockInt = productDto.getProStockInt();
 			int proOpenInt = productDto.getProOpenInt();
 			String proIntroStr = productDto.getProIntroStr();
+			String proImageStr = productDto.getProImageStr();
 
 			String sql = "";
 
 			sql += "INSERT INTO PRODUCT";
-			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN)";
-			sql += " VALUES(P_INDEX_SEQ.NEXTVAL,?,?,?,?,?)";// 스트링,인트,스트링,인트,인트
+			sql += " (P_INDEX,P_NAME,P_PRICE,P_INTRO,P_STOCK,P_OPEN,P_IMAGE)";
+			sql += " VALUES(P_INDEX_SEQ.NEXTVAL,?,?,?,?,?,?)";// 스트링,인트,스트링,인트,인트
 
 			pstmt = connection.prepareStatement(sql);
 
@@ -603,6 +606,7 @@ public class ProductDao {
 			pstmt.setString(3, proIntroStr);
 			pstmt.setInt(4, proStockInt);
 			pstmt.setInt(5, proOpenInt);
+			pstmt.setString(6, proImageStr);
 
 			pstmt.addBatch();
 			

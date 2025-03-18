@@ -49,7 +49,7 @@ table {
 				<thead>
 					<tr style="width:300px; height:400px; text-align: center;">
 						<td>
-							<img src="/Kdessert/image/${userProductDto.getProImageStr()}">
+							<img src="/Kdessert/image/${userProductDto.getProImageStr()}" style="width: 200px; height: 180px;">
 						</td>
 					</tr>
 				</thead>

@@ -41,8 +41,8 @@ table, tr, th, td {
 
 	<div style="width:800px; margin: auto;">
 		<h2 style="text-align: center;">제품등록</h2>
-		<form action=""method="post" style="margin: auto;">
-			
+	 	<form action=""method="post"  enctype="multipart/form-data" style="margin: auto;"> 
+		<!-- <form action=""method="post"  style="margin: auto;">	 -->		
 			<table>
 				<tr>
 					<td>제품명</td>
@@ -67,8 +67,8 @@ table, tr, th, td {
 				</tr>
 				<tr>
 					<td>이미지</td>
-					<td><input type="file" accept=".png" value="png"><br><!-- 추후구현 -->
-				#PNG 파일만 가능/추후 구현 예정(현재 받는 곳이 없음)<br></td>
+					<td><input type="file" name="proImage" accept="image/*" value="png" required>
+				</td>
 				</tr>
 				<tr>
 					<td>태그</td>

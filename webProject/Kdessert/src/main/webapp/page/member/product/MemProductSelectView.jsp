@@ -49,7 +49,7 @@ window.onload = function() {
 		<h1 style="text-align: center;">${productDto.getProNameStr()}</h1>
 		<hr>
 		<div style="width: 300px; height: 300px; float: left; margin: auto; text-align: center;">
-			<img src="/Kdessert/image/${productDto.getProImageStr()}">
+			<img src="/Kdessert/image/${productDto.getProImageStr()}"  style="width: 200px; height: 180px;">
 		</div>
 		<div style="width: 200px; height: 200px; float: left; margin-left: 100px; text-align: left; padding-left: 30px;">
 			가격: <fmt:formatNumber value="${productDto.getProPriceInt()}" pattern="#,##0" /><br>

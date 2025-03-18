@@ -53,7 +53,7 @@ public class ProductDeleteController extends HttpServlet {
 				System.out.println("제품 삭제가 정상처리 되지 않았습니다");
 			}
 
-			res.sendRedirect("./list");
+			res.sendRedirect("./list?no=1");
 			
 			
 		} catch (Exception e) {
