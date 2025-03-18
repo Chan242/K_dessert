@@ -10,20 +10,21 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class DaquaDAO {
-    private Connection getConnConnection() throws Exception {
-        Context initContext = new InitialContext();
-        Context envContext = (Context) initContext.lookup("java:/comp/env");
-        DataSource ds = (DataSource) envContext.lookup("jdbc/mydb");
-        return ds.getConnection();
-    }
+	private Connection connection;
+
+	public void setConnection(Connection conn) {
+		this.connection = conn;
+	}
     
     // 다과 리스트 가져오기
     public List<Daqua> getAllDaqua() throws Exception {
         List<Daqua> list = new ArrayList<>();
-        String sql = "SELECT * FROM daqua";
+        String sql = "SELECT * FROM dessert";
+        
+        
 
-        try (Connection conn = getConnConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (
+             PreparedStatement pstmt = connection.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
@@ -48,8 +49,8 @@ public class DaquaDAO {
 	public boolean inserDaqua(Daqua daqua) throws Exception {
 	String sql = "INSERT INTO daqua (name, description, price, image_url) "
 			+ "VALUES (?, ?, ?, ?)";
-	try (Connection conn = getConnConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	try (
+		PreparedStatement pstmt = connection.prepareStatement(sql)) {
 		
 		pstmt.setString(1, daqua.getName());
 		pstmt.setString(2, daqua.getDescription());
@@ -66,8 +67,8 @@ public class DaquaDAO {
 	public boolean updateDaqua(Daqua daqua) throws Exception {
 	String sql = "UPDATE daqua SET name=?, description=?, price=?, image_url=? WHERE id=?";	
 		
-	try (Connection conn = getConnConnection();
-		 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	try (
+		 PreparedStatement pstmt = connection.prepareStatement(sql)) {
 		
 		pstmt.setString(1, daqua.getName());
 		pstmt.setString(2, daqua.getDescription());
@@ -85,8 +86,8 @@ public class DaquaDAO {
 	public boolean deletDaqua(int id) throws Exception {
 	String sql = "DELETE FROM daqua WHERE id=?";
 	
-	try (Connection conn = getConnConnection();
-		PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	try (
+		PreparedStatement pstmt = connection.prepareStatement(sql)) {
 		
 		pstmt.setInt(1, id);
 		int rowsAffected = pstmt.executeUpdate();

@@ -58,8 +58,6 @@
 	}
 	
 
-
-
 </style>
 
 
@@ -76,10 +74,11 @@
 		</li>
 		<li class='side_Menues'>
 			<a id="select_event" href="/Kdessert/page/admin/event/list"><span>행사 관리</span></a>
+		</li>	
+ 		<li class='side_Menues'>
+			<a id="select_dessert" href="/Kdessert/page/admin/DaquaListServlet"><span>다과 관리(미개발)</span></a>
 		</li>
-<!-- 		<li class='side_Menues'>
-			<a id="select_dessert" href="다과_관리_링크"><span>다과 관리(미개발)</span></a>
-		</li>
+		<!-- 
 		<li class='side_Menues'>
 			<a href="통계_관리_링크"><span>통계(미개발)</span></a>
 		</li> -->
