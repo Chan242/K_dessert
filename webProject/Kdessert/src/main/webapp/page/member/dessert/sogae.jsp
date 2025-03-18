@@ -9,11 +9,7 @@
 <title>다과 소개</title>
 
 <style>
-/*전체 페이지 스타일 */
-body {
-	font-family: Arial, sans-serif;
 
-}
 /* 헤더(로고 포함) */
 .header {
 	background-color: white;

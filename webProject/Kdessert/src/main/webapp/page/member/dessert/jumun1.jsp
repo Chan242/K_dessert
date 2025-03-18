@@ -267,10 +267,7 @@ h2 {
 			<button class="pay-button" onclick="pay()">
 					결제하기</button>	
 		</div>
-	</div>
-	
-
-		
+	</div>	
 	
 	<script>
 		// ✅ 올바른 이벤트 리스너 방식으로 변경
