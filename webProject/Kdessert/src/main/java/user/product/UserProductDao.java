@@ -171,7 +171,7 @@ public class UserProductDao {
 	}
 
 	
-	public ArrayList<UserProductDto> userSearchList(String queryStr) {
+	public ArrayList<UserProductDto> userSearchList(String queryStr, int no, int divRowInt) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -180,11 +180,18 @@ public class UserProductDao {
 
 		String sql = "";
 
-		sql += "SELECT P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
-		sql += " FROM PRODUCT";
-		sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ?";
-		sql += " AND P_OPEN = 0";
-		sql += " ORDER BY P_INDEX DESC";
+		sql += "SELECT rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
+		sql += " FROM ( ";
+		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
+		sql += "    FROM ( ";
+		sql += "        SELECT P.P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, T_NAME, P_IMAGE";
+		sql += "        FROM PRODUCT P LEFT JOIN PRODUCT_TAG PT ON P.P_INDEX = PT.P_INDEX  ";
+		sql += "        WHERE (P_NAME LIKE ? OR P_INTRO LIKE ? OR T_NAME LIKE ?) AND P_OPEN = 0";
+		sql += "        ORDER BY P_INDEX DESC ";
+		sql += "    ) ";
+		sql += "    WHERE ROWNUM <= ? ";
+		sql += " ) ";
+		sql += " WHERE rn >= ?";
 
 		try {
 
@@ -192,11 +199,13 @@ public class UserProductDao {
 
 			pstmt.setString(1, "%" + queryStr + "%");
 			pstmt.setString(2, "%" + queryStr + "%");
+			pstmt.setString(3, "%" + queryStr + "%");
+			pstmt.setInt(4, no * divRowInt); // 끝 범위
+			pstmt.setInt(5, (no - 1) * divRowInt + 1); // 시작 범위
 			
+
 			
 			rs = pstmt.executeQuery();
-
-			System.out.println(rs.isClosed());
 
 			int proIndexInt = 0;
 			String proNameStr = "";
@@ -205,15 +214,18 @@ public class UserProductDao {
 			int proOpenInt = 0;
 			Date proCreDateDate = null;
 			Date proChanDateDate = null;
+			String proImageStr = "";
 
 			while (rs.next()) {
 				proIndexInt = rs.getInt("P_INDEX");
 				proNameStr = rs.getString("P_NAME");
 				proPriceInt = rs.getInt("P_PRICE");
 				proStockInt = rs.getInt("P_STOCK");
+				proImageStr = rs.getString("P_IMAGE");
 				
 				UserProductDto productDto = new UserProductDto(proIndexInt, proNameStr, proPriceInt, proStockInt);
-
+				productDto.setProImageStr(proImageStr);
+				
 				productList.add(productDto);
 
 			}
@@ -242,6 +254,56 @@ public class UserProductDao {
 		}
 		return productList;
 
+	}
+
+	public int queryProductCount(String queryStr) {
+		// TODO Auto-generated method stub
+		int result = 0;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = "";
+
+		try {
+			sql += "SELECT COUNT(P_INDEX)";
+			sql += " FROM PRODUCT";
+			sql += " WHERE P_NAME LIKE ? OR P_INTRO LIKE ? AND P_OPEN = 0";
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setString(1, "%" + queryStr + "%");
+			pstmt.setString(2, "%" + queryStr + "%");
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt("COUNT(P_INDEX)");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+
+		return result;
 	}
 	
 	

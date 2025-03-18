@@ -55,6 +55,7 @@ a{
 		<div>
 			<form action="query" method="get" style="float: right;">
 				<input type="search" id="SearchBox" name="search" placeholder="검색창" value="">
+				<input type="hidden" name="no" value="1">
 				<input type="submit" class="btn" value="검색">
 			</form>
 		</div>
