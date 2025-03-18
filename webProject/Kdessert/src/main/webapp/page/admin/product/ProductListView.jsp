@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
+	body { 
+		width: 100%;
+		margin: 0px;
+		overflow-y:scroll;  
+	}
+	
 #container {
 	margin: auto;
 	width: 1200px;

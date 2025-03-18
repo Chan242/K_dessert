@@ -10,7 +10,11 @@
 <title>상품 상세 - 밤양갱</title>
 <link rel="stylesheet" href="style.css">
 <style type="text/css">
-
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
 
 /* 헤더 스타일 */
 header {

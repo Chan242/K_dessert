@@ -9,6 +9,12 @@
 <title>관리자 페이지 | 다과 관리 - 수정하기</title>
 <style>
 
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+
 /* --------------------------------------- */
 .tableType {
 	background-color: lightgray;

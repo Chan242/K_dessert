@@ -10,6 +10,12 @@
 
 <style>
 
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+
 /* 헤더(로고 포함) */
 .header {
 	background-color: white;

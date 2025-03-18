@@ -8,6 +8,11 @@
 <title>InsertTitle</title>
 
 <style type="text/css">
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
 body {
 	font-family: Arial, sans-serif;
 }
