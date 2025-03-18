@@ -131,26 +131,26 @@
 		border-collapse: collapse;
 	}
 	
-	td, th {
+	#calendar_table td, #calendar_table th {
 		width: 30px;
 	}
 	
-	td {
+	#calendar_table td {
 		border: 1px solid #d6d6d6;
 		vertical-align: top;
 		height: 30px;
 		padding: 15px;
 	}
 	
-	td:first-child {
+	#calendar_table td:first-child {
 		border-left-style: none;
 	}
 	
-	td:last-child {
+	#calendar_table td:last-child {
 		border-right-style: none;
 	}
 	
-	th {
+	#calendar_table th {
 		height: 15px;
 		border-top: 2px solid black;
 	}
@@ -176,6 +176,11 @@
 	#eventList_table {
 		width: 1000px;
 		margin: auto;
+		border-collapse: collapse;
+	}
+	
+	#eventList_table th, #eventList_table td {
+		border: 1px solid black;
 	}
 	
 	/* 	페이징 버튼 관련 css */
@@ -342,7 +347,7 @@
 
 			</div>
 				<div id="eventList">
-					<c:forEach var="event" items="${eventMonthList}">
+					<c:forEach var="event" items="${eventDateList}">
 						<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 		                <c:if test="${eventDay == date}">
 		                	<br>
