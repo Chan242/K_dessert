@@ -111,10 +111,10 @@
         // 수정 form 태그 실행
         replyinput.innerHTML = '<div class="reply">'        					 
         					+ '<form id="updateForm" action="/Kdessert/board/updateReply" method="post">'
-                             + '<textarea class="replyText" name="replyEditStr" style="width: 1000px; height: 100px;">' + replyText + '</textarea>'  // 큰 텍스트 영역
+                             + '<textarea class="replyText" name="replyEditStr" style="width: 1000px; height: 100px;">' + replyText + '</textarea>'  // 텍스트 수정
                              + '<input type="hidden" name="replyIndexInt" value="' + replyIndex+'">'
                              + '<input type="hidden" name="brdIndexInt" value="' + brdIndexInt+'">'
-                             + '<input id="modifyFin" class="inputBtn" type="submit" value="수정완료">' // 수정 완료 버튼
+                             + '<input id="modifyFin" class="inputBtn" type="submit" value="수정 완료">' // 수정 완료 버튼
                              + '</form>';
     
     }
@@ -136,6 +136,11 @@
 					${reply.memberDto.memNameStr}
 				</span>
 				<span>작성일: ${reply.replyCreDate}</span>
+				<c:if test="${not empty reply.replyCorrDate}"> 
+					<span>수정일: ${reply.replyCorrDate}</span>
+				</c:if>
+				
+				
 				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt}"> 
 					<%-- <a href="/Kdessert/board/updateReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">수정</a> --%>
 					<a onclick="updateReply(${reply.replyIndexInt},${boardDto.brdIndexInt})">수정</a>

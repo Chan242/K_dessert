@@ -117,7 +117,7 @@ public class BoardReplyDao {
 			//sql문 저장
 			sql = "INSERT INTO REPLY(R_INDEX, M_INDEX, R_TEXT,"
 					+ " F_INDEX, R_CRE_DATE, R_CORR_DATE)"
-					+ " VALUES (R_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE)";
+					+ " VALUES (R_INDEX_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, NULL)";
 			
 			pstmt = connection.prepareStatement(sql);
 			
