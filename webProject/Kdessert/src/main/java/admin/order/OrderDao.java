@@ -433,7 +433,7 @@ public class OrderDao {
 	            pstmtOrderProduct.addBatch(); // 배치 실행 준비
 
 	            // 재고 감소 SQL 생성
-	            sqlDecreaseStock += "UPDATE PRODUCT";
+	            sqlDecreaseStock = "UPDATE PRODUCT";
 	            sqlDecreaseStock += " SET P_STOCK = P_STOCK - ?";
 	            sqlDecreaseStock += " WHERE P_INDEX = ?";
 	            pstmtDecreaseStock = connection.prepareStatement(sqlDecreaseStock);
