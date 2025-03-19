@@ -78,7 +78,12 @@
 	#context p{
 		min-height: 150px;
 		font-size: 14pt;
-		white-space:pre; 
+		white-space:pre-line; 
+		overflow-wrap: break-word; /* 넘칠 시 강제로 줄바꿈 */
+		
+		width: 920px;
+		
+
 	}
 	
 	#contentBtn{
@@ -98,7 +103,7 @@
 	    
 	    font-size: 30pt;
 	    font-weight: 550;
-	    
+    
 	    margin-bottom: 20px;
 	}
 
