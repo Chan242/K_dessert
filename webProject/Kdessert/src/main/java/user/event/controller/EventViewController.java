@@ -28,7 +28,7 @@ public class EventViewController extends HttpServlet{
 		ArrayList<EventDto> eventMonthList = null;
 		ArrayList<EventDto> eventDateList = null;
 		int pageNum = 1;  // 기본값 1페이지
-		int pageSize = 5; // 한 페이지에 5개
+		int pageSize = 3; // 한 페이지에 5개
 		int totalCount = 0; // 전체 페이지 수
 		boolean eventCheck = false;
 		
@@ -103,6 +103,7 @@ public class EventViewController extends HttpServlet{
 			
 			EventDao eventDao = new EventDao();
 			eventDao.setConnection(conn);
+			
 			//사용자로부터 받은 달의 1일
 			String eventCheckDateStr = year + "-" + String.format("%02d", month) + "-" + "1";
 		    
@@ -112,6 +113,11 @@ public class EventViewController extends HttpServlet{
 			//사용자로부터 받은 날짜
 			String eventDateStr = year + "-" + String.format("%02d", month) + "-" + String.format("%02d", date);
 		    
+			//선택된 페이지 넘버
+			if (req.getParameter("pageNum") != null) {
+				pageNum = Integer.parseInt(req.getParameter("pageNum"));
+			}
+			
 		    //선택된 날짜의 행사목록
 			eventDateList = (ArrayList<EventDto>) eventDao.eventCalendarList(pageNum, pageSize, eventDateStr);
 

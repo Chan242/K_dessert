@@ -25,7 +25,7 @@ public class EventListController extends HttpServlet {
 		Connection conn = null;
 		ArrayList<EventDto> eventList = null;
 		int pageNum = 1;  // 기본값 1페이지
-		int pageSize = 5; // 한 페이지에 5개
+		int pageSize = 10; // 한 페이지에 10개
 		int totalCount = 0; // 전체 페이지 수
 		
 		try {

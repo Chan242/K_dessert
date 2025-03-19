@@ -27,7 +27,7 @@
 		width: 1280px;
 		margin: 0 auto;
 		padding-top: 60px;
-		padding-bottom: 250px;
+		padding-bottom: 200px;
 	}
 	
 	#select_event {
@@ -173,14 +173,34 @@
 	
 	
 	/* 	행사 조회 테이블 관련 css */
+	#eventList {
+	width: 1000px;
+	margin: auto;
+	margin-top: 30px;
+	}
+	
 	#eventList_table {
 		width: 1000px;
+		height: 200px;
 		margin: auto;
+		margin-bottom: 10px;
 		border-collapse: collapse;
 	}
 	
 	#eventList_table th, #eventList_table td {
 		border: 1px solid black;
+	}
+	
+	#eventList_table th {
+		width: 100px;
+	}
+	
+	#eventList_table td {
+		padding: 15px;
+	}
+	
+	.image_td {
+		width: 180px;
 	}
 	
 	/* 	페이징 버튼 관련 css */
@@ -260,7 +280,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                  	<c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -275,7 +295,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -289,7 +309,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -303,7 +323,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -317,7 +337,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                   <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -331,7 +351,7 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}">
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
@@ -350,10 +370,10 @@
 					<c:forEach var="event" items="${eventDateList}">
 						<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 		                <c:if test="${eventDay == date}">
-		                	<br>
 							<div id="eventList_table_div"></div>
 								<table id="eventList_table">
 									<tr>
+										<td rowspan="3" class="image_td"></td>
 										<th scope="row">행사명</th>
 										<td>${event.getEveNameStr()}</td>
 									</tr>
@@ -373,101 +393,83 @@
 						<!------------------ 페이지 버튼 ------------------>
 						<div id="div_pageBtn">
 							<c:if test="${pageNum > 1}">
-								<a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}"
-									class="page-btn">&lt;</a>
+								<a href="?year=${year}&month=${month}&date=${date}&pageNum=${pageNum - 1}&pageSize=${pageSize}" class="page-btn">&lt;</a>
 							</c:if>
-	
+							
 							<c:choose>
 								<c:when test="${totalPage == 1}">
-									<!-- 페이지가 1개일 경우, 1번 페이지만 표시 -->
 									<span class="page-btn active">1</span>
 								</c:when>
 								<c:when test="${totalPage <= 4}">
-									<!-- 전체 페이지가 4 이하일 경우 -->
 									<c:forEach begin="1" end="${totalPage}" var="i">
 										<c:choose>
 											<c:when test="${i == pageNum}">
 												<span class="page-btn active">${i}</span>
 											</c:when>
 											<c:otherwise>
-												<a href="?pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
+												<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 								</c:when>
 								<c:when test="${totalPage >= 5}">
-									<!-- 전체 페이지가 5개 이상일 때 -->
 									<c:choose>
 										<c:when test="${pageNum == 1}">
-											<!-- 페이지 번호가 1일 때 (최대 5개까지) -->
 											<c:forEach begin="1" end="5" var="i">
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<span class="page-btn active">${i}</span>
 													</c:when>
 													<c:otherwise>
-														<a href="?pageNum=${i}&pageSize=${pageSize}"
-															class="page-btn">${i}</a>
+														<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 										</c:when>
 										<c:when test="${pageNum == 2}">
-											<!-- 페이지 번호가 2일 때 (최대 5개까지) -->
 											<c:forEach begin="1" end="5" var="i">
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<span class="page-btn active">${i}</span>
 													</c:when>
 													<c:otherwise>
-														<a href="?pageNum=${i}&pageSize=${pageSize}"
-															class="page-btn">${i}</a>
+														<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 										</c:when>
 										<c:when test="${pageNum == totalPage - 1}">
-											<!-- 페이지 번호가 마지막에서 두 번째일 때 (최대 5개까지) -->
-											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
-												end="${totalPage}" var="i">
+											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}" end="${totalPage}" var="i">
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<span class="page-btn active">${i}</span>
 													</c:when>
 													<c:otherwise>
-														<a href="?pageNum=${i}&pageSize=${pageSize}"
-															class="page-btn">${i}</a>
+														<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 										</c:when>
 										<c:when test="${pageNum == totalPage}">
-											<!-- 페이지 번호가 마지막일 때 (최대 5개까지) -->
-											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}"
-												end="${totalPage}" var="i">
+											<c:forEach begin="${totalPage - 4 < 1 ? 1 : totalPage - 4}" end="${totalPage}" var="i">
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<span class="page-btn active">${i}</span>
 													</c:when>
 													<c:otherwise>
-														<a href="?pageNum=${i}&pageSize=${pageSize}"
-															class="page-btn">${i}</a>
+														<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<!-- 페이지 번호가 중간일 때 (최대 5개까지) -->
-											<c:forEach begin="${pageNum - 2 < 1 ? 1 : pageNum - 2}"
-												end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}"
-												var="i">
+											<c:forEach begin="${pageNum - 2 < 1 ? 1 : pageNum - 2}" end="${pageNum + 2 > totalPage ? totalPage : pageNum + 2}" var="i">
 												<c:choose>
 													<c:when test="${i == pageNum}">
 														<span class="page-btn active">${i}</span>
 													</c:when>
 													<c:otherwise>
-														<a href="?pageNum=${i}&pageSize=${pageSize}"
-															class="page-btn">${i}</a>
+														<a href="?year=${year}&month=${month}&date=${date}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
@@ -475,11 +477,11 @@
 									</c:choose>
 								</c:when>
 							</c:choose>
-	
+							
 							<c:if test="${pageNum < totalPage}">
-								<a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}"
-									class="page-btn">&gt;</a>
+								<a href="?year=${year}&month=${month}&date=${date}&pageNum=${pageNum + 1}&pageSize=${pageSize}" class="page-btn">&gt;</a>
 							</c:if>
+
 						</div>
 	
 						<!------------------ 페이지 버튼 ------------------>
@@ -496,7 +498,7 @@
 
 <script type="text/javascript">
 
-	// 이전 날짜로 가는 함수
+//이전 날짜로 가는 함수
 	function goBeforDate() {
 		var year = Number(${year});
 		var month = Number(${month});
@@ -504,21 +506,22 @@
 	
 		if (date == 1) {
 			if (month == 1) {
-				year = year-1;
+				year = year - 1;
 				month = 12;
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + 31;
+				location.href = "./list?year=" + year + "&month=" + month + "&date=" + 31 + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 				return;
 			} else {
 				month = month - 1;
 				var prevMonthLastDay = getLastDayOfMonth(year, month);
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + prevMonthLastDay;
+				location.href = "./list?year=" + year + "&month=" + month + "&date=" + prevMonthLastDay + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 				return;
 			}
 		}
-		
+	
 		date = date - 1;
-		location.href="./list?year=" + year + "&month=" + month + "&date=" +  date;
+		location.href = "./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 	}
+
 	
 	// 이전 달의 마지막 날을 구하는 함수
 	function getLastDayOfMonth(year, month) {
@@ -536,18 +539,18 @@
 			if (month == 12) {
 				year = year + 1;
 				month = 1;
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + 1;
+				location.href="./list?year=" + year + "&month=" + month + "&date=" + 1 + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 				return;
 			} else {
 				month = month + 1;
 				date = 1;
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + date;
+				location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 				return;
 			}
 		}
 		
 		date = date + 1 ;
-		location.href="./list?year=" + year + "&month=" + month + "&date=" + date;
+		location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
 	}
 	
 </script>

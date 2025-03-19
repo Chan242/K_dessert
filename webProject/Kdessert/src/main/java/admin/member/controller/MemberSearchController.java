@@ -24,7 +24,7 @@ public class MemberSearchController extends HttpServlet{
 		Connection conn = null;
 		String searchText = req.getParameter("searchText");
 		int pageNum = 1;  // 기본값 1페이지
-		int pageSize = 10; // 한 페이지에 10개
+		int pageSize = 5; // 한 페이지에 5개
 		int totalCount = 0;
 		
 		try {
