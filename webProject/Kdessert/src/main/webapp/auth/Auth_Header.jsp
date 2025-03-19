@@ -34,7 +34,7 @@
 
 	<div id="header">
 		<div id="logoWrap">
-			<a href="/Kdessert"><img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png"></a>
+			<a href="/Kdessert"><img src="http://192.168.0.18:9080/Kdessert/page/admin/imges/logo.png"></a>
 		</div>
 	</div>
 

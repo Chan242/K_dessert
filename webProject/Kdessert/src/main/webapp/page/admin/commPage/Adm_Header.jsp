@@ -36,7 +36,7 @@
 	<div id="header">
 		<span id="logo">
 			<a href="/Kdessert/page/admin">
-				<img src="http://localhost:9080/Kdessert/page/admin/imges/logo.png">
+				<img src="http://192.168.0.18:9080/Kdessert/page/admin/imges/logo.png">
 			</a>
 		</span>
 		
