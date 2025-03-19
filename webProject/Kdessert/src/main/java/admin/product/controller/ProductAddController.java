@@ -60,14 +60,16 @@ public class ProductAddController extends HttpServlet {
 
 	    // 파일 업로드 처리
 	    String fileName = null;
-	    Part filePart = req.getPart("proImage");  // 'proImage'은 HTML 폼에서 전송되는 파일 파라미터 이름입니다.
+	    Part filePart = req.getPart("proImage");  // 'proImage'는 HTML 폼에서 전송되는 파일 파라미터 이름입니다.
 
 	    if (filePart != null) {
 	        // 파일이 존재하면 파일 이름을 추출하고 저장 경로 설정
 	        fileName = filePart.getSubmittedFileName();
 
-	        // 로그로 파일 경로 확인
+	        // 웹 애플리케이션의 실제 경로를 가져옵니다.
 	        String filePath = "C:\\semiPj\\K_dessert\\webProject\\Kdessert\\src\\main\\webapp\\image\\"+ fileName;
+//	        String appPath = req.getServletContext().getRealPath("/");  // 애플리케이션 루트 경로
+//	        String filePath = appPath + "image" + File.separator + fileName;  // 이미지 폴더에 파일 저장
 	        System.out.println("파일 경로: " + filePath);  // 경로 확인
 
 	        // 파일명 중복 검사

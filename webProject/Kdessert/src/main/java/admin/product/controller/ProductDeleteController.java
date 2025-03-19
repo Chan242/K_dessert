@@ -34,6 +34,18 @@ public class ProductDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		doPost(req,res);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		Connection conn = null;
 
 		int no = Integer.parseInt(req.getParameter("no"));
@@ -64,15 +76,6 @@ public class ProductDeleteController extends HttpServlet {
 
 			rd.forward(req, res);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 	}
 
