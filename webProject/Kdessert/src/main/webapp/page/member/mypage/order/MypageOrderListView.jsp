@@ -126,7 +126,7 @@
 					<td>처리현황</td>
 					<td>주문일시</td>
 					<td>총금액</td>
-					<td>취소</td>
+					<!-- <td>취소</td> -->
 
 				</tr>
 				
@@ -140,12 +140,12 @@
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
 						<td>${orderDto.getTotalPriceInt()}</td>
 						
-						<c:if test="${orderDto.getStaStatStr() eq '접수대기'}">
+<%-- 						<c:if test="${orderDto.getStaStatStr() eq '접수대기'}">
     						<td>
         						<button>취소</button>
     						</td>
 						</c:if>
-
+ --%>
 						
 					</tr>
 				</c:forEach>
