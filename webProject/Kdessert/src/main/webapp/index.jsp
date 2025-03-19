@@ -16,20 +16,19 @@
 	#container{
 		/* 푸터 맨 하단으로 고정할 수 있게 추가 */
 		min-height: 900px; /* 최소높이 지정 */
-		width: 1200px;
+		width: 1000px;
 		margin: auto;
 		overflow: hidden;
 	}
 	
 	#container a{
-		height: 733px;
+		height: 611px;
 	
 	
 	}
 	
 	
 	#rolling{
-		width: 3600px;
 
 		margin-top: 1px;
 		background-color: lightgray;
@@ -40,7 +39,7 @@
 	#rolling img{
 	
 /* 		width: 900px;	 */
-		width: 1200px;
+		width: 1000px;
 
 	}
 
@@ -58,7 +57,7 @@
 		 
 		 
 		 // 이미지 너비 (900px x 3개 이미지 크기)
-		    var imageWidth = 1200; // 각 이미지의 크기 (가로)
+		    var imageWidth = 1000; // 각 이미지의 크기 (가로)
 		    var maxPosition = imageWidth*3; // 3개의 이미지 크기
 		 
 		 function frame() {
@@ -73,7 +72,7 @@
 		        	// position 값이 995 이상이고 maxPosition 미만일 때 멈췄다가 이동
 		        	setTimeout(function() {
 		                // 1초 대기 후 위치를 0으로 초기화하고 애니메이션 다시 시작
-		                position += 30;
+		                position += 20;
 		                rollingObj.style.right = position + 'px';  // 위치 초기화
 		                requestAnimationFrame(frame);  // 애니메이션 다시 시작
 		            }, 4000);
@@ -81,14 +80,14 @@
 		        	// position 값이 90 이상이고 maxPosition 미만일 때 멈췄다가 이동
 		        	setTimeout(function() {
 		                // 1초 대기 후 위치를 0으로 초기화하고 애니메이션 다시 시작
-		                position += 30;
+		                position += 20;
 		                rollingObj.style.right = position + 'px';  // 위치 초기화
 		                requestAnimationFrame(frame);  // 애니메이션 다시 시작
 		            }, 4000);
 		        }else{
 		            // position 값이 0 이상이고 maxPosition 미만일 때 계속해서 이동
 		            
-		            position += 30;
+		            position += 20;
 
 		            // position이 maxPosition을 넘어가지 않도록 제한
 		            if (position > maxPosition) {
