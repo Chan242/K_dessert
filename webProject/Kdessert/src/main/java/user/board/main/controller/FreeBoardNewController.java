@@ -43,7 +43,7 @@ public class FreeBoardNewController extends HttpServlet {
             res.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
             writer.println("<script> alert('회원 전용 페이지입니다. 로그인을 해주세요.'); location.href='" 
-            				+ "/Kdessert/board/write" + "'; </script>"); 
+            				+ "/Kdessert/auth/login" + "'; </script>"); 
             writer.close();
             return;  // 더 이상 코드 실행하지 않도록 종료
         }
