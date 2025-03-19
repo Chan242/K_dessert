@@ -40,7 +40,7 @@ public class UserProductQueryController extends HttpServlet {
 		queryStr = req.getParameter("search");
 		int no = Integer.parseInt(req.getParameter("no"));
 		int productCountInt = 0;
-		int divRowInt = 8;// 한 화면에 보여질 컬럼 개수
+		int divRowInt = 4;// 한 화면에 보여질 컬럼 개수
 
 		try {
 			ServletContext sc = this.getServletContext();

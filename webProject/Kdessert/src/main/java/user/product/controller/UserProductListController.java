@@ -49,7 +49,7 @@ public class UserProductListController extends HttpServlet {
 			
 			UserproductDao.setConnection(conn);
 			
-			int divRowInt = 8;//한 화면에 보여질 컬럼 개수
+			int divRowInt = 4;//한 화면에 보여질 컬럼 개수
 			
 			ArrayList<UserProductDto> userProductList = null;
 			
