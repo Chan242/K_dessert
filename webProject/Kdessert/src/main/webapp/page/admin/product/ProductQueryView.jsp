@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 | 제품관리</title>
 <style type="text/css">
 	body { 
 		width: 100%;

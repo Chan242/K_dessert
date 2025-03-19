@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>InsertTitle</title>
+<title>관리자 | 회원수정</title>
 
 <style type="text/css">
 

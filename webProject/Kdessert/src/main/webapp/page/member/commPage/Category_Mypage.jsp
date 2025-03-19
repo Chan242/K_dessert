@@ -8,8 +8,8 @@
 	#side_MenuBar {
 	
 		width: 250px; 
-		height: 800px;
-
+		height: 100%;
+		min-height: 1100px;
 		margin: 0px;
 		padding-top: 55px;
 
@@ -73,7 +73,7 @@
 			<a id="select_profile" href="/Kdessert/page/member/mypage/info">개인정보</a>
 		</li>
 		<li class='side_Menues'>
-			<a id="select_order" href="/Kdessert/page/member/mypage/orderlist"><span>주문정보(미개발)</span></a>
+			<a id="select_order" href="/Kdessert/page/member/mypage/orderlist"><span>주문정보</span></a>
 		</li>
 		<li class='side_Menues'>
 			<a id="select_basket" href="/Kdessert/page/member/mypage/basket"><span>장바구니</span></a>

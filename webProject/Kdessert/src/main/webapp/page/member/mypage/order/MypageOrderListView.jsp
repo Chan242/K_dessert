@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 주문정보</title>
 
 <style type="text/css">
 	body {
@@ -17,7 +17,8 @@
 	}
 
 	#wrap {
-		width:1895px;
+		overflow-x: hidden;
+		min-width: 1340px;
 	}
 
 	#container {

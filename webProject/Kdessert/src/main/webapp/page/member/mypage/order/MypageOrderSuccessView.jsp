@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 주문완료</title>
 
 <style type="text/css">
 	body {
@@ -13,9 +13,10 @@
 		margin: 0px;
 		overflow-y: scroll;
 	}
-
+	
 	#wrap {
-		width:1920px;
+		overflow-x: hidden;
+		min-width: 1340px;
 	}
 
 	#container {
@@ -32,8 +33,7 @@
 		text-align: center;
 	}
 	
-/* 	#select_카테고리명 수정필요 */
-	#select_point {
+	#select_basket {
 		background-color: white;
 		color: #64473E;
 		font-weight: bold;

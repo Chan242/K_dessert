@@ -54,10 +54,9 @@
 		
     }
 
-
-
 	#wrap {
-		width:1920px;
+		overflow-x: hidden;
+		min-width: 1340px;
 	}
 
 	#container {

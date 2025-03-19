@@ -5,13 +5,21 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 개인정보</title>
 
 <style type="text/css">
 	
-	#wrap {
-		width:1895px;
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
 	}
+	
+	#wrap {
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
 	#container {
 		width: 1200px;
 		margin: auto;
@@ -87,6 +95,12 @@
         width: 90px;
     	cursor: pointer;
     }
+    
+    #select_profile {
+		background-color: white;
+		color: #64473E;
+		font-weight: bold;
+	}
 
 </style>
 

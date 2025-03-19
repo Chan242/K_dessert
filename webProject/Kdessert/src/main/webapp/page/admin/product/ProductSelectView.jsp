@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제품정보</title>
+<title>관리자 | 제품정보</title>
 <style type="text/css">
 
 	body { 

@@ -7,12 +7,19 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 마이포인트</title>
 
 <style type="text/css">
 
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+	
 	#wrap {
-		width:1895px;
+		overflow-x: hidden;
+		min-width: 1340px;
 	}
 
 	#container {

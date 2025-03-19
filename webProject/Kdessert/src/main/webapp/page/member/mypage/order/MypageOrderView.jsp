@@ -7,91 +7,103 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 주문하기</title>
 
 <style type="text/css">
+
 	body {
 		width: 100%;
 		margin: 0px;
 		overflow-y: scroll;
 	}
-#container {
-	width: 1200px;
-	margin: auto;
-}
+	
+	#wrap {
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
+	#container {
+		margin: auto;
+		width: 1200px;
+	}
 
-table, tr, th, td {
-	border-bottom: 1px solid #BEBEBE;
-	border-collapse: collapse;
-}
+	table, tr, th, td {
+		border-bottom: 1px solid #BEBEBE;
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-top: 2px solid black;
+		margin: auto;
+		width: 900px;
+	}
+	
+	th {
+		background-color: #F5F5F5;
+		text-align: center;
+	}
+	
+	th, td {
+		padding: 15px;
+	}
+	
+	#div_buttons {
+		width: 410px;
+		margin: auto;
+		margin-top: 50px;
+	}
+	
+	#div_buttons input {
+		width: 200px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		background-color: white;
+		color: #7B7B7B;
+		font-size: 16px;
+	}
+	
+	#div_category {
+		float: left;
+	}
+	
+	#div_content {
+		width: 950px;
+		float: right;
+	}
+	
+	#table_form {
+		width: 600px;
+		height: 500px;
+		margin: auto;
+	}
+	
+	#table_form th {
+		width: 120px;
+	}
+	
+	input {
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+		width: 500px;
+	}
+	
+	#price{
+		width: 200px;
+		text-align: right;
+	}
 
-table {
-	border-top: 2px solid black;
-	margin: auto;
-	width: 900px;
-}
-
-th {
-	background-color: #F5F5F5;
-	text-align: center;
-}
-
-th, td {
-	padding: 15px;
-}
-
-#div_buttons {
-	width: 410px;
-	margin: auto;
-	margin-top: 50px;
-}
-
-#div_buttons input {
-	width: 200px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	outline: none;
-	transition: border-color 0.3s;
-	background-color: white;
-	color: #7B7B7B;
-	font-size: 16px;
-}
-
-#div_category {
-	float: left;
-}
-
-#div_content {
-	width: 950px;
-	float: right;
-}
-
-#table_form {
-	width: 600px;
-	height: 500px;
-	margin: auto;
-}
-
-#table_form th {
-	width: 120px;
-}
-
-input {
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	outline: none;
-	transition: border-color 0.3s;
-	width: 500px;
-}
-
-#price{
-	width: 200px;
-	text-align: right;
-}
-
+	#select_basket {
+		background-color: white;
+		color: #64473E;
+		font-weight: bold;
+	}
 </style>
 
 <script type="text/javascript">
@@ -102,6 +114,7 @@ input {
 
 <body>
 
+<div id="wrap">
 
 	<jsp:include page="../../commPage/Mem_Header.jsp" />
 	<jsp:include page="../../commPage/Category_Main.jsp" />
@@ -110,104 +123,105 @@ input {
 		<div id="div_category">
 			<jsp:include page="../../commPage/Category_Mypage.jsp" />
 		</div>
-
-		<table>
-			<h2 style="text-align: center;">주문정보</h2>
-			<tr>
-				<td>제품명</td>
-				<td>수량</td>
-				<td>가격</td>
-				<td>총계</td>
-			</tr>
-			<c:forEach var="basketDto" items="${basketList}">
+		<div id="div_content">
+			<table>
+				<h2 style="text-align: center;">주문정보</h2>
 				<tr>
-					<td><a
-						href="../../../product/select?no=${basketDto.getProIndexInt()}">${basketDto.getProNameStr()}</a></td>
-					<td>
-						${basketDto.getBasStockInt()}
-					</td>
-					<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
-					<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+					<td>제품명</td>
+					<td>수량</td>
+					<td>가격</td>
+					<td>총계</td>
 				</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="5" style="text-align: right;">총계: 
-                   <c:set var="total" value="0" />
-                    <c:forEach var="basketDto" items="${basketList}">
-                        <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
-                        <c:set var="total" value="${total + itemTotal}" />
-                    </c:forEach>
-                   	<fmt:formatNumber value="${total}" pattern="#,##0" /> 원
-				</td>
-			</tr>
-
-
-		</table>
-		<hr>
-		<h2 style="text-align: center;">배송 정보</h2>
-		<form action="./order/success" method="post">
-		<table>
-		
-			<tr>
-				<td>받을 사람</td>
-				<td><input name="recipient" value="${orderInfo.getMemNameStr()}" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>받을 주소</td>
-				<td><input name="addressOne" value="${orderInfo.getMemAddressStr()}" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>상세 주소</td>
-				<td><input name="addressTwo" value="${orderInfo.getMemAddressSecStr()}" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td><input name="tel" value="${orderInfo.getMemTelStr()}" readonly="readonly"></td>
-			</tr>
-		</table>
-		<hr>
-		<h2 style="text-align: center;">결제 정보</h2>
-		<table>
-			<tr>
-				<td>총계</td>
-				<td style="text-align: right"><fmt:formatNumber value="${total}" pattern="#,##0" /> 원
-					<input type="hidden" name="total" id="price" value="${total}" readonly="readonly">
-				</td>
-			</tr>
-			<tr>
-				<td>보유 포인트</td>
-				<td style="text-align: right"><fmt:formatNumber value="${pointInfo.getMemPointInt()}" pattern="#,##0" />P				
-				</td>
-			</tr>
-			<tr>
-				<td>
-					포인트-구매금액
-				</td>
-				<td style="text-align: right">
-					<fmt:formatNumber value="${pointInfo.getMemPointInt()-total}" pattern="#,##0" />P
-				</td>
-			</tr>
+				<c:forEach var="basketDto" items="${basketList}">
+					<tr>
+						<td><a
+							href="../../../product/select?no=${basketDto.getProIndexInt()}">${basketDto.getProNameStr()}</a></td>
+						<td>
+							${basketDto.getBasStockInt()}
+						</td>
+						<td><fmt:formatNumber value="${basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+						<td><fmt:formatNumber value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" pattern="#,##0" /></td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<td colspan="5" style="text-align: right;">총계: 
+	                   <c:set var="total" value="0" />
+	                    <c:forEach var="basketDto" items="${basketList}">
+	                        <c:set var="itemTotal" value="${basketDto.getBasStockInt() * basketDto.getProPriceInt()}" />
+	                        <c:set var="total" value="${total + itemTotal}" />
+	                    </c:forEach>
+	                   	<fmt:formatNumber value="${total}" pattern="#,##0" /> 원
+					</td>
+				</tr>
+	
+	
+			</table>
+			<hr>
+			<h2 style="text-align: center;">배송 정보</h2>
+			<form action="./order/success" method="post">
+			<table>
 			
-			<tr>
-				<td>상태</td>
-				<td style="text-align: right">
-					<c:if test="${total > pointInfo.getMemPointInt()}">
-						포인트가 부족합니다.
-					</c:if>
-					<c:if test="${total <= pointInfo.getMemPointInt()}">
-						
-						<input style="width: 100px;" type="submit" value="구매">
-					</c:if>
-				</td>	
-			</tr>
-		</table>
-		</form>
-		
-		<div style="margin: auto; clear: both;">
-
+				<tr>
+					<td>받을 사람</td>
+					<td><input name="recipient" value="${orderInfo.getMemNameStr()}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>받을 주소</td>
+					<td><input name="addressOne" value="${orderInfo.getMemAddressStr()}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>상세 주소</td>
+					<td><input name="addressTwo" value="${orderInfo.getMemAddressSecStr()}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>연락처</td>
+					<td><input name="tel" value="${orderInfo.getMemTelStr()}" readonly="readonly"></td>
+				</tr>
+			</table>
+			<hr>
+			<h2 style="text-align: center;">결제 정보</h2>
+			<table>
+				<tr>
+					<td>총계</td>
+					<td style="text-align: right"><fmt:formatNumber value="${total}" pattern="#,##0" /> 원
+						<input type="hidden" name="total" id="price" value="${total}" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<td>보유 포인트</td>
+					<td style="text-align: right"><fmt:formatNumber value="${pointInfo.getMemPointInt()}" pattern="#,##0" />P				
+					</td>
+				</tr>
+				<tr>
+					<td>
+						포인트-구매금액
+					</td>
+					<td style="text-align: right">
+						<fmt:formatNumber value="${pointInfo.getMemPointInt()-total}" pattern="#,##0" />P
+					</td>
+				</tr>
+				
+				<tr>
+					<td>상태</td>
+					<td style="text-align: right">
+						<c:if test="${total > pointInfo.getMemPointInt()}">
+							포인트가 부족합니다.
+						</c:if>
+						<c:if test="${total <= pointInfo.getMemPointInt()}">
+							
+							<input style="width: 100px;" type="submit" value="구매">
+						</c:if>
+					</td>	
+				</tr>
+			</table>
+			</form>
+			
+			<div style="margin: auto; clear: both;">
+			</div>
 		</div>
-
 	</div>
+</div>
+
 </body>
 
 <script type="text/javascript">

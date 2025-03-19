@@ -7,13 +7,25 @@
 
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>마이페이지 | 장바구니</title>
 
 <style type="text/css">
-#container {
-	width: 1200px;
-	margin: auto;
-}
+
+	body {
+		width: 100%;
+		margin: 0px;
+		overflow-y: scroll;
+	}
+	
+	#wrap {
+		overflow-x: hidden;
+		min-width: 1340px;
+	}
+	
+	#container {
+		width: 1200px;
+		margin: auto;
+	}
 
 table, tr, th, td {
 	border-bottom: 1px solid #BEBEBE;
@@ -23,7 +35,7 @@ table, tr, th, td {
 table {
 	border-top: 2px solid black;
 	margin: auto;
-	width: 900px;
+	width: 800px;
 }
 
 th {
@@ -104,6 +116,7 @@ input {
 
 <body>
 
+<div id="wrap">
 
 	<jsp:include page="../commPage/Mem_Header.jsp" />
 	<jsp:include page="../commPage/Category_Main.jsp" />
@@ -168,6 +181,9 @@ input {
 
 	</div>
 	</div>
+	
+</div>
+
 </body>
 
 <script type="text/javascript">

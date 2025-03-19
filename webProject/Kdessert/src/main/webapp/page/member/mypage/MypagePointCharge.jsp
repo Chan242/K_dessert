@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>충전하기</title>
+<title>포인트 충전</title>
 
 <style type="text/css">
 

@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>주문 상태 변경 결과</title>
+    <title>관리자 | 주문 상태 변경 결과</title>
     <style>
     
     	body { 

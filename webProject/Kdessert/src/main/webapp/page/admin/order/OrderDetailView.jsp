@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문목록</title>
+<title>관리자 | 주문관리</title>
 
 <style type="text/css">
 

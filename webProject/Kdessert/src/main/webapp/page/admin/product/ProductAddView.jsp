@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Product Add View place</title>
+<title>관리자 | 제품등록</title>
 
 <style type="text/css">
 
