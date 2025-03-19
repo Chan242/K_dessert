@@ -45,6 +45,9 @@ a{
 		height: 29px;
 	}
 
+#select_produt {
+	border-bottom: 2px solid #64473E;
+}
 
 </style>
 

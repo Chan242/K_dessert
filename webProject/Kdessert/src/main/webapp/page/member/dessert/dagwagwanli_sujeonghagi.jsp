@@ -46,6 +46,11 @@ table {
 	float: left;
 }
 
+	#select_dessert {
+		background-color: white;
+		color: #64473E
+	}
+
 </style>
 </head>
 

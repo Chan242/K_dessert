@@ -47,6 +47,10 @@
     cursor: pointer;       /* 클릭 커서 유지 */
 }
 	
+	#select_product {
+		background-color: white;
+		color: #64473E
+	}
 </style>
 
 <script type="text/javascript">

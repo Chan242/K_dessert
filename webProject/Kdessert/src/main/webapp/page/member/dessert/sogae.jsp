@@ -105,6 +105,10 @@
 	height: 50px;
 	margin-top: 20px;
 }
+
+#select_dessert {
+	border-bottom: 2px solid #64473E;
+}
 </style>
 
 </head>

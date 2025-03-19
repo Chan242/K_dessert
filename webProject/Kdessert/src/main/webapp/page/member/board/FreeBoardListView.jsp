@@ -129,6 +129,9 @@
 		background-color: #f0f0f0;
 	}
 
+	#select_board {
+		border-bottom: 2px solid #64473E;
+	}
 
 </style>
 

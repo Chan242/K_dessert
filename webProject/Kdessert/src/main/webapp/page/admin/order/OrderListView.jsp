@@ -64,6 +64,11 @@
     font-weight: normal;   /* 강조 해제 */
 }
 
+	#select_order {
+		background-color: white;
+		color: #64473E
+	}
+
 </style>
 
 
