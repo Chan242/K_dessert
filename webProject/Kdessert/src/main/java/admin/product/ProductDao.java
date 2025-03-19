@@ -399,13 +399,13 @@ public class ProductDao {
 		ArrayList<ProductDto> productList = new ArrayList<ProductDto>();
 
 		String sql = "";
-		sql += "SELECT rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
+		sql += "SELECT rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
 		sql += "FROM ( ";
-		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
+		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE ";
 		sql += "    FROM ( ";
-		sql += "        SELECT P.P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, T_NAME";
+		sql += "        SELECT DISTINCT P.P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE";
 		sql += "        FROM PRODUCT P LEFT JOIN PRODUCT_TAG PT ON P.P_INDEX = PT.P_INDEX  ";
-		sql += "        WHERE P_NAME LIKE ? OR P_INTRO LIKE ? OR T_NAME LIKE ?";
+		sql += "        WHERE P_NAME LIKE ?  OR T_NAME LIKE ?";
 		sql += "        ORDER BY P_INDEX DESC ";
 		sql += "    ) ";
 		sql += "    WHERE ROWNUM <= ? ";
@@ -418,9 +418,8 @@ public class ProductDao {
 
 			pstmt.setString(1, "%" + queryStr + "%");
 			pstmt.setString(2, "%" + queryStr + "%");
-			pstmt.setString(3, "%" + queryStr + "%");
-			pstmt.setInt(4, no * divRowInt); // 끝 범위
-			pstmt.setInt(5, (no - 1) * divRowInt + 1); // 시작 범위
+			pstmt.setInt(3, no * divRowInt); // 끝 범위
+			pstmt.setInt(4, (no - 1) * divRowInt + 1); // 시작 범위
 
 			rs = pstmt.executeQuery();
 

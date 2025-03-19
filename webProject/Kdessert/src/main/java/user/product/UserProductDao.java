@@ -180,13 +180,13 @@ public class UserProductDao {
 
 		String sql = "";
 
-		sql += "SELECT rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
+		sql += "SELECT  rn, P_INDEX, P_NAME,P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
 		sql += " FROM ( ";
-		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
+		sql += "    SELECT ROWNUM AS rn, P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE ";
 		sql += "    FROM ( ";
-		sql += "        SELECT P.P_INDEX, P_NAME, P_INTRO, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, T_NAME, P_IMAGE";
-		sql += "        FROM PRODUCT P LEFT JOIN PRODUCT_TAG PT ON P.P_INDEX = PT.P_INDEX  ";
-		sql += "        WHERE (P_NAME LIKE ? OR P_INTRO LIKE ? OR T_NAME LIKE ?) AND P_OPEN = 0";
+		sql += "        SELECT distinct P.P_INDEX, P_NAME, P_STOCK, P_PRICE, P_OPEN, P_CRE_DATE, P_CORR_DATE, P_IMAGE";
+		sql += "        FROM PRODUCT P left JOIN PRODUCT_TAG PT ON P.P_INDEX = PT.P_INDEX  ";
+		sql += "        WHERE (P_NAME LIKE ? OR PT.T_NAME LIKE ?) AND P_OPEN = 0";
 		sql += "        ORDER BY P_INDEX DESC ";
 		sql += "    ) ";
 		sql += "    WHERE ROWNUM <= ? ";
@@ -199,9 +199,8 @@ public class UserProductDao {
 
 			pstmt.setString(1, "%" + queryStr + "%");
 			pstmt.setString(2, "%" + queryStr + "%");
-			pstmt.setString(3, "%" + queryStr + "%");
-			pstmt.setInt(4, no * divRowInt); // 끝 범위
-			pstmt.setInt(5, (no - 1) * divRowInt + 1); // 시작 범위
+			pstmt.setInt(3, no * divRowInt); // 끝 범위
+			pstmt.setInt(4, (no - 1) * divRowInt + 1); // 시작 범위
 			
 
 			
