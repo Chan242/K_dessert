@@ -121,7 +121,7 @@
 							${orderDto.getStaStatStr()}
 						</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
-						<td>${orderDto.getTotalPriceInt()}</td>
+						<td><fmt:formatNumber value="${orderDto.getTotalPriceInt()}" pattern="#,##0" /></td>
 					</tr>
 				</c:forEach>
 			</table>

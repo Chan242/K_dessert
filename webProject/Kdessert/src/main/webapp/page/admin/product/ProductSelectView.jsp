@@ -64,7 +64,7 @@
 	
 	<div>
 		<h1 style="text-align: center;">제품 정보</h1>
-		<table style="margin: auto; ">
+		<table style="margin: auto; width: 700px; ">
 			<tr>
 				<td>인덱스</td>
 				<td>${productDto.getProIndexInt()}</td>

@@ -92,10 +92,10 @@
 					<tr>
 						<td>${orderProduct.getProductIndexInt()}</td>
 						<td>${orderProduct.getProductNameStr()}</td>
-						<td>${orderProduct.getProductStockInt()}</td>
-						<td>${orderProduct.getProductPriceInt()}</td>
-						<td>${orderProduct.getProductStockInt()
-						 * orderProduct.getProductPriceInt()}</td>
+						<td><fmt:formatNumber value="${orderProduct.getProductStockInt()}" pattern="#,##0" /></td>
+						<td><fmt:formatNumber value="${orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
+						<td><fmt:formatNumber value="${orderProduct.getProductStockInt()
+						 * orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -114,7 +114,7 @@
 				</tr>
 				<tr>
 					<td>주문액</td>
-					<td>${orderDto.getTotalPriceInt()}</td>
+					<td><fmt:formatNumber value="${orderDto.getTotalPriceInt()}" pattern="#,##0" /></td>
 				</tr>
 				<tr>
 					<td>주문상태</td>

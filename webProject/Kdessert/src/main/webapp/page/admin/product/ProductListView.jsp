@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
 	<div id="container">
 		<div>
 			<h2 style="text-align: center;">제품 관리</h2>
-			<table style="width: 600px;">
+			<table style="width: 800px;">
 				<tr>
 					<td><button style="float: left; margin: auto;"
 				onclick="location.href='/Kdessert/admin/product/add'">신규등록</button>
@@ -95,8 +96,8 @@
 					<tr>
 						<td>${productDto.getProIndexInt()}</td>
 						<td><a href="./select?no=${productDto.getProIndexInt()}">${productDto.getProNameStr()}</a></td>
-						<td>${productDto.getProPriceInt()}</td>
-						<td>${productDto.getProStockInt()}</td>
+						<td><fmt:formatNumber value="${productDto.getProPriceInt()}" pattern="#,##0" /></td>
+						<td><fmt:formatNumber value="${productDto.getProStockInt()}" pattern="#,##0" /></td>
 						<td><c:choose>
 								<c:when test="${productDto.getProOpenInt() == 0}">공개</c:when>
 								<c:when test="${productDto.getProOpenInt() == 1}">비공개</c:when>
@@ -118,7 +119,7 @@
 	    
 	 <!-- 페이지 번호 -->
 	   		 <c:forEach var="i" begin="${start}" end="${maxEnd}">
-	   	    	 <a href="./list?no=${i}">${i}</a>
+	   	    	<a href="./list?no=${i}" <c:if test="${i eq no}">style="font-weight: bolder;"</c:if> >${i}</a>
 	   	 	</c:forEach>
     
    	 <!-- 다음 페이지 -->
