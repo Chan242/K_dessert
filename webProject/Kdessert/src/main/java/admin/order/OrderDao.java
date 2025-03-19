@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import admin.product.ProductDto;
@@ -469,6 +470,11 @@ public class OrderDao {
 	        int[] decreaseStock = pstmtDecreaseStock.executeBatch(); // 재고 감소 실행
 	        int[] decreasePoint = pstmtDecreasePoint.executeBatch(); // 포인트 감소 실행
 	        int[] clearBasket = pstmtClearBasket.executeBatch(); // 장바구니 비우기 실행
+	        
+	        
+	        result = Arrays.stream(order).sum();
+	        
+	        
 
 	        // 모든 작업 성공 시 커밋
 	        connection.commit();
