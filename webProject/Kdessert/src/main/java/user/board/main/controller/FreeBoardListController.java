@@ -80,7 +80,7 @@ public class FreeBoardListController extends HttpServlet {
 			//게시글의 총 데이터 수 가져오기
 			totalCount = boardDao.freeBoardListTotal();
 			// 페이지의 총 개수 계산
-	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+	        int totalPage = (int) Math.ceil( totalCount /(double) pageSize);
 	        // 요청에 필요한 정보 저장
 	        req.setAttribute("totalPage", totalPage);
 	        req.setAttribute("pageNum", pageNum);

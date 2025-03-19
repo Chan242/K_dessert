@@ -45,12 +45,17 @@ public class FreeBoardSearchListController extends HttpServlet {
 		int pageSize = 0;
 		int pageNum = 0;
 		
-		pageSize = 10; // 한 페이지에 10개
+		pageSize = 8; // 한 페이지에 10개
 		pageNum = 1;  // 기본값 1페이지
 		
 		String searchStr = "";
 		
 		try {
+			
+			//선택한 페이지 넘버 받아오기(이거 빼먹으면 링크는 이동해도 항상 페이지는 1번 페이지가 뜸)
+			if (req.getParameter("pageNum") != null) {
+				pageNum = Integer.parseInt(req.getParameter("pageNum"));
+			}
 			
 			ServletContext sc = this.getServletContext();
 			
@@ -78,7 +83,7 @@ public class FreeBoardSearchListController extends HttpServlet {
 			//게시글의 총 데이터 수 가져오기
 			totalCount = boardDao.freeBoardListSearchTo(searchStr);
 			// 페이지의 총 개수 계산
-	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+	        int totalPage = (int) Math.ceil(totalCount / (double) pageSize);
 	        // 요청에 필요한 정보 저장
 	        req.setAttribute("totalPage", totalPage);
 	        req.setAttribute("pageNum", pageNum);

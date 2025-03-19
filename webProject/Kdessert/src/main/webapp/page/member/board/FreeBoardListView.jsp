@@ -220,7 +220,7 @@
 		    <c:if test="${pageNum > 1}">
 				<!-- 현재 페이지보다 1 작은 페이지로 이동+ pageSize로 한 페이지당 항목의 수 유지-->
 				<!-- &lt;는 이전버튼 -->
-		        <a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">&lt;</a>
+		        <a href="?searchStr=${param.searchStr}&pageNum=${pageNum - 1}&pageSize=${pageSize}" class="pageBtn">&lt;</a>
 		    </c:if>
 				
 				<!-- 여러가지 경우의 수 생성 -->
@@ -239,7 +239,7 @@
 				                </c:when>
 				                <%-- 그 외의 경우 a태그로 페이지 이동 활성화 --%>
 				                <c:otherwise>
-				                    <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                    <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                </c:otherwise>
 				            </c:choose>
 				        </c:forEach>
@@ -257,7 +257,7 @@
 				                        </c:when>
 				                        <%-- 그 외의 경우 a태그로 페이지 이동 활성화 --%>
 				                        <c:otherwise>
-				                            <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                            <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:forEach>
@@ -270,7 +270,7 @@
 				                            <span class="pageBtn active">${i}</span>
 				                        </c:when>
 				                        <c:otherwise>
-				                            <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                            <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:forEach>
@@ -284,7 +284,7 @@
 				                            <span class="pageBtn active">${i}</span>
 				                        </c:when>
 				                        <c:otherwise>
-				                            <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                            <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:forEach>
@@ -298,7 +298,7 @@
 				                            <span class="pageBtn active">${i}</span>
 				                        </c:when>
 				                        <c:otherwise>
-				                            <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                            <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:forEach>
@@ -313,7 +313,7 @@
 				                            <span class="pageBtn active">${i}</span>
 				                        </c:when>
 				                        <c:otherwise>
-				                            <a href="?pageNum=${i}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">${i}</a>
+				                            <a href="?searchStr=${param.searchStr}&pageNum=${i}&pageSize=${pageSize}" class="pageBtn">${i}</a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:forEach>
@@ -324,7 +324,7 @@
 
 				<!-- 다음 페이지 버튼 (>) -->
 				<c:if test="${pageNum < totalPage}">
-		        <a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}&searchStr=${param.searchStr}" class="pageBtn">&gt;</a>
+		        <a href="?searchStr=${param.searchStr}&pageNum=${pageNum + 1}&pageSize=${pageSize}" class="pageBtn">&gt;</a>
 		    </c:if>
 		</div>
 				
