@@ -373,7 +373,7 @@
 							<div id="eventList_table_div"></div>
 								<table id="eventList_table">
 									<tr>
-										<td rowspan="3" class="image_td"></td>
+										<td rowspan="3" class="image_td" style="text-align: center;"> 이미지 </td>
 										<th scope="row">행사명</th>
 										<td>${event.getEveNameStr()}</td>
 									</tr>
