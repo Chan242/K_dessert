@@ -121,8 +121,10 @@
 	/* 	    margin: 10px; */
 	/* 	} */
 
-	.eventList_fun_btn {
-		width:80px;
+	.eventList_fun {
+		text-decoration-line: none;
+		font-weight: bold;
+		color: black;
 	}
 	
 	#calendar_table {
@@ -280,8 +282,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                  	<c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}"><!--체크용  -->
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -295,8 +297,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -309,8 +311,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -323,8 +325,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -337,8 +339,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                   <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -351,8 +353,8 @@
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
-							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=${pageNum}&pageSize=${pageSize}">
-							                            	행사보기
+							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
+							                            	행사보기▽
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -508,18 +510,18 @@
 			if (month == 1) {
 				year = year - 1;
 				month = 12;
-				location.href = "./list?year=" + year + "&month=" + month + "&date=" + 31 + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+				location.href = "./list?year=" + year + "&month=" + month + "&date=" + 31 + "&pageNum=1&pageSize=" + ${pageSize};
 				return;
 			} else {
 				month = month - 1;
 				var prevMonthLastDay = getLastDayOfMonth(year, month);
-				location.href = "./list?year=" + year + "&month=" + month + "&date=" + prevMonthLastDay + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+				location.href = "./list?year=" + year + "&month=" + month + "&date=" + prevMonthLastDay + "&pageNum=1&pageSize=" + ${pageSize};
 				return;
 			}
 		}
 	
 		date = date - 1;
-		location.href = "./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+		location.href = "./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
 	}
 
 	
@@ -539,18 +541,18 @@
 			if (month == 12) {
 				year = year + 1;
 				month = 1;
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + 1 + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+				location.href="./list?year=" + year + "&month=" + month + "&date=" + 1 + "&pageNum=1&pageSize=" + ${pageSize};
 				return;
 			} else {
 				month = month + 1;
 				date = 1;
-				location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+				location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
 				return;
 			}
 		}
 		
 		date = date + 1 ;
-		location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=" + ${pageNum} + "&pageSize=" + ${pageSize};
+		location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
 	}
 	
 </script>
