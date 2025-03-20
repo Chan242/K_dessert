@@ -137,14 +137,14 @@
 			<img src="<%= request.getContextPath() %>/image/img1.jpg" alt="밤양갱">
 			<div class="product-info">
 				<div class="product-title">밤양갱</div>
-				<p>소개</p>
+				<p>밤양갱의 핵심인 밤은 한의학적으로 건강상 다양한 이점이 있는 것으로 알려져 있다</p>
 				<p>#다과 #다식</p>
 				<button class="product-button" onclick="location.href='./dagwasogaejasehibogi'">자세히 보기</button>
 			</div>
 		</div>
 
 		<div class="product">
-			<img src="#" alt="상품 이미지">
+			<img src="<%= request.getContextPath() %>/image/img2.jpg" alt="은행양갱">
 			<div class="product-info">
 				<div class="product-title">다과명</div>
 				<p>소개</p>

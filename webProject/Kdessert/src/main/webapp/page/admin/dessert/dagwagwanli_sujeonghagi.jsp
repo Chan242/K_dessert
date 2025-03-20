@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>관리자 | 다과관리</title>
+<title>관리자 | 다과관 수정하기</title>
 <style>
 
 /* --------------------------------------- */

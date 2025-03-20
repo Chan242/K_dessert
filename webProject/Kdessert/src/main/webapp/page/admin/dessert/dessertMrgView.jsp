@@ -101,25 +101,16 @@ th, td {
   background-color: #0056b3;
 }
 
-#div_content h2 {
-	text-align: center;
-	width: 1200px;
-	margin: quto;
-	margin-top: 40px;
-	margin-bottom: 40px;
-	padding-bottom: 20px;
-	border-bottom: 10px solid black;
-}
 
 #table_info {
 	margin: auto;
 	width: 1200px;
 }
 
-#div_content{
-		width: 1300px;
-		margin-left: 50px; 
-		float: left;
+#content h2{
+	width: 1200px;
+	margin-left: 1050px;
+
 }
 .pagination {
 	text-align: center;		
@@ -142,6 +133,7 @@ th, td {
 			location.href = "dagwa_delete.jsp?dawaId=" + dagwId;
 		}
 	}
+	
 </script >
 
 
@@ -157,7 +149,7 @@ th, td {
 				<jsp:include page="/page/admin/commPage/Category_Mgr.jsp" />
 			</div>
 			<div id="content">
-			<h2> 다과 관리</h2>
+				<h2> 다과 관리</h2>
 				<!-- 검색창 -->
 				<div class="div_search">
 				<form action="./search" method="get">
@@ -175,6 +167,7 @@ th, td {
 							<th scope="col" style="width: 160px;">공개여부</th>
 							<th scope="col" style="width: 170px;">조회수</th>
 							<th scope="col" style="width: 170px">삭제</th>
+							<th scope="col" style="width: 170px">수정</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -184,6 +177,7 @@ th, td {
 							<td>공개</td>
 							<td>1</td>
 							<td><button onclick="delteDagwa(1)">삭제</button></td>
+							<td><button onclick="location.href='/Kdessert/page/admin/DaquaList/modify'">수정</button></td>
 						</tr>
 					</tbody>
 				</table>
