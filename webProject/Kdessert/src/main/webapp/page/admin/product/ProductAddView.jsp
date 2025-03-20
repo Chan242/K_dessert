@@ -80,7 +80,7 @@ table, tr, th, td {
 				<tr>
 					<td>태그</td>
 					<td><input type="text" name="tag" size="50" placeholder="#태그">
-				)</td>
+				</td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="입력"></td>
