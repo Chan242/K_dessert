@@ -268,10 +268,12 @@
 	    if (password !== passwordCheck) {
 	    	pwdStatusObj.innerHTML = '입력된 비밀번호가 일치하지 않습니다.';
 	    	pwdStatusObj.style.color = 'red';
+	    	pwdStatusObj.style.fontSize = '12px';
 	    	return;
-	    }else {
+	    }else if(password == passwordCheck && password !== ''){
 	    	pwdStatusObj.innerHTML = '입력된 비밀번호가 일치합니다.';
 	    	pwdStatusObj.style.color = 'green';
+	    	pwdStatusObj.style.fontSize = '12px';
 	    	return;
 	    }
 	}
@@ -281,6 +283,7 @@
 	//비밀번호 유효성 검사
 	function valiCheckPwd() {
 		var pwd = document.getElementById("password").value;
+		var pwdStatusObj = document.getElementById('pwdStatus');
 		var pwdStatus2Obj = document.getElementById('pwdStatus2');
 		
 		//조건 불충족 시 메시지가 출력
@@ -296,6 +299,11 @@
 			pwdStatus2Obj.innerHTML = '';
 			validationPwd = true;
 		}
+		
+		if (pwd == '') {
+			pwdStatusObj.innerHTML = '';
+		}
+		
 	}
 	
 	// 폼을 제출하기 전에 중복확인 여부를 체크하는 함수
