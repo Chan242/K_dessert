@@ -19,7 +19,22 @@
 	width: 1200px;
 	height: 1200px;
 }
-	
+.btn_style {
+
+		width: 200px;
+		padding: 10px;
+
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
+
+		background-color: white;
+		color: #7B7B7B;
+		font-size: 16px;
+		margin: auto;
+		
+    }
 
 </style>
 
@@ -88,6 +103,14 @@ window.onload = function() {
 				</tr>
 			</table>
 		</div>
+		
+		<div style="text-align: center;">
+		
+			<button class="btn_style" onclick="location.href='/Kdessert/product/list?no=1'">목록보기</button>
+		
+		</div>
+		
+		
 	</div>
 
 </body>
