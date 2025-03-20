@@ -155,12 +155,14 @@ function deleteDetail() {
 			<div id="context">
 				<p>${boardDto.getBrdTextStr()}</p> <!-- 내용 텍스트 -->
 				 <!-- 관리자이거나, 접속 번호와 글쓴이 인덱스 번호가 같을 경우 수정 삭제페이지가 보임-->
-				<c:if test="${boardDto.getMemIndexInt()==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
 					<div id='contentBtn'>
-						<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
-						<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}" onclick='return deleteDetail()'>삭제</a>
+						<c:if test="${boardDto.getMemIndexInt()==sessionScope.member.memIndexInt}"> 
+							<a href="./update?brdIndexInt=${boardDto.getBrdIndexInt()}">수정</a>
+						</c:if>
+						<c:if test="${boardDto.getMemIndexInt()==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
+							<a href="./delete?brdIndexInt=${boardDto.getBrdIndexInt()}" onclick='return deleteDetail()'>삭제</a>
+						</c:if>
 					</div>
-				</c:if>
 		</div>
 		
 <!-- 댓글부분 -->
