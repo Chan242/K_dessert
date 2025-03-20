@@ -55,7 +55,9 @@ table {
 				<thead>
 					<tr style="width:300px; height:400px; text-align: center;">
 						<td>
+							<a href="./select?no=${userProductDto.getProIndexInt()}">
 							<img src="/Kdessert/image/${userProductDto.getProImageStr()}" style="width: 200px; height: 180px;">
+							</a>
 						</td>
 					</tr>
 				</thead>
