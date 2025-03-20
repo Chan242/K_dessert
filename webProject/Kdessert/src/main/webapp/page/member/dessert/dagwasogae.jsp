@@ -227,23 +227,6 @@ input[type="number"] {
 	<jsp:include page="/page/member/commPage/Category_Main.jsp" />
 
 
-	<!-- <헤더> -->
-
-	<!-- 	<header>
-		<div class="logo">로고</div>
-		<div class="user-info">
-			<span>홍길동님</span>
-			<a href="#">장바구니</a>
-			<a href="#">로그아웃</a>
-		</div>
-
-		<div class="header-bottom">
-			<h1>다과 소개 - 자세한 내용 - 완제품</h1>
-		</div>
-
-	</header> -->
-
-	<!-- <내비게이션> -->
 
 
 	<!-- <메인 컨텐츠> -->
