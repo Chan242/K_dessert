@@ -188,7 +188,7 @@
 				
 				<div id="div_pageBtn">
 				    <c:if test="${pageNum > 1}">
-				        <a href="?pageNum=${pageNum - 1}&pageSize=${pageSize}" class="page-btn">&lt;</a>
+				        <a href="?searchText=${searchText}&pageNum=${pageNum - 1}&pageSize=${pageSize}" class="page-btn">&lt;</a>
 				    </c:if>
 				
 				    <c:forEach begin="1" end="${totalPage}" var="i">
@@ -197,13 +197,13 @@
 				                <span class="page-btn active">${i}</span>
 				            </c:when>
 				            <c:otherwise>
-				                <a href="?pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
+				                <a href="?searchText=${searchText}&pageNum=${i}&pageSize=${pageSize}" class="page-btn">${i}</a>
 				            </c:otherwise>
 				        </c:choose>
 				    </c:forEach>
 				
 				    <c:if test="${pageNum < totalPage}">
-				        <a href="?pageNum=${pageNum + 1}&pageSize=${pageSize}" class="page-btn">&gt;</a>
+				        <a href="?searchText=${searchText}&pageNum=${pageNum + 1}&pageSize=${pageSize}" class="page-btn">&gt;</a>
 				    </c:if>
 				</div>
 			
