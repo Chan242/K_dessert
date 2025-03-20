@@ -124,11 +124,21 @@
 		</div>
 
 		<div class="product">
-			<img src="#" alt="상품 이미지">
+			<img src="<%= request.getContextPath() %>/image/img3.jpg" alt="정과">
 			<div class="product-info">
 				<div class="product-title">정과</div>
 				<p>정과는 식물의 뿌리나 열매를 꿀이나 엿을 사용해 쫄깃하고 윤이 나게 조린 과자이다</p>
 				<p>#다과 #전통과자</p>
+				<button class="product-button" onclick="location.href='./dagwasogaejasehibogi'">자세히 보기</button>
+			</div>
+		</div>
+
+		<div class="product">
+			<img src="<%= request.getContextPath() %>/image/img1.jpg" alt="밤양갱">
+			<div class="product-info">
+				<div class="product-title">밤양갱</div>
+				<p>소개</p>
+				<p>#다과 #다식</p>
 				<button class="product-button" onclick="location.href='./dagwasogaejasehibogi'">자세히 보기</button>
 			</div>
 		</div>
@@ -139,17 +149,7 @@
 				<div class="product-title">다과명</div>
 				<p>소개</p>
 				<p>#다과 #다식</p>
-				<button class="product-button">자세히 보기</button>
-			</div>
-		</div>
-
-		<div class="product">
-			<img src="#" alt="상품 이미지">
-			<div class="product-info">
-				<div class="product-title">다과명</div>
-				<p>소개</p>
-				<p>#다과 #다식</p>
-				<button class="product-button">자세히 보기</button>
+				<button class="product-button" onclick="location.href='./dagwasogaejasehibogi'">자세히 보기</button>
 			</div>
 		</div>
 
