@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 
@@ -108,6 +109,13 @@
 
 <body>
 
+	<c:if test="${member.getMemIndexInt() ne param.no}"><!-- 본인계정 외 다른 사람이 접속할 시 메인으로 튕김 -->
+	    <script type="text/javascript">
+	        alert('권한이 없습니다. 메인 페이지로 이동합니다.');
+	        window.location.href = '/Kdessert'; // 메인 페이지로 리다이렉트
+	    </script>
+	</c:if>
+	
 <div id="wrap">
 	<jsp:include page="../commPage/Mem_Header.jsp"/>
 	<jsp:include page="../commPage/Category_Main.jsp"/>

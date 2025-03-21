@@ -123,7 +123,7 @@
 			<table>
 				<tr>
 					<td>주문번호</td>
-					<td>주문자</td>
+					<td>수령자</td>
 					<td>처리현황</td>
 					<td>주문일시</td>
 					<td>총금액</td>
@@ -151,11 +151,11 @@
 					</tr>
 				</c:forEach>
 			</table>
-		</div>
+				</div>
 		
+			</div>
 		</div>
-	</div>
-
+	
 		</div>
 
 
