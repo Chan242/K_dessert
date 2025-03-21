@@ -121,11 +121,16 @@ h2 {
 
 <body>
 
-	<jsp:include page="/page/member/commPage/Mem_Header.jsp"/>
-	<jsp:include page="/page/member/commPage/Category_Main.jsp"/>
-
-	<!-- 상세보기 컨텐츠 -->
-	<div class="content">
+<div id="wrap">
+	<jsp:include page="/page/admin/commPage/Adm_Header.jsp" />
+	
+	
+	<div id="container">
+	
+		<div id="sidebar">
+			<jsp:include page="/page/admin/commPage/Category_Mgr.jsp" />
+		</div>
+	</div>
 		<h2>상세보기</h2>
 		<table class="details-table">
 			<tr>
