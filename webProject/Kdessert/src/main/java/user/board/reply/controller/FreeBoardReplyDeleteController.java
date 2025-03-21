@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import admin.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
@@ -52,11 +53,33 @@ public class FreeBoardReplyDeleteController extends HttpServlet {
 			
 			BoardReplyDao boardReplyDao = new BoardReplyDao();
 			boardReplyDao.setConnection(conn);
+			BoardReplyDto boardReplyDto = boardReplyDao.replyInfo(replyIndexInt);
+			
+			
+			HttpSession session = req.getSession();
+			
+			MemberDto memberDto = (MemberDto)session.getAttribute("member");
+			
+			int memIndex = memberDto.getMemIndexInt();
+			
+			 // 작성한 사람 혹은 관리자가 아닐 경우 삭제 불가
+			System.out.println(boardReplyDto.getMemIndexInt()+ "/" + memIndex);
+	        if (boardReplyDto.getMemIndexInt() == memIndex || memberDto.getMemAdmCheckInt() == 1) {
+	        	
 			
 			boardReplyDao.replyDelete(replyIndexInt);
 	
 			
 			res.sendRedirect("/Kdessert/board/freeboarddetail?brdIndexInt=" + brdIndexInt);
+	        }else {
+	        	 res.setContentType("text/html; charset=UTF-8");
+		            PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
+		            writer.println("<script> alert('권한이 없습니다. 다시 시도해주세요.'); location.href='" 
+		            				+ "/Kdessert/board/freeboarddetail?brdIndexInt=" + brdIndexInt
+		            				+ "'; </script>"); 
+		            writer.close();
+		            return;  // 더 이상 코드 실행하지 않도록 종료
+	        }
 			
 		} catch (Exception e) {
 	
