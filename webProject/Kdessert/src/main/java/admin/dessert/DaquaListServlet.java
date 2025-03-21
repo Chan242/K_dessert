@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/page/admin/DaquaListServlet")
+@WebServlet("/page/admin/DaquaList")
 public class DaquaListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class DaquaListServlet extends HttpServlet {
 			//다과 리스트 JSP로 포워딩
 
 			RequestDispatcher dispatcher = 
-					req.getRequestDispatcher("/page/member/dessert/dagwagwanli_sujeonghagi.jsp");
+					req.getRequestDispatcher("/page/admin/dessert/dessertMrgView.jsp");
 				//dispatcher를 통해 링크 화면으로 이어짐.
 				dispatcher.include(req, res);
 		
