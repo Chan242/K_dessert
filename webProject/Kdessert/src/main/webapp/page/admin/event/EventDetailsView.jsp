@@ -136,8 +136,8 @@
 							<td>${eventDto.getEveImageStr()}</td>
 						</tr>
 						<tr>
-							<th scope="row">행사날짜</th>
-							<td>${eventDto.getEveEventDate()}</td>
+							<th scope="row">날짜 및 시간</th>
+							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${eventDto.getEveEventDate()}"/></td>
 						</tr>
 						<tr>
 							<th scope="row">설명</th>

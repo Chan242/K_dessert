@@ -76,87 +76,89 @@
 	<div id="container">
 		<h2 style="text-align: center;">주문 관리</h2>
 		<h2 style="text-align: center;">주문 번호:${orderDto.getOrdIndexint()}</h2>
-
-		<div style="margin: auto;">
-			<table>
-				<tr>
-					<td>제품번호</td>
-					<td>제품명</td> 
- 					<td>주문수량</td>
-					<td>단가</td>
-					<td>수량*단가</td>
-
-				</tr>
-				
-				<c:forEach var="orderProduct" items="${orderProductList}">
+		
+		<div style="overflow-x: auto; white-space: nowrap;">
+		
+			<div style=" margin: auto;">
+				<table>
 					<tr>
-						<td>${orderProduct.getProductIndexInt()}</td>
-						<td>${orderProduct.getProductNameStr()}</td>
-						<td><fmt:formatNumber value="${orderProduct.getProductStockInt()}" pattern="#,##0" /></td>
-						<td><fmt:formatNumber value="${orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
-						<td><fmt:formatNumber value="${orderProduct.getProductStockInt()
-						 * orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
+						<td>제품번호</td>
+						<td>제품명</td> 
+	 					<td>주문수량</td>
+						<td>단가</td>
+						<td>수량*단가</td>
+	
 					</tr>
-				</c:forEach>
-			</table>
+					
+					<c:forEach var="orderProduct" items="${orderProductList}">
+						<tr>
+							<td>${orderProduct.getProductIndexInt()}</td>
+							<td>${orderProduct.getProductNameStr()}</td>
+							<td><fmt:formatNumber value="${orderProduct.getProductStockInt()}" pattern="#,##0" /></td>
+							<td><fmt:formatNumber value="${orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
+							<td><fmt:formatNumber value="${orderProduct.getProductStockInt()
+							 * orderProduct.getProductPriceInt()}" pattern="#,##0" /></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			
+			<div>
+				<h2 style="text-align: center;">주문정보</h2>
+				<table>
+					<tr>
+						<td>주문번호</td>
+						<td>${orderDto.getOrdIndexint()}</td>
+					</tr>	
+					<tr>
+						<td>주문일시</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
+					</tr>
+					<tr>
+						<td>주문액</td>
+						<td><fmt:formatNumber value="${orderDto.getTotalPriceInt()}" pattern="#,##0" /></td>
+					</tr>
+					<tr>
+						<td>주문상태</td>
+						<td>
+							<select id="status" style="width: 80px;" onchange="changeFnc()">
+									<c:forEach var="orderStatusDto" items="${orderStatusList}">
+										<option value="${orderStatusDto.getStaStatusStr()}"
+										 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
+											${orderStatusDto.getStaStatusStr()}
+										</option>
+									</c:forEach>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+					<div>
+				<h2 style="text-align: center;">배송정보</h2>
+				<table>
+					<tr>
+						<td>수령자</td>
+						<td>${orderDto.getMemNameStr()}</td>
+					</tr>	
+					<tr>
+						<td>주소</td>
+						<td>${orderDto.getMemAdd1Str()}</td>
+					</tr>
+					<tr>
+						<td>상세주소</td>
+						<td>${orderDto.getMemAdd2Str()}</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center; vertical-align: middle;">
+							<div class="btn_style" onclick="history.back();" style="display: inline-block;">
+								돌아가기
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		
-		<div>
-			<h2 style="text-align: center;">주문정보</h2>
-			<table>
-				<tr>
-					<td>주문번호</td>
-					<td>${orderDto.getOrdIndexint()}</td>
-				</tr>	
-				<tr>
-					<td>주문일시</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${orderDto.getOrdTime()}"/></td>
-				</tr>
-				<tr>
-					<td>주문액</td>
-					<td><fmt:formatNumber value="${orderDto.getTotalPriceInt()}" pattern="#,##0" /></td>
-				</tr>
-				<tr>
-					<td>주문상태</td>
-					<td>
-						<select id="status" style="width: 80px;" onchange="changeFnc()">
-								<c:forEach var="orderStatusDto" items="${orderStatusList}">
-									<option value="${orderStatusDto.getStaStatusStr()}"
-									 <c:if test="${orderStatusDto.getStaStatusStr() eq orderDto.getStaStatStr()}">selected="selected"</c:if>>
-										${orderStatusDto.getStaStatusStr()}
-									</option>
-								</c:forEach>
-						</select>
-					</td>
-				</tr>
-			</table>
-		</div>
-		
-				<div>
-			<h2 style="text-align: center;">배송정보</h2>
-			<table>
-				<tr>
-					<td>수령자</td>
-					<td>${orderDto.getMemNameStr()}</td>
-				</tr>	
-				<tr>
-					<td>주소</td>
-					<td>${orderDto.getMemAdd1Str()}</td>
-				</tr>
-				<tr>
-					<td>상세주소</td>
-					<td>${orderDto.getMemAdd2Str()}</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center; vertical-align: middle;">
-						<div class="btn_style" onclick="history.back();" style="display: inline-block;">
-							돌아가기
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		
 	</div>
 	
 

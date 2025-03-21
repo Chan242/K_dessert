@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class EventDao {
 				
 				index = rs.getInt("E_INDEX");
 				name = rs.getString("E_NAME");
-				eveDate = rs.getDate("E_EVENT_DATE");
+				eveDate = rs.getTimestamp("E_EVENT_DATE");
 				open = rs.getInt("E_OPEN");
 				creDate = rs.getDate("E_CRE_DATE");
 				corrDate = rs.getDate("E_CORR_DATE");
@@ -185,7 +186,7 @@ public class EventDao {
  				index = rs.getInt("E_INDEX");
  				name = rs.getString("E_NAME");
  				image = rs.getString("E_IMAGE");
- 				eveDate = rs.getDate("E_EVENT_DATE");
+ 				eveDate = rs.getTimestamp("E_EVENT_DATE");
  				explain = rs.getString("E_EXPLAIN");
  				open = rs.getInt("E_OPEN");
  				creDate = rs.getTimestamp("E_CRE_DATE");
@@ -244,7 +245,7 @@ public class EventDao {
 
   		String sql = "";
   		sql = "INSERT INTO EVENT";
-  		sql += " (E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE,E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)";
+  		sql += " (E_INDEX,E_NAME,E_IMAGE,E_EVENT_DATE, E_EXPLAIN, E_OPEN,E_CRE_DATE,E_CORR_DATE,E_NOTE)";
   		sql	+= " VALUES(E_INDEX_SEQ.NEXTVAL,?, '이미지', ?, ?, ?, sysdate, sysdate, ?)";
   		
   		
@@ -257,7 +258,6 @@ public class EventDao {
   			java.util.Date utilDate = eventDto.getEveEventDate();
   			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
   			pstmt.setDate(2, sqlDate);
-  			
   			pstmt.setString(3, eventDto.getEveExplainStr());
   			pstmt.setInt(4, eventDto.getEveOpenInt());
   			pstmt.setString(5, eventDto.getEveNoteStr());
@@ -302,8 +302,8 @@ public class EventDao {
 
  			pstmt.setString(1, eventDto.getEveNameStr());
  			java.util.Date utilDate = eventDto.getEveEventDate();
- 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
- 			pstmt.setDate(2, sqlDate);
+ 			java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
+ 			pstmt.setTimestamp(2, sqlTimestamp);
  			pstmt.setString(3, eventDto.getEveExplainStr());
  			pstmt.setInt(4, eventDto.getEveOpenInt());
  			pstmt.setString(5, eventDto.getEveNoteStr());
@@ -401,7 +401,7 @@ public class EventDao {
  			while (rs.next()) {
  				index = rs.getInt("E_INDEX");
  				name = rs.getString("E_NAME");
- 				eveDate = rs.getDate("E_EVENT_DATE");
+ 				eveDate = rs.getTimestamp("E_EVENT_DATE");
  				open = rs.getInt("E_OPEN");
  				
  				EventDto eventDto = new EventDto();
@@ -485,7 +485,7 @@ public class EventDao {
 				
 				index = rs.getInt("E_INDEX");
 				name = rs.getString("E_NAME");
-				eveDate = rs.getDate("E_EVENT_DATE");
+				eveDate = rs.getTimestamp("E_EVENT_DATE");
 				open = rs.getInt("E_OPEN");
 				eveExplain = rs.getString("E_EXPLAIN");
 				

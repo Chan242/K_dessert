@@ -101,6 +101,83 @@ public class BoardReplyDao {
 
 	}
 	
+	//댓글 작성자 정보
+	public BoardReplyDto replyInfo(int replyIndexInt) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		BoardReplyDto boardreplydto = new BoardReplyDto();
+
+		System.out.println("댓글리스트 Dao 시작");
+		try {
+			sql = "SELECT R_INDEX, M_INDEX, R_TEXT, F_INDEX,"
+					+ " R_CRE_DATE, R_CORR_DATE"
+					+ " FROM REPLY"
+					+ " WHERE R_INDEX = ?";
+
+			// sql문 연결
+			pstmt = connection.prepareStatement(sql);
+
+			pstmt.setInt(1, replyIndexInt);
+			
+			// sql쿼리문 실행
+			rs = pstmt.executeQuery();
+			
+			
+
+			int brdIndexInt = 0;
+			int memIndexInt = 0;
+			String replyTextStr = "";
+			Date replyCreDate = null;
+			Date replyCorrDate = null;
+			
+			
+			while (rs.next()) {
+				brdIndexInt = rs.getInt("F_INDEX");
+				memIndexInt = rs.getInt("M_INDEX");
+				replyTextStr = rs.getString("R_TEXT");
+				replyCreDate = rs.getDate("R_CRE_DATE");
+				replyCorrDate = rs.getDate("R_CORR_DATE");
+				
+				
+				boardreplydto.setBrdIndexInt(brdIndexInt);
+				boardreplydto.setMemIndexInt(memIndexInt);
+				boardreplydto.setReplyTextStr(replyTextStr);
+				boardreplydto.setReplyCorrDate(replyCorrDate);
+				boardreplydto.setReplyCreDate(replyCreDate);
+			} 
+
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		}
+		return boardreplydto;
+
+	
+		
+	}
+	
 	//댓글 추가
 	public void relpyNew(BoardReplyDto boardReplyDto) 
 			throws Exception {

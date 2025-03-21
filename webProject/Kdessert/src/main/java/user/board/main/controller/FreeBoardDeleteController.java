@@ -57,8 +57,8 @@ public class FreeBoardDeleteController extends HttpServlet{
 			
 			int memIndex = memberDto.getMemIndexInt();
 			
-			 // 로그인한 사람 혹은 관리자가 아닐 경우 삭제 불가
-	        if (boardDto.getMemIndexInt() != memIndex || boardDto.getMemberDto().getMemAdmCheckInt() == 1) {
+			 // 작성한 사람 혹은 관리자가 아닐 경우 삭제 불가
+	        if (boardDto.getMemIndexInt() == memIndex || memberDto.getMemAdmCheckInt() == 1) {
 	        	
 	        
 		        int result = boardDao.deleteBoard(brdIndexInt);
@@ -76,8 +76,8 @@ public class FreeBoardDeleteController extends HttpServlet{
 
 	            res.setContentType("text/html; charset=UTF-8");
 	            PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
-	            writer.println("<script> alert('권한이 없습니다. 메인 페이지로 이동합니다.'); location.href='" 
-	            				+ "/Kdessert" 
+	            writer.println("<script> alert('권한이 없습니다. 다시 시도해주세요.'); location.href='" 
+	            				+ "/Kdessert/board" 
 	            				+ "'; </script>"); 
 	            writer.close();
 	            return;  // 더 이상 코드 실행하지 않도록 종료
