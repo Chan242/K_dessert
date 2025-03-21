@@ -98,13 +98,13 @@
 			<div id="container_inner">
 				<h1>로그인</h1>
 			
-				<form action="./login" method="post" >
+				<form action="./login" method="post">
 				
 					<div id="div_loginForm">
 					
-					<input class="input_style" type="text" name="id" placeholder="아이디" value="">
+					<input class="input_style" type="text" name="id" placeholder="아이디" value="" required>
 					<br>
-					<input class="input_style" type="password" name="password" placeholder="비밀번호" value="" value="">
+					<input class="input_style" type="password" name="password" placeholder="비밀번호" value="" required>
 					<br>
 						<input class="btn_style" type="submit" value="로그인">
 					</div>

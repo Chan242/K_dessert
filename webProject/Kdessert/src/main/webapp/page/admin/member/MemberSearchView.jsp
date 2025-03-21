@@ -18,7 +18,11 @@
 	
 	#wrap {
 		overflow-x: hidden;
-		min-width: 1340px;
+		min-width: 1640px;
+	}
+	
+	#container {
+		width: 1920px;
 	}
 
 	table, tr, th, td {
@@ -140,7 +144,7 @@
 	<div id="wrap">
 		<jsp:include page="../commPage/Adm_Header.jsp"/>
 		
-		<div>
+		<div id="container">
 			<div id="div_category">
 				<jsp:include page="../commPage/Category_Mgr.jsp"/>
 			</div>

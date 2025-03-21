@@ -20,6 +20,10 @@
 		overflow-x: hidden;
 		min-width: 1340px;
 	}	
+	
+	#container {
+		width: 1905px;
+	}
 
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;

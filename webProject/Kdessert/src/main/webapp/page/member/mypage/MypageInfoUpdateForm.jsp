@@ -179,7 +179,7 @@
 							전화번호
 						</th>
 						<td>
-							<input type="text" name="tel" value="${memberDto.memTelStr}">
+							<input id="tel_input" type="text" name="tel" value="${memberDto.memTelStr}">
 						</td>
 					</tr>
 					<tr>
@@ -224,6 +224,12 @@
 	    if (email == initialEmail){
 			return;
 	    }
+	    
+	  //조건 불충족 시 메시지가 출력
+		if(!/^[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]{2,}$/.test(email)){
+			alert("이메일 형식을 다시 확인해주세요. (예시: test@email.com)");
+			return;
+		}
 	    
 	    var xhr = new XMLHttpRequest();
 	    xhr.open('POST', './emailcheck', true);  // 서버 URL로 요청 보냄
@@ -332,6 +338,13 @@
 	    
 	    if (!validationPwd) {
 			alert("유효한 비밀번호를 입력해주세요");
+			return false;
+	    }
+	    
+		var telCheck = document.getElementById("tel_input").value;
+	    
+	    if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(telCheck)){
+			alert("전화번호 형식을 확인해주세요 (예시: 010-0000-0000)");
 			return false;
 	    }
 	    

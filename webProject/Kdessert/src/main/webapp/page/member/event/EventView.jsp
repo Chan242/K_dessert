@@ -34,19 +34,20 @@
 		border-bottom: 2px solid #64473E;
 	}
 	
-	/* 	달력 */
+	/*		달력		*/
 	#calendar {
 		width: 1000px;
 		margin: auto;
 	}
 	
+	/*	   달력 - 헤더		*/
 	#calendar_header {
 		height: 50px;
 		display: flex;
-		align-items: center;
-		margin: auto;
 		margin-bottom: 15px;
-		justify-content: center;
+		margin: auto;
+		align-items: center;
+		justify-content: space-between;
 	}
 	
 	#calendar_header_day_span {
@@ -55,7 +56,7 @@
 	}
 	
 	#calendar_header_day_div {
-		width: 230px;
+		width: 240px;
 		text-align: center;
 		margin-left: 10px;
 		margin-right: 5px;
@@ -98,33 +99,43 @@
 		cursor: pointer;
 	}
 	
-	/* 	#left_btn { */
-	/* 	    width: 0; */
-	/* 	    height: 0; */
-	/* 	    border-top: 10px solid transparent; */
-	/* 	    border-bottom: 10px solid transparent; */
-	/* 	    border-right: 10px solid black; */
-	/* 	    border-left: 10px solid transparent; */
-	/* 	    float: left; */
-	
-	/* 	    margin: 10px; */
-	/* 	} */
-	
-	/* 	#right_btn { */
-	/* 	    width: 0; */
-	/* 	    height: 0; */
-	/* 	    border-top: 10px solid transparent; */
-	/* 	    border-bottom: 10px solid transparent; */
-	/* 	    border-right: 10px solid transparent; */
-	/* 	    border-left: 10px solid black; */
-	/* 		clear: both;	     */
-	/* 	    margin: 10px; */
-	/* 	} */
+	.month_btn {
+		width: 80px;
+		height: 35px;
+		
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		outline: none;
+		transition: border-color 0.3s;
 
+		background-color: #64473E;
+		color: white;
+		font-size: 16px;
+	}
+	
+	.month_btn:hover {
+		cursor: pointer;
+	}
+	
+	#month_btn_L {
+		margin-right: 280px;
+	}
+	
+	#month_btn_R {
+		margin-left: 280px;
+	}
+	
+	
+	/*	   달력 - 내용		*/
+	
 	.eventList_fun {
 		text-decoration-line: none;
 		font-weight: bold;
 		color: black;
+	}
+	
+	.eventList_fun:hover {
+		text-decoration-line: underline;
 	}
 	
 	#calendar_table {
@@ -167,6 +178,10 @@
 	
 	.today {
 		font-weight: bold; /* 오늘 날짜는 볼드체로 강조 */
+	}
+	
+	td:has(.today) {
+		background-color: #ffffd4;
 	}
 	
 	.day {
@@ -247,7 +262,10 @@
 			<div id="calendar">
 
 				<div id="calendar_header">
-					<!-- 				<div id="left_btn" onclick="goBeforDate()"></div> -->
+					<div id="month_btn_L">
+						<button class="month_btn" onclick="goBeforMonth()">이전 달</button>
+					</div>
+					
 					<div class="arrow">
 						<span class="arrow-prev" onclick="goBeforDate()"></span>
 					</div>
@@ -258,10 +276,13 @@
 					</div>
 
 					<div class="arrow">
-						<span class="arrow-next" onclick="goAfterDate()"></sapn>
+						<span class="arrow-next" onclick="goAfterDate()"></span>
+					</div>
+					
+					<div id="month_btn_R">
+						<button class="month_btn" onclick="goAfterMonth()">다음 달</button>
 					</div>
 
-					<!-- 				<div id="right_btn" onclick="goAfterDate()"></div> -->
 				</div>
 
 				<table id="calendar_table">
@@ -283,7 +304,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                  	<c:if test="${eventDay == day && !eventProcessed}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}"><!--체크용  -->
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -298,7 +319,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -312,7 +333,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
 				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -326,7 +347,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -340,7 +361,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                   <c:if test="${eventDay == day && !eventProcessed}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -354,7 +375,7 @@
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
 				                                    <c:if test="${eventDay == day && !eventProcessed}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
-							                            	행사보기▽
+							                            	행사보기
 							                            </a>
 							                            <c:set var="eventProcessed" value="true" />
 							                        </c:if>
@@ -500,7 +521,26 @@
 
 <script type="text/javascript">
 
-//이전 날짜로 가는 함수
+	//이전 달로 가는 함수
+	function goBeforMonth() {
+		var year = Number(${year});
+		var month = Number(${month});
+		var date = Number(${date});
+	
+		if (month == 1) {
+			year = year - 1;
+			month = 12;
+			location.href = "./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
+			return;
+		} else {
+			month = month - 1;
+			location.href = "./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
+			return;
+		}
+	
+	}
+
+	//이전 날짜로 가는 함수
 	function goBeforDate() {
 		var year = Number(${year});
 		var month = Number(${month});
@@ -553,6 +593,25 @@
 		
 		date = date + 1 ;
 		location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
+	}
+	
+	// 다음 달로 가는 함수
+	function goAfterMonth() {
+		var year = Number(${year});
+		var month = Number(${month});
+		var date = Number(${date});
+	
+		if (month == 12) {
+			year = year + 1;
+			month = 1;
+			location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
+			return;
+		} else {
+			month = month + 1;
+			location.href="./list?year=" + year + "&month=" + month + "&date=" + date + "&pageNum=1&pageSize=" + ${pageSize};
+			return;
+		}
+		
 	}
 	
 </script>

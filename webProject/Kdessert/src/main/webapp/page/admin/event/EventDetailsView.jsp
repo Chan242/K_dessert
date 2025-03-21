@@ -10,7 +10,7 @@
 <title>관리자 | 행사상세</title>
 
 <style type="text/css">
-body { 
+	body { 
 		width: 100%;
 		margin: 0px;
 		overflow-y:scroll;  
@@ -20,6 +20,10 @@ body {
 		overflow-x: hidden;
 		min-width: 1340px;
 	}	
+	
+	#container {
+		width: 1905px;
+	}
 	
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;

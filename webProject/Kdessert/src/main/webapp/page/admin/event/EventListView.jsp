@@ -9,7 +9,7 @@
 <title>관리자 | 행사관리</title>
 
 <style type="text/css">
-body { 
+	body { 
 		width: 100%;
 		margin: 0px;
 		overflow-y:scroll;  
@@ -18,6 +18,10 @@ body {
 	#wrap {
 		overflow-x: hidden;
 		min-width: 1340px;
+	}
+	
+	#container {
+		width: 1905px;
 	}
 
 	table, tr, th, td {

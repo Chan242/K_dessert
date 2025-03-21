@@ -18,9 +18,13 @@
 	
 	#wrap {
 		overflow-x: hidden;
-		min-width: 1340px;
+		min-width: 1640px;
 	}
-
+	
+	#container {
+		width: 1905px;
+	}
+	
 	table, tr, th, td {
 		border-bottom: 1px solid #BEBEBE;
 		border-collapse: collapse;
@@ -298,6 +302,7 @@
 				
 				<!------------------ 페이지 버튼 ------------------>
 			</div>	
+		
 		</div>
 	</div>	
 
