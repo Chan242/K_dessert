@@ -73,7 +73,8 @@ public class EventUpdateController extends HttpServlet{
             String name = req.getParameter("name");
 			
 			String eventDateStr = req.getParameter("date");
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			System.out.println("이벤트 업데이트 컨트롤 행사날짜값 받기: "+eventDateStr);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 			Date eventDate = format.parse(eventDateStr);
 			
 			String explan = req.getParameter("explain");

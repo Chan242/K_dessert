@@ -125,9 +125,9 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row">행사날짜</th>
+							<th scope="row">행사날짜 및 시간</th>
 							<td>
-								<input name="date" type="date" value="" required/>
+								<input name="date" type="datetime-local" value="" required/>
 							</td>
 						</tr>
 						<tr>

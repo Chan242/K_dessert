@@ -125,7 +125,22 @@ public class EventViewController extends HttpServlet{
 			totalCount = eventDao.getTotalCountCalendar(eventDateStr);
 			// 전체 페이지 수 계산
 	        int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+	        
+	        int closeSumInt = 0;
+	        boolean openBool = true;
+	        
+	        for (int i = 0; i < eventDateList.size(); i++) {
+				closeSumInt += eventDateList.get(i).getEveOpenInt();
+				
+			}
+	        
+	        if(closeSumInt == eventDateList.size()) {
+	        	openBool = false;
+	        	
+	        }
 			
+	        req.setAttribute("openBool", openBool);
+	        
 	        req.setAttribute("totalPage", totalPage);
 	        req.setAttribute("pageNum", pageNum);
 	        req.setAttribute("pageSize", pageSize);

@@ -131,9 +131,9 @@
 							<td>${eventDto.getEveImageStr()}</td>
 						</tr>
 						<tr>
-							<th scope="row">행사날짜</th>
+							<th scope="row">날짜 및 시간</th>
 							<td>
-								<input name="date" type="date" value="${eventDto.getEveEventDate()}" required/>
+								<input name="date" type="datetime-local" value="${eventDto.getEveEventDate()}" required/>
 							</td>
 						</tr>
 						<tr>

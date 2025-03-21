@@ -40,6 +40,8 @@ public class EventAddController extends HttpServlet{
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date eventDate = format.parse(eventDateStr);
 			
+			String eventTimeStr = req.getParameter("time");
+			
 			String explan = req.getParameter("explain");
 			
 			String openStr = req.getParameter("openCheck");

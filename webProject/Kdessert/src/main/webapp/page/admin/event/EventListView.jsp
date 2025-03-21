@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>	
 <!DOCTYPE html>
 <html>
 
@@ -185,10 +186,10 @@
 				<table id="table_info">
 					<thead>
 						<tr>
-							<th scope="col" style="width: 150px;">행사번호</th>
+							<th scope="col" style="width: 130px;">행사번호</th>
 							<th scope="col" style="width: 250px;">행사명</th>
-							<th scope="col" style="width: 200px;">행사날짜</th>
-							<th scope="col" style="width: 200px;">공개여부</th>
+							<th scope="col" style="width: 300px;">행사날짜 및 시간</th>
+							<th scope="col" style="width: 120px;">공개여부</th>
 							<th scope="col" style="width: 200px;">생성일</th>
 							<th scope="col" style="width: 200px;">수정일</th>
 						</tr>
@@ -197,15 +198,19 @@
 						<c:choose>
 							<c:when test="${empty eventList}">
 								<tr>
-									<td colspan="6">등록된 행사가 없습니다</td>
+									<td colspan="5">등록된 행사가 없습니다</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="event" items="${eventList}">
 									<tr>
 										<td>${event.getEveIndexInt()}</td>
-										<td><a href="./details?no=${event.getEveIndexInt()}">${event.getEveNameStr()}</a></td>
-										<td>${event.getEveEventDate()}</td>
+										<td>
+											<a href="./details?no=${event.getEveIndexInt()}">${event.getEveNameStr()}</a>
+										</td>
+										<td>
+											<fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${event.getEveEventDate()}"/>
+										</td>
 										<c:choose>
 											<c:when test="${event.getEveOpenInt() == 0}">
 												<td>공개</td>

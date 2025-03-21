@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>	
 <!DOCTYPE html>
 <html>
 
@@ -302,7 +303,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                  	<c:if test="${eventDay == day && !eventProcessed}">
+				                                  	<c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}"><!--체크용  -->
 							                            	행사보기
 							                            </a>
@@ -317,7 +318,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                    <c:if test="${eventDay == day && !eventProcessed}">
+				                                    <c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
@@ -331,7 +332,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                    <c:if test="${eventDay == day && !eventProcessed}">
+				                                    <c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 				                                    	<a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
@@ -345,7 +346,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                    <c:if test="${eventDay == day && !eventProcessed}">
+				                                    <c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
@@ -359,7 +360,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                   <c:if test="${eventDay == day && !eventProcessed}">
+				                                   <c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
@@ -373,7 +374,7 @@
 												
 												<c:forEach var="event" items="${eventMonthList}">
 													<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-				                                    <c:if test="${eventDay == day && !eventProcessed}">
+				                                    <c:if test="${eventDay == day && !eventProcessed && event.getEveOpenInt() == 0}">
 							                            <a class="eventList_fun" href="./list?year=${year}&month=${month}&date=${day}&pageNum=1&pageSize=${pageSize}">
 							                            	행사보기
 							                            </a>
@@ -392,17 +393,18 @@
 				<div id="eventList">
 					<c:forEach var="event" items="${eventDateList}">
 						<c:set var="eventDay" value="${fn:substring(event.eveEventDate, 8, 10)}" />
-		                <c:if test="${eventDay == date}">
+		                <c:if test="${eventDay == date && event.getEveOpenInt() == 0}">
 							<div id="eventList_table_div"></div>
 								<table id="eventList_table">
 									<tr>
-										<td rowspan="3" class="image_td" style="text-align: center;"> 이미지 </td>
+										<td rowspan="4" class="image_td" style="text-align: center;"> 이미지 </td>
 										<th scope="row">행사명</th>
 										<td>${event.getEveNameStr()}</td>
 									</tr>
 									<tr>
-										<th scope="row">날짜</th>
-										<td>${event.getEveEventDate()}</td>
+										<th scope="row">날짜 및 시간</th>
+										<td><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${event.getEveEventDate()}"/></td>
+										
 									</tr>
 									<tr>
 										<th scope="row">설명</th>
@@ -411,7 +413,8 @@
 								</table>
 		                </c:if>
 					</c:forEach>
-			
+					
+					<c:if test="${openBool eq true}">
 					<div id="eventList_pageBtn">
 						<!------------------ 페이지 버튼 ------------------>
 						<div id="div_pageBtn">
@@ -508,7 +511,9 @@
 						</div>
 	
 						<!------------------ 페이지 버튼 ------------------>
+					
 					</div>
+					</c:if>
 				</div>
 		</div>
 

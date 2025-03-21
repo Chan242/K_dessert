@@ -40,6 +40,7 @@ public class EventDetailsController extends HttpServlet {
 			//특정 행사 조회
 			EventDto eventDto = eventDao.eventSelectOne(eIndex); // 회원의 기본 정보 조회
 			
+			
 			if (eventDto == null) {
 				throw new Exception("EventDetailsController : 해당 번호의 행사 찾을 수 없습니다.");
 			}
