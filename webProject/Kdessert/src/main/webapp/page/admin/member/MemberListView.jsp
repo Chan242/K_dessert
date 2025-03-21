@@ -101,11 +101,13 @@
 	}
 	
 	#div_content h2 {
-		width: 1200px;
+		text-align: center;
+		width: 120px;
 		margin: auto;
 		margin-top: 40px;
-		margin-bottom: 40px; 
-		padding-bottom: 20px;
+		margin-bottom: 10px; 
+		padding: 5px;
+		border-top: 2px solid black;
 		border-bottom: 2px solid black;
 	}
 	
@@ -155,7 +157,7 @@
 			</div>
 			
 			<div id="div_content">
-				<h2>　회원관리</h2>
+				<h2>회원 관리</h2>
 				
 				<div id="div_search">
 					<form action="./search" method="get">

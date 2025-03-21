@@ -45,7 +45,6 @@
 	#calendar_header {
 		height: 50px;
 		display: flex;
-		margin-bottom: 15px;
 		margin: auto;
 		align-items: center;
 		justify-content: space-between;
@@ -201,25 +200,32 @@
 		width: 1000px;
 		height: 200px;
 		margin: auto;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 		border-collapse: collapse;
 	}
 	
-	#eventList_table th, #eventList_table td {
+	.image_td {
 		border: 1px solid black;
+		width: 200px;
+	}
+	
+	.gap_td {
+		width: 10px;
 	}
 	
 	#eventList_table th {
-		width: 100px;
+		width: 150px;
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
+		background-color: #f7f7f7;
 	}
 	
-	#eventList_table td {
-		padding: 15px;
+	.content_td {
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
+		padding: 10px;
 	}
 	
-	.image_td {
-		width: 180px;
-	}
 	
 	/* 	페이징 버튼 관련 css */
 	#div_pageBtn {
@@ -262,7 +268,7 @@
 		<div id="container">
 			<div id="calendar">
 
-				<div id="calendar_header">
+				<div id="calendar_header" style="margin-bottom: 15px;">
 					<div id="month_btn_L">
 						<button class="month_btn" onclick="goBeforMonth()">이전 달</button>
 					</div>
@@ -398,17 +404,18 @@
 								<table id="eventList_table">
 									<tr>
 										<td rowspan="4" class="image_td" style="text-align: center;"> 이미지 </td>
+										<td rowspan="4" class="gap_td"></td>
 										<th scope="row">행사명</th>
-										<td>${event.getEveNameStr()}</td>
+										<td class="content_td">${event.getEveNameStr()}</td>
 									</tr>
 									<tr>
 										<th scope="row">날짜 및 시간</th>
-										<td><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${event.getEveEventDate()}"/></td>
+										<td class="content_td"><fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${event.getEveEventDate()}"/></td>
 										
 									</tr>
 									<tr>
 										<th scope="row">설명</th>
-										<td>${event.getEveExplainStr()}</td>
+										<td class="content_td">${event.getEveExplainStr()}</td>
 									</tr>
 								</table>
 		                </c:if>
