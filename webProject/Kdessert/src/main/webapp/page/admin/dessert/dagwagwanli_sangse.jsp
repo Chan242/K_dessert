@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,
 		initial-scale=1.0">
-<title>다과 관리 - 상세</title>
+<title>관리자 | 다과관리 상세</title>
 <link rel="styleheet" href="style.css">
 
 <style type="text/css" href="style.css">

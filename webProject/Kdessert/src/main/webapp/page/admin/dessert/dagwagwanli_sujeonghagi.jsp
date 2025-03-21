@@ -6,32 +6,32 @@
 <head>
 <meta charset="UTF-8">
 
-<title>관리자 | 다과관 수정하기</title>
+<title>관리자 | 다과관리 수정하기</title>
 <style>
 
 /* --------------------------------------- */
-
 
 #wrap {
 	width: 5000px;
 }
 
 .tableType {
-	background-color: lightgray;
-	width: 200px;
-	border: 1px solid black;
+	width: 100px;
+	padding: 0px;
 }
 
 .tableControl {
 	width: 500px;
+	
 }
 
 table {
-	border-top: 5px;
 	width: 1200px;
 	margin: auto;
 	/* 푸터 맨 하단으로 고정할 수 있게 추가 */
 	min-height: 800px; /* 최소높이 지정 */
+	
+	border-collapse : collapse;
 
 }
 
@@ -46,10 +46,17 @@ table {
 	float: left;
 }
 
-	#select_dessert {
+#select_dessert {
 		background-color: white;
 		color: #64473E
-	}
+}
+
+.btn {
+		margin-top: 30px;
+		width: 100px;
+		margin: 50px;
+		background-color: orange;
+}
 
 </style>
 </head>
@@ -111,7 +118,14 @@ table {
 	
 			</table>
 	
-			<button class="btn" type="submit">저장하기</button>
+			<button class="btn" type="submit" onclick="return confirmSave();">저장하기</button>
+			
+<script>
+    	function confirmSave() {
+        return confirm("저장하시겠습니까?");
+ }
+</script>
+			
 		</div>
 	</div>
 </div>
