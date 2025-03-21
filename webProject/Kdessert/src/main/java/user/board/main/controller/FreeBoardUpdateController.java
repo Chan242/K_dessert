@@ -1,8 +1,10 @@
 package user.board.main.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 
+import admin.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -10,7 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDao;
 import user.board.main.FreeBoardDto;
 
@@ -44,6 +46,25 @@ public class FreeBoardUpdateController extends HttpServlet{
 			boardDao.setConnection(conn);
 			
 			FreeBoardDto boardDto = boardDao.freeBoardWritedInfo(brdIndexInt);
+			
+			HttpSession session = req.getSession();
+			
+			MemberDto memberDto = (MemberDto)session.getAttribute("member");
+			
+			int memIndex = memberDto.getMemIndexInt();
+			
+			 // 세션에 로그인 정보가 없다면 게시판을 볼 수 없음
+	        if (session == null ||boardDto.getMemIndexInt() != memIndex) {
+	
+	            res.setContentType("text/html; charset=UTF-8");
+	            PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
+	            writer.println("<script> alert('권한이 없습니다. 메인 페이지로 이동합니다.'); location.href='" 
+	            				+ "/Kdessert" 
+	            				+ "'; </script>"); 
+	            writer.close();
+	            return;  // 더 이상 코드 실행하지 않도록 종료
+	        }
+	        
 			
 			
 			req.setAttribute("boardDto", boardDto);

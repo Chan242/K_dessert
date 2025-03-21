@@ -44,6 +44,21 @@ public class FreeBoardDetailController extends HttpServlet {
 		String  brdIndexInt= "";
 		
 		try {
+			brdIndexInt = req.getParameter("brdIndexInt");
+			int brdIndex = Integer.parseInt(brdIndexInt);
+			
+			//this는 ServletContext
+			ServletContext sc = this.getServletContext();
+			
+			//또 new해서 객체 생성하지 않게 (appinitservlet에서 만든)conn재활용.
+			conn = (Connection) sc.getAttribute("conn");
+			
+			//멤버객체 생성
+			FreeBoardDao boardDao = new FreeBoardDao();
+			boardDao.setConnection(conn);//윗줄에서 만든 conn을 여러곳(boardDao)에서 재사용하게 연결
+			
+			
+			
 			//세션 객체 가져오기
 			HttpSession session = req.getSession();
 			
@@ -59,19 +74,6 @@ public class FreeBoardDetailController extends HttpServlet {
 	        }
 	        
 			
-			brdIndexInt = req.getParameter("brdIndexInt");
-			int brdIndex = Integer.parseInt(brdIndexInt);
-			
-			//this는 ServletContext
-			ServletContext sc = this.getServletContext();
-			
-			//또 new해서 객체 생성하지 않게 (appinitservlet에서 만든)conn재활용.
-			conn = (Connection) sc.getAttribute("conn");
-
-			//멤버객체 생성
-			FreeBoardDao boardDao = new FreeBoardDao();
-			boardDao.setConnection(conn);//윗줄에서 만든 conn을 여러곳(boardDao)에서 재사용하게 연결
-		
 			//boardDto객체에 boardDao.freeBoardDetail(brdIndex)값을 넣음(반환값이 BoardDto이기 때문에 BoardDto타입)
 			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndex);
 			

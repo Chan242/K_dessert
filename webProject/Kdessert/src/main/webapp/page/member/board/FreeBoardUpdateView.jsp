@@ -81,7 +81,12 @@
 <jsp:useBean id="boardDto"
 	scope="session"
 	class="user.board.main.FreeBoardDto"/>
+	
+<jsp:useBean id="memberDto"
+	scope="session"
+	class="admin.member.MemberDto"/>
 <body>
+
 	<jsp:include page="../commPage/Mem_Header.jsp"/>
 	<jsp:include page="../commPage/Category_Main.jsp"/>
 <div id="wrap">

@@ -799,7 +799,7 @@ public class FreeBoardDao {
 
 
 		try {
-			sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT"
+			sql = "SELECT F_INDEX, F_SUBJECT, F_TEXT, M_INDEX"
 					+ " FROM FREE_BOARD"
 					+ " WHERE F_INDEX = ?";
 			
@@ -816,12 +816,14 @@ public class FreeBoardDao {
 			if (rs.next()) {
 				brdSubjectStr = rs.getString("F_SUBJECT");
 				brdTextStr = rs.getString("F_TEXT");
+				int memIndexInt = rs.getInt("M_INDEX");
 
 				boardDto = new FreeBoardDto();
 
 				boardDto.setBrdIndexInt(brdIndexInt);
 				boardDto.setBrdSubjectStr(brdSubjectStr);
 				boardDto.setBrdTextStr(brdTextStr);
+				boardDto.setMemIndexInt(memIndexInt);
 
 			} else {
 				throw new Exception("해당 게시물을 찾을 수 없습니다.");

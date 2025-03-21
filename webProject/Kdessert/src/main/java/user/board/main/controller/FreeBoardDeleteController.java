@@ -1,8 +1,10 @@
 package user.board.main.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 
+import admin.member.MemberDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -10,7 +12,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import user.board.main.FreeBoardDao;
+import user.board.main.FreeBoardDto;
 
 @WebServlet(value = "/board/delete")
 public class FreeBoardDeleteController extends HttpServlet{
@@ -28,24 +32,49 @@ public class FreeBoardDeleteController extends HttpServlet{
 		    throw new IllegalArgumentException("brdIndexInt 값이 없습니다!");
 		}
 
-		//인덱스 번호의 게시물 주소로 가기위한 값
-		int brdIndexInt = Integer.parseInt(brdIndexStr);
 		
 		try {
+			
+			//인덱스 번호의 게시물 주소로 가기위한 값
+			int brdIndexInt = Integer.parseInt(brdIndexStr);
+	        
 			//현재 서블릿(this)이 속한 웹 애플리케이션의 ServletContext를 가져옴-sc변수에 저장
 			ServletContext sc = this.getServletContext();
 			
 			//저장된 ServletContext sc에서 "conn"이라는 이름으로 저장된 DB 연결(Connection) 객체를 가져옴.
 			conn = (Connection)sc.getAttribute("conn");
 			
+			
 			//delete dao 가져옴: 1. boardDao DB에 연결
 			FreeBoardDao boardDao = new FreeBoardDao();
 			boardDao.setConnection(conn);
+			FreeBoardDto boardDto = boardDao.freeBoardDetail(brdIndexInt);
 			
-			boardDao.deleteBoard(brdIndexInt);
 			
-			int result = boardDao.deleteBoard(brdIndexInt);
+			HttpSession session = req.getSession();
+			
+			MemberDto memberDto = (MemberDto)session.getAttribute("member");
+			
+			int memIndex = memberDto.getMemIndexInt();
+			
+			 // 세션에 로그인 정보가 없다면 게시판을 볼 수 없음
+	        if (session == null ||boardDto.getMemIndexInt() != memIndex) {
+	
+	            res.setContentType("text/html; charset=UTF-8");
+	            PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
+	            writer.println("<script> alert('권한이 없습니다. 메인 페이지로 이동합니다.'); location.href='" 
+	            				+ "/Kdessert" 
+	            				+ "'; </script>"); 
+	            writer.close();
+	            return;  // 더 이상 코드 실행하지 않도록 종료
+	        }
+	        
+	        
+	        int result = boardDao.deleteBoard(brdIndexInt);
 
+	        boardDao.deleteBoard(brdIndexInt);
+	        
+	        
 			if (result == 0) {
 				System.out.println("회원 삭제가 정상처리 되지 않았습니다");
 			}
