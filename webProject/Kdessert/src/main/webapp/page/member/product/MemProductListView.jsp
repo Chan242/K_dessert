@@ -38,6 +38,7 @@ a{
 		color: white;
 		background-color: #64473E;
 		border: none;
+		border-radius: 5px;
 	}
 
 #SearchBox {
