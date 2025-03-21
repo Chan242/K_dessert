@@ -54,7 +54,6 @@
 		display: flex;
 		
 		float: right;
-
 		margin-bottom: 50px;
 		justify-content: flex-end;
 		font-size: 12pt;
@@ -79,6 +78,7 @@
 	
 	#modifyFin{
 		float: right;
+		margin-bottom: 0px;
 	}
 </style>
 <script type="text/javascript">
