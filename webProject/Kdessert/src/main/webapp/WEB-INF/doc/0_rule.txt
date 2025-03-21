@@ -4,4 +4,4 @@
 4.공통적으로 사용되는 변수명 규칙
 -1.request, response 대신  req, res
 -2.db 컬럼명을 변수화할 때는 카멜스타일화 + 타입(Str/Int/List 등등) ex: M_INDEX -> mIndexInt
-
+5.깃허브 주소:https://github.com/Chan242/K_dessert

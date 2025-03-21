@@ -86,7 +86,7 @@
 		<h2 style="text-align: center;">주문 관리</h2>
 
 		<div style="margin: auto;">
-			<table>
+			<table style="width: 750px;">
 				<tr>
 					<td colspan="5" style="text-align: right;">
 					    <form action="./list" method="get">

@@ -29,6 +29,6 @@
 <div id="mrgButton">
  	<a href="./page/admin">
  		<span>관리자 페이지로<br>이동하기</span>
- 		<img src="http://192.168.0.18:9080/Kdessert/page/admin/imges/mrgPBtn.png">
+ 		<img src="/Kdessert/page/admin/imges/mrgPBtn.png">
  	</a>
 </div>
