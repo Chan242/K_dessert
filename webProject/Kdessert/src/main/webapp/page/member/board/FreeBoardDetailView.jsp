@@ -19,6 +19,7 @@
 		min-height: 800px;
 		margin: auto;
 		margin-top: 20px;
+		margin-bottom: 50px;
 
 	}
 	
@@ -77,12 +78,13 @@
 	
 	#context p{
 		min-height: 150px;
-		font-size: 14pt;
+		font-size: 13pt;
 		white-space:pre-line; 
 		overflow-wrap: break-word; /* 넘칠 시 강제로 줄바꿈 */
 		
 		width: 920px;
 		
+		color: #2e2e2e;
 
 	}
 	
@@ -166,7 +168,7 @@ function deleteDetail() {
 		</div>
 		
 <!-- 댓글부분 -->
-		<h4 style="margin-bottom: 10px;">댓글</h4>
+		
 	
 		<jsp:include page="./ReplyView.jsp"/>
 	</div>

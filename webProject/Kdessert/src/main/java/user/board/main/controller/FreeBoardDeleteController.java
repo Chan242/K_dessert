@@ -57,9 +57,23 @@ public class FreeBoardDeleteController extends HttpServlet{
 			
 			int memIndex = memberDto.getMemIndexInt();
 			
-			 // 세션에 로그인 정보가 없다면 게시판을 볼 수 없음
-	        if (session == null ||boardDto.getMemIndexInt() != memIndex) {
+			 // 로그인한 사람 혹은 관리자가 아닐 경우 삭제 불가
+	        if (boardDto.getMemIndexInt() != memIndex || boardDto.getMemberDto().getMemAdmCheckInt() == 1) {
+	        	
+	        
+		        int result = boardDao.deleteBoard(brdIndexInt);
 	
+		        boardDao.deleteBoard(brdIndexInt);
+		        
+		        
+				if (result == 0) {
+					System.out.println("회원 삭제가 정상처리 되지 않았습니다");
+				}
+				System.out.println("brdIndexInt: " + brdIndexInt);
+				//삭제 후 절대경로로 게시글 목록으로 리다이렉트
+				res.sendRedirect(req.getContextPath() +"/board");
+	        }else {
+
 	            res.setContentType("text/html; charset=UTF-8");
 	            PrintWriter writer = res.getWriter();//알림창이 뜬 후 로그인 페이지로 리다이렉트
 	            writer.println("<script> alert('권한이 없습니다. 메인 페이지로 이동합니다.'); location.href='" 
@@ -68,19 +82,7 @@ public class FreeBoardDeleteController extends HttpServlet{
 	            writer.close();
 	            return;  // 더 이상 코드 실행하지 않도록 종료
 	        }
-	        
-	        
-	        int result = boardDao.deleteBoard(brdIndexInt);
 
-	        boardDao.deleteBoard(brdIndexInt);
-	        
-	        
-			if (result == 0) {
-				System.out.println("회원 삭제가 정상처리 되지 않았습니다");
-			}
-			System.out.println("brdIndexInt: " + brdIndexInt);
-			//삭제 후 절대경로로 게시글 목록으로 리다이렉트
-			res.sendRedirect(req.getContextPath() +"/board");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

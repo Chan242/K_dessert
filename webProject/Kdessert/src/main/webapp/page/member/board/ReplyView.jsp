@@ -38,13 +38,6 @@
 		white-space:pre; 
 	}
 	
-	.WritedRyply{
-
-		
-		min-height: 100px; 
-		margin-bottom: 30px;
-		margin-top: 10px;
-	}
 	
 	.reply form{
 		position:relative;
@@ -54,7 +47,7 @@
 		display: flex;
 		
 		float: right;
-		margin-bottom: 50px;
+
 		justify-content: flex-end;
 		font-size: 12pt;
 		width: 80px;
@@ -78,8 +71,27 @@
 	
 	#modifyFin{
 		float: right;
-		margin-bottom: 0px;
+
 	}
+	
+	#nonReply{
+	padding-bottom: 20px;
+	padding-top: 20px;
+	text-align: center;
+
+	
+	width: 100%;
+		color:#b3b3b3;
+	}
+	
+	#existReply{
+	padding-bottom: 50px;
+	padding-top: 10px;
+	
+	}
+	
+	
+	
 </style>
 <script type="text/javascript">
 
@@ -122,38 +134,45 @@
 	
 	<!-- 댓글 목록 -->
 <div>
+	<h4 style="margin-bottom: 10px;">댓글</h4>
 	
-	<c:forEach var="reply" items="${boardreplyList}">
-		<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
-		<input type="hidden" name="replyIndexInt" value="${reply.replyIndexInt}">
-		<div class="WritedReply">
-			<div class="WriterInfo">
-		
-				<span id="writerRe">
-					<c:if test="${empty reply.memberDto.memNameStr}"> 
-					(알 수 없는 회원)
-					</c:if>
-					${reply.memberDto.memNameStr}
-				</span>
-				<span>작성일: ${reply.replyCreDate}</span>
-				<c:if test="${not empty reply.replyCorrDate}"> 
-					<span>수정일: ${reply.replyCorrDate}</span>
-				</c:if>
-				
-				
-				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt}"> 
-					<%-- <a href="/Kdessert/board/updateReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">수정</a> --%>
-					<a onclick="updateReply(${reply.replyIndexInt},${boardDto.brdIndexInt})">수정</a>
-				</c:if>
-				<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
-					<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
-				</c:if>
-			</div>
+	
+		<c:if test="${empty boardreplyList}">
+			<p id="nonReply">등록된 댓글이 존재하지 않습니다.</p>
+		</c:if>
+	<div id="existReply">		
+		<c:forEach var="reply" items="${boardreplyList}">
 			
-			<div class="replyList" id="replyList_${reply.replyIndexInt}">${reply.replyTextStr}</div>
-		</div>
-	</c:forEach>
-	
+			<input type="hidden" name="brdIndexInt" value="${boardDto.brdIndexInt}">
+			<input type="hidden" name="replyIndexInt" value="${reply.replyIndexInt}">
+			<div class="WritedReply">
+				<div class="WriterInfo">
+			
+					<span id="writerRe">
+						<c:if test="${empty reply.memberDto.memNameStr}"> 
+						(알 수 없는 회원)
+						</c:if>
+						${reply.memberDto.memNameStr}
+					</span>
+					<span>작성일: ${reply.replyCreDate}</span>
+					<c:if test="${not empty reply.replyCorrDate}"> 
+						<span>수정일: ${reply.replyCorrDate}</span>
+					</c:if>
+					
+					
+					<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt}"> 
+						<%-- <a href="/Kdessert/board/updateReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">수정</a> --%>
+						<a onclick="updateReply(${reply.replyIndexInt},${boardDto.brdIndexInt})">수정</a>
+					</c:if>
+					<c:if test="${reply.memIndexInt==sessionScope.member.memIndexInt || member.getMemAdmCheckInt() == 1}"> 
+						<a href="/Kdessert/board/deleteReply?brdIndexInt=${boardDto.brdIndexInt}&replyIndexInt=${reply.replyIndexInt}">삭제</a>
+					</c:if>
+				</div>
+				
+				<div class="replyList" id="replyList_${reply.replyIndexInt}">${reply.replyTextStr}</div>
+			</div>
+		</c:forEach>
+	</div>	
 	<!-- 댓글 작성부분 -->
 	<h3>댓글 쓰기</h3>
 	<div class= "reply">

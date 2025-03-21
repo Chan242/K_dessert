@@ -126,12 +126,31 @@
 	}
 	
 	.pageBtn:hover{/* 마우스 올릴 경우 */
-		background-color: #f0f0f0;
+		background-color: #c7c7c7;
 	}
 
 	#select_board {
 		border-bottom: 2px solid #64473E;
 	}
+	
+	.listOne{
+		cursor: pointer;
+	}
+	
+	.listOne:hover{
+		background-color: #f0f0f0;
+	}
+	
+	#listOne_abm:hover{
+		background-color: #ACB992;
+	}
+	
+	#listOne_abm{
+		color: #5c5c0a; 
+		background-color: #f5f5dc;
+	
+	}
+	
 
 </style>
 
@@ -170,8 +189,7 @@
 			<tbody id = 'content'>
 				<c:forEach var="boardNotice" items="${boardNotiList}">
 
-						<tr onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' "
-					                style="color: #5c5c0a; background-color: #f5f5dc ">
+						<tr id='listOne_abm' class="listOne" onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${boardNotice.brdIndexInt}' ">
 							<td>
 								<span class='title' style="margin-left: 40px;"> 🥮${boardNotice.brdSubjectStr}</span>
 							</td>
@@ -189,7 +207,7 @@
 				<!-- 일반회원용 -->
 				<c:forEach var="board" items="${boardList}">
 
-						<tr onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${board.brdIndexInt}'  "
+						<tr class="listOne" onclick="location.href='/Kdessert/board/freeboarddetail?brdIndexInt=${board.brdIndexInt}'" 
 							<c:if test="${board.brdNoticeInt}=1">
 								style="color: #5c5c0a; background-color: #f5f5dc "
 							</c:if>
