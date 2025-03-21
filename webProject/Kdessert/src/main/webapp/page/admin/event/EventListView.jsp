@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>관리자 | 행사관리</title>
+<title>관리자 | 행사 관리</title>
 
 <style type="text/css">
 	body { 
@@ -119,11 +119,12 @@
 	}
 	
 	#div_content h2 {
-		width: 1200px;
+		text-align: center;
+		width: 110px;
 		margin: auto;
 		margin-top: 40px;
-		margin-bottom: 40px; 
-		padding-bottom: 20px;
+		margin-bottom: 10px; 
+		padding: 5px;
 		border-bottom: 2px solid black;
 	}
 	
@@ -170,7 +171,7 @@
 			</div>
 			
 			<div id="div_content">
-				<h2>　행사관리</h2>
+				<h2>행사 관리</h2>
 				
 				<div id="div_addButton">
 					<input id="addBtn" type="button" value="신규 등록" onclick="location.href='./add'" >

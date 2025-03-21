@@ -102,12 +102,11 @@
 	
 	#div_content h2 {
 		text-align: center;
-		width: 120px;
+		width: 110px;
 		margin: auto;
 		margin-top: 40px;
 		margin-bottom: 10px; 
 		padding: 5px;
-		border-top: 2px solid black;
 		border-bottom: 2px solid black;
 	}
 	
