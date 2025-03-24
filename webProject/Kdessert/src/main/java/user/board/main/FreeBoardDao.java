@@ -38,15 +38,21 @@ public class FreeBoardDao {
 		//pageNum~pageSize만큼의 목록 불러옴
 
 		
-		sql =  "SELECT * "
-	               + "FROM ( SELECT "
-	               + "	F.F_INDEX, F.M_INDEX, F.F_SUBJECT, F.F_TEXT, F.F_IMAGE, "
-	               + "  F.F_VIEW, F.F_CRE_DATE, F.F_NOTICE, "
-	               + "  ROWNUM AS rnum"
-	               + "  FROM FREE_BOARD F "
-	               + "  WHERE F.F_NOTICE=0"
-	               + "  ORDER BY F.F_INDEX DESC )"
-	               + " WHERE rnum BETWEEN ? AND ?";
+		sql = "SELECT *" 
+			+"   FROM ("
+		    +"  SELECT F_INDEX, M_INDEX, F_SUBJECT, F_TEXT, F_IMAGE," 
+		    +"         F_VIEW, F_CRE_DATE, F_NOTICE, ROWNUM AS rnum"
+		    +"  FROM ("
+		    +"      SELECT *" 
+		    +"      FROM FREE_BOARD" 
+		    +"      WHERE F_NOTICE = 0"
+		    +"      ORDER BY F_INDEX DESC"
+		    +"  ) "
+			+" 		)"
+			+"  WHERE rnum BETWEEN ? AND ?";
+
+		
+		
 		
 
 		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
