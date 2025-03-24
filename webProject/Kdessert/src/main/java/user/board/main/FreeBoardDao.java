@@ -46,8 +46,7 @@ public class FreeBoardDao {
 	               + "  FROM FREE_BOARD F "
 	               + "  WHERE F.F_NOTICE=0"
 	               + "  ORDER BY F.F_INDEX DESC )"
-	               + " WHERE rnum BETWEEN ? AND ?"
-	               + " ORDER BY F.F_INDEX DESC";
+	               + " WHERE rnum BETWEEN ? AND ?";
 		
 
 		int startRow = (pageNum - 1) * pageSize + 1; // 조회한 테이블에서 첫번째로 보여줄 행
